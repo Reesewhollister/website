@@ -1,0 +1,23 @@
+---
+import { withBase } from '../utils/paths';
+
+interface Props {
+  src: string;
+  alt: string;
+  caption?: string;
+  eyebrow?: string;
+}
+
+const { src, alt, caption, eyebrow } = Astro.props;
+---
+
+<figure class="artifact-figure">
+  <img src={withBase(src)} alt={alt} loading="lazy" />
+  {(caption || eyebrow) && (
+    <figcaption>
+      {eyebrow && <span class="artifact-figure__eyebrow">{eyebrow}</span>}
+      {caption && <span>{caption}</span>}
+    </figcaption>
+  )}
+</figure>
+

@@ -1,0 +1,21 @@
+<svg width="1200" height="860" viewBox="0 0 1200 860" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="860" fill="#F3EDE3"/>
+  <rect x="56" y="56" width="1088" height="748" rx="28" fill="#FAF5EE" stroke="#D9CABB"/>
+  <text x="110" y="132" fill="#1D1710" font-family="Georgia, serif" font-size="52">Consultation logic</text>
+  <text x="112" y="170" fill="#8A4A33" font-family="Arial, sans-serif" font-size="18" letter-spacing="4">LISTEN -> DIAGNOSE -> EXPLAIN -> REVISE -> TRANSFER</text>
+  <path d="M116 220H1080" stroke="#D9CABB" stroke-width="2"/>
+  <rect x="112" y="278" width="220" height="168" rx="22" fill="#EFE2D0"/>
+  <rect x="360" y="278" width="220" height="168" rx="22" fill="#E6ECE8"/>
+  <rect x="608" y="278" width="220" height="168" rx="22" fill="#EAE2D6"/>
+  <rect x="856" y="278" width="220" height="168" rx="22" fill="#EFE2D0"/>
+  <text x="138" y="348" fill="#1D1710" font-family="Georgia, serif" font-size="30">Prompt</text>
+  <text x="390" y="348" fill="#1D1710" font-family="Georgia, serif" font-size="30">Structure</text>
+  <text x="638" y="348" fill="#1D1710" font-family="Georgia, serif" font-size="30">Evidence</text>
+  <text x="886" y="348" fill="#1D1710" font-family="Georgia, serif" font-size="30">Confidence</text>
+  <path d="M330 362H360" stroke="#42616C" stroke-width="4"/>
+  <path d="M578 362H608" stroke="#42616C" stroke-width="4"/>
+  <path d="M826 362H856" stroke="#42616C" stroke-width="4"/>
+  <text x="112" y="560" fill="#5C4B3A" font-family="Georgia, serif" font-size="32">AI note:</text>
+  <text x="112" y="612" fill="#1D1710" font-family="Georgia, serif" font-size="38">Use tools to support thinking, not replace it.</text>
+</svg>
+

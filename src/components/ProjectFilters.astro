@@ -1,0 +1,39 @@
+---
+interface Props {
+  categories: string[];
+}
+
+const { categories } = Astro.props;
+---
+
+<div class="filter-bar" data-project-filters>
+  <button class="filter-chip is-active" type="button" data-filter="all">
+    All
+  </button>
+  {categories.map((category) => (
+    <button class="filter-chip" type="button" data-filter={category}>
+      {category}
+    </button>
+  ))}
+</div>
+
+<script is:inline>
+  const filterBars = document.querySelectorAll('[data-project-filters]');
+  filterBars.forEach((bar) => {
+    const cards = document.querySelectorAll('[data-categories]');
+    const buttons = bar.querySelectorAll('[data-filter]');
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const filter = button.getAttribute('data-filter');
+        buttons.forEach((item) => item.classList.remove('is-active'));
+        button.classList.add('is-active');
+        cards.forEach((card) => {
+          const categories = (card.getAttribute('data-categories') || '').split('|');
+          const matches = filter === 'all' || categories.includes(filter);
+          card.toggleAttribute('hidden', !matches);
+        });
+      });
+    });
+  });
+</script>
+

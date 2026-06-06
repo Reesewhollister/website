@@ -1,0 +1,54 @@
+---
+import SiteFooter from '../components/SiteFooter.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import '../styles/global.css';
+import { siteMeta } from '../data/site';
+import { withBase } from '../utils/paths';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = siteMeta.title,
+  description = siteMeta.description,
+  image = '/assets/ui/2026-03-31__reese-portfolio__asset__v02__google-site-welcome-photo.jpg'
+} = Astro.props;
+
+const pageTitle = title === siteMeta.title ? title : `${title} | ${siteMeta.title}`;
+const siteUrl = Astro.site ?? new URL('https://example.com');
+const canonical = new URL(Astro.url.pathname, siteUrl).toString();
+const ogImage = new URL(withBase(image), siteUrl).toString();
+const faviconHref = withBase('/assets/ui/favicon.svg');
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={faviconHref} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <SiteHeader />
+    <main id="content">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

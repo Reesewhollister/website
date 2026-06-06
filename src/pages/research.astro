@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { researchAreas, publications } from '../data/site';
+import { withBase } from '../utils/paths';
+---
+
+<BaseLayout
+  title="Research"
+  description="Historical and political research by Reese Hollister — North Africa, postcolonial African institutions, French institutional history, and digital history methodology."
+>
+  <section class="page-hero site-shell">
+    <p class="section-kicker">Research</p>
+    <h1>Research</h1>
+    <p class="page-lead">
+      Historical and political analysis grounded in North Africa, postcolonial state-building, and the longer afterlives of imperial
+      infrastructure.
+    </p>
+    <p>
+      My research sits at the intersection of area studies and institutional history. I am drawn to moments when political decisions
+      get built into physical or institutional form — when a highway, an airline, or a hospital becomes a site where the question of
+      sovereignty is settled, or unsettled, over time.
+    </p>
+  </section>
+
+  <section class="site-shell">
+    <SectionHeading
+      eyebrow="Areas"
+      title="Research areas"
+      intro="The main areas where my work has concentrated."
+    />
+    <div class="pillars-grid">
+      {researchAreas.map((area) => (
+        <article class="pillar-card">
+          <h3>{area.area}</h3>
+          <p>{area.description}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="site-shell">
+    <SectionHeading
+      eyebrow="Projects"
+      title="Active and recent research projects"
+      intro="Longer research work currently active or recently completed."
+    />
+    <div class="proof-grid">
+      <article class="proof-card">
+        <p class="section-kicker">Digital History</p>
+        <h3>From Colonies to Carriers</h3>
+        <p>
+          A digital history project tracing postcolonial African airline development — with a case study on Royal Air Maroc — and
+          the use of civil aviation as an instrument of sovereignty in the decades after independence.
+        </p>
+        <a class="resource-link" href={withBase('/projects/from-colonies-to-carriers')}>View project</a>
+      </article>
+      <article class="proof-card">
+        <p class="section-kicker">Capstone Research</p>
+        <h3>How Highways Decided Morocco's Victory in the Western Sahara Conflict</h3>
+        <p>
+          A capstone argument tracing how infrastructure build-out along the N1 Atlantic Highway helped make Morocco's later
+          sovereignty claims and diplomatic normalization more plausible.
+        </p>
+        <a class="resource-link" href={withBase('/projects/western-sahara-capstone')}>View project</a>
+      </article>
+      <article class="proof-card">
+        <p class="section-kicker">Field Research</p>
+        <h3>Fulbright Morocco</h3>
+        <p>
+          Field-based research, Arabic language study, and teaching during a Fulbright research grant in Morocco from August 2023
+          through June 2024.
+        </p>
+        <a class="resource-link" href={withBase('/projects/fulbright-morocco')}>View project</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="site-shell">
+    <SectionHeading
+      eyebrow="Publications"
+      title="Published writing and research"
+      intro="Peer-reviewed articles and published research. Full publication trail on Academia.edu."
+    />
+    <ul class="action-list action-list--stacked">
+      {publications.map((pub) => (
+        <li>
+          <a class="resource-link" href={pub.href} target="_blank" rel="noreferrer">{pub.venue} — {pub.year}</a>
+          <span class="action-note">{pub.title}</span>
+        </li>
+      ))}
+      <li>
+        <a class="resource-link" href="https://ncsu.academia.edu/ReeseHollister" target="_blank" rel="noreferrer">
+          Full archive on Academia.edu
+        </a>
+        <span class="action-note">Research profile with all publications and presentations.</span>
+      </li>
+    </ul>
+  </section>
+</BaseLayout>

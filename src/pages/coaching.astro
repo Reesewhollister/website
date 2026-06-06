@@ -1,0 +1,102 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { coachingServices } from '../data/site';
+import { withBase } from '../utils/paths';
+---
+
+<BaseLayout
+  title="Writing Coaching"
+  description="One-on-one writing coaching with Reese Hollister — college essays, research papers, personal statements, and academic writing support for high school and college students."
+>
+  <section class="page-hero site-shell">
+    <p class="section-kicker">Writing Coaching</p>
+    <h1>Writing Coaching</h1>
+    <p class="page-lead">
+      One-on-one support for essays, research papers, personal statements, and academic writing — at every level, from high school
+      to graduate school.
+    </p>
+    <p>
+      I am a Level III CRLA-certified writing consultant with years of experience at NC State's Academic Success Center. I have
+      helped students at every level — from high school juniors writing their first college essay to graduate applicants drafting
+      statements of purpose — find their argument, fix their structure, and write in a voice that sounds like them.
+    </p>
+    <ul class="home-hero__links">
+      <li><a href={withBase('/contact')}>Get in touch</a></li>
+      <li><a href={withBase('/teaching')}>Full teaching background</a></li>
+    </ul>
+  </section>
+
+  <section class="site-shell">
+    <SectionHeading
+      eyebrow="Services"
+      title="What I help with"
+      intro="Each of these areas draws on the same core skill: knowing how to find what a piece of writing is really trying to do, and helping you get it there."
+    />
+    <div class="pillars-grid">
+      {coachingServices.map((service) => (
+        <article class="pillar-card">
+          <h3>{service.title}</h3>
+          <p>{service.description}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="site-shell">
+    <SectionHeading
+      eyebrow="Background"
+      title="Why it works"
+      intro="The credential matters less than the habit of mind behind it."
+    />
+    <div class="resume-highlight-grid">
+      <article class="resume-card">
+        <h3>Certified consultant</h3>
+        <ul>
+          <li>Level III CRLA-certified writing consultant — the highest level of peer-consultant certification.</li>
+          <li>Years of one-on-one consultation across disciplines, writing levels, and assignment types at NC State's Academic Success Center.</li>
+          <li>Experience with students whose first language is not English.</li>
+        </ul>
+      </article>
+      <article class="resume-card">
+        <h3>Trained researcher and writer</h3>
+        <ul>
+          <li>Published in peer-reviewed history journals. Knows what academic writing actually demands.</li>
+          <li>Graduate-level research and argumentation experience in history and political science.</li>
+          <li>Comfortable with any discipline — the structure of a strong argument is the same across fields.</li>
+        </ul>
+      </article>
+      <article class="resume-card">
+        <h3>Teaching background</h3>
+        <ul>
+          <li>Graduate Teaching Assistant in political science and international studies at NC State.</li>
+          <li>History teacher and university-access writing instructor at the American Language Center in Rabat, Morocco.</li>
+          <li>Multilingual — native English, advanced Arabic, advanced French — with cross-cultural teaching experience.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="site-shell">
+    <SectionHeading
+      eyebrow="Contact"
+      title="Book a session"
+      intro="Reach out to discuss your project and check availability."
+    />
+    <div class="contact-grid contact-grid--linear">
+      <article class="contact-card">
+        <h3>Get in touch</h3>
+        <p>
+          Send an email with a short description of what you are working on, your timeline, and whether you are looking for a
+          one-time session or ongoing support.
+        </p>
+        <ul class="action-list">
+          <li>
+            <a class="action-link" href="mailto:reesewhollister@gmail.com">reesewhollister@gmail.com</a>
+            <span class="action-note">Primary contact. I respond within one to two business days.</span>
+          </li>
+        </ul>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

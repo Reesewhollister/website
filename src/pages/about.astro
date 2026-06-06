@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { aboutTimeline, roleFit } from '../data/site';
+---
+
+<BaseLayout
+  title="About"
+  description="About Reese Hollister: a scholar-builder working across historical research, international studies, pedagogy, and learning design."
+>
+  <section class="page-hero site-shell">
+    <div class="about-hero__layout">
+      <div class="about-hero__copy">
+        <p class="section-kicker">About</p>
+        <h1>About Reese Hollister</h1>
+        <p class="page-lead">
+          I work across historical research, international studies, teaching, writing support, language learning, and public-facing
+          projects.
+        </p>
+        <p>
+          What ties these areas together is a steady interest in explanation: how people understand difficult material, how a research
+          question becomes legible, and how public-facing work can stay serious without becoming inaccessible.
+        </p>
+      </div>
+      <div class="about-hero__media">
+        <figure class="about-inline-figure">
+          <img
+            class="about-portrait"
+            src="/assets/ui/2026-03-31__reese-portfolio__asset__v01__reese-public-profile.jpg"
+            alt="Public profile portrait of Reese Hollister."
+          />
+          <figcaption class="about-portrait__caption">Profile image previously used on Reese&apos;s public-facing profiles.</figcaption>
+        </figure>
+        <figure class="about-inline-figure about-inline-figure--secondary">
+          <img
+            class="about-publication"
+            src="/assets/ui/2026-03-31__reese-portfolio__asset__v01__history-matters-publication-thumb.jpg"
+            alt="History Matters publication cover from Reese Hollister's public materials."
+          />
+          <figcaption class="about-portrait__caption">A publication cover from Reese&apos;s public-facing work.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="site-shell">
+    <SectionHeading
+      eyebrow="Path"
+      title="Path"
+      intro="The path makes more sense through the work than through labels."
+    />
+    <ol class="timeline-list">
+      {aboutTimeline.map((item) => (
+        <li>
+          <span class="timeline-label">{item.period}</span>
+          <p>{item.summary}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="site-shell">
+    <SectionHeading
+      eyebrow="Fit"
+      title="Kinds of work that fit best"
+      intro="The best fit is work that needs intellectual precision and audience awareness at the same time."
+    />
+    <ul class="roles-list">
+      {roleFit.map((item) => (
+        <li>
+          <p>{item}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>

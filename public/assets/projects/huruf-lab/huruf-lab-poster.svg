@@ -1,0 +1,23 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="900" fill="#EFE4D3"/>
+  <rect x="46" y="46" width="1108" height="808" rx="26" fill="#F7F2EB" stroke="#D7C6B4"/>
+  <rect x="108" y="116" width="328" height="184" rx="24" fill="#1D1710"/>
+  <text x="140" y="192" fill="#F4EEE5" font-family="Georgia, serif" font-size="74">Huruf</text>
+  <text x="140" y="256" fill="#F4EEE5" font-family="Georgia, serif" font-size="74">La'b</text>
+  <text x="112" y="364" fill="#8A4A33" font-family="Arial, sans-serif" font-size="22" letter-spacing="4">TACTILE ARABIC LEARNING SYSTEM</text>
+  <g fill="#42616C">
+    <rect x="654" y="146" width="120" height="120" rx="24"/>
+    <rect x="794" y="146" width="120" height="120" rx="24"/>
+    <rect x="934" y="146" width="120" height="120" rx="24"/>
+  </g>
+  <g fill="#F4EEE5" font-family="Georgia, serif" font-size="68">
+    <text x="690" y="223">ب</text>
+    <text x="832" y="223">ت</text>
+    <text x="972" y="223">ث</text>
+  </g>
+  <path d="M626 430C738 334 838 294 1042 318" stroke="#8A4A33" stroke-width="4" stroke-dasharray="8 10"/>
+  <path d="M160 506H1058" stroke="#D7C6B4" stroke-width="2"/>
+  <text x="112" y="576" fill="#1D1710" font-family="Georgia, serif" font-size="38">Script, sound, and morphology made physical.</text>
+  <text x="112" y="638" fill="#5C4B3A" font-family="Georgia, serif" font-size="30">Prototype placeholder for future photography and learner testing artifacts.</text>
+</svg>
+

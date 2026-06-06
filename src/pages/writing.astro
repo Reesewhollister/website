@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { publications, secondaryWork } from '../data/site';
+---
+
+<BaseLayout
+  title="Writing"
+  description="Published writing and public scholarship by Reese Hollister — historical essays, peer-reviewed articles, and public-facing history writing."
+>
+  <section class="page-hero site-shell">
+    <p class="section-kicker">Writing</p>
+    <h1>Writing</h1>
+    <p class="page-lead">
+      Published work spanning historical method, colonial institutions, postcolonial Africa, and public-facing scholarship.
+    </p>
+    <p>
+      My writing moves between academic venues and public formats. Peer-reviewed work tends toward close argumentation and archival
+      grounding. Public writing — including the Historical Method Man channel — aims to make historical thinking legible to an
+      audience that did not choose to study it.
+    </p>
+  </section>
+
+  <section class="site-shell">
+    <SectionHeading
+      eyebrow="Publications"
+      title="Peer-reviewed and published work"
+      intro="Articles published in academic history journals. Full archive on Academia.edu."
+    />
+    <ul class="action-list action-list--stacked">
+      {publications.map((pub) => (
+        <li>
+          <a class="resource-link" href={pub.href} target="_blank" rel="noreferrer">{pub.venue}</a>
+          <span class="action-note">{pub.title} {pub.year !== 'TODO' ? `(${pub.year})` : ''}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="site-shell">
+    <SectionHeading
+      eyebrow="Public Scholarship"
+      title="Public-facing writing and media"
+      intro="Writing and video work designed to reach audiences beyond the seminar room."
+    />
+    <div class="proof-grid">
+      {secondaryWork.map((item) => (
+        <article class="proof-card">
+          <p class="section-kicker">{item.category}</p>
+          <h3>{item.title}</h3>
+          <p>{item.summary}</p>
+          <a class="resource-link" href={item.href} target="_blank" rel="noreferrer">{item.cta}</a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="site-shell">
+    <SectionHeading
+      eyebrow="Archive"
+      title="Full publication record"
+      intro="The full trail of published and presented work."
+    />
+    <ul class="action-list action-list--stacked">
+      <li>
+        <a class="resource-link" href="https://ncsu.academia.edu/ReeseHollister" target="_blank" rel="noreferrer">
+          Academia.edu profile
+        </a>
+        <span class="action-note">Research profile with all articles, conference presentations, and public-facing work.</span>
+      </li>
+      <li>
+        <a class="resource-link" href="https://www.youtube.com/@HistoricalMethodMan/featured" target="_blank" rel="noreferrer">
+          Historical Method Man — YouTube
+        </a>
+        <span class="action-note">Public scholarship channel with 1,700+ subscribers and 218,000+ views on historical method, research, and language learning.</span>
+      </li>
+    </ul>
+  </section>
+</BaseLayout>

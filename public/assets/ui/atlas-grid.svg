@@ -1,0 +1,28 @@
+<svg width="720" height="720" viewBox="0 0 720 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="720" height="720" rx="32" fill="#E8DED0"/>
+  <g opacity="0.56" stroke="#42616C" stroke-width="1.2">
+    <path d="M80 56V664"/>
+    <path d="M200 56V664"/>
+    <path d="M320 56V664"/>
+    <path d="M440 56V664"/>
+    <path d="M560 56V664"/>
+    <path d="M56 96H664"/>
+    <path d="M56 216H664"/>
+    <path d="M56 336H664"/>
+    <path d="M56 456H664"/>
+    <path d="M56 576H664"/>
+  </g>
+  <g opacity="0.9" stroke="#8A4A33" stroke-width="2">
+    <path d="M110 518C196 446 260 380 352 318C454 250 546 230 620 208"/>
+    <path d="M168 590C252 514 304 470 372 414"/>
+  </g>
+  <g fill="#8A4A33">
+    <circle cx="168" cy="590" r="7"/>
+    <circle cx="352" cy="318" r="7"/>
+    <circle cx="620" cy="208" r="7"/>
+  </g>
+  <rect x="86" y="84" width="180" height="74" rx="14" fill="#F8F3EB"/>
+  <text x="108" y="116" fill="#1D1710" font-family="Georgia, serif" font-size="26">Atlas Notes</text>
+  <text x="108" y="142" fill="#5C4B3A" font-family="Arial, sans-serif" font-size="14" letter-spacing="2">corridors / routes / questions</text>
+</svg>
+

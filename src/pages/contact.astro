@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { contactMethods } from '../data/site';
+import { withBase, isExternal } from '../utils/paths';
+---
+
+<BaseLayout title="Contact" description="Contact Reese Hollister for roles and projects involving research, teaching, and designed clarity.">
+  <section class="page-hero site-shell">
+    <p class="section-kicker">Contact</p>
+    <h1>Contact</h1>
+    <p class="page-lead">
+      These are the main public contact routes currently attached to the site and to the wider body of public work linked here.
+    </p>
+  </section>
+
+  <section class="site-shell">
+    <SectionHeading
+      eyebrow="Contact Methods"
+      title="Contact methods"
+      intro="Email, public profiles, and other active links."
+    />
+    <div class="contact-grid contact-grid--linear">
+      {contactMethods.map((method) => (
+        <article class="contact-card">
+          <p class="section-kicker">{method.label}</p>
+          <h3>
+            {method.available ? (
+              <a
+                href={withBase(method.href)}
+                target={isExternal(method.href) ? '_blank' : undefined}
+                rel={isExternal(method.href) ? 'noreferrer' : undefined}
+              >
+                {method.value}
+              </a>
+            ) : (
+              method.value
+            )}
+          </h3>
+          <p>{method.note}</p>
+          {method.available && (
+            <div class="action-list">
+              <a
+                class="resource-link"
+                href={withBase(method.href)}
+                target={isExternal(method.href) ? '_blank' : undefined}
+                rel={isExternal(method.href) ? 'noreferrer' : undefined}
+              >
+                {method.href.startsWith('mailto:') ? 'Send email' : 'Open profile'}
+              </a>
+            </div>
+          )}
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
