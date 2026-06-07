@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { teachingRoles } from '../data/site';
+import { withBase } from '../utils/paths';
+---
+
+<BaseLayout
+  title="Teaching"
+  description="Teaching portfolio for Reese Hollister — Arabic instruction, writing consultation, political science TA work, and student-centered pedagogy."
+>
+  <section class="page-hero site-shell">
+    <p class="section-kicker">Teaching</p>
+    <h1>Teaching</h1>
+    <p class="page-lead">
+      Student-centered pedagogy shaped by writing support, Arabic instruction, large-class teaching, and close attention to how
+      understanding actually forms.
+    </p>
+    <p>
+      My teaching work spans three different contexts: one-on-one writing consultation with students at all levels, language
+      instruction in Arabic, and discussion-section and assessment support in political science and international studies. What ties
+      them together is a preoccupation with explanation — with what it takes for a student to stop pretending they understand
+      something and actually get there.
+    </p>
+  </section>
+
+  <section class="site-shell">
+    <SectionHeading
+      eyebrow="Roles"
+      title="Teaching and consultation roles"
+      intro="Experience across writing support, language instruction, and political science pedagogy."
+    />
+    <div class="resume-highlight-grid">
+      {teachingRoles.map((role) => (
+        <article class="resume-card">
+          <h3>{role.title}</h3>
+          <p class="project-card__meta">{role.org} &mdash; {role.period}</p>
+          <p>{role.summary}</p>
+          <ul>
+            {role.skills.map((skill) => <li>{skill}</li>)}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="site-shell">
+    <SectionHeading
+      eyebrow="Teaching Arabic"
+      title="Arabic instruction"
+      intro="Language teaching grounded in script literacy, morphology, and classroom routine."
+    />
+    <p>
+      Arabic instruction has been part of my work since my Fulbright year in Morocco. My approach treats early Arabic literacy as
+      a design problem: learners struggle not because the language is impossible, but because the learning materials rarely make
+      the system visible. Good Arabic instruction makes the structure of the language something a student can see, manipulate, and
+      test.
+    </p>
+    <p>
+      This pedagogical premise also underlies Huruf La'b, a tactile Arabic learning system I co-developed to turn script
+      learning into a repeatable classroom routine.
+    </p>
+    <ul class="action-list">
+      <li>
+        <a class="resource-link" href={withBase('/projects/huruf-lab')}>Huruf La'b project</a>
+        <span class="action-note">Tactile Arabic learning system built from this pedagogical framework.</span>
+      </li>
+      <li>
+        <a class="resource-link" href="https://sites.google.com/ncsu.edu/reese/teaching-arabic" target="_blank" rel="noreferrer">
+          Teaching Arabic archive
+        </a>
+        <span class="action-note">Lesson plans, microteaching materials, and video samples from the original NCSU site.</span>
+      </li>
+    </ul>
+  </section>
+
+  <section class="site-shell">
+    <SectionHeading
+      eyebrow="Writing Coaching"
+      title="One-on-one writing support"
+      intro="Private coaching for essays, research papers, and personal statements."
+    />
+    <p>
+      Beyond formal teaching roles, I work with students privately on essays, research papers, college applications, and personal
+      statements. This work draws on my CRLA Level III certification and years of writing consultation at NC State's Academic
+      Success Center.
+    </p>
+    <ul class="action-list">
+      <li>
+        <a class="resource-link" href={withBase('/coaching')}>Writing coaching — learn more</a>
+        <span class="action-note">Private coaching services for high school and college students.</span>
+      </li>
+      <li>
+        <a class="resource-link" href={withBase('/contact')}>Get in touch</a>
+        <span class="action-note">Contact to discuss availability and fit.</span>
+      </li>
+    </ul>
+  </section>
+</BaseLayout>

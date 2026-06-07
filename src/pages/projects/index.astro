@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import { secondaryWork } from '../../data/site';
+import { sortedProjects as projects } from '../../data/projects';
+import { withBase, isExternal } from '../../utils/paths';
+---
+
+<BaseLayout
+  title="Projects"
+  description="Projects and selected work by Reese Hollister across research, teaching, product work, and public scholarship."
+>
+  <section class="page-hero site-shell">
+    <p class="section-kicker">Projects</p>
+    <h1>Projects</h1>
+    <p class="page-lead">
+      This page gathers a few of the larger projects on the site. Some are research projects, some are teaching-facing, and some sit
+      between pedagogy and design.
+    </p>
+  </section>
+
+  <section class="site-shell">
+    <SectionHeading
+      eyebrow="Selected Work"
+      title="Main projects"
+      intro="A simple index of the larger projects featured on the site."
+    />
+    <div class="project-grid">
+      {projects.map((project) => <ProjectCard project={project} />)}
+    </div>
+  </section>
+
+  <section class="site-shell">
+    <SectionHeading
+      eyebrow="Elsewhere"
+      title="Public work and supporting links"
+      intro="Other parts of the public record that support the projects here."
+    />
+    <div class="support-grid">
+      {secondaryWork.map((item) => (
+        <article class="support-card">
+          <p class="section-kicker">{item.category}</p>
+          <h3>{item.title}</h3>
+          <p>{item.summary}</p>
+          <div class="action-list">
+            <a
+              class="resource-link"
+              href={withBase(item.href)}
+              target={isExternal(item.href) ? '_blank' : undefined}
+              rel={isExternal(item.href) ? 'noreferrer' : undefined}
+            >
+              {item.cta}
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

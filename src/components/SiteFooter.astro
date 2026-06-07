@@ -1,0 +1,29 @@
+---
+import { contactMethods, siteMeta } from '../data/site';
+import { withBase, isExternal } from '../utils/paths';
+---
+
+<footer class="site-footer">
+  <div class="site-shell footer-grid">
+    <p class="section-kicker">Contact</p>
+    <ul class="footer-contact-list">
+      {contactMethods.map((item) => (
+        <li>
+          <span class="footer-contact-label">{item.label}</span>
+          {item.available ? (
+            <a
+              href={withBase(item.href)}
+              target={isExternal(item.href) ? '_blank' : undefined}
+              rel={isExternal(item.href) ? 'noreferrer' : undefined}
+            >
+              {item.value}
+            </a>
+          ) : (
+            <span>{item.value}</span>
+          )}
+        </li>
+      ))}
+    </ul>
+    <p class="footer-note">{siteMeta.position}</p>
+  </div>
+</footer>

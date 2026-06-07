@@ -1,0 +1,19 @@
+<svg width="1200" height="860" viewBox="0 0 1200 860" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="860" fill="#F3EDE3"/>
+  <rect x="56" y="56" width="1088" height="748" rx="28" fill="#FBF6F0" stroke="#D9C9B8"/>
+  <text x="108" y="132" fill="#1D1710" font-family="Georgia, serif" font-size="52">Field notes board</text>
+  <text x="110" y="170" fill="#8A4A33" font-family="Arial, sans-serif" font-size="18" letter-spacing="4">PLACE  LANGUAGE  TEACHING  PUBLIC EXPLANATION</text>
+  <g stroke="#42616C" stroke-width="2">
+    <path d="M676 218C784 282 872 358 960 500"/>
+    <path d="M450 464C564 442 654 424 746 382"/>
+  </g>
+  <g fill="#EFE3D1">
+    <rect x="116" y="252" width="282" height="184" rx="22"/>
+    <rect x="450" y="252" width="282" height="184" rx="22"/>
+    <rect x="784" y="252" width="282" height="184" rx="22"/>
+  </g>
+  <text x="148" y="322" fill="#1D1710" font-family="Georgia, serif" font-size="34">Language learning</text>
+  <text x="482" y="322" fill="#1D1710" font-family="Georgia, serif" font-size="34">Teaching context</text>
+  <text x="816" y="322" fill="#1D1710" font-family="Georgia, serif" font-size="34">Public-facing work</text>
+  <text x="116" y="560" fill="#5C4B3A" font-family="Georgia, serif" font-size="34">Photographs, notes, writing samples, and teaching artifacts.</text>
+</svg>

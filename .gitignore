@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+
+# Local scratch / drop zone for raw source material (large, reproducible)
+design-assets/incoming/
+
+
+# Local Codex/Claude app configuration
+.claude/

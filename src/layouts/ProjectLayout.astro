@@ -1,0 +1,63 @@
+---
+import type { Project } from '../data/projects';
+import BaseLayout from './BaseLayout.astro';
+import { withBase, isExternal } from '../utils/paths';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const image = project.heroAsset.src;
+const title = project.seo.title ?? project.title;
+const description = project.seo.description ?? project.summary;
+const visibleLinks = project.links.filter((link) => link.available !== false);
+---
+
+<BaseLayout title={title} description={description} image={image}>
+  <article class="project-page">
+    <section class="project-hero site-shell">
+      <p class="section-kicker">Project</p>
+      <h1>{project.title}</h1>
+      <p class="project-hero__summary">{project.summary}</p>
+      <figure class="project-hero__media">
+        <img src={withBase(project.heroAsset.src)} alt={project.heroAsset.alt} />
+        {project.heroAsset.caption && <figcaption>{project.heroAsset.caption}</figcaption>}
+      </figure>
+      <ul class="project-hero__meta">
+        <li>
+          <span class="project-meta-label">Role</span>
+          <p>{project.role}</p>
+        </li>
+        <li>
+          <span class="project-meta-label">Areas</span>
+          <p>{project.categories.join(' / ')}</p>
+        </li>
+        <li>
+          <span class="project-meta-label">Skills</span>
+          <p>{project.skills.join(', ')}</p>
+        </li>
+      </ul>
+      {visibleLinks.length > 0 && (
+        <ul class="action-list">
+          {visibleLinks.map((link) => (
+            <li>
+              <a
+                class="action-link"
+                href={withBase(link.href)}
+                target={isExternal(link.href) ? '_blank' : undefined}
+                rel={isExternal(link.href) ? 'noreferrer' : undefined}
+              >
+                {link.label}
+              </a>
+              {link.note && <span class="action-note">{link.note}</span>}
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+    <section class="project-body site-shell prose-shell">
+      <slot />
+    </section>
+  </article>
+</BaseLayout>

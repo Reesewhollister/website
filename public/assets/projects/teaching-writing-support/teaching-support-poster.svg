@@ -1,0 +1,18 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="900" fill="#EFE6D8"/>
+  <rect x="54" y="54" width="1092" height="792" rx="26" fill="#FBF7F0" stroke="#D9CABB"/>
+  <text x="112" y="178" fill="#1D1710" font-family="Georgia, serif" font-size="76">Teaching and</text>
+  <text x="112" y="248" fill="#1D1710" font-family="Georgia, serif" font-size="76">Writing Support</text>
+  <text x="116" y="318" fill="#8A4A33" font-family="Arial, sans-serif" font-size="22" letter-spacing="4">REVISION  DIAGNOSIS  STUDENT-CENTERED PEDAGOGY</text>
+  <path d="M116 372H1084" stroke="#D9CABB" stroke-width="2"/>
+  <rect x="154" y="438" width="264" height="248" rx="24" fill="#EEE5D8"/>
+  <rect x="468" y="438" width="264" height="248" rx="24" fill="#E8EDE9"/>
+  <rect x="782" y="438" width="264" height="248" rx="24" fill="#E9E3D7"/>
+  <text x="184" y="516" fill="#1D1710" font-family="Georgia, serif" font-size="36">What is the</text>
+  <text x="184" y="560" fill="#1D1710" font-family="Georgia, serif" font-size="36">actual bottleneck?</text>
+  <text x="498" y="516" fill="#1D1710" font-family="Georgia, serif" font-size="36">What would</text>
+  <text x="498" y="560" fill="#1D1710" font-family="Georgia, serif" font-size="36">make the task usable?</text>
+  <text x="812" y="516" fill="#1D1710" font-family="Georgia, serif" font-size="36">What habit</text>
+  <text x="812" y="560" fill="#1D1710" font-family="Georgia, serif" font-size="36">should remain after help?</text>
+</svg>
+

@@ -1,0 +1,16 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="900" fill="#EDE1D1"/>
+  <rect x="50" y="50" width="1100" height="800" rx="28" fill="#FAF6EF" stroke="#D9C9B8"/>
+  <text x="108" y="180" fill="#1D1710" font-family="Georgia, serif" font-size="76">Fulbright Morocco</text>
+  <text x="108" y="250" fill="#1D1710" font-family="Georgia, serif" font-size="54">Research / teaching / language learning</text>
+  <text x="112" y="320" fill="#8A4A33" font-family="Arial, sans-serif" font-size="22" letter-spacing="4">FIELDWORK  ARABIC  FRENCH  PUBLIC-FACING SCHOLARSHIP</text>
+  <path d="M108 372H1088" stroke="#D9C9B8" stroke-width="2"/>
+  <path d="M694 196C758 218 842 266 936 362C1002 430 1048 494 1084 578" stroke="#42616C" stroke-width="4" stroke-dasharray="10 10"/>
+  <circle cx="936" cy="362" r="12" fill="#42616C"/>
+  <circle cx="1084" cy="578" r="12" fill="#8A4A33"/>
+  <rect x="120" y="438" width="340" height="232" rx="24" fill="#EFE5D8"/>
+  <text x="156" y="520" fill="#1D1710" font-family="Georgia, serif" font-size="42">Field-based attention</text>
+  <text x="156" y="576" fill="#5C4B3A" font-family="Georgia, serif" font-size="30">what to notice</text>
+  <text x="156" y="616" fill="#5C4B3A" font-family="Georgia, serif" font-size="30">what to translate</text>
+</svg>
+

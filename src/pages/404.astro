@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { withBase } from '../utils/paths';
+---
+
+<BaseLayout title="Page Not Found" description="The requested page was not found on Reese Hollister’s portfolio site.">
+  <section class="page-hero site-shell">
+    <div>
+      <p class="section-kicker">404</p>
+      <h1>This page slipped out of the archive.</h1>
+      <p class="page-lead">
+        The link may be outdated, or the route may not exist yet. The main portfolio pages are still intact.
+      </p>
+      <a class="resource-link" href={withBase('/')}>Return home</a>
+    </div>
+  </section>
+</BaseLayout>
+

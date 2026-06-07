@@ -1,0 +1,31 @@
+---
+import { navLinks } from '../data/site';
+
+const pathname = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <div class="site-shell header-inner">
+    <a class="brand-mark" href={import.meta.env.BASE_URL}>
+      <span class="brand-mark__name">Reese Hollister</span>
+      <span class="brand-mark__tag">Research, Teaching, Building</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="site-nav">
+        {
+          navLinks.map((link) => {
+            const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
+            return (
+              <li>
+                <a class:list={['site-nav__link', { 'is-active': isActive }]} href={`${import.meta.env.BASE_URL}${link.href.replace(/^\/+/, '')}`}>
+                  {link.label}
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+

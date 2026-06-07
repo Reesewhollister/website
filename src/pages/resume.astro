@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { resumeResources } from '../data/site';
+import { withBase, isExternal } from '../utils/paths';
+
+const visibleResources = resumeResources.filter((resource) => resource.available);
+---
+
+<BaseLayout
+  title="Resume / CV"
+  description="Selected highlights, live public-profile links, and future resume / CV download slots for Reese Hollister."
+>
+  <section class="page-hero site-shell">
+    <p class="section-kicker">Resume / CV</p>
+    <h1>Resume / CV</h1>
+    <p class="page-lead">
+      This page offers a short summary of the record, along with links to public materials. Current resume and CV PDFs are available
+      by email request.
+    </p>
+  </section>
+
+  <section class="site-shell">
+    <SectionHeading eyebrow="Documents" title="Downloads and public links" />
+    <ul class="action-list action-list--stacked">
+      {visibleResources.map((resource) => (
+        <li>
+          <a
+            class="resource-link"
+            href={withBase(resource.href)}
+            target={isExternal(resource.href) ? '_blank' : undefined}
+            rel={isExternal(resource.href) ? 'noreferrer' : undefined}
+          >
+            {resource.label}
+          </a>
+          <span class="action-note">{resource.note}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="site-shell">
+    <SectionHeading
+      eyebrow="Selected Highlights"
+      title="Selected highlights"
+      intro="A few of the main throughlines in the work."
+    />
+    <div class="resume-highlight-grid">
+      <article class="resume-card">
+        <h3>Research</h3>
+        <ul>
+          <li>Master of International Studies graduate from NC State (2026) with a 4.0 GPA and a specialization in North African studies.</li>
+          <li>Capstone work on Western Sahara tracing how infrastructure reshaped the politics of sovereignty and recognition.</li>
+          <li>Published historical writing in venues including History Matters, Gettysburg Historical Journal, and the Armstrong Undergraduate Journal of History.</li>
+        </ul>
+      </article>
+      <article class="resume-card">
+        <h3>Teaching</h3>
+        <ul>
+          <li>Graduate Writing Consultant at NC State's Academic Success Center with Level III CRLA certification in writing support.</li>
+          <li>Graduate Teaching Assistant for PS 331: U.S. Foreign Policy, supporting an 80-student lecture course across multiple semesters.</li>
+          <li>History teacher and BrainLyne convenor at the American Language Center in Rabat, including student research and university-access writing support.</li>
+        </ul>
+      </article>
+      <article class="resume-card">
+        <h3>Building</h3>
+        <ul>
+          <li>Co-founder and instructional design lead for Huruf La'b, a tactile Arabic learning system currently in customer-discovery and prototype iteration.</li>
+          <li>Historical Method Man, a public scholarship channel that has grown past 1,700 subscribers and 218,000 views.</li>
+          <li>Case-study, slide, and visual-explanation work that turns complex research into durable public-facing artifacts.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
