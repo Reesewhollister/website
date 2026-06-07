@@ -2,9 +2,12 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import SectionHeading from '../components/SectionHeading.astro';
-import { homeIntro, homePillars, proofItems, siteMeta } from '../data/site';
-import { featuredProjects } from '../data/projects';
+import { heroThesis, whatIDo, proofStrip, serviceCards, coachingCta, contactCta, siteMeta } from '../data/site';
+import { featuredProjects, getProjectBySlug } from '../data/projects';
 import { withBase, isExternal } from '../utils/paths';
+
+const spotlight = getProjectBySlug('from-colonies-to-carriers');
+const otherProjects = featuredProjects.filter((project) => project.slug !== spotlight?.slug);
 ---
 
 <BaseLayout title={siteMeta.title} description={siteMeta.description}>
@@ -17,116 +20,117 @@ import { withBase, isExternal } from '../utils/paths';
       />
     </div>
     <div class="cinematic-hero__inner site-shell">
-      <p class="cinematic-hero__kicker">Reese W. Hollister</p>
-      <h1 class="cinematic-hero__title">Historian of North Africa</h1>
+      <p class="cinematic-hero__kicker">Reese W. Hollister · Historian of North Africa</p>
+      <h1 class="cinematic-hero__title">{heroThesis}</h1>
       <p class="cinematic-hero__tagline">{siteMeta.position}</p>
       <p class="cinematic-hero__lead">
-        I study how states, infrastructures, languages, and archives shape life after empire — from Moroccan
-        mountain towns to African airlines.
+        Research, writing, teaching, and media — one through-line, from Moroccan mountain towns to African airlines.
       </p>
       <ul class="cinematic-hero__actions">
         <li><a href={withBase('/research')}>View Research</a></li>
-        <li><a href={withBase('/writing')}>Read Writing</a></li>
-        <li><a href={withBase('/coaching')}>Work With Me</a></li>
+        <li><a href={withBase('/coaching')}>Book a Consultation</a></li>
+        <li><a href="https://www.youtube.com/@HistoricalMethodMan/featured" target="_blank" rel="noreferrer">Watch the Channel</a></li>
         <li><a href={withBase('/resume')}>Download CV</a></li>
       </ul>
     </div>
     <span class="cinematic-hero__credit">Chefchaouen, Morocco</span>
   </section>
 
-  <section class="home-hero site-shell">
-    <div class="home-hero__layout">
-      <div class="home-hero__copy">
-        <p class="section-kicker">Welcome</p>
-        <p class="home-hero__intro">Marhaba! Bienvenue! Welcome!</p>
-        <p class="home-hero__intro">{homeIntro}</p>
-        <p class="home-hero__intro">
-          I lived in Morocco on a Fulbright research grant from August 2023 through June 2024, conducting field research, teaching
-          history, and studying Arabic — work that now shapes everything I do.
-        </p>
-      </div>
-      <div class="home-hero__media">
-        <figure class="home-intro-figure home-intro-figure--primary">
-          <img
-            src={withBase('/assets/ui/chefchaouen-02.jpg')}
-            alt="Rooftops and blue-washed walls of Chefchaouen below the Rif mountains."
-          />
-          <figcaption>Chefchaouen, northern Morocco — Fulbright fieldwork, 2023–24.</figcaption>
-        </figure>
-        <div class="home-hero__media-stack">
-          <figure class="home-intro-figure home-intro-figure--publication">
-            <img
-              src={withBase('/assets/ui/chefchaouen-03.jpg')}
-              alt="Panoramic view across the medina of Chefchaouen toward the surrounding hills."
-            />
-            <figcaption>The medina and the Rif.</figcaption>
-          </figure>
-          <figure class="home-intro-figure home-intro-figure--publication">
-            <img
-              src={withBase('/assets/ui/2026-03-31__reese-portfolio__asset__v01__history-matters-publication-thumb.jpg')}
-              alt="History Matters publication cover previously used in Reese Hollister's public materials."
-            />
-            <figcaption>History Matters, 2023.</figcaption>
-          </figure>
-        </div>
-      </div>
+  <section class="site-shell proof-strip-section">
+    <ul class="proof-strip">
+      {proofStrip.map((item) => (
+        <li class="proof-strip__item">
+          <span class="proof-strip__label">{item.label}</span>
+          <span class="proof-strip__detail">{item.detail}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="site-shell">
+    <SectionHeading
+      eyebrow="What I do"
+      title="From complex material to clear communication"
+    />
+    <div class="prose-shell">
+      {whatIDo.map((paragraph) => <p>{paragraph}</p>)}
     </div>
   </section>
 
   <section class="site-shell">
     <SectionHeading
-      eyebrow="What I Do"
-      title="Research, teaching, and building"
-      intro="These are the main threads that run through the site."
+      eyebrow="Work with me"
+      title="Three ways I help"
     />
     <div class="pillars-grid">
-      {homePillars.map((pillar) => (
-        <article class="pillar-card">
-          <h3>{pillar.title}</h3>
-          <p>{pillar.summary}</p>
-          <ul>
-            {pillar.details.map((detail) => <li>{detail}</li>)}
-          </ul>
+      {serviceCards.map((card) => (
+        <article class="pillar-card service-card">
+          <h3>{card.title}</h3>
+          <p>{card.summary}</p>
+          <a
+            class="service-card__cta"
+            href={withBase(card.href)}
+            target={isExternal(card.href) ? '_blank' : undefined}
+            rel={isExternal(card.href) ? 'noreferrer' : undefined}
+          >
+            {card.cta} →
+          </a>
         </article>
       ))}
     </div>
   </section>
 
+  {spotlight && (
+    <section class="site-shell">
+      <SectionHeading
+        eyebrow="Featured project"
+        title="From Colonies to Carriers"
+      />
+      <article class="featured-project">
+        <a class="featured-project__media" href={withBase(`/projects/${spotlight.slug}`)}>
+          <img src={withBase(spotlight.heroAsset.src)} alt={spotlight.heroAsset.alt} loading="lazy" />
+        </a>
+        <div class="featured-project__body">
+          <p class="featured-project__meta">{spotlight.categories.join(' / ')}</p>
+          <p>{spotlight.summary}</p>
+          <p class="featured-project__note">
+            A reconstructed dataset of early postcolonial African civil aviation, built from fragmentary archival
+            records — with a case study on Royal Air Maroc.
+          </p>
+          <a class="featured-project__cta" href={withBase(`/projects/${spotlight.slug}`)}>
+            Explore the project →
+          </a>
+        </div>
+      </article>
+    </section>
+  )}
+
+  <section class="site-shell">
+    <article class="home-cta home-cta--coaching">
+      <p class="section-kicker">{coachingCta.eyebrow}</p>
+      <h2>{coachingCta.title}</h2>
+      <p>{coachingCta.body}</p>
+      <a class="home-cta__button" href={withBase(coachingCta.href)}>{coachingCta.cta} →</a>
+    </article>
+  </section>
+
   <section class="site-shell">
     <SectionHeading
-      eyebrow="Selected Work"
+      eyebrow="Selected work"
       title="Projects and longer pieces of work"
       intro="A few of the larger projects that bring these interests together."
     />
     <div class="project-grid">
-      {featuredProjects.map((project) => <ProjectCard project={project} />)}
+      {otherProjects.map((project) => <ProjectCard project={project} />)}
     </div>
   </section>
 
   <section class="site-shell">
-    <SectionHeading
-      eyebrow="Elsewhere"
-      title="Public work and older pages"
-      intro="Some of this work also lives on older public pages and platforms."
-    />
-    <div class="proof-grid">
-      {proofItems.map((item) => (
-        <article class="proof-card">
-          <p class="section-kicker">{item.type}</p>
-          <h3>{item.title}</h3>
-          <p>{item.description}</p>
-          <div class="action-list">
-            <a
-              class="resource-link"
-              href={withBase(item.href)}
-              target={isExternal(item.href) ? '_blank' : undefined}
-              rel={isExternal(item.href) ? 'noreferrer' : undefined}
-            >
-              {item.cta}
-            </a>
-          </div>
-        </article>
-      ))}
-    </div>
+    <article class="home-cta home-cta--contact">
+      <p class="section-kicker">{contactCta.eyebrow}</p>
+      <h2>{contactCta.title}</h2>
+      <p>{contactCta.body}</p>
+      <a class="home-cta__button" href={withBase(contactCta.href)}>{contactCta.cta} →</a>
+    </article>
   </section>
 </BaseLayout>

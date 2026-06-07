@@ -1,10 +1,16 @@
 export const siteMeta = {
   title: 'Reese Hollister',
   description:
-    'Public website for Reese Hollister — historian, educator, and public scholarship creator working across North Africa, language pedagogy, and historical research.',
+    'Reese W. Hollister is a historian, educator, and writing consultant based in Bucks County, Pennsylvania. He makes complex ideas easier to understand, teach, and act on — across research, writing, teaching, and digital media.',
   position:
     'Historian · Educator · Language Learner · Skateboarder'
 };
+
+// Core thesis — the prominent hero lead and the through-line for the whole site.
+export const heroThesis = 'I make complex ideas easier to understand, teach, and act on.';
+
+// Recurring brand thesis — secondary phrasing, still used on the About page.
+export const brandThesis = 'Make difficult ideas clear without making them shallow.';
 
 export const navLinks = [
   { href: '/', label: 'Home' },
@@ -18,7 +24,85 @@ export const navLinks = [
 ];
 
 export const homeIntro =
-  'I am a historian by training and a recent Master of International Studies graduate from NC State. My work brings together historical research, teaching, language learning, and public-facing projects, with a particular focus on North Africa, pedagogy, and the problem of making complex subjects easier to understand.';
+  'I am a historian, educator, and writing consultant, and a recent Master of International Studies graduate from NC State, based in Bucks County, Pennsylvania. My work connects research with people: students trying to write better papers, institutions trying to tell stronger stories, and audiences trying to understand the past.';
+
+// Homepage "What I do" section — a single paragraph tying the four threads into one through-line.
+export const whatIDo = [
+  'I help people move from complicated material to clear communication. As a historian I study how infrastructure, empire, tourism, and mobility shaped modern North Africa; as a writing consultant I help students sharpen their arguments without losing their own voice; and as a digital educator I turn that research into videos, maps, and lessons. Research, writing, teaching, and media are one through-line — making hard ideas usable without making them shallow.'
+];
+
+// Proof strip shown directly below the hero.
+export const proofStrip = [
+  {
+    label: 'Fulbright U.S. Student Research Grantee — Morocco',
+    detail: 'Historical research in Rabat, Ifrane, and the Middle Atlas.'
+  },
+  {
+    label: 'CRLA Level III Certified Writing Consultant',
+    detail: 'Five years supporting writers from brainstorming through revision.'
+  },
+  {
+    label: 'Master of International Studies — NC State University',
+    detail: 'Specialization in North African studies.'
+  },
+  {
+    label: 'Published Historian',
+    detail: 'Research on history, infrastructure, memory, and public institutions.'
+  },
+  {
+    label: 'Digital History Educator',
+    detail: 'Educational video work bringing researched ideas to wider audiences.'
+  },
+  {
+    label: "Co-Founder, Hurūf Laʿb",
+    detail: 'An Arabic learning product combining language pedagogy, design, and play.'
+  }
+];
+
+// Three audience/service cards for the homepage.
+export const serviceCards = [
+  {
+    title: 'Writing Coaching',
+    summary:
+      'I help students understand assignments, build arguments, organize evidence, and revise with purpose. The goal is not to take over the paper — it is to help the student become a clearer, more confident writer.',
+    cta: 'Book a consultation',
+    href: '/coaching'
+  },
+  {
+    title: 'Research & Public History',
+    summary:
+      'My historical work focuses on North Africa, colonial and postcolonial infrastructure, tourism, mobility, and state-building. I use archival research, digital mapping, and public-facing storytelling to connect evidence with broader audiences.',
+    cta: 'Read my research',
+    href: '/research'
+  },
+  {
+    title: 'Video & Educational Media',
+    summary:
+      'I create educational videos and digital projects that make serious historical questions watchable. My work combines archival thinking, clear explanation, and narrative structure.',
+    cta: 'Watch the channel',
+    href: 'https://www.youtube.com/@HistoricalMethodMan/featured'
+  }
+];
+
+// Parent/student-facing, problem-led coaching CTA for the homepage.
+export const coachingCta = {
+  eyebrow: 'For parents and students',
+  title: "A paper is due and the draft isn't landing.",
+  body:
+    "Whether your student is staring at a blank page, stuck on a college essay, or revising a research paper the night before it's due, I help them find the argument, fix the structure, and write in their own voice — without taking over the work.",
+  cta: 'Book a consultation',
+  href: '/coaching'
+};
+
+// Closing contact CTA for the homepage.
+export const contactCta = {
+  eyebrow: 'Get in touch',
+  title: 'Have a project, a question, or a paper to work on?',
+  body:
+    'I work with students, scholars, institutions, and collaborators who need complex material made clear. Tell me what you are working on and what you need it to do.',
+  cta: 'Start a conversation',
+  href: '/contact'
+};
 
 export const homePillars = [
   {
