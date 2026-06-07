@@ -55,22 +55,22 @@ export const projects: Project[] = [
     featured: true,
     sortOrder: 1,
     heroAsset: {
-      src: '/assets/projects/huruf-lab/huruf-logo.jpg',
-      alt: "Huruf La'b brand mark: the Arabic word laʿb (play) rendered in gold tiles on Moroccan blue.",
-      caption: "The Huruf La'b identity — laʿb (“play”) built from the brand's tactile tile system."
+      src: '/assets/projects/huruf-lab/huruf-tiles.jpg',
+      alt: "Huruf La'b wooden puzzle tiles forming the Arabic letters Taa and Zaa on a blue board etched with letterforms.",
+      caption: "The Huruf La'b tactile system: laser-cut wooden tiles that snap together to build Arabic letters by hand."
     },
     links: [
       {
-        label: 'Prototype images',
-        href: '#',
-        available: false,
-        note: 'Internal resource.'
+        label: 'NC State news: "Puzzle project aims to make learning Arabic fun and hands-on"',
+        href: 'https://chass.ncsu.edu/news/2026/05/05/puzzle-project-aims-to-make-learning-arabic-a-fun-hands-on-experience/',
+        available: true,
+        note: 'Press coverage of Huruf La\'b from NC State College of Humanities and Social Sciences.'
       },
       {
-        label: 'Pilot testing notes',
-        href: '#',
-        available: false,
-        note: 'Internal resource.'
+        label: "Huruf La'b on YouTube",
+        href: 'https://www.youtube.com/channel/UCCRhHuIxYd3wyzYuaCNH3AA/',
+        available: true,
+        note: 'Demonstrations and lessons built around the tactile Arabic puzzle system.'
       }
     ],
     seo: {
@@ -234,9 +234,9 @@ export const projects: Project[] = [
     featured: true,
     sortOrder: 3,
     heroAsset: {
-      src: '/assets/ui/atlas-grid.svg',
-      alt: 'Grid map visualization representing airline route networks across postcolonial Africa.',
-      caption: 'Map-grid visual representing airline route networks across postcolonial Africa.'
+      src: '/assets/projects/from-colonies-to-carriers/airlines-title.jpg',
+      alt: 'Title artwork for "From Colonies to Carriers: Postcolonial African Airlines" — a stylized airliner tracing a contrail across the African continent.',
+      caption: 'Title art from the From Colonies to Carriers project on postcolonial African aviation.'
     },
     links: [
       {
@@ -367,9 +367,9 @@ export const projects: Project[] = [
     featured: false,
     sortOrder: 5,
     heroAsset: {
-      src: '/assets/projects/teaching-writing-support/teaching-support-poster.svg',
-      alt: 'Editorial teaching support poster with notes, margins, and revision marks.',
-      caption: 'Editorial artwork used until consultation materials, workshop slides, or assignment artifacts are ready for publication.'
+      src: '/assets/projects/teaching-writing-support/teaching-presentation.jpg',
+      alt: 'Reese teaching at the front of a classroom, presenting to seated students.',
+      caption: 'Teaching in the classroom — student-centered instruction and writing support.'
     },
     links: [
       {
