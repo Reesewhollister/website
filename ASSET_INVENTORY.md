@@ -3,11 +3,12 @@
 ## Source / Reference Folders
 
 - `design-assets/claude/` - empty; reserved for Claude-generated source/reference design assets.
-- `design-assets/images/` - empty; reserved for raw image references.
+- `design-assets/images/` - contains imported Morocco/source photos `P1060276.jpeg`, `P1060278.jpeg`, and `P1060279.jpeg`.
 - `design-assets/logos/` - empty; reserved for logo source files.
 - `design-assets/mockups/` - empty; reserved for mockups and layout references.
 - `design-assets/reference-sites/` - empty; reserved for reference site screenshots.
 - `design-assets/google-sites-screenshots/` - empty; reserved for old Google Sites screenshots.
+- `design-assets/western-sahara/` - source/reference Western Sahara capstone assets, including imported capstone slides and mural/map imagery.
 - `src/assets/` - empty; reserved for build-processed assets if needed later.
 
 ## Production UI Assets
@@ -40,9 +41,25 @@
 - Treat all generated SVG boards/posters as temporary until stronger real artifacts are available.
 - Do not use empty source folders as design input until actual assets are added.
 
+## Imported Source Assets (2026-06-07)
+
+Copied from ignored `design-assets/incoming/` into tracked source/reference folders so Claude Code can inspect them later:
+
+- `design-assets/images/P1060276.jpeg` - raw/source Morocco photo, 2049x1537.
+- `design-assets/images/P1060278.jpeg` - raw/source Morocco photo, 2049x1537.
+- `design-assets/images/P1060279.jpeg` - raw/source Morocco photo, 2049x1537.
+- `design-assets/western-sahara/capstone-slides.pdf` - source capstone slide deck.
+- `design-assets/western-sahara/mural-band-01.png` - Western Sahara mural/source band.
+- `design-assets/western-sahara/mural-band2-01.png` - Western Sahara mural/source band.
+- `design-assets/western-sahara/mural-photo-02.png` - Western Sahara mural/source image.
+- `design-assets/western-sahara/mural-photo-tight-02.png` - tighter Western Sahara mural/source image.
+- `design-assets/western-sahara/slide2full-02.png` - full slide/source image.
+
+These are source/reference assets. Publish only curated, optimized copies in `public/assets/`.
+
 ---
 
-# External Source Assets Discovered (2026-06-06 audit — NOT yet imported)
+# External Source Assets Discovered (2026-06-06 audit)
 
 Audit across Google Drive + local disk + iCloud. These are *source* assets; nothing has been
 copied into the portfolio yet. Verify licensing before publishing any third-party map/photo.

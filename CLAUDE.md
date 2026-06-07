@@ -17,6 +17,13 @@ The site should be credible for PhD admissions committees, employers in educatio
 - Do not overwrite original source assets. Create optimized copies when needed.
 - Use `withBase()` from `src/utils/paths.ts` for local route and asset paths.
 
+## Current Handoff
+
+- Current GitHub PR: `https://github.com/Reesewhollister/website/pull/1`
+- Current PR branch: `codex/portfolio-site`
+- Detailed handoff file: `2026-06-07__reese-portfolio__handoff__v01__claude-code.md`
+- The ignored `design-assets/incoming/` drop zone was imported into tracked source folders. Use `design-assets/images/` and `design-assets/western-sahara/` for those source/reference assets.
+
 ## Tech Stack
 
 - Working static build script: `src/build-static.cjs`

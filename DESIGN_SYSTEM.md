@@ -33,7 +33,7 @@ CTA hover); clay + blue + espresso on cream carry the serious core.
   deck — `public/assets/projects/western-sahara/ws-mural-hero.jpg`. Case-study artifacts include
   the dual-track timeline and the four-panel "Where is Western Sahara?" map (also from the deck).
 - **Hurūf La'b**: the gold-on-blue laʿb brand mark — `public/assets/projects/huruf-lab/huruf-logo.jpg`.
-- Source decks rasterized with `pdftoppm` from `design-assets/incoming/capstone-slides.pdf`.
+- Source decks rasterized with `pdftoppm` from `design-assets/western-sahara/capstone-slides.pdf`.
 
 ## Typography
 
