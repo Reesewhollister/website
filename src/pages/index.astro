@@ -8,39 +8,58 @@ import { withBase, isExternal } from '../utils/paths';
 ---
 
 <BaseLayout title={siteMeta.title} description={siteMeta.description}>
+  <section class="cinematic-hero">
+    <div class="cinematic-hero__media">
+      <img
+        src={withBase('/assets/ui/chefchaouen-01.jpg')}
+        alt="Chefchaouen, the blue-washed city of northern Morocco, where Reese conducted Fulbright fieldwork."
+        fetchpriority="high"
+      />
+    </div>
+    <div class="cinematic-hero__inner site-shell">
+      <p class="cinematic-hero__kicker">Reese W. Hollister</p>
+      <h1 class="cinematic-hero__title">Historian of North Africa</h1>
+      <p class="cinematic-hero__tagline">{siteMeta.position}</p>
+      <p class="cinematic-hero__lead">
+        I study how states, infrastructures, languages, and archives shape life after empire — from Moroccan
+        mountain towns to African airlines.
+      </p>
+      <ul class="cinematic-hero__actions">
+        <li><a href={withBase('/research')}>View Research</a></li>
+        <li><a href={withBase('/writing')}>Read Writing</a></li>
+        <li><a href={withBase('/coaching')}>Work With Me</a></li>
+        <li><a href={withBase('/resume')}>Download CV</a></li>
+      </ul>
+    </div>
+    <span class="cinematic-hero__credit">Chefchaouen, Morocco</span>
+  </section>
+
   <section class="home-hero site-shell">
     <div class="home-hero__layout">
       <div class="home-hero__copy">
         <p class="section-kicker">Welcome</p>
-        <h1>Reese Hollister</h1>
-        <p class="home-hero__lead">{siteMeta.position}</p>
         <p class="home-hero__intro">Marhaba! Bienvenue! Welcome!</p>
         <p class="home-hero__intro">{homeIntro}</p>
         <p class="home-hero__intro">
           I lived in Morocco on a Fulbright research grant from August 2023 through June 2024, conducting field research, teaching
           history, and studying Arabic — work that now shapes everything I do.
         </p>
-        <ul class="home-hero__links">
-          <li><a href={withBase('/about')}>About</a></li>
-          <li><a href={withBase('/projects')}>Projects</a></li>
-          <li><a href="https://sites.google.com/ncsu.edu/reese/welcome?pli=1" target="_blank" rel="noreferrer">Original site</a></li>
-        </ul>
       </div>
       <div class="home-hero__media">
         <figure class="home-intro-figure home-intro-figure--primary">
           <img
-            src={withBase('/assets/ui/2026-03-31__reese-portfolio__asset__v02__google-site-welcome-photo.jpg')}
-            alt="Reese in Morocco in a public photo previously used on his original site."
+            src={withBase('/assets/ui/chefchaouen-02.jpg')}
+            alt="Rooftops and blue-washed walls of Chefchaouen below the Rif mountains."
           />
-          <figcaption>Public photo from Reese&apos;s original NCSU site.</figcaption>
+          <figcaption>Chefchaouen, northern Morocco — Fulbright fieldwork, 2023–24.</figcaption>
         </figure>
         <div class="home-hero__media-stack">
-          <figure class="home-intro-figure home-intro-figure--portrait">
+          <figure class="home-intro-figure home-intro-figure--publication">
             <img
-              src={withBase('/assets/ui/2026-03-31__reese-portfolio__asset__v01__reese-public-profile.jpg')}
-              alt="Public profile portrait of Reese Hollister."
+              src={withBase('/assets/ui/chefchaouen-03.jpg')}
+              alt="Panoramic view across the medina of Chefchaouen toward the surrounding hills."
             />
-            <figcaption>Public profile portrait.</figcaption>
+            <figcaption>The medina and the Rif.</figcaption>
           </figure>
           <figure class="home-intro-figure home-intro-figure--publication">
             <img

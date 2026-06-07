@@ -12,17 +12,6 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-
-function renderArtifacts(artifacts: ProjectArtifact[] | undefined) {
-  return artifacts?.map((artifact) => (
-    <ArtifactFigure
-      src={artifact.src}
-      alt={artifact.alt}
-      eyebrow={artifact.eyebrow}
-      caption={artifact.caption}
-    />
-  ));
-}
 ---
 
 <ProjectLayout project={project}>
@@ -35,7 +24,14 @@ function renderArtifacts(artifacts: ProjectArtifact[] | undefined) {
           {section.bullets.map((bullet) => <li>{bullet}</li>)}
         </ul>
       )}
-      {renderArtifacts(section.artifacts)}
+      {section.artifacts?.map((artifact) => (
+        <ArtifactFigure
+          src={artifact.src}
+          alt={artifact.alt}
+          eyebrow={artifact.eyebrow}
+          caption={artifact.caption}
+        />
+      ))}
     </>
   ))}
 </ProjectLayout>

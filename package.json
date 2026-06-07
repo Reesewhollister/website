@@ -7,15 +7,13 @@
     "node": "22.x"
   },
   "scripts": {
-    "dev": "node src/build-static.cjs --serve --watch",
-    "build": "node src/build-static.cjs",
-    "preview": "node src/build-static.cjs --serve",
-    "check": "node src/build-static.cjs --check",
-    "astro:dev": "astro dev",
-    "astro:build": "astro build",
-    "astro:check": "astro check"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
     "@fontsource/newsreader": "^5.2.6",
     "@fontsource/source-serif-4": "^5.2.6",
     "@fontsource/work-sans": "^5.2.6",
