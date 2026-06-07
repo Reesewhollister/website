@@ -18,7 +18,7 @@ const {
 } = Astro.props;
 
 const pageTitle = title === siteMeta.title ? title : `${title} | ${siteMeta.title}`;
-const siteUrl = Astro.site ?? new URL('https://example.com');
+const siteUrl = Astro.site ?? new URL('https://reesehollister.com');
 const canonical = new URL(Astro.url.pathname, siteUrl).toString();
 const ogImage = new URL(withBase(image), siteUrl).toString();
 const faviconHref = withBase('/assets/ui/favicon.svg');

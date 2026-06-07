@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import { aboutTimeline, roleFit } from '../data/site';
+import { withBase } from '../utils/paths';
 ---
 
 <BaseLayout
@@ -26,7 +27,7 @@ import { aboutTimeline, roleFit } from '../data/site';
         <figure class="about-inline-figure">
           <img
             class="about-portrait"
-            src="/assets/ui/2026-03-31__reese-portfolio__asset__v01__reese-public-profile.jpg"
+            src={withBase('/assets/ui/2026-03-31__reese-portfolio__asset__v01__reese-public-profile.jpg')}
             alt="Public profile portrait of Reese Hollister."
           />
           <figcaption class="about-portrait__caption">Profile image previously used on Reese&apos;s public-facing profiles.</figcaption>
@@ -34,7 +35,7 @@ import { aboutTimeline, roleFit } from '../data/site';
         <figure class="about-inline-figure about-inline-figure--secondary">
           <img
             class="about-publication"
-            src="/assets/ui/2026-03-31__reese-portfolio__asset__v01__history-matters-publication-thumb.jpg"
+            src={withBase('/assets/ui/2026-03-31__reese-portfolio__asset__v01__history-matters-publication-thumb.jpg')}
             alt="History Matters publication cover from Reese Hollister's public materials."
           />
           <figcaption class="about-portrait__caption">A publication cover from Reese&apos;s public-facing work.</figcaption>

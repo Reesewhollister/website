@@ -1,15 +1,18 @@
 # Reese Hollister Portfolio
 
-Static Astro portfolio site for Reese Hollister. The site is designed to feel editorial, calm, and distinct rather than template-driven, with case-study pages that foreground research, teaching, and building work.
+Static portfolio site for Reese Hollister. The site is designed to feel editorial, calm, and distinct rather than template-driven, with case-study pages that foreground research, teaching, and building work.
 
 ## Stack
 
-- Astro static site
-- MDX content collection for flagship project case studies
+- Lightweight static build script in `src/build-static.cjs`
+- Astro source files retained for future framework work
+- Canonical project/content data in `src/data/`
 - Self-hosted typography via `@fontsource`
 - No backend, database, or client framework
 
 ## Local Development
+
+Use Node 22. This repo includes `.nvmrc` and `.node-version` so version managers and deployment platforms can pick the intended runtime.
 
 1. Install dependencies:
 
@@ -43,10 +46,24 @@ Static Astro portfolio site for Reese Hollister. The site is designed to feel ed
 
 ## Content and Asset Structure
 
-- `src/content/projects/`
-  - MDX case studies for the four flagship projects.
+- `src/data/projects.ts`
+  - Canonical data for the five current project pages.
 - `src/data/site.ts`
   - Shared site metadata, public profile links, homepage proof blocks, and resume / CV resource slots.
+- `src/content/projects/`
+  - MDX reference copies retained from the Astro pass; the working static build currently uses `src/data/projects.ts`.
+- `CLAUDE.md`
+  - Claude Code standing instructions and local asset access rules.
+- `INDEX.md`
+  - Latest canonical files and output locations.
+- `DESIGN_SYSTEM.md`
+  - Current visual system, asset use, and animation direction.
+- `ASSET_INVENTORY.md`
+  - Current asset audit and curation notes.
+- `TODO_CONTENT.md`
+  - Non-public list of unresolved content items.
+- `design-assets/`
+  - Source/reference assets. Keep originals here instead of publishing them directly.
 - `public/assets/projects/western-sahara/`
   - Imported capstone visuals and one-pager PDF from the approved `Capstone` workspace.
 - `public/assets/ui/`
@@ -58,11 +75,20 @@ Static Astro portfolio site for Reese Hollister. The site is designed to feel ed
 
 ## Updating Content
 
-- Edit homepage, about, resume, and contact copy in the corresponding files under `src/pages/`.
-- Edit case-study frontmatter and narrative content in `src/content/projects/*.mdx`.
+- Edit homepage, about, resume, contact, and shared site copy in `src/data/site.ts` and `src/build-static.cjs`.
+- Edit project case-study data in `src/data/projects.ts`.
+- Keep MDX reference copies in `src/content/projects/*.mdx` synchronized only if returning to the Astro pipeline.
 - Update public links, contact routes, and proof-section content in `src/data/site.ts`.
-- Replace placeholder art with approved public files by copying them into `public/assets/projects/<project>/` or `public/assets/ui/` and updating the MDX frontmatter/component references.
+- Replace temporary art with approved public files by copying them into `public/assets/projects/<project>/` or `public/assets/ui/` and updating `src/data/projects.ts`.
 - Copy for several sections is informed by connected Google Drive source documents, but raw Drive documents are not published by default.
+
+## Vercel Deployment
+
+- Build command: `npm run build`
+- Output directory: `dist`
+- Optional environment variable:
+  - `SITE_URL=https://reesehollister.com`
+- Leave `SITE_BASE_PATH` unset for the root domain.
 
 ## GitHub Pages Deployment
 
@@ -88,8 +114,9 @@ SITE_URL='https://<username>.github.io' npm run build
   - `SITE_URL=https://<your-netlify-domain>`
 - Leave `SITE_BASE_PATH` unset for a root deploy.
 
-## Current TODOs
+## Current Content Gaps
 
-- Export public resume and CV PDFs if you want local downloads instead of the current placeholders.
-- Replace placeholder Huruf La'b and teaching-support visuals with actual project artifacts.
+- Export public resume and CV PDFs if you want local downloads instead of email-request language.
+- Replace temporary Huruf La'b and teaching-support visuals with actual project artifacts.
 - Add more approved public-facing slides, photos, or teaching materials as they are selected.
+- Keep unresolved content details in `TODO_CONTENT.md` rather than showing placeholders on public pages.

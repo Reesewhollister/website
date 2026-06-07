@@ -1,21 +1,41 @@
 ---
-import { getCollection, render } from 'astro:content';
 import ArtifactFigure from '../../components/ArtifactFigure.astro';
+import type { ProjectArtifact } from '../../data/projects';
+import { sortedProjects } from '../../data/projects';
 import ProjectLayout from '../../layouts/ProjectLayout.astro';
 
 export async function getStaticPaths() {
-  const projects = await getCollection('projects');
-  return projects.map((project) => ({
+  return sortedProjects.map((project) => ({
     params: { slug: project.slug },
     props: { project }
   }));
 }
 
 const { project } = Astro.props;
-const { Content } = await render(project);
+
+function renderArtifacts(artifacts: ProjectArtifact[] | undefined) {
+  return artifacts?.map((artifact) => (
+    <ArtifactFigure
+      src={artifact.src}
+      alt={artifact.alt}
+      eyebrow={artifact.eyebrow}
+      caption={artifact.caption}
+    />
+  ));
+}
 ---
 
 <ProjectLayout project={project}>
-  <Content components={{ ArtifactFigure }} />
+  {project.sections.map((section) => (
+    <>
+      <h2>{section.heading}</h2>
+      {section.paragraphs?.map((paragraph) => <p>{paragraph}</p>)}
+      {section.bullets && (
+        <ul>
+          {section.bullets.map((bullet) => <li>{bullet}</li>)}
+        </ul>
+      )}
+      {renderArtifacts(section.artifacts)}
+    </>
+  ))}
 </ProjectLayout>
-

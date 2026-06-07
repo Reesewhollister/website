@@ -3,7 +3,7 @@ export const siteMeta = {
   description:
     'Public website for Reese Hollister — historian, educator, and public scholarship creator working across North Africa, language pedagogy, and historical research.',
   position:
-    'Historian, educator, and public scholarship creator.'
+    'Historian · Educator · Language Learner · Skateboarder'
 };
 
 export const navLinks = [
@@ -118,16 +118,16 @@ export const secondaryWork = [
 
 export const resumeResources = [
   {
-    label: 'Resume PDF',
-    href: '',
+    label: 'Resume PDF available by request',
+    href: '#',
     available: false,
-    note: 'Reserved slot for the final public resume PDF.'
+    note: 'Email for the current resume PDF.'
   },
   {
-    label: 'CV PDF',
-    href: '',
+    label: 'CV PDF available by request',
+    href: '#',
     available: false,
-    note: 'Reserved slot for the final public CV PDF.'
+    note: 'Email for the current academic CV PDF.'
   },
   {
     label: 'Public Site',
@@ -199,25 +199,25 @@ export const researchAreas = [
 
 export const publications = [
   {
-    title: 'TODO: Add title',
+    title: 'Photography, Identity, Power: William Henry Jackson and the American Colonial Gaze',
     venue: 'History Matters',
     year: '2023',
-    href: 'https://ncsu.academia.edu/ReeseHollister',
-    note: 'TODO: Add specific article title and direct link.'
+    href: 'https://sites.google.com/ncsu.edu/reese/history-research',
+    note: 'Citation and abstract are available on the public research archive.'
   },
   {
-    title: 'TODO: Add title',
+    title: 'Lenses, Focus, Fluidity: Lessons From Medieval Queer History',
     venue: 'Gettysburg Historical Journal',
-    year: 'TODO',
-    href: 'https://ncsu.academia.edu/ReeseHollister',
-    note: 'TODO: Add year, title, and direct link.'
+    year: '2022',
+    href: 'https://cupola.gettysburg.edu/ghj/vol21/iss1/6/',
+    note: 'Open-access journal page.'
   },
   {
-    title: 'TODO: Add title',
+    title: 'The Sharpeville Massacre, Violence, and the Struggles of the African National Congress, 1960-1990',
     venue: 'Armstrong Undergraduate Journal of History',
-    year: 'TODO',
-    href: 'https://ncsu.academia.edu/ReeseHollister',
-    note: 'TODO: Add year, title, and direct link.'
+    year: '2023',
+    href: 'https://digitalcommons.georgiasouthern.edu/aujh/vol13/iss1/5/',
+    note: 'Open-access journal page.'
   }
 ];
 
@@ -225,7 +225,7 @@ export const teachingRoles = [
   {
     title: 'Graduate Writing Consultant',
     org: 'NC State Academic Success Center',
-    period: 'TODO: Add dates',
+    period: 'Graduate role',
     summary:
       'Level III CRLA-certified writing consultant providing one-on-one support across disciplines — research papers, graduate applications, argument structure, and academic writing at all levels.',
     skills: ['Writing consultation', 'CRLA Level III', 'Cross-disciplinary support']
@@ -233,7 +233,7 @@ export const teachingRoles = [
   {
     title: 'Graduate Teaching Assistant — PS 331: U.S. Foreign Policy',
     org: 'NC State University',
-    period: 'TODO: Add semesters',
+    period: 'Multiple semesters',
     summary:
       'Teaching assistant for an 80-student lecture course across multiple semesters, supporting instruction, grading, and student advising in international politics and U.S. foreign policy.',
     skills: ['Political science instruction', 'Large-course TA', 'International relations']

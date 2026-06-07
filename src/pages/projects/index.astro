@@ -1,12 +1,10 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
 import { secondaryWork } from '../../data/site';
+import { sortedProjects as projects } from '../../data/projects';
 import { withBase, isExternal } from '../../utils/paths';
-
-const projects = (await getCollection('projects')).sort((left, right) => left.data.sortOrder - right.data.sortOrder);
 ---
 
 <BaseLayout

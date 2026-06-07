@@ -3,6 +3,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import { resumeResources } from '../data/site';
 import { withBase, isExternal } from '../utils/paths';
+
+const visibleResources = resumeResources.filter((resource) => resource.available);
 ---
 
 <BaseLayout
@@ -13,28 +15,24 @@ import { withBase, isExternal } from '../utils/paths';
     <p class="section-kicker">Resume / CV</p>
     <h1>Resume / CV</h1>
     <p class="page-lead">
-      This page offers a short summary of the record, along with links to public materials and reserved spots for the final resume and
-      CV PDFs.
+      This page offers a short summary of the record, along with links to public materials. Current resume and CV PDFs are available
+      by email request.
     </p>
   </section>
 
   <section class="site-shell">
     <SectionHeading eyebrow="Documents" title="Downloads and public links" />
     <ul class="action-list action-list--stacked">
-      {resumeResources.map((resource) => (
+      {visibleResources.map((resource) => (
         <li>
-          {resource.available ? (
-            <a
-              class="resource-link"
-              href={withBase(resource.href)}
-              target={isExternal(resource.href) ? '_blank' : undefined}
-              rel={isExternal(resource.href) ? 'noreferrer' : undefined}
-            >
-              {resource.label}
-            </a>
-          ) : (
-            <span class="resource-link is-disabled">{resource.label}</span>
-          )}
+          <a
+            class="resource-link"
+            href={withBase(resource.href)}
+            target={isExternal(resource.href) ? '_blank' : undefined}
+            rel={isExternal(resource.href) ? 'noreferrer' : undefined}
+          >
+            {resource.label}
+          </a>
           <span class="action-note">{resource.note}</span>
         </li>
       ))}

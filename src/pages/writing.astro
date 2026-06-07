@@ -31,7 +31,7 @@ import { publications, secondaryWork } from '../data/site';
       {publications.map((pub) => (
         <li>
           <a class="resource-link" href={pub.href} target="_blank" rel="noreferrer">{pub.venue}</a>
-          <span class="action-note">{pub.title} {pub.year !== 'TODO' ? `(${pub.year})` : ''}</span>
+          <span class="action-note">{pub.title} ({pub.year})</span>
         </li>
       ))}
     </ul>

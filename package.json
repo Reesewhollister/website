@@ -3,22 +3,26 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "check": "astro check"
+    "dev": "node src/build-static.cjs --serve --watch",
+    "build": "node src/build-static.cjs",
+    "preview": "node src/build-static.cjs --serve",
+    "check": "node src/build-static.cjs --check",
+    "astro:dev": "astro dev",
+    "astro:build": "astro build",
+    "astro:check": "astro check"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.3.0",
     "@fontsource/newsreader": "^5.2.6",
     "@fontsource/source-serif-4": "^5.2.6",
     "@fontsource/work-sans": "^5.2.6",
-    "astro": "^5.6.1"
+    "astro": "5.6.1"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.4",
+    "@astrojs/check": "0.9.4",
     "typescript": "^5.8.3"
   }
 }
-
