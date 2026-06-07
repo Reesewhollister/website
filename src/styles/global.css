@@ -695,6 +695,88 @@ section {
   }
 }
 
+/* ---- Animation: hero entrance + scroll reveal (reduced-motion safe) ---- */
+html.reveal-ready .reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+  will-change: opacity, transform;
+}
+
+html.reveal-ready .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cinematic-hero__kicker {
+    animation: heroRise 0.7s 0.05s both;
+  }
+  .cinematic-hero__title {
+    animation: heroRise 0.85s 0.16s both;
+  }
+  .cinematic-hero__tagline {
+    animation: heroRise 0.85s 0.3s both;
+  }
+  .cinematic-hero__lead {
+    animation: heroRise 0.85s 0.42s both;
+  }
+  .cinematic-hero__actions {
+    animation: heroRise 0.85s 0.54s both;
+  }
+  .cinematic-hero__media img {
+    animation: heroZoom 1.6s ease both;
+  }
+}
+
+@keyframes heroRise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes heroZoom {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* Proof / support cards lift like project cards */
+.proof-card,
+.support-card {
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.proof-card:hover,
+.support-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(0, 97, 145, 0.3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.reveal-ready .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .proof-card,
+  .support-card {
+    transition: none;
+  }
+  .proof-card:hover,
+  .support-card:hover {
+    transform: none;
+  }
+}
+
 [hidden] {
   display: none !important;
 }

@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import SiteFooter from '../components/SiteFooter.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import '../styles/global.css';
@@ -14,7 +15,7 @@ interface Props {
 const {
   title = siteMeta.title,
   description = siteMeta.description,
-  image = '/assets/ui/2026-03-31__reese-portfolio__asset__v02__google-site-welcome-photo.jpg'
+  image = '/assets/ui/chefchaouen-01.jpg'
 } = Astro.props;
 
 const pageTitle = title === siteMeta.title ? title : `${title} | ${siteMeta.title}`;
@@ -42,6 +43,7 @@ const faviconHref = withBase('/assets/ui/favicon.svg');
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <ClientRouter />
   </head>
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
@@ -50,5 +52,39 @@ const faviconHref = withBase('/assets/ui/favicon.svg');
       <slot />
     </main>
     <SiteFooter />
+    <script>
+      // Scroll-reveal for sections. Safe by design: content is only hidden
+      // once JS has run and the user has not requested reduced motion.
+      function setupReveals() {
+        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const sections = Array.from(document.querySelectorAll('main > section'));
+        if (prefersReduced || !('IntersectionObserver' in window)) {
+          sections.forEach((s) => s.classList.add('is-visible'));
+          return;
+        }
+        document.documentElement.classList.add('reveal-ready');
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.06 }
+        );
+        sections.forEach((section) => {
+          // Never hide the cinematic hero (it has its own entrance animation).
+          if (section.classList.contains('cinematic-hero')) {
+            section.classList.add('is-visible');
+            return;
+          }
+          section.classList.add('reveal');
+          io.observe(section);
+        });
+      }
+      document.addEventListener('astro:page-load', setupReveals);
+    </script>
   </body>
 </html>
