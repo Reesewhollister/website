@@ -19,15 +19,15 @@ The site should be credible for PhD admissions committees, employers in educatio
 
 ## Tech Stack
 
-- Working static build script: `src/build-static.cjs`
-- Astro 5 source retained for future framework work
-- TypeScript
-- Canonical content data in `src/data/site.ts` and `src/data/projects.ts`
-- MDX reference copies retained in `src/content/projects/`
-- Custom CSS in `src/styles/global.css`
-- No Tailwind in this project unless the stack is intentionally changed later
-- React islands only for genuinely interactive pieces
-- Motion and Astro View Transitions are reserved for Pass 3 animation work
+- **Astro 5 is the canonical build** (the old `src/build-static.cjs` static generator and the
+  `src/shims/` node_modules patches were removed — they were workarounds for an environment problem).
+- **Location:** the repo lives at `~/dev/reese-portfolio` (moved out of iCloud-synced `~/Documents`,
+  which was evicting `node_modules`/`dist` files and breaking builds). Back up via git/GitHub, not iCloud.
+- **Node 22** is required (pinned via `.nvmrc`/`.node-version`/`engines`); it is the linked Homebrew default.
+- TypeScript; content data in `src/data/site.ts` and `src/data/projects.ts` (canonical source of page content).
+- MDX reference copies retained in `src/content/projects/` (vestigial; pages render from `src/data/`).
+- Custom CSS in `src/styles/global.css`; no Tailwind unless intentionally changed later.
+- React islands only for genuinely interactive pieces; Motion + Astro View Transitions for the animation pass.
 
 ## Design Direction
 
@@ -89,12 +89,11 @@ Pass 3 targets:
 ## Build Commands
 
 ```bash
-npm run dev
-npm run check
-npm run build
-npm run preview
+npm run dev      # astro dev (local dev server, live reload)
+npm run build    # astro build (static output to dist/)
+npm run preview  # astro preview (serve the built dist/)
+npm run check    # astro check (type/template diagnostics)
 ```
 
-These commands use the working static generator. Use `npm run astro:build`, `npm run astro:check`, and `npm run astro:dev` only when intentionally returning to the Astro framework pipeline.
-
-Run `npm run build` before finalizing substantial changes.
+All four are now plain Astro. Run `npm run build` and `npm run check` before finalizing substantial
+changes; both should report 15 pages / 0 errors. Requires Node 22 (`node -v` → v22.x).

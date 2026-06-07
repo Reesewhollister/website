@@ -29,15 +29,16 @@ The site should be credible for:
 
 ## Tech Stack
 
-- Working static build script: `src/build-static.cjs`
-- Astro 5 source retained for future framework work
-- TypeScript
-- Canonical content data in `src/data/site.ts` and `src/data/projects.ts`
-- MDX reference copies retained in `src/content/projects/`
+- **Astro 5 is the canonical build.** Repo at `~/dev/reese-portfolio` (moved out of iCloud-synced
+  `~/Documents` for build stability). Requires **Node 22** (pinned).
+- The former `src/build-static.cjs` static generator and `src/shims/` node_modules patches were removed.
+- TypeScript; canonical content data in `src/data/site.ts` and `src/data/projects.ts`
+- MDX reference copies retained in `src/content/projects/` (vestigial; pages render from `src/data/`)
 - Custom CSS via `src/styles/global.css` (NO Tailwind — existing CSS is intentional)
+- `@astrojs/sitemap` integration enabled
 - React islands only where genuinely interactive
-- Motion (Framer Motion) for animation — Pass 3, not yet added
-- Astro View Transitions — Pass 3, not yet added
+- Motion (Framer Motion) for animation — Pass 3, in progress
+- Astro View Transitions — Pass 3, in progress
 
 ## Design Direction
 
@@ -132,7 +133,7 @@ Current asset/process docs:
 
 - **Pass 1 (done):** Static architecture — pages, routes, content collections, basic layout
 - **Pass 2 (done):** Visual design — typography, color, spacing, cards, images, assets
-- **Current working pass:** Static site is buildable through `src/build-static.cjs`; Astro CLI commands are retained separately but stalled locally during cleanup
+- **Pass A/B (done):** Astro restored as the canonical build; project moved to `~/dev` on Node 22; static generator + node_modules patches removed; cinematic hero ported into `index.astro`; sitemap added
 - **Pass 3 (next):** Animation — restrained hover states and reduced-motion-safe enhancements, after visual QA
 - **Pass 4:** Content migration — MDX content from Google Sites, biography update, typo fixes
 - **Pass 5:** Deployment — build, preview, Vercel, connect reesehollister.com domain
@@ -140,14 +141,14 @@ Current asset/process docs:
 ## Build Commands
 
 ```bash
-npm run dev      # local development
-npm run build    # production build (run before finalizing major changes)
-npm run preview  # local production preview
-npm run check    # static site data/page/asset check
-npm run astro:build # Astro framework build, currently not the reliable path
+npm run dev      # astro dev — local dev server with live reload
+npm run build    # astro build — static output to dist/
+npm run preview  # astro preview — serve the built dist/
+npm run check    # astro check — type/template diagnostics
 ```
 
-Always run `npm run build` before finalizing substantial changes.
+All four are plain Astro now. Run `npm run build` and `npm run check` before finalizing major changes;
+both should report 15 pages / 0 errors. Requires Node 22.
 
 ## Component Rules
 
