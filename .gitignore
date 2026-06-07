@@ -2,6 +2,9 @@ node_modules/
 dist/
 .astro/
 .DS_Store
+.env
+.env.local
+.env.*.local
 
 # Local scratch / drop zone for raw source material (large, reproducible)
 design-assets/incoming/
