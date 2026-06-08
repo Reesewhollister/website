@@ -55,9 +55,9 @@ export const projects: Project[] = [
     featured: true,
     sortOrder: 1,
     heroAsset: {
-      src: '/assets/projects/huruf-lab/huruf-tiles.jpg',
-      alt: "Huruf La'b wooden puzzle tiles forming the Arabic letters Taa and Zaa on a blue board etched with letterforms.",
-      caption: "The Huruf La'b tactile system: laser-cut wooden tiles that snap together to build Arabic letters by hand."
+      src: '/assets/projects/huruf-lab/huruf-brand-board.jpg',
+      alt: "The Huruf La'b board: gold 'Hurūf La'b — Letters · Play' lettering on deep navy, with laser-cut wooden Arabic tiles arranged across it.",
+      caption: "The Huruf La'b tactile system — laser-cut wooden tiles that snap together to build Arabic letters by hand."
     },
     links: [
       {
@@ -99,10 +99,16 @@ export const projects: Project[] = [
         ],
         artifacts: [
           {
-            src: '/assets/projects/huruf-lab/huruf-lab-board.svg',
-            alt: "Concept board showing tactile modules, script logic, and morphology prompts for Huruf La'b.",
+            src: '/assets/projects/huruf-lab/huruf-in-use.jpg',
+            alt: "A laptop showing the Huruf La'b web app beside the physical tile board mid-lesson on a wooden table.",
+            eyebrow: 'Product in use',
+            caption: "The digital and tactile sides of Huruf La'b working together — the web app alongside the physical letter-tile board."
+          },
+          {
+            src: '/assets/projects/huruf-lab/huruf-packaging.jpg',
+            alt: "Huruf La'b 'Letters-Play' Arabic letter puzzle packaging artwork.",
             eyebrow: 'Visual / artifact',
-            caption: 'Editorial concept board marking the prototype logic, morphology pieces, and learner workflow this project is designed to document.'
+            caption: "Product packaging for the Arabic letter-puzzle — part of taking Huruf La'b from prototype to a real learning product."
           }
         ]
       },

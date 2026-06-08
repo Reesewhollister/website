@@ -27,8 +27,12 @@
 - `public/assets/projects/western-sahara/2026-03-31__reese-portfolio__artifact__v01__contract-programmes-diagram.png` - strong but tall; 1654x2339; use as an artifact figure.
 - `public/assets/projects/western-sahara/2026-03-31__reese-portfolio__artifact__v01__dakhla-atlantic-port-photo.jpg` - strong; 1200x675; use in Western Sahara case study.
 - `public/assets/projects/western-sahara/2026-03-31__reese-portfolio__artifact__v01__roads-timeseries-one-pager.pdf` - usable download.
-- `public/assets/projects/huruf-lab/huruf-lab-poster.svg` - usable temporary editorial key art; replace with approved prototype photography later.
-- `public/assets/projects/huruf-lab/huruf-lab-board.svg` - usable temporary concept board.
+- `public/assets/projects/huruf-lab/huruf-brand-board.jpg` - strong; 2000x1151; **current Hurūf La'b project hero** — gold-on-navy "Hurūf La'b — Letters · Play" tile board (real product photo, GPS stripped).
+- `public/assets/projects/huruf-lab/huruf-in-use.jpg` - strong; 1200x1600; web app beside the physical tile board — real artifact replacing the SVG concept board.
+- `public/assets/projects/huruf-lab/huruf-packaging.jpg` - usable; 1400x1400; "Letters-Play" Arabic letter-puzzle packaging art.
+- `public/assets/projects/huruf-lab/huruf-lab-poster.svg` - ORPHANED placeholder (still referenced only by vestigial MDX); superseded by real photos above.
+- `public/assets/projects/huruf-lab/huruf-lab-board.svg` - ORPHANED placeholder; superseded by `huruf-in-use.jpg`.
+- `public/assets/projects/huruf-lab/huruf-tiles.jpg` / `huruf-tile-closeup.jpg` - now orphaned (former hero from a video frame); kept for now, candidate for removal.
 - `public/assets/projects/fulbright-morocco/fulbright-morocco-poster.svg` - usable temporary editorial key art.
 - `public/assets/projects/fulbright-morocco/fulbright-morocco-board.svg` - usable temporary board; replace with fieldwork artifacts later.
 - `public/assets/projects/teaching-writing-support/teaching-support-poster.svg` - usable temporary editorial key art.
