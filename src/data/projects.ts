@@ -309,9 +309,9 @@ export const projects: Project[] = [
     featured: true,
     sortOrder: 4,
     heroAsset: {
-      src: '/assets/ui/2026-03-31__reese-portfolio__asset__v02__google-site-welcome-photo.jpg',
-      alt: "Reese in Morocco in a public photo previously used on his original site.",
-      caption: "Public photo previously used on Reese's original NCSU site."
+      src: '/assets/ui/chefchaouen-03.jpg',
+      alt: 'The blue-washed medina of Chefchaouen below the Rif mountains, northern Morocco.',
+      caption: 'Chefchaouen, northern Morocco — fieldwork during the 2023–24 Fulbright year.'
     },
     links: [
       {
@@ -347,10 +347,10 @@ export const projects: Project[] = [
         ],
         artifacts: [
           {
-            src: '/assets/projects/fulbright-morocco/fulbright-morocco-board.svg',
-            alt: 'Editorial board for Fulbright Morocco fieldwork, teaching, and language study.',
-            eyebrow: 'Visual / artifact',
-            caption: 'Editorial stand-in marking the mix of fieldwork, language study, teaching, and public explanation carried through the Morocco year.'
+            src: '/assets/ui/chefchaouen-02.jpg',
+            alt: 'Rooftops and blue-painted walls of Chefchaouen, with the Rif mountains beyond.',
+            eyebrow: 'Fieldwork',
+            caption: 'Chefchaouen during the Fulbright year — one of the Moroccan sites that shaped this work.'
           }
         ]
       },
