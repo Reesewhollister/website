@@ -27,12 +27,14 @@
 - `public/assets/projects/western-sahara/2026-03-31__reese-portfolio__artifact__v01__contract-programmes-diagram.png` - strong but tall; 1654x2339; use as an artifact figure.
 - `public/assets/projects/western-sahara/2026-03-31__reese-portfolio__artifact__v01__dakhla-atlantic-port-photo.jpg` - strong; 1200x675; use in Western Sahara case study.
 - `public/assets/projects/western-sahara/2026-03-31__reese-portfolio__artifact__v01__roads-timeseries-one-pager.pdf` - usable download.
-- `public/assets/projects/huruf-lab/huruf-brand-board.jpg` - strong; 2000x1151; **current Hurūf La'b project hero** — gold-on-navy "Hurūf La'b — Letters · Play" tile board (real product photo, GPS stripped).
-- `public/assets/projects/huruf-lab/huruf-in-use.jpg` - strong; 1200x1600; web app beside the physical tile board — real artifact replacing the SVG concept board.
-- `public/assets/projects/huruf-lab/huruf-packaging.jpg` - usable; 1400x1400; "Letters-Play" Arabic letter-puzzle packaging art.
-- `public/assets/projects/huruf-lab/huruf-lab-poster.svg` - ORPHANED placeholder (still referenced only by vestigial MDX); superseded by real photos above.
-- `public/assets/projects/huruf-lab/huruf-lab-board.svg` - ORPHANED placeholder; superseded by `huruf-in-use.jpg`.
-- `public/assets/projects/huruf-lab/huruf-tiles.jpg` / `huruf-tile-closeup.jpg` - now orphaned (former hero from a video frame); kept for now, candidate for removal.
+- `public/assets/projects/huruf-lab/huruf-puzzle-stand.jpg` - strong; 2000x1412; **current Hurūf La'b project hero** — laser-cut wooden puzzle ("التمر" / alif laam) on its stand, studio-lit on dark. Source: iCloud `Huruf Lab/HL_images_raw/Scrabble Stand Photos`. GPS verified null.
+- `public/assets/projects/huruf-lab/huruf-tiles-in-play.jpg` - strong; 1800x1200; tiles mid-game with hands only (no faces). Artifact "Product in use". Source: iCloud `Huruf Lab/HL_graphic_design/Garage Event Photos - Edited/Garage Edited 2`.
+- `public/assets/projects/huruf-lab/huruf-puzzle-detail.jpg` - strong; 1600x899; front-on studio detail of the puzzle on its stand. Artifact "Visual / artifact". Source: Scrabble Stand Photos.
+- `public/assets/projects/huruf-lab/huruf-brand-board.jpg` / `huruf-in-use.jpg` / `huruf-packaging.jpg` - SUPERSEDED (prior selection from the Photos album); kept on disk, no longer referenced. Reese preferred the iCloud studio/event photos above.
+- `public/assets/projects/huruf-lab/huruf-lab-poster.svg` - ORPHANED placeholder (still referenced only by vestigial MDX).
+- `public/assets/projects/huruf-lab/huruf-lab-board.svg` - ORPHANED placeholder.
+- `public/assets/projects/huruf-lab/huruf-tiles.jpg` / `huruf-tile-closeup.jpg` - orphaned video-frame stills; candidates for removal.
+- NOTE: Garage Event photos 1 & 3 (`HL_graphic_design/Garage Event Photos - Edited`) show identifiable attendees/founders — deliberately NOT used; only the face-free "Garage Edited 2" was published.
 - `public/assets/projects/fulbright-morocco/fulbright-morocco-poster.svg` - usable temporary editorial key art.
 - `public/assets/projects/fulbright-morocco/fulbright-morocco-board.svg` - usable temporary board; replace with fieldwork artifacts later.
 - `public/assets/projects/teaching-writing-support/teaching-support-poster.svg` - usable temporary editorial key art.

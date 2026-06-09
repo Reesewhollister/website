@@ -55,9 +55,9 @@ export const projects: Project[] = [
     featured: true,
     sortOrder: 1,
     heroAsset: {
-      src: '/assets/projects/huruf-lab/huruf-brand-board.jpg',
-      alt: "The Huruf La'b board: gold 'Hurūf La'b — Letters · Play' lettering on deep navy, with laser-cut wooden Arabic tiles arranged across it.",
-      caption: "The Huruf La'b tactile system — laser-cut wooden tiles that snap together to build Arabic letters by hand."
+      src: '/assets/projects/huruf-lab/huruf-puzzle-stand.jpg',
+      alt: "A Huruf La'b laser-cut wooden puzzle spelling an Arabic word, resting on a matching wooden stand and lit against a dark background.",
+      caption: "The Huruf La'b puzzle — laser-cut wooden tiles that interlock to build Arabic words by hand."
     },
     links: [
       {
@@ -99,16 +99,16 @@ export const projects: Project[] = [
         ],
         artifacts: [
           {
-            src: '/assets/projects/huruf-lab/huruf-in-use.jpg',
-            alt: "A laptop showing the Huruf La'b web app beside the physical tile board mid-lesson on a wooden table.",
+            src: '/assets/projects/huruf-lab/huruf-tiles-in-play.jpg',
+            alt: "Hands reaching across a table covered in scattered Huruf La'b wooden letter tiles during a game.",
             eyebrow: 'Product in use',
-            caption: "The digital and tactile sides of Huruf La'b working together — the web app alongside the physical letter-tile board."
+            caption: "Huruf La'b in play at a launch event — learners building Arabic letters and words from the tactile tiles."
           },
           {
-            src: '/assets/projects/huruf-lab/huruf-packaging.jpg',
-            alt: "Huruf La'b 'Letters-Play' Arabic letter puzzle packaging artwork.",
+            src: '/assets/projects/huruf-lab/huruf-puzzle-detail.jpg',
+            alt: "Close detail of a Huruf La'b laser-cut wooden puzzle spelling an Arabic word on its stand against a dark background.",
             eyebrow: 'Visual / artifact',
-            caption: "Product packaging for the Arabic letter-puzzle — part of taking Huruf La'b from prototype to a real learning product."
+            caption: "A finished puzzle — the interlocking laser-cut tiles that make early Arabic literacy something a learner can handle and test."
           }
         ]
       },
