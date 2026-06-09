@@ -889,6 +889,73 @@ section {
   background: var(--accent-gold);
 }
 
+/* ---- Project slide deck ---- */
+.project-deck {
+  margin-top: var(--space-4);
+}
+
+.project-deck__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.project-deck__head h2 {
+  margin: 0;
+}
+
+.deck-download {
+  margin-left: auto;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--accent-rust);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.deck-download:hover,
+.deck-download:focus-visible {
+  color: var(--accent-gold);
+}
+
+.deck-strip {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 0.25rem 0 1rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.deck-strip:focus-visible {
+  outline: 2px solid var(--accent-map);
+  outline-offset: 3px;
+}
+
+.deck-slide {
+  flex: 0 0 min(90%, 900px);
+  scroll-snap-align: center;
+  margin: 0;
+  border: 1px solid var(--line);
+  background: #241a12;
+}
+
+.deck-slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.deck-hint {
+  margin: 0.25rem 0 0;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
 /* ---- Animation: hero entrance + scroll reveal (reduced-motion safe) ---- */
 html.reveal-ready .reveal {
   opacity: 0;

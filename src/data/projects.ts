@@ -13,6 +13,14 @@ export interface ProjectArtifact {
   caption?: string;
 }
 
+export interface ProjectDeck {
+  title: string;
+  pdf: string;
+  slidePrefix: string;
+  slideExt?: string;
+  slideCount: number;
+}
+
 export interface ProjectSection {
   heading: string;
   paragraphs?: string[];
@@ -40,6 +48,7 @@ export interface Project {
     title?: string;
     description?: string;
   };
+  deck?: ProjectDeck;
   sections: ProjectSection[];
 }
 
@@ -165,6 +174,13 @@ export const projects: Project[] = [
       title: 'Western Sahara Capstone',
       description: "Project profile for Reese Hollister's Western Sahara capstone on roads, sovereignty, and process tracing."
     },
+    deck: {
+      title: 'Capstone presentation — NC State Graduate History Conference, April 2026',
+      pdf: '/assets/projects/western-sahara/capstone-deck.pdf',
+      slidePrefix: '/assets/projects/western-sahara/slides/slide',
+      slideExt: 'jpg',
+      slideCount: 22
+    },
     sections: [
       {
         heading: 'Overview',
@@ -192,24 +208,6 @@ export const projects: Project[] = [
             eyebrow: 'Visual / artifact',
             caption: 'Four cartographic framings of the same territory — a reminder that the map itself is a contested claim.'
           },
-          {
-            src: '/assets/projects/western-sahara/2026-03-31__reese-portfolio__artifact__v01__atlantic-highway-route-map.jpg',
-            alt: 'Map image showing the Atlantic highway corridor to Mauritania.',
-            eyebrow: 'Visual / artifact',
-            caption: 'A corridor visual used to make the north-south integration argument legible at a glance.'
-          },
-          {
-            src: '/assets/projects/western-sahara/2026-03-31__reese-portfolio__artifact__v01__contract-programmes-diagram.png',
-            alt: 'Institutional diagram showing contract-programmes in Morocco.',
-            eyebrow: 'Visual / artifact',
-            caption: 'An institutional diagram that helped connect physical infrastructure to longer state-planning logics.'
-          },
-          {
-            src: '/assets/projects/western-sahara/2026-03-31__reese-portfolio__artifact__v01__dakhla-atlantic-port-photo.jpg',
-            alt: "Photo associated with the Dakhla Atlantic Port development in Morocco's south-facing strategy.",
-            eyebrow: 'Visual / artifact',
-            caption: 'A contemporary infrastructure image that helped connect the historical corridor argument to present-day development strategy.'
-          }
         ]
       },
       {

@@ -12,6 +12,7 @@ const image = project.heroAsset.src;
 const title = project.seo.title ?? project.title;
 const description = project.seo.description ?? project.summary;
 const visibleLinks = project.links.filter((link) => link.available !== false);
+const deck = project.deck;
 ---
 
 <BaseLayout title={title} description={description} image={image}>
@@ -56,6 +57,30 @@ const visibleLinks = project.links.filter((link) => link.available !== false);
         </ul>
       )}
     </section>
+    {deck && (
+      <section class="project-deck site-shell">
+        <div class="project-deck__head">
+          <p class="section-kicker">The deck</p>
+          <h2>{deck.title}</h2>
+          <a class="deck-download" href={withBase(deck.pdf)} target="_blank" rel="noreferrer">Download the full deck (PDF) →</a>
+        </div>
+        <div class="deck-strip" tabindex="0" aria-label={`${deck.title} — slide deck, scroll horizontally to advance`}>
+          {Array.from({ length: deck.slideCount }, (_, i) => {
+            const n = String(i + 1).padStart(2, '0');
+            return (
+              <figure class="deck-slide">
+                <img
+                  src={withBase(`${deck.slidePrefix}-${n}.${deck.slideExt ?? 'jpg'}`)}
+                  alt={`${deck.title} — slide ${i + 1} of ${deck.slideCount}`}
+                  loading="lazy"
+                />
+              </figure>
+            );
+          })}
+        </div>
+        <p class="deck-hint">Scroll or swipe through all {deck.slideCount} slides — or open the full PDF above.</p>
+      </section>
+    )}
     <section class="project-body site-shell prose-shell">
       <slot />
     </section>
