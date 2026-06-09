@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
-import { coachingServices } from '../data/site';
+import { coachingServices, coachingBookingUrl } from '../data/site';
 import { withBase } from '../utils/paths';
 ---
 
@@ -25,7 +25,7 @@ import { withBase } from '../utils/paths';
       I work with students and families across Bucks County, Newtown, Yardley, Richboro, Washington Crossing, and online.
     </p>
     <ul class="home-hero__links">
-      <li><a href={withBase('/contact')}>Book a consultation</a></li>
+      <li><a href={coachingBookingUrl} target="_blank" rel="noreferrer">Book a consultation</a></li>
       <li><a href={withBase('/teaching')}>Full teaching background</a></li>
     </ul>
   </section>
@@ -88,15 +88,27 @@ import { withBase } from '../utils/paths';
     />
     <div class="contact-grid contact-grid--linear">
       <article class="contact-card">
+        <h3>Book online</h3>
+        <p>
+          Book a consultation directly through my scheduling page — pick a time and tell me what your student is working on.
+        </p>
+        <ul class="action-list">
+          <li>
+            <a class="action-link" href={coachingBookingUrl} target="_blank" rel="noreferrer">Book a consultation →</a>
+            <span class="action-note">Online booking and current availability.</span>
+          </li>
+        </ul>
+      </article>
+      <article class="contact-card">
         <h3>Email about a session</h3>
         <p>
-          Send an email with a short description of what you are working on, your timeline, and whether you are looking for a
-          one-time session or ongoing support.
+          Prefer email? Send a short note about what you are working on, your timeline, and whether you want a one-time session or
+          ongoing support.
         </p>
         <ul class="action-list">
           <li>
             <a class="action-link" href="mailto:reesewhollister@gmail.com">reesewhollister@gmail.com</a>
-            <span class="action-note">Primary contact. I respond within one to two business days.</span>
+            <span class="action-note">I respond within one to two business days.</span>
           </li>
         </ul>
       </article>

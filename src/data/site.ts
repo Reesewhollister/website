@@ -12,6 +12,9 @@ export const heroThesis = 'I make complex ideas easier to understand, teach, and
 // Recurring brand thesis — secondary phrasing, still used on the About page.
 export const brandThesis = 'Make difficult ideas clear without making them shallow.';
 
+// External booking page for writing/academic coaching (Square scheduling site).
+export const coachingBookingUrl = 'https://reesehollister.square.site';
+
 export const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About' },
