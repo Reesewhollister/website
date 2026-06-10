@@ -100,17 +100,49 @@ const materialLinks = [
     {videos.length > 0 && (
       <section class="project-videos site-shell" id="video">
         <p class="section-kicker">In motion</p>
-        <div class="project-videos__grid">
-          {videos.map((video) => (
-            <figure class="project-video">
-              {video.mode === 'loop' ? (
-                <video src={withBase(video.src)} poster={withBase(video.poster)} autoplay muted loop playsinline></video>
-              ) : (
-                <video src={withBase(video.src)} poster={withBase(video.poster)} controls preload="none" playsinline></video>
-              )}
-              <figcaption>{video.caption}</figcaption>
-            </figure>
-          ))}
+        <div class={`project-videos__grid project-videos__grid--${videos.length === 1 ? 'solo' : 'pair'}`}>
+          {videos.map((video) => {
+            const dims = getImageDims(video.poster);
+            return (
+              <figure class={`project-video project-video--${video.mode === 'play' ? 'play' : 'loop'}`}>
+                <div class="project-video__frame">
+                  {video.mode === 'play' ? (
+                    <>
+                      <video
+                        src={withBase(video.src)}
+                        poster={withBase(video.poster)}
+                        width={dims?.width}
+                        height={dims?.height}
+                        preload="none"
+                        playsinline
+                      ></video>
+                      <button class="project-video__play" type="button" aria-label="Play video">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                          <path d="M8 5.5v13a1 1 0 0 0 1.5.87l11-6.5a1 1 0 0 0 0-1.74l-11-6.5A1 1 0 0 0 8 5.5Z" />
+                        </svg>
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <video
+                        src={withBase(video.src)}
+                        poster={withBase(video.poster)}
+                        width={dims?.width}
+                        height={dims?.height}
+                        autoplay
+                        muted
+                        loop
+                        playsinline
+                        preload="metadata"
+                      ></video>
+                      <span class="project-video__badge" aria-hidden="true">Loop</span>
+                    </>
+                  )}
+                </div>
+                <figcaption>{video.caption}</figcaption>
+              </figure>
+            );
+          })}
         </div>
       </section>
     )}
@@ -119,3 +151,27 @@ const materialLinks = [
     </section>
   </article>
 </BaseLayout>
+
+<script>
+  // Click-to-play for play-mode project videos: show a styled poster + play
+  // button, then reveal native controls once the user starts the clip. No
+  // browser chrome before play; keeps the section feeling intentional.
+  function setupProjectVideos() {
+    document.querySelectorAll('.project-video--play').forEach((figure) => {
+      const video = figure.querySelector('video');
+      const button = figure.querySelector('.project-video__play');
+      if (!video || !button || figure.dataset.wired === 'true') return;
+      figure.dataset.wired = 'true';
+      const start = () => {
+        figure.classList.add('is-playing');
+        video.setAttribute('controls', '');
+        video.play().catch(() => {});
+      };
+      button.addEventListener('click', start);
+      video.addEventListener('click', () => {
+        if (!figure.classList.contains('is-playing')) start();
+      });
+    });
+  }
+  document.addEventListener('astro:page-load', setupProjectVideos);
+</script>
