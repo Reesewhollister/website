@@ -1,6 +1,6 @@
 ---
 import type { Project } from '../data/projects';
-import { withBase } from '../utils/paths';
+import { withBase, isExternal } from '../utils/paths';
 
 interface Props {
   project: Project;
@@ -9,18 +9,47 @@ interface Props {
 const { project } = Astro.props;
 const href = `/projects/${project.slug}`;
 const heroSrc = withBase(project.heroAsset.src);
+const card = project.card;
+const cardTitle = card?.title ?? project.title;
+const cardSummary = card?.summary ?? project.summary;
+const accent = card?.accent ?? 'rust';
+const materials = card?.materials ?? project.categories;
+const deckHref = `${href}#deck`;
+const secondaryAction = !project.deck ? card?.secondaryAction : undefined;
 ---
 
-<article class="project-card" data-categories={project.categories.join('|')}>
+<article class="project-card" data-categories={project.categories.join('|')} data-accent={accent}>
   <a class="project-card__media" href={withBase(href)}>
     <img src={heroSrc} alt={project.heroAsset.alt} loading="lazy" />
   </a>
   <div class="project-card__body">
     <h3>
-      <a href={withBase(href)}>{project.title}</a>
+      <a href={withBase(href)}>{cardTitle}</a>
     </h3>
     <p class="project-card__meta">{project.categories.join(' / ')}</p>
-    <p>{project.summary}</p>
-    <p class="project-card__role">Role: {project.role}</p>
+    <p>{cardSummary}</p>
+    {materials.length > 0 && (
+      <ul class="project-card__chips" aria-label={`${cardTitle} materials`}>
+        {materials.map((material) => (
+          <li>{material}</li>
+        ))}
+      </ul>
+    )}
+    <div class="project-card__actions">
+      <a href={withBase(href)}>View project</a>
+      {project.deck ? (
+        <a href={withBase(deckHref)}>Open deck</a>
+      ) : (
+        secondaryAction && (
+          <a
+            href={withBase(secondaryAction.href)}
+            target={isExternal(secondaryAction.href) ? '_blank' : undefined}
+            rel={isExternal(secondaryAction.href) ? 'noreferrer' : undefined}
+          >
+            {secondaryAction.label}
+          </a>
+        )
+      )}
+    </div>
   </div>
 </article>

@@ -1,13 +1,13 @@
 export const siteMeta = {
   title: 'Reese Hollister',
   description:
-    'Reese W. Hollister is a historian, educator, and writing consultant based in Bucks County, Pennsylvania. He makes complex ideas easier to understand, teach, and act on — across research, writing, teaching, and digital media.',
+    'Reese W. Hollister is a historian and educator focused on North Africa, postcolonial institutions, decks, datasets, maps, and writing support.',
   position:
-    'Historian · Educator · Language Learner · Skateboarder'
+    'Historian · Educator · Research Builder'
 };
 
 // Core thesis — the prominent hero lead and the through-line for the whole site.
-export const heroThesis = 'I make complex ideas easier to understand, teach, and act on.';
+export const heroThesis = 'Research you can see.';
 
 // Recurring brand thesis — secondary phrasing, still used on the About page.
 export const brandThesis = 'Make difficult ideas clear without making them shallow.';
@@ -17,13 +17,17 @@ export const coachingBookingUrl = 'https://reesehollister.square.site';
 
 export const navLinks = [
   { href: '/', label: 'Home' },
-  { href: '/about', label: 'About' },
-  { href: '/research', label: 'Research' },
   { href: '/projects', label: 'Projects' },
-  { href: '/writing', label: 'Writing' },
-  { href: '/teaching', label: 'Teaching' },
+  { href: '/research', label: 'Research' },
+  { href: '/coaching', label: 'Coaching' },
   { href: '/resume', label: 'CV' },
   { href: '/contact', label: 'Contact' }
+];
+
+export const footerLinks = [
+  { href: '/about', label: 'About' },
+  { href: '/writing', label: 'Writing' },
+  { href: '/teaching', label: 'Teaching' }
 ];
 
 export const homeIntro =
@@ -37,28 +41,24 @@ export const whatIDo = [
 // Proof strip shown directly below the hero.
 export const proofStrip = [
   {
-    label: 'Fulbright U.S. Student Research Grantee — Morocco',
-    detail: 'Historical research in Rabat, Ifrane, and the Middle Atlas.'
+    label: 'Fulbright Morocco',
+    detail: 'Field research, Arabic study, and teaching.'
   },
   {
-    label: 'CRLA Level III Certified Writing Consultant',
-    detail: 'Five years supporting writers from brainstorming through revision.'
+    label: 'M.I.S. · NC State',
+    detail: 'North African studies and international politics.'
   },
   {
-    label: 'Master of International Studies — NC State University',
-    detail: 'Specialization in North African studies.'
+    label: 'CRLA Level III',
+    detail: 'Writing support from blank page to revision.'
   },
   {
-    label: 'Published Historian',
-    detail: 'Research on history, infrastructure, memory, and public institutions.'
+    label: 'Published + Built',
+    detail: 'Articles, decks, datasets, maps, and learning tools.'
   },
   {
-    label: 'Digital History Educator',
-    detail: 'Educational video work bringing researched ideas to wider audiences.'
-  },
-  {
-    label: "Co-Founder, Hurūf Laʿb",
-    detail: 'An Arabic learning product combining language pedagogy, design, and play.'
+    label: 'VenturePack Winner',
+    detail: "$4,000 venture prize for Huruf Lab (NC State, 2026)."
   }
 ];
 
@@ -90,9 +90,9 @@ export const serviceCards = [
 // Parent/student-facing, problem-led coaching CTA for the homepage.
 export const coachingCta = {
   eyebrow: 'For parents and students',
-  title: "A paper is due and the draft isn't landing.",
+  title: 'Writing help when the draft needs structure.',
   body:
-    "Whether your student is staring at a blank page, stuck on a college essay, or revising a research paper the night before it's due, I help them find the argument, fix the structure, and write in their own voice — without taking over the work.",
+    'One-on-one support for college essays, research papers, personal statements, and academic revision.',
   cta: 'Book a consultation',
   href: '/coaching'
 };
@@ -102,7 +102,7 @@ export const contactCta = {
   eyebrow: 'Get in touch',
   title: 'Have a project, a question, or a paper to work on?',
   body:
-    'I work with students, scholars, institutions, and collaborators who need complex material made clear. Tell me what you are working on and what you need it to do.',
+    'For research, collaboration, media, or writing support, send the context and what you need it to do.',
   cta: 'Start a conversation',
   href: '/contact'
 };
@@ -157,19 +157,19 @@ export const proofItems = [
 
 export const aboutTimeline = [
   {
-    period: 'Research training and writing support',
+    period: 'Research and writing support',
     summary:
-      'Undergraduate work in history and international studies overlapped with tutoring, supplemental instruction, and research projects that made pedagogy feel inseparable from scholarship.'
+      'History, international studies, tutoring, and writing consultation developed together.'
   },
   {
     period: 'Fulbright Morocco and language study',
     summary:
-      'A year of Arabic study, field-based research, and teaching in Morocco sharpened Reese\'s focus on North Africa, intercultural work, and the politics of explanation across contexts.'
+      'Arabic study, field research, and teaching in Morocco sharpened the North Africa focus.'
   },
   {
-    period: 'NC State, public scholarship, and product work',
+    period: 'NC State and public scholarship',
     summary:
-      "Graduate work at NC State — culminating in a Master of International Studies in 2026 — alongside public-facing history work and Huruf La'b brought those threads together through case-study research, teaching, and designed learning systems."
+      "Graduate work, public history, and Huruf La'b turned the research into decks, datasets, lessons, and tools."
   }
 ];
 

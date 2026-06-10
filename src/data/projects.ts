@@ -1,9 +1,23 @@
 export interface ProjectLink {
   label: string;
+  shortLabel?: string;
   href: string;
   kind?: 'link' | 'download';
   note?: string;
   available?: boolean;
+}
+
+export type ProjectAccent = 'map' | 'rust' | 'gold' | 'olive';
+
+export interface ProjectCardMeta {
+  title: string;
+  summary: string;
+  accent: ProjectAccent;
+  materials: string[];
+  secondaryAction?: {
+    label: string;
+    href: string;
+  };
 }
 
 export interface ProjectArtifact {
@@ -19,6 +33,13 @@ export interface ProjectDeck {
   slidePrefix: string;
   slideExt?: string;
   slideCount: number;
+}
+
+export interface ProjectVideo {
+  src: string;
+  poster: string;
+  caption: string;
+  mode?: 'loop' | 'play';
 }
 
 export interface ProjectSection {
@@ -48,7 +69,9 @@ export interface Project {
     title?: string;
     description?: string;
   };
+  card?: ProjectCardMeta;
   deck?: ProjectDeck;
+  videos?: ProjectVideo[];
   sections: ProjectSection[];
 }
 
@@ -63,20 +86,46 @@ export const projects: Project[] = [
     skills: ['Pedagogy', 'Product development', 'User research', 'Entrepreneurship', 'Language learning'],
     featured: true,
     sortOrder: 1,
+    card: {
+      title: "Huruf La'b",
+      summary: 'Tactile Arabic puzzle system that turns early script learning into a hands-on classroom routine.',
+      accent: 'gold',
+      materials: ['Award', 'Product', 'Arabic', 'Teaching'],
+      secondaryAction: {
+        label: 'Watch demos',
+        href: 'https://www.youtube.com/channel/UCCRhHuIxYd3wyzYuaCNH3AA/'
+      }
+    },
     heroAsset: {
       src: '/assets/projects/huruf-lab/huruf-puzzle-stand.jpg',
       alt: "A Huruf La'b laser-cut wooden puzzle spelling an Arabic word, resting on a matching wooden stand and lit against a dark background.",
       caption: "The Huruf La'b puzzle — laser-cut wooden tiles that interlock to build Arabic words by hand."
     },
+    videos: [
+      {
+        src: '/assets/projects/huruf-lab/video/blue-tiles-zoom-out.mp4',
+        poster: '/assets/projects/huruf-lab/video/blue-tiles-zoom-out-poster.jpg',
+        caption: "The Huruf La'b tiles in motion — the tactile system the whole project is built around.",
+        mode: 'loop'
+      },
+      {
+        src: '/assets/projects/huruf-lab/video/stop-motion-baa.mp4',
+        poster: '/assets/projects/huruf-lab/video/stop-motion-baa-poster.jpg',
+        caption: "Stop-motion teaching clip: the letter ba' assembling itself — the short-form video format the Huruf La'b channel is built on.",
+        mode: 'play'
+      }
+    ],
     links: [
       {
         label: 'NC State news: "Puzzle project aims to make learning Arabic fun and hands-on"',
+        shortLabel: 'NC State',
         href: 'https://chass.ncsu.edu/news/2026/05/05/puzzle-project-aims-to-make-learning-arabic-a-fun-hands-on-experience/',
         available: true,
         note: 'Press coverage of Huruf La\'b from NC State College of Humanities and Social Sciences.'
       },
       {
         label: "Huruf La'b on YouTube",
+        shortLabel: 'YouTube',
         href: 'https://www.youtube.com/channel/UCCRhHuIxYd3wyzYuaCNH3AA/',
         available: true,
         note: 'Demonstrations and lessons built around the tactile Arabic puzzle system.'
@@ -95,18 +144,18 @@ export const projects: Project[] = [
         ]
       },
       {
-        heading: 'Role',
+        heading: 'What to notice',
         paragraphs: [
-          'Reese helped frame the concept, translate pedagogical friction into design requirements, and treat early prototyping as a research problem rather than a branding exercise.'
-        ]
-      },
-      {
-        heading: 'What I did',
-        paragraphs: [
-          'The first design move was diagnostic: identify which parts of early Arabic instruction remain stubbornly opaque. That meant focusing not only on the alphabet, but on the transition from isolated recognition to compositional understanding.',
-          'Customer discovery sharpened the design. Teacher outreach produced an early email list of more than 100 interested people, including at least two dozen Arabic teachers across the United States, the United Kingdom, and the Arab world.'
+          'The design move was diagnostic: identify where early Arabic instruction stays opaque, then make that structure physical.',
+          "Teacher outreach produced an early email list of more than 100 interested people, including at least two dozen Arabic teachers across the United States, the United Kingdom, and the Arab world. In April 2026, Huruf Lab won a $4,000 prize in NC State's VenturePack Challenge."
         ],
         artifacts: [
+          {
+            src: '/assets/projects/huruf-lab/venturepack-check.jpg',
+            alt: 'Reese Hollister and his co-founder holding an oversized $4,000 check made out to Huruf Lab, winners of the NC State VenturePack Challenge.',
+            eyebrow: 'Award',
+            caption: "Huruf Lab won $4,000 in NC State's VenturePack Challenge (April 2026) — the university's campus-wide venture competition."
+          },
           {
             src: '/assets/projects/huruf-lab/huruf-tiles-in-play.jpg',
             alt: "Hands reaching across a table covered in scattered Huruf La'b wooden letter tiles during a game.",
@@ -124,17 +173,7 @@ export const projects: Project[] = [
       {
         heading: 'Why it matters',
         paragraphs: [
-          'At this stage, the main outcome is a more credible instructional system concept: one that treats Arabic learning as a design problem with specific points of friction rather than as a generic ed-tech opportunity.',
-          "The project demonstrates a habit of mind that carries across Reese's work: when understanding stalls, redesign the conditions of understanding."
-        ]
-      },
-      {
-        heading: 'Skills',
-        bullets: [
-          'Translating learning friction into product requirements',
-          'Designing around embodiment and legibility',
-          'Framing teacher interviews and user research in pedagogical terms',
-          'Holding instructional rigor and public-facing accessibility together'
+          "The project shows a product-development habit that carries across Reese's work: when understanding stalls, redesign the conditions of understanding."
         ]
       }
     ]
@@ -149,6 +188,12 @@ export const projects: Project[] = [
     skills: ['Historical research', 'Process tracing', 'Visual evidence design', 'Data analysis', 'International studies'],
     featured: true,
     sortOrder: 2,
+    card: {
+      title: 'Western Sahara Highways',
+      summary: 'Capstone project showing how roads, logistics, and diplomacy made sovereignty claims more durable.',
+      accent: 'rust',
+      materials: ['Deck', 'Map', 'Timeline', 'Roads']
+    },
     heroAsset: {
       src: '/assets/projects/western-sahara/ws-mural-hero.jpg',
       alt: 'A mural in Sidi Ifni depicting the 1975 Green March — a procession of trucks and marchers beneath the Arabic oath of the march.',
@@ -157,6 +202,7 @@ export const projects: Project[] = [
     links: [
       {
         label: 'Roads-over-time one-pager',
+        shortLabel: 'Roads PDF',
         href: '/assets/projects/western-sahara/2026-03-31__reese-portfolio__artifact__v01__roads-timeseries-one-pager.pdf',
         kind: 'download',
         available: true,
@@ -164,6 +210,7 @@ export const projects: Project[] = [
       },
       {
         label: 'Dual timeline graphic',
+        shortLabel: 'Timeline',
         href: '/assets/projects/western-sahara/2026-03-31__reese-portfolio__artifact__v01__dual-timeline.png',
         kind: 'download',
         available: true,
@@ -190,10 +237,10 @@ export const projects: Project[] = [
         ]
       },
       {
-        heading: 'What I did',
+        heading: 'What to notice',
         paragraphs: [
-          'Reese assembled and organized locally available primary and secondary materials into a usable source base, including diplomatic documents, infrastructure reports, archival maps, and legal or institutional facsimiles.',
-          'He also built a reproducible roads-over-time workflow using OSM relation R2559126 and the ohsome history API for year-end snapshots from 2008 through 2025.'
+          'The deck and figures pair diplomacy with infrastructure instead of treating them as separate stories.',
+          'A roads-over-time workflow using OSM relation R2559126 and the ohsome history API supports year-end snapshots from 2008 through 2025.'
         ],
         artifacts: [
           {
@@ -215,15 +262,6 @@ export const projects: Project[] = [
         paragraphs: [
           'The capstone produced more than a claim. It yielded a reusable evidence set, visual narrative, roads-over-time workflow, and a clearer mechanism for explaining why sovereignty politics cannot be separated from circulation.'
         ]
-      },
-      {
-        heading: 'Skills',
-        bullets: [
-          'Process tracing across diplomatic and infrastructural timelines',
-          'Source synthesis across archival, statistical, and visual materials',
-          'Designing explanatory figures that carry analytical weight',
-          'Turning a research question into a public-facing case study'
-        ]
       }
     ]
   },
@@ -237,6 +275,12 @@ export const projects: Project[] = [
     skills: ['Archival research', 'Digital history', 'Database design', 'Data archaeology', 'Postcolonial history'],
     featured: true,
     sortOrder: 3,
+    card: {
+      title: 'From Colonies to Carriers',
+      summary: 'Digital history project on postcolonial African airlines, sovereignty, and Royal Air Maroc.',
+      accent: 'map',
+      materials: ['Deck', 'Paper', 'Dataset', 'Map']
+    },
     heroAsset: {
       src: '/assets/projects/from-colonies-to-carriers/airlines-title.jpg',
       alt: 'Title artwork for "From Colonies to Carriers: Postcolonial African Airlines" — a stylized airliner tracing a contrail across the African continent.',
@@ -244,19 +288,24 @@ export const projects: Project[] = [
     },
     links: [
       {
-        label: 'Working paper',
-        href: '#',
-        available: false,
-        note: 'Internal resource.'
+        label: 'Working paper excerpt',
+        shortLabel: 'Paper',
+        href: '/assets/projects/from-colonies-to-carriers/2026-06-09__from-colonies-to-carriers__paper__v01__intro-conclusion.pdf',
+        kind: 'download',
+        available: true,
+        note: 'Intro and conclusion from the African airlines research paper.'
       },
       {
-        label: 'Dataset',
-        href: '#',
-        available: false,
-        note: 'Internal resource.'
+        label: 'Guttery airline dataset',
+        shortLabel: 'Dataset',
+        href: '/assets/projects/from-colonies-to-carriers/2026-06-09__from-colonies-to-carriers__dataset__v01__guttery-16-field.csv',
+        kind: 'download',
+        available: true,
+        note: 'Structured 16-field dataset rebuilt from Ben Guttery airline entries.'
       },
       {
         label: 'Academia profile',
+        shortLabel: 'Academia',
         href: 'https://ncsu.academia.edu/ReeseHollister',
         available: true,
         note: 'Research profile and publication trail.'
@@ -266,32 +315,117 @@ export const projects: Project[] = [
       title: 'From Colonies to Carriers',
       description: 'Digital history project on postcolonial African airline development by Reese Hollister.'
     },
+    deck: {
+      title: 'African Airlines presentation',
+      pdf: '/assets/projects/from-colonies-to-carriers/2026-06-09__from-colonies-to-carriers__deck__v01__african-airlines.pdf',
+      slidePrefix: '/assets/projects/from-colonies-to-carriers/slides/slide',
+      slideExt: 'jpg',
+      slideCount: 27
+    },
     sections: [
       {
         heading: 'Overview',
         paragraphs: [
           'When African states achieved independence in the late 1950s and 1960s, establishing a national airline was rarely a matter of economic logic alone. An airline was a flag, a symbol of sovereignty, and a daily assertion that the new state existed and belonged in the world.',
-          'This project traces how those decisions were made, who made them, what they cost, and what they reveal about postcolonial state-building more broadly.'
+          'This project uses Royal Air Maroc as the close case while placing Morocco inside a wider African pattern of national carriers, joint ventures, state backing, foreign capital, and uneven institutional survival.'
         ]
       },
       {
-        heading: 'Case Study: Royal Air Maroc',
+        heading: 'What the deck shows',
         paragraphs: [
-          "The project centers on Royal Air Maroc as a case study in postcolonial institution-building. Morocco nationalized its carrier in 1957, just one year after independence from France.",
-          "RAM's trajectory mirrors patterns visible across the continent while also reflecting Morocco's particular political economy, its relationship with France, and the pressures of building a national institution from colonial infrastructure."
-        ]
-      },
-      {
-        heading: 'Data Archaeology',
-        paragraphs: [
-          'Civil aviation records from this period are scattered across national archives, ICAO documents, colonial administrative files, aviation trade press, and timetable ephemera.',
-          'The project involves systematic reconstruction: identifying sources, cross-referencing discontinuous records, and building a structured dataset from fragmentary evidence.'
+          'The deck carries the argument through the 1957 Air Atlas and Air Maroc merger, ownership changes over time, RAM growth metrics, national-prestige imagery, labor training, and a broader dataset of twentieth-century African airlines.',
+          'The artifact set below pairs the deck with the working atlas, a RAM ridership visual, and a primary-source route map so the page shows the research machinery rather than only describing it.'
+        ],
+        artifacts: [
+          {
+            src: '/assets/projects/from-colonies-to-carriers/2026-06-09__from-colonies-to-carriers__artifact__v01__atlas-panel.png',
+            alt: 'Interactive atlas panel showing African countries shaded by airline count.',
+            eyebrow: 'Digital atlas',
+            caption: 'Atlas panel from the interactive map workflow: a continent-level view of airline density by country.'
+          },
+          {
+            src: '/assets/projects/from-colonies-to-carriers/2026-06-09__from-colonies-to-carriers__artifact__v01__ram-ridership.png',
+            alt: 'Royal Air Maroc ridership data visualization showing growth over time.',
+            eyebrow: 'Data visual',
+            caption: 'Royal Air Maroc ridership visual from the research/video asset set, used to make institutional growth legible.'
+          },
+          {
+            src: '/assets/projects/from-colonies-to-carriers/2026-06-09__from-colonies-to-carriers__artifact__v01__protected-routes-map.png',
+            alt: 'Primary-source map of protected Royal Air Maroc routes in Africa.',
+            eyebrow: 'Source visual',
+            caption: 'Primary-source route map used to connect postcolonial airline policy to the geography of protected routes.'
+          }
         ]
       },
       {
         heading: 'Why it matters',
         paragraphs: [
-          'African airlines were built at a moment when the infrastructure of sovereignty was being assembled from scratch. Understanding those decisions still matters for current discussions about African aviation policy, continental integration, and postcolonial economic development.'
+          'African airlines were built at a moment when the infrastructure of sovereignty was being assembled from scratch. Reading them as institutions, symbols, and data problems at once helps explain why flag carriers mattered even when pure market logic was weak.'
+        ]
+      }
+    ]
+  },
+  {
+    slug: 'tazmamart',
+    title: 'Truth After Tazmamart',
+    summary: "A deck-first research project on Morocco's Equity and Reconciliation Commission, the Years of Lead, and the political logic of transitional justice without punishment.",
+    categories: ['Research', 'Public Scholarship'],
+    pillars: ['Research', 'Building'],
+    role: 'Historical researcher, legal analyst, and documentary storyteller',
+    skills: ['Human rights history', 'International law', 'Transitional justice', 'Morocco', 'Public scholarship'],
+    featured: true,
+    sortOrder: 4,
+    card: {
+      title: 'Truth After Tazmamart',
+      summary: "Deck-first research on Morocco's truth commission, state violence, and justice without punishment.",
+      accent: 'rust',
+      materials: ['Deck', 'Paper', 'Justice']
+    },
+    heroAsset: {
+      src: '/assets/projects/tazmamart/slides/slide-01.jpg',
+      alt: 'Title slide for Truth After Tazmamart: Lawfulness in Morocco\'s Equality and Reconciliation Commission.',
+      caption: 'Title slide from the Truth After Tazmamart presentation on Morocco\'s Equity and Reconciliation Commission.'
+    },
+    links: [
+      {
+        label: 'Truth After Tazmamart paper',
+        shortLabel: 'Paper',
+        href: '/assets/projects/tazmamart/2026-06-09__tazmamart__paper__v01__truth-after-tazmamart.pdf',
+        kind: 'download',
+        available: true,
+        note: "Research paper on lawfulness and Morocco's Equity and Reconciliation Commission."
+      }
+    ],
+    seo: {
+      title: 'Truth After Tazmamart',
+      description: "Project profile for Reese Hollister's research on Tazmamart, Moroccan transitional justice, and public memory."
+    },
+    deck: {
+      title: 'Truth After Tazmamart presentation',
+      pdf: '/assets/projects/tazmamart/2026-06-09__tazmamart__deck__v01__truth-after-tazmamart.pdf',
+      slidePrefix: '/assets/projects/tazmamart/slides/slide',
+      slideExt: 'jpg',
+      slideCount: 20
+    },
+    sections: [
+      {
+        heading: 'Overview',
+        paragraphs: [
+          "Truth After Tazmamart asks why Morocco's Equity and Reconciliation Commission did not name or punish perpetrators after the Years of Lead, even as international human-rights norms moved toward individual accountability.",
+          'The project treats that decision as a legal and political problem: not simply a failure to punish, but a choice about how far a monarchy-led truth process could go while preserving state legitimacy.'
+        ]
+      },
+      {
+        heading: 'What the deck shows',
+        paragraphs: [
+          'The deck introduces the Years of Lead, Tazmamart as a symbol of secret detention and state violence, the rise of international accountability norms, and the ERC mandate in 2004-2005.',
+          'It then frames the central argument: the ERC reduced pressure on the monarchy partly because it pursued public truth, compensation, and institutional repair without directly prosecuting perpetrators.'
+        ]
+      },
+      {
+        heading: 'Why it matters',
+        paragraphs: [
+          'The project sits at the intersection of Moroccan history, international law, and public memory. It shows how transitional justice can produce real testimony and recognition while also protecting the political structures that shaped the violence.'
         ]
       }
     ]
@@ -305,7 +439,17 @@ export const projects: Project[] = [
     role: 'Fulbright researcher, language learner, teacher, and public-facing interpreter',
     skills: ['Fulbright', 'Morocco', 'Arabic', 'French', 'Intercultural work', 'Public-facing scholarship'],
     featured: true,
-    sortOrder: 4,
+    sortOrder: 5,
+    card: {
+      title: 'Fulbright Morocco',
+      summary: 'Fieldwork, language study, and teaching from a Fulbright year in Morocco.',
+      accent: 'olive',
+      materials: ['Fieldwork', 'Arabic', 'Teaching'],
+      secondaryAction: {
+        label: 'Fieldwork archive',
+        href: 'https://sites.google.com/ncsu.edu/reese/welcome?pli=1'
+      }
+    },
     heroAsset: {
       src: '/assets/ui/chefchaouen-03.jpg',
       alt: 'The blue-washed medina of Chefchaouen below the Rif mountains, northern Morocco.',
@@ -314,12 +458,14 @@ export const projects: Project[] = [
     links: [
       {
         label: 'Original Morocco fieldwork page',
+        shortLabel: 'Fieldwork',
         href: 'https://sites.google.com/ncsu.edu/reese/welcome?pli=1',
         available: true,
         note: 'Earlier public-facing record of the Fulbright year, language study, and Morocco-based research.'
       },
       {
         label: 'Teaching Arabic portfolio',
+        shortLabel: 'Arabic teaching',
         href: 'https://sites.google.com/ncsu.edu/reese/teaching-arabic',
         available: true,
         note: "Public teaching page tied to Reese's Arabic pedagogy and Morocco experience."
@@ -338,10 +484,10 @@ export const projects: Project[] = [
         ]
       },
       {
-        heading: 'What I did',
+        heading: 'What to notice',
         paragraphs: [
-          'Under a Fulbright U.S. Student Program grant, Reese moved among Arabic study, historical research, classroom teaching, and outward-facing academic communication.',
-          'He studied Modern Standard Arabic and Moroccan Darija intensively in Rabat while also working across French and Moroccan institutional settings.'
+          'The Fulbright year combined Arabic study, historical research, classroom teaching, and outward-facing academic communication.',
+          'Modern Standard Arabic, Moroccan Darija, French, and Moroccan institutional settings all shaped the work.'
         ],
         artifacts: [
           {
@@ -369,7 +515,17 @@ export const projects: Project[] = [
     role: 'Graduate writing consultant, teaching assistant, learning diagnostician, and instructional designer',
     skills: ['Writing pedagogy', 'Tutoring', 'AI and learning', 'Student support', 'Instructional design'],
     featured: false,
-    sortOrder: 5,
+    sortOrder: 6,
+    card: {
+      title: 'Teaching & Writing Support',
+      summary: 'Writing consultation and teaching support grounded in real learning bottlenecks.',
+      accent: 'gold',
+      materials: ['Teaching', 'Writing', 'Pedagogy'],
+      secondaryAction: {
+        label: 'View coaching',
+        href: '/coaching'
+      }
+    },
     heroAsset: {
       src: '/assets/projects/teaching-writing-support/teaching-presentation.jpg',
       alt: 'Reese teaching at the front of a classroom, presenting to seated students.',
@@ -402,9 +558,9 @@ export const projects: Project[] = [
         ]
       },
       {
-        heading: 'What I did',
+        heading: 'What to notice',
         paragraphs: [
-          'Reese helped students revise, interpret prompts, structure arguments, and recover momentum when learning got stuck.',
+          'The work centers on diagnosis: prompts, arguments, structure, evidence, and the moment a writer loses momentum.',
           'At NC State, that meant graduate writing consultations and repeated teaching support in an 80-student U.S. Foreign Policy course.'
         ],
         artifacts: [

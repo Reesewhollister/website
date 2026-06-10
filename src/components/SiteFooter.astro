@@ -1,29 +1,41 @@
 ---
-import { contactMethods, siteMeta } from '../data/site';
+import { contactMethods, footerLinks, siteMeta } from '../data/site';
 import { withBase, isExternal } from '../utils/paths';
 ---
 
 <footer class="site-footer">
   <div class="site-shell footer-grid">
-    <p class="section-kicker">Contact</p>
-    <ul class="footer-contact-list">
-      {contactMethods.map((item) => (
-        <li>
-          <span class="footer-contact-label">{item.label}</span>
-          {item.available ? (
-            <a
-              href={withBase(item.href)}
-              target={isExternal(item.href) ? '_blank' : undefined}
-              rel={isExternal(item.href) ? 'noreferrer' : undefined}
-            >
-              {item.value}
-            </a>
-          ) : (
-            <span>{item.value}</span>
-          )}
-        </li>
-      ))}
-    </ul>
+    <div>
+      <p class="section-kicker">Contact</p>
+      <ul class="footer-contact-list">
+        {contactMethods.map((item) => (
+          <li>
+            <span class="footer-contact-label">{item.label}</span>
+            {item.available ? (
+              <a
+                href={withBase(item.href)}
+                target={isExternal(item.href) ? '_blank' : undefined}
+                rel={isExternal(item.href) ? 'noreferrer' : undefined}
+              >
+                {item.value}
+              </a>
+            ) : (
+              <span>{item.value}</span>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+    <nav class="footer-nav" aria-label="Support pages">
+      <p class="section-kicker">More</p>
+      <ul class="footer-nav-list">
+        {footerLinks.map((link) => (
+          <li>
+            <a href={withBase(link.href)}>{link.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
     <p class="footer-note">{siteMeta.position}</p>
   </div>
 </footer>

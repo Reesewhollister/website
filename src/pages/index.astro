@@ -2,9 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import SectionHeading from '../components/SectionHeading.astro';
-import { heroThesis, whatIDo, proofStrip, serviceCards, coachingCta, contactCta, siteMeta } from '../data/site';
+import { heroThesis, proofStrip, coachingCta, contactCta, siteMeta } from '../data/site';
 import { featuredProjects, getProjectBySlug } from '../data/projects';
-import { withBase, isExternal } from '../utils/paths';
+import { withBase } from '../utils/paths';
 
 const spotlight = getProjectBySlug('from-colonies-to-carriers');
 const otherProjects = featuredProjects.filter((project) => project.slug !== spotlight?.slug);
@@ -20,17 +20,16 @@ const otherProjects = featuredProjects.filter((project) => project.slug !== spot
       />
     </div>
     <div class="cinematic-hero__inner site-shell">
-      <p class="cinematic-hero__kicker">Reese W. Hollister · Historian of North Africa</p>
+      <p class="cinematic-hero__kicker">Reese W. Hollister · North Africa / Digital Research</p>
       <h1 class="cinematic-hero__title">{heroThesis}</h1>
       <p class="cinematic-hero__tagline">{siteMeta.position}</p>
       <p class="cinematic-hero__lead">
-        Research, writing, teaching, and media — one through-line, from Moroccan mountain towns to African airlines.
+        Decks, datasets, maps, and teaching work from a historian of North Africa and postcolonial institutions.
       </p>
       <ul class="cinematic-hero__actions">
-        <li><a href={withBase('/research')}>View Research</a></li>
-        <li><a href={withBase('/coaching')}>Book a Consultation</a></li>
-        <li><a href="https://www.youtube.com/@HistoricalMethodMan/featured" target="_blank" rel="noreferrer">Watch the Channel</a></li>
-        <li><a href={withBase('/resume')}>Download CV</a></li>
+        <li><a href={withBase('/projects')}>View Projects</a></li>
+        <li><a href={withBase('/research')}>Research</a></li>
+        <li><a href={withBase('/resume')}>CV</a></li>
       </ul>
     </div>
     <span class="cinematic-hero__credit">Chefchaouen, Morocco</span>
@@ -45,39 +44,6 @@ const otherProjects = featuredProjects.filter((project) => project.slug !== spot
         </li>
       ))}
     </ul>
-  </section>
-
-  <section class="site-shell">
-    <SectionHeading
-      eyebrow="What I do"
-      title="From complex material to clear communication"
-    />
-    <div class="prose-shell">
-      {whatIDo.map((paragraph) => <p>{paragraph}</p>)}
-    </div>
-  </section>
-
-  <section class="site-shell">
-    <SectionHeading
-      eyebrow="Work with me"
-      title="Three ways I help"
-    />
-    <div class="pillars-grid">
-      {serviceCards.map((card) => (
-        <article class="pillar-card service-card">
-          <h3>{card.title}</h3>
-          <p>{card.summary}</p>
-          <a
-            class="service-card__cta"
-            href={withBase(card.href)}
-            target={isExternal(card.href) ? '_blank' : undefined}
-            rel={isExternal(card.href) ? 'noreferrer' : undefined}
-          >
-            {card.cta} →
-          </a>
-        </article>
-      ))}
-    </div>
   </section>
 
   {spotlight && (
@@ -106,19 +72,10 @@ const otherProjects = featuredProjects.filter((project) => project.slug !== spot
   )}
 
   <section class="site-shell">
-    <article class="home-cta home-cta--coaching">
-      <p class="section-kicker">{coachingCta.eyebrow}</p>
-      <h2>{coachingCta.title}</h2>
-      <p>{coachingCta.body}</p>
-      <a class="home-cta__button" href={withBase(coachingCta.href)}>{coachingCta.cta} →</a>
-    </article>
-  </section>
-
-  <section class="site-shell">
     <SectionHeading
       eyebrow="Selected work"
-      title="Projects and longer pieces of work"
-      intro="A few of the larger projects that bring these interests together."
+      title="Projects"
+      intro="The strongest work samples: decks, artifacts, research, and teaching tools."
     />
     <div class="project-grid">
       {otherProjects.map((project) => <ProjectCard project={project} />)}
@@ -126,11 +83,16 @@ const otherProjects = featuredProjects.filter((project) => project.slug !== spot
   </section>
 
   <section class="site-shell">
-    <article class="home-cta home-cta--contact">
-      <p class="section-kicker">{contactCta.eyebrow}</p>
-      <h2>{contactCta.title}</h2>
-      <p>{contactCta.body}</p>
-      <a class="home-cta__button" href={withBase(contactCta.href)}>{contactCta.cta} →</a>
+    <article class="compact-cta">
+      <div>
+        <p class="section-kicker">Connect</p>
+        <h2>Research conversation or writing support?</h2>
+        <p>{contactCta.body}</p>
+      </div>
+      <div class="compact-cta__actions">
+        <a href={withBase(contactCta.href)}>{contactCta.cta}</a>
+        <a href={withBase(coachingCta.href)}>{coachingCta.cta}</a>
+      </div>
     </article>
   </section>
 </BaseLayout>

@@ -27,6 +27,17 @@
 - `public/assets/projects/western-sahara/2026-03-31__reese-portfolio__artifact__v01__contract-programmes-diagram.png` - strong but tall; 1654x2339; use as an artifact figure.
 - `public/assets/projects/western-sahara/2026-03-31__reese-portfolio__artifact__v01__dakhla-atlantic-port-photo.jpg` - strong; 1200x675; use in Western Sahara case study.
 - `public/assets/projects/western-sahara/2026-03-31__reese-portfolio__artifact__v01__roads-timeseries-one-pager.pdf` - usable download.
+- `public/assets/projects/from-colonies-to-carriers/airlines-title.jpg` - current From Colonies to Carriers project hero.
+- `public/assets/projects/from-colonies-to-carriers/2026-06-09__from-colonies-to-carriers__deck__v01__african-airlines.pdf` - live self-hosted African Airlines deck; exported from Google Slides; 27 slides.
+- `public/assets/projects/from-colonies-to-carriers/slides/slide-01.jpg` through `slide-27.jpg` - rendered web slide images for the From Colonies to Carriers deck strip; 1500x844 each.
+- `public/assets/projects/from-colonies-to-carriers/2026-06-09__from-colonies-to-carriers__paper__v01__intro-conclusion.pdf` - live paper excerpt download; replaces prior dead Working paper link.
+- `public/assets/projects/from-colonies-to-carriers/2026-06-09__from-colonies-to-carriers__dataset__v01__guttery-16-field.csv` - live 16-field Guttery dataset download; replaces prior dead Dataset link.
+- `public/assets/projects/from-colonies-to-carriers/2026-06-09__from-colonies-to-carriers__artifact__v01__atlas-panel.png` - strong; 2468x1464; interactive atlas panel artifact.
+- `public/assets/projects/from-colonies-to-carriers/2026-06-09__from-colonies-to-carriers__artifact__v01__ram-ridership.png` - strong; 2222x1236; RAM ridership data visual.
+- `public/assets/projects/from-colonies-to-carriers/2026-06-09__from-colonies-to-carriers__artifact__v01__protected-routes-map.png` - usable source visual; resized to 2400x2175; primary-source route map artifact.
+- `public/assets/projects/tazmamart/2026-06-09__tazmamart__deck__v01__truth-after-tazmamart.pdf` - live self-hosted Truth After Tazmamart deck; exported from Google Slides; 20 slides.
+- `public/assets/projects/tazmamart/slides/slide-01.jpg` through `slide-20.jpg` - rendered web slide images for the Tazmamart deck strip; 1500x844 each. `slide-01.jpg` is the new project hero.
+- `public/assets/projects/tazmamart/2026-06-09__tazmamart__paper__v01__truth-after-tazmamart.pdf` - live paper download for the Tazmamart project page.
 - `public/assets/projects/huruf-lab/huruf-puzzle-stand.jpg` - strong; 2000x1412; **current Hurūf La'b project hero** — laser-cut wooden puzzle ("التمر" / alif laam) on its stand, studio-lit on dark. Source: iCloud `Huruf Lab/HL_images_raw/Scrabble Stand Photos`. GPS verified null.
 - `public/assets/projects/huruf-lab/huruf-tiles-in-play.jpg` - strong; 1800x1200; tiles mid-game with hands only (no faces). Artifact "Product in use". Source: iCloud `Huruf Lab/HL_graphic_design/Garage Event Photos - Edited/Garage Edited 2`.
 - `public/assets/projects/huruf-lab/huruf-puzzle-detail.jpg` - strong; 1600x899; front-on studio detail of the puzzle on its stand. Artifact "Visual / artifact". Source: Scrabble Stand Photos.
@@ -48,12 +59,13 @@
 
 ---
 
-# External Source Assets Discovered (2026-06-06 audit — NOT yet imported)
+# External Source Assets Discovered (2026-06-06 audit — source tracking)
 
 Audit across Google Drive + local disk + iCloud. These are *source* assets; nothing has been
 copied into the portfolio yet. Verify licensing before publishing any third-party map/photo.
 
 ## From Colonies to Carriers / African Airlines (digital history)
+- IMPORTED 2026-06-09: Google Slides deck, rendered deck slides, intro/conclusion PDF, 16-field dataset, atlas panel, RAM ridership visual, and protected-routes source map now live under `public/assets/projects/from-colonies-to-carriers/`.
 - **African Airlines title slide** — `~/Library/Mobile Documents/com~apple~CloudDocs/Writing/From_Colonies_to_Carriers/African Airlines Presentation.png` (960x540). Designed cover: Africa silhouette + plane + contrail. Bright orange/blue — OFF the muted portfolio palette; usable only if recolored. Reviewed.
 - **Interactive atlas map** — `.../From_Colonies_to_Carriers/.playwright-cli/atlas-panel-a.png` (2468x1464) + sibling page-*.png screenshots. Cream choropleth "Airline Count" map (Natural Earth boundaries); palette MATCHES portfolio. Reviewed. Strong card/hero candidate once a clean full-continent frame is captured.
 - **Interactive map (live HTML)** — `.../From_Colonies_to_Carriers/Maps/2026-06-04__from-colonies-to-carriers__interactive-map__v02__youtube-ready.html` + `africa_map_ONLINE_SINGLE-*.html`. Embeddable / screenshot source.
@@ -69,7 +81,8 @@ copied into the portfolio yet. Verify licensing before publishing any third-part
 - **Capstone paper** — `.../Morocco_Ifrane_Tazmamart/Highways, Territory, and Sovereignty - How Morocco Gained Control Over Western Sahara.docx` (source for case-study copy + figures).
 - NOTE: portfolio already holds strong WS artifacts (dual-timeline, atlantic-highway-route-map, dakhla port photo, contract-programmes diagram) listed above.
 
-## Tazmamart (Morocco human-rights history + documentary) — NOT currently a portfolio project
+## Tazmamart (Morocco human-rights history + documentary)
+- IMPORTED 2026-06-09: Tazmamart is now a live deck-first project with the Google Slides deck, rendered slides, and research paper under `public/assets/projects/tazmamart/`. Documentary footage remains unpublished in this pass.
 - **Research paper** — "Truth After Tazmamart: Lawfulness in Morocco's Equity and Reconciliation Commission" (PDF, multiple copies; PS 531). 
 - **Presentation** — Drive "Truth After Tazmamart" (22MB pptx, id 1VcTE6Zdwma0jZlY0F30Ybi1mZxrAaPg0S8G7MQPW_pc).
 - **Documentary footage** — `~/Library/.../Writing/iCloud/Tazmamart/Video/` (Tazmamart Video 1/2/3.mov + "First Half"). Filmmaker credential — strongest argument for a dedicated project page.

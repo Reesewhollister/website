@@ -13,6 +13,14 @@ const title = project.seo.title ?? project.title;
 const description = project.seo.description ?? project.summary;
 const visibleLinks = project.links.filter((link) => link.available !== false);
 const deck = project.deck;
+const videos = project.videos ?? [];
+const materialLinks = [
+  ...(deck ? [{ label: 'Deck', href: '#deck' }] : []),
+  ...visibleLinks.map((link) => ({
+    label: link.shortLabel ?? link.label,
+    href: link.href
+  }))
+];
 ---
 
 <BaseLayout title={title} description={description} image={image}>
@@ -39,26 +47,28 @@ const deck = project.deck;
           <p>{project.skills.join(', ')}</p>
         </li>
       </ul>
-      {visibleLinks.length > 0 && (
-        <ul class="action-list">
-          {visibleLinks.map((link) => (
+      {materialLinks.length > 0 && (
+        <nav class="materials-rail" aria-label="Open project materials">
+          <span class="materials-rail__label">Open materials</span>
+          <ul>
+          {materialLinks.map((link) => (
             <li>
               <a
-                class="action-link"
+                class="materials-rail__link"
                 href={withBase(link.href)}
                 target={isExternal(link.href) ? '_blank' : undefined}
                 rel={isExternal(link.href) ? 'noreferrer' : undefined}
               >
                 {link.label}
               </a>
-              {link.note && <span class="action-note">{link.note}</span>}
             </li>
           ))}
-        </ul>
+          </ul>
+        </nav>
       )}
     </section>
     {deck && (
-      <section class="project-deck site-shell">
+      <section class="project-deck site-shell" id="deck">
         <div class="project-deck__head">
           <p class="section-kicker">The deck</p>
           <h2>{deck.title}</h2>
@@ -79,6 +89,23 @@ const deck = project.deck;
           })}
         </div>
         <p class="deck-hint">Scroll or swipe through all {deck.slideCount} slides — or open the full PDF above.</p>
+      </section>
+    )}
+    {videos.length > 0 && (
+      <section class="project-videos site-shell" id="video">
+        <p class="section-kicker">In motion</p>
+        <div class="project-videos__grid">
+          {videos.map((video) => (
+            <figure class="project-video">
+              {video.mode === 'loop' ? (
+                <video src={withBase(video.src)} poster={withBase(video.poster)} autoplay muted loop playsinline></video>
+              ) : (
+                <video src={withBase(video.src)} poster={withBase(video.poster)} controls preload="none" playsinline></video>
+              )}
+              <figcaption>{video.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
       </section>
     )}
     <section class="project-body site-shell prose-shell">

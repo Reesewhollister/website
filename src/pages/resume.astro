@@ -8,20 +8,19 @@ const visibleResources = resumeResources.filter((resource) => resource.available
 ---
 
 <BaseLayout
-  title="Resume / CV"
+  title="CV"
   description="Selected highlights, live public-profile links, and future resume / CV download slots for Reese Hollister."
 >
   <section class="page-hero site-shell">
-    <p class="section-kicker">Resume / CV</p>
-    <h1>Resume / CV</h1>
+    <p class="section-kicker">CV</p>
+    <h1>CV</h1>
     <p class="page-lead">
-      A short summary of the work across research, teaching, and building — with links to public profiles. Current resume and CV PDFs
-      are available by email request.
+      Selected credentials and public profile links. Current resume and CV PDFs are available by email request.
     </p>
   </section>
 
   <section class="site-shell">
-    <SectionHeading eyebrow="Documents" title="Downloads and public links" />
+    <SectionHeading eyebrow="Profiles" title="Public profiles" />
     <ul class="action-list action-list--stacked">
       {visibleResources.map((resource) => (
         <li>
@@ -43,7 +42,7 @@ const visibleResources = resumeResources.filter((resource) => resource.available
     <SectionHeading
       eyebrow="Selected Highlights"
       title="Selected highlights"
-      intro="A few of the main throughlines in the work."
+      intro="The strongest credentials by area."
     />
     <div class="resume-highlight-grid">
       <article class="resume-card">

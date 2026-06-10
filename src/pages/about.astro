@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
-import { aboutTimeline, roleFit } from '../data/site';
+import { aboutTimeline } from '../data/site';
 import { withBase } from '../utils/paths';
 ---
 
@@ -15,12 +15,10 @@ import { withBase } from '../utils/paths';
         <p class="section-kicker">About</p>
         <h1>About Reese Hollister</h1>
         <p class="page-lead">
-          I work across historical research, international studies, teaching, writing support, language learning, and public-facing
-          projects.
+          Reese Hollister is a historian and educator focused on North Africa, postcolonial institutions, and writing support.
         </p>
         <p>
-          What ties these areas together is a steady interest in explanation: how people understand difficult material, how a research
-          question becomes legible, and how public-facing work can stay serious without becoming inaccessible.
+          This site is organized around work samples: decks, datasets, maps, teaching, and public writing.
         </p>
       </div>
       <div class="about-hero__media">
@@ -32,23 +30,15 @@ import { withBase } from '../utils/paths';
           />
           <figcaption class="about-portrait__caption">Profile image previously used on Reese&apos;s public-facing profiles.</figcaption>
         </figure>
-        <figure class="about-inline-figure about-inline-figure--secondary">
-          <img
-            class="about-publication"
-            src={withBase('/assets/ui/2026-03-31__reese-portfolio__asset__v01__history-matters-publication-thumb.jpg')}
-            alt="History Matters publication cover from Reese Hollister's public materials."
-          />
-          <figcaption class="about-portrait__caption">A publication cover from Reese&apos;s public-facing work.</figcaption>
-        </figure>
       </div>
     </div>
   </section>
 
   <section class="site-shell">
     <SectionHeading
-      eyebrow="Path"
-      title="Path"
-      intro="The path makes more sense through the work than through labels."
+      eyebrow="Background"
+      title="Three context points"
+      intro="A short frame for the project work."
     />
     <ol class="timeline-list">
       {aboutTimeline.map((item) => (
@@ -58,20 +48,5 @@ import { withBase } from '../utils/paths';
         </li>
       ))}
     </ol>
-  </section>
-
-  <section class="site-shell">
-    <SectionHeading
-      eyebrow="Fit"
-      title="Kinds of work that fit best"
-      intro="The best fit is work that needs intellectual precision and audience awareness at the same time."
-    />
-    <ul class="roles-list">
-      {roleFit.map((item) => (
-        <li>
-          <p>{item}</p>
-        </li>
-      ))}
-    </ul>
   </section>
 </BaseLayout>
