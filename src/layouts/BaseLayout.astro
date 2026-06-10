@@ -34,6 +34,7 @@ const faviconHref = withBase('/assets/ui/favicon.svg');
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href={faviconHref} />
+    <link rel="apple-touch-icon" sizes="180x180" href={withBase('/assets/ui/apple-touch-icon.png')} />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
@@ -43,6 +44,26 @@ const faviconHref = withBase('/assets/ui/favicon.svg');
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: 'Reese W. Hollister',
+      url: siteUrl.toString(),
+      image: new URL(withBase('/assets/ui/chefchaouen-01.jpg'), siteUrl).toString(),
+      jobTitle: 'Historian and Educator',
+      description: 'Historian of North Africa, writing coach, and educational media maker.',
+      alumniOf: {
+        '@type': 'CollegeOrUniversity',
+        name: 'North Carolina State University'
+      },
+      knowsLanguage: ['English', 'Arabic', 'French'],
+      knowsAbout: ['North African history', 'Morocco', 'Western Sahara', 'Postcolonial institutions', 'Arabic language education', 'Academic writing'],
+      sameAs: [
+        'https://ncsu.academia.edu/ReeseHollister',
+        'https://www.youtube.com/channel/UCCRhHuIxYd3wyzYuaCNH3AA/',
+        'https://github.com/Reesewhollister'
+      ]
+    })} />
     <ClientRouter />
   </head>
   <body>

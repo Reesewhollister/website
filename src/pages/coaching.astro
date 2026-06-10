@@ -6,9 +6,36 @@ import { withBase } from '../utils/paths';
 ---
 
 <BaseLayout
-  title="Writing Coaching"
-  description="One-on-one writing coaching with Reese Hollister — college essays, research papers, personal statements, and academic writing support for high school and college students."
+  title="Writing Coaching in Bucks County, PA"
+  description="One-on-one writing coaching in Bucks County, PA and online — college essays, research papers, and personal statements with Reese Hollister, a CRLA Level III certified writing consultant serving Newtown, Yardley, Richboro, and Washington Crossing."
 >
+  <script type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Writing coaching and academic tutoring',
+    name: 'Writing Coaching with Reese Hollister',
+    description:
+      'One-on-one writing coaching for college essays, research papers, personal statements, and academic writing, from high school through graduate school. In person in Bucks County, Pennsylvania, or online.',
+    url: 'https://reesehollister.com/coaching/',
+    provider: {
+      '@type': 'Person',
+      name: 'Reese W. Hollister',
+      url: 'https://reesehollister.com/',
+      hasCredential: 'CRLA Level III certified writing consultant'
+    },
+    areaServed: [
+      { '@type': 'Place', name: 'Bucks County, PA' },
+      { '@type': 'Place', name: 'Newtown, PA' },
+      { '@type': 'Place', name: 'Yardley, PA' },
+      { '@type': 'Place', name: 'Richboro, PA' },
+      { '@type': 'Place', name: 'Washington Crossing, PA' },
+      { '@type': 'Place', name: 'Online' }
+    ],
+    audience: {
+      '@type': 'EducationalAudience',
+      educationalRole: 'student'
+    }
+  })} />
   <section class="page-hero site-shell">
     <p class="section-kicker">Writing Coaching</p>
     <h1>Writing Coaching</h1>

@@ -2,6 +2,7 @@
 import type { Project } from '../data/projects';
 import BaseLayout from './BaseLayout.astro';
 import { withBase, isExternal } from '../utils/paths';
+import { getImageDims } from '../utils/imageDims';
 
 interface Props {
   project: Project;
@@ -30,7 +31,12 @@ const materialLinks = [
       <h1>{project.title}</h1>
       <p class="project-hero__summary">{project.summary}</p>
       <figure class="project-hero__media">
-        <img src={withBase(project.heroAsset.src)} alt={project.heroAsset.alt} />
+        <img
+          src={withBase(project.heroAsset.src)}
+          alt={project.heroAsset.alt}
+          width={getImageDims(project.heroAsset.src)?.width}
+          height={getImageDims(project.heroAsset.src)?.height}
+        />
         {project.heroAsset.caption && <figcaption>{project.heroAsset.caption}</figcaption>}
       </figure>
       <ul class="project-hero__meta">

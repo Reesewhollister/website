@@ -338,7 +338,7 @@ export const projects: Project[] = [
         ],
         artifacts: [
           {
-            src: '/assets/projects/from-colonies-to-carriers/2026-06-09__from-colonies-to-carriers__artifact__v01__atlas-panel.png',
+            src: '/assets/projects/from-colonies-to-carriers/2026-06-09__from-colonies-to-carriers__artifact__v01__atlas-panel.jpg',
             alt: 'Interactive atlas panel showing African countries shaded by airline count.',
             eyebrow: 'Digital atlas',
             caption: 'Atlas panel from the interactive map workflow: a continent-level view of airline density by country.'
@@ -350,7 +350,7 @@ export const projects: Project[] = [
             caption: 'Royal Air Maroc ridership visual from the research/video asset set, used to make institutional growth legible.'
           },
           {
-            src: '/assets/projects/from-colonies-to-carriers/2026-06-09__from-colonies-to-carriers__artifact__v01__protected-routes-map.png',
+            src: '/assets/projects/from-colonies-to-carriers/2026-06-09__from-colonies-to-carriers__artifact__v01__protected-routes-map.jpg',
             alt: 'Primary-source map of protected Royal Air Maroc routes in Africa.',
             eyebrow: 'Source visual',
             caption: 'Primary-source route map used to connect postcolonial airline policy to the geography of protected routes.'

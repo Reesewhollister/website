@@ -1,5 +1,6 @@
 ---
 import { withBase } from '../utils/paths';
+import { getImageDims } from '../utils/imageDims';
 
 interface Props {
   src: string;
@@ -9,10 +10,11 @@ interface Props {
 }
 
 const { src, alt, caption, eyebrow } = Astro.props;
+const dims = getImageDims(src);
 ---
 
 <figure class="artifact-figure">
-  <img src={withBase(src)} alt={alt} loading="lazy" />
+  <img src={withBase(src)} alt={alt} loading="lazy" width={dims?.width} height={dims?.height} />
   {(caption || eyebrow) && (
     <figcaption>
       {eyebrow && <span class="artifact-figure__eyebrow">{eyebrow}</span>}

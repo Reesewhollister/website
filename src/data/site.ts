@@ -1,7 +1,7 @@
 export const siteMeta = {
   title: 'Reese Hollister',
   description:
-    'Reese W. Hollister is a historian and educator focused on North Africa, postcolonial institutions, decks, datasets, maps, and writing support.',
+    'Reese W. Hollister is a historian of North Africa who turns research into things you can see — decks, datasets, maps, and lessons — and coaches students to write with clarity.',
   position:
     'Historian · Educator · Research Builder'
 };

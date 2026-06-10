@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://reesehollister.com/sitemap-index.xml
