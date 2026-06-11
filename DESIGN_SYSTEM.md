@@ -33,6 +33,15 @@ CTA hover); clay + blue + espresso on cream carry the serious core.
   deck — `public/assets/projects/western-sahara/ws-mural-hero.jpg`. Case-study artifacts include
   the dual-track timeline and the four-panel "Where is Western Sahara?" map (also from the deck).
 - **Hurūf La'b**: the gold-on-blue laʿb brand mark — `public/assets/projects/huruf-lab/huruf-logo.jpg`.
+- **Fulbright Morocco**: real fieldwork photography now carries this project instead of placeholder
+  SVGs. Hero is the Essaouira Atlantic harbor (`atlantic-harbor-essaouira.jpg`); the "What to notice"
+  mosaic pairs place and evidence — the painted Sahara border map (`merzouga-sahara-map.jpg`), Jebel
+  Shams in Oman (`jebel-shams-oman.jpg`), the Essaouira rampart wall (`essaouira-atlantic-wall.jpg`),
+  and two archive-grounding shots sourced from the Substack fieldwork dispatches: the Mohammed VI
+  Library display case at Al-Akhawayn University (`aui-archive-display-web.jpg`) and the AUI campus
+  (`aui-campus-reese-web.jpg`). The two AUI images were downsized from ~4MB originals to 1200px-wide
+  web copies with `sharp`. These connect the project's stated archive (colonial-era postcards, letters,
+  advertisements, maps) to a verifiable physical research site.
 - Source decks rasterized with `pdftoppm` from `design-assets/incoming/capstone-slides.pdf`.
 
 ## Typography
