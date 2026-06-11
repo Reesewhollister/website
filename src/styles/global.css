@@ -272,6 +272,19 @@ section {
     background-clip: text;
     padding-bottom: 0.04em;
   }
+
+  .section-heading h2 {
+    background: linear-gradient(
+      100deg,
+      var(--ink) 0%,
+      var(--ink) 58%,
+      color-mix(in srgb, var(--accent-rust) 48%, var(--ink)) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    padding-bottom: 0.04em;
+  }
 }
 
 .home-hero__intro,
@@ -696,7 +709,7 @@ section {
 }
 
 .site-footer {
-  border-top: 1px solid var(--line);
+  border-top: 2px solid color-mix(in srgb, var(--accent-rust) 48%, var(--line));
   margin-top: var(--space-6);
   padding: 1.5rem 0 2.5rem;
 }
@@ -737,6 +750,61 @@ section {
 .footer-nav-list a:focus-visible {
   color: var(--accent-rust);
   text-decoration: underline;
+}
+
+.footer-coords {
+  color: var(--ink-soft);
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.74rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  opacity: 0.62;
+}
+
+.footer-coords::before {
+  content: ' · ';
+  opacity: 0.6;
+}
+
+/* ---- Pillar card hover ---- */
+.pillar-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.pillar-card:hover {
+  border-color: var(--accent-map);
+  box-shadow: 0 10px 28px -14px rgba(40, 29, 21, 0.22);
+  transform: translateY(-4px);
+}
+
+/* ---- Action list stacked — hover accent row ---- */
+.action-list--stacked li {
+  border-left: 3px solid transparent;
+  border-radius: 0 0.25rem 0.25rem 0;
+  padding: 0.2rem 0.4rem 0.2rem 0.75rem;
+  margin-left: -0.75rem;
+  transition: background 0.2s ease, border-left-color 0.2s ease;
+}
+
+.action-list--stacked li:hover {
+  background: color-mix(in srgb, var(--accent-map) 7%, transparent);
+  border-left-color: var(--accent-map);
+}
+
+.action-list--stacked li:hover .resource-link,
+.action-list--stacked li:hover .action-link {
+  color: var(--accent-map);
+  text-decoration-color: var(--accent-map);
+}
+
+/* ---- Proof strip item hover lift ---- */
+.proof-strip__item {
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.proof-strip__item:hover {
+  box-shadow: 0 6px 18px -10px rgba(40, 29, 21, 0.22);
+  transform: translateY(-2px);
 }
 
 /* Project card — subtle hover lift + image treatment */
@@ -874,6 +942,27 @@ section {
   letter-spacing: 0;
   margin: 1.05rem 0 0;
   color: rgba(255, 247, 236, 0.94);
+}
+
+.cinematic-hero__tagline::after {
+  background: linear-gradient(90deg, var(--accent-gold), var(--accent-rust) 60%, transparent);
+  content: '';
+  display: block;
+  height: 2px;
+  margin-top: 0.3rem;
+  opacity: 0.78;
+  transform-origin: left;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cinematic-hero__tagline::after {
+    animation: taglineBar 0.85s cubic-bezier(0.77, 0, 0.175, 1) 0.44s both;
+  }
+}
+
+@keyframes taglineBar {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }
 
 .cinematic-hero__lead {
@@ -1123,6 +1212,35 @@ section {
   padding-bottom: 0.9rem;
 }
 
+/* ---- Atlas grid section decoration ---- */
+.section-atlas-deco {
+  height: 260px;
+  mix-blend-mode: multiply;
+  opacity: 0.2;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 260px;
+}
+
+.section-atlas-deco--left {
+  left: 0;
+  right: auto;
+  opacity: 0.14;
+}
+
+.research-agenda-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.home-cta-section {
+  position: relative;
+  overflow: hidden;
+}
+
 /* ---- Brand thesis ---- */
 .brand-thesis {
   font-family: 'Newsreader', Georgia, serif;
@@ -1295,6 +1413,10 @@ section {
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
+.compact-cta__actions a {
+  border-radius: 0.25rem;
+}
+
 .compact-cta__actions a:first-child {
   background: var(--accent-rust);
   border-color: var(--accent-rust);
@@ -1351,13 +1473,26 @@ section {
   color: var(--paper);
   background: var(--accent-rust);
   text-decoration: none;
-  border-radius: 2px;
-  transition: background 0.2s ease;
+  border-radius: 0.25rem;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.home-cta__button::after {
+  content: ' →';
+  display: inline-block;
+  transition: transform 0.2s ease;
 }
 
 .home-cta__button:hover,
 .home-cta__button:focus-visible {
   background: var(--accent-gold);
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--accent-rust) 28%, transparent);
+  transform: translateY(-2px);
+}
+
+.home-cta__button:hover::after,
+.home-cta__button:focus-visible::after {
+  transform: translateX(3px);
 }
 
 /* ---- Project slide deck ---- */
@@ -1690,6 +1825,16 @@ html.reveal-ready .reveal.is-visible {
     animation: dotPop 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) 2.2s both;
   }
 
+  /* Proof strip entrance stagger */
+  .proof-strip__item {
+    animation: heroRise 0.65s ease both;
+  }
+  .proof-strip__item:nth-child(1) { animation-delay: 0.12s; }
+  .proof-strip__item:nth-child(2) { animation-delay: 0.21s; }
+  .proof-strip__item:nth-child(3) { animation-delay: 0.3s; }
+  .proof-strip__item:nth-child(4) { animation-delay: 0.39s; }
+  .proof-strip__item:nth-child(5) { animation-delay: 0.48s; }
+
   /* Research agenda chips pop in */
   .research-agenda__chips li:nth-child(1) {
     animation: chipPop 0.36s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s both;
@@ -1826,6 +1971,32 @@ html.reveal-ready .reveal.is-visible {
   .page-hero .page-lead,
   .page-hero > p:not(.section-kicker):not(.page-lead) {
     animation: none;
+  }
+  .proof-strip__item {
+    animation: none;
+  }
+  .cinematic-hero__tagline::after {
+    animation: none;
+    transform: scaleX(1);
+  }
+  .pillar-card,
+  .proof-strip__item,
+  .action-list--stacked li {
+    transition: none;
+  }
+  .pillar-card:hover,
+  .proof-strip__item:hover {
+    transform: none;
+  }
+  .home-cta__button,
+  .home-cta__button::after {
+    transition: none;
+  }
+  .home-cta__button:hover {
+    transform: none;
+  }
+  .home-cta__button:hover::after {
+    transform: none;
   }
 }
 
