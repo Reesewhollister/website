@@ -280,6 +280,25 @@ section {
   z-index: 3;
 }
 
+/* Site-shell sections with a backdrop read as a media band: rounded frame,
+   breathing room so the footage shows around the content. */
+.home-cta-section.has-video-backdrop,
+.about-fieldwork-section.has-video-backdrop {
+  border: 1px solid rgba(59, 46, 31, 0.12);
+  border-radius: 0.5rem;
+  margin-top: var(--space-5);
+  padding: var(--space-5) clamp(1rem, 3vw, 2rem);
+}
+
+/* Over moving footage the CTA card goes lighter and lets the scrim carry
+   contrast; blur keeps the text crisp against motion. */
+.has-video-backdrop .compact-cta {
+  backdrop-filter: blur(6px);
+  background:
+    linear-gradient(135deg, var(--accent-olive-wash), rgba(255, 252, 247, 0.62) 44%, var(--accent-map-wash)),
+    rgba(255, 252, 247, 0.58);
+}
+
 .home-hero__layout,
 .about-hero__layout {
   align-items: start;
@@ -822,18 +841,27 @@ section {
   border-radius: 0 0.25rem 0.25rem 0;
   padding: 0.2rem 0.4rem 0.2rem 0.75rem;
   margin-left: -0.75rem;
-  transition: background 0.2s ease, border-left-color 0.2s ease;
+  transition: background 0.2s ease, border-left-color 0.2s ease, transform 0.2s ease;
 }
 
 .action-list--stacked li:hover {
   background: color-mix(in srgb, var(--accent-map) 7%, transparent);
   border-left-color: var(--accent-map);
+  transform: translateX(4px);
 }
 
 .action-list--stacked li:hover .resource-link,
 .action-list--stacked li:hover .action-link {
   color: var(--accent-map);
   text-decoration-color: var(--accent-map);
+}
+
+.action-list--stacked .action-note {
+  transition: color 0.2s ease;
+}
+
+.action-list--stacked li:hover .action-note {
+  color: var(--ink);
 }
 
 /* ---- Proof strip item hover lift ---- */
@@ -2170,8 +2198,14 @@ html.reveal-ready .reveal.is-visible {
     transition: none;
   }
   .pillar-card:hover,
-  .proof-strip__item:hover {
+  .proof-strip__item:hover,
+  .action-list--stacked li:hover {
     transform: none;
+  }
+  /* Decorative backdrop footage stops for reduced-motion users; the scrim
+     and section background carry the design on their own. */
+  .video-backdrop {
+    display: none;
   }
   .home-cta__button,
   .home-cta__button::after {

@@ -55,6 +55,7 @@ const materialLinks = [
             loop
             playsinline
             preload="none"
+            poster={project.heroVideoPoster ? withBase(project.heroVideoPoster) : undefined}
             src={withBase(project.heroVideo)}
           ></video>
           <div class="video-backdrop-scrim"></div>
@@ -220,7 +221,7 @@ const materialLinks = [
   // button, then reveal native controls once the user starts the clip. No
   // browser chrome before play; keeps the section feeling intentional.
   function setupProjectVideos() {
-    document.querySelectorAll('.project-video--play').forEach((figure) => {
+    document.querySelectorAll<HTMLElement>('.project-video--play').forEach((figure) => {
       const video = figure.querySelector('video');
       const button = figure.querySelector('.project-video__play');
       if (!video || !button || figure.dataset.wired === 'true') return;

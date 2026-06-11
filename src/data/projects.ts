@@ -81,6 +81,7 @@ export interface Project {
   videos?: ProjectVideo[];
   ytVideos?: ProjectYtVideo[];
   heroVideo?: string;
+  heroVideoPoster?: string;
   sections: ProjectSection[];
 }
 
@@ -492,6 +493,27 @@ export const projects: Project[] = [
       caption: 'Merzouga, Morocco — the Sahara edge. Fieldwork during the 2023–24 Fulbright year trained a reading of mobility at multiple scales: roads, routes, archives, airlines, and everyday movement.'
     },
     heroVideo: '/assets/projects/fulbright-morocco/video/hassan-ii-bg.mp4',
+    heroVideoPoster: '/assets/projects/fulbright-morocco/video/hassan-ii-bg-poster.jpg',
+    videos: [
+      {
+        src: '/assets/projects/fulbright-morocco/video/hassan-ii-mosque.mp4',
+        poster: '/assets/projects/fulbright-morocco/video/hassan-ii-mosque-poster.jpg',
+        caption: 'Hassan II Mosque, Casablanca — fieldwork footage from the Fulbright year, the Atlantic-facing monument at the center of modern Moroccan state imagery.',
+        mode: 'play'
+      },
+      {
+        src: '/assets/projects/fulbright-morocco/video/morocco-1700.mp4',
+        poster: '/assets/projects/fulbright-morocco/video/morocco-1700-poster.jpg',
+        caption: 'Field footage from Morocco — movement through the landscapes and built environments that anchored the research year.',
+        mode: 'play'
+      },
+      {
+        src: '/assets/projects/fulbright-morocco/video/morocco-1955.mp4',
+        poster: '/assets/projects/fulbright-morocco/video/morocco-1955-poster.jpg',
+        caption: 'Morocco in motion — a looping field scene from the 2023–24 Fulbright fieldwork archive.',
+        mode: 'loop'
+      }
+    ],
     links: [
       {
         label: 'Original Morocco fieldwork page',

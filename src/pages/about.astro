@@ -77,7 +77,18 @@ import { withBase } from '../utils/paths';
     </ul>
   </section>
 
-  <section class="site-shell about-fieldwork-section">
+  <section class="site-shell about-fieldwork-section has-video-backdrop">
+    <video
+      class="video-backdrop"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="none"
+      poster={withBase('/assets/projects/fulbright-morocco/video/morocco-scene-bg-poster.jpg')}
+      src={withBase('/assets/projects/fulbright-morocco/video/morocco-scene-bg.mp4')}
+    ></video>
+    <div class="video-backdrop-scrim"></div>
     <SectionHeading
       eyebrow="Fieldwork"
       title="Morocco, 2023–24"
