@@ -21,6 +21,14 @@ const researchProjects = [
   description="Historical and political research by Reese Hollister — North Africa, postcolonial African institutions, French institutional history, and digital history methodology."
   image="/assets/fieldwork/og/og-research.jpg"
 >
+  <script type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://reesehollister.com' },
+      { '@type': 'ListItem', position: 2, name: 'Research', item: 'https://reesehollister.com/research' }
+    ]
+  })} slot="head" />
   <section class="page-hero site-shell">
     <div class="research-hero-bg" aria-hidden="true">
       <svg
@@ -77,7 +85,17 @@ const researchProjects = [
     </figure>
   </section>
 
-  <section class="site-shell research-agenda-section" aria-labelledby="research-agenda-heading">
+  <section class="site-shell research-agenda-section has-video-backdrop" aria-labelledby="research-agenda-heading">
+    <video
+      class="video-backdrop"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="none"
+      src={withBase('/assets/research/morocco-field-bg.mp4')}
+    ></video>
+    <div class="video-backdrop-scrim"></div>
     <img class="section-atlas-deco" src={withBase('/assets/ui/atlas-grid.svg')} alt="" aria-hidden="true" width="260" height="260" />
     <div class="research-agenda">
       <p id="research-agenda-heading" class="section-kicker">Research agenda</p>

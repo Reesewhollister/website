@@ -42,6 +42,13 @@ export interface ProjectVideo {
   mode?: 'loop' | 'play';
 }
 
+export interface ProjectYtVideo {
+  ytId: string;
+  title: string;
+  caption?: string;
+  aspect?: 'portrait' | 'landscape';
+}
+
 export interface ProjectSection {
   heading: string;
   paragraphs?: string[];
@@ -72,6 +79,8 @@ export interface Project {
   card?: ProjectCardMeta;
   deck?: ProjectDeck;
   videos?: ProjectVideo[];
+  ytVideos?: ProjectYtVideo[];
+  heroVideo?: string;
   sections: ProjectSection[];
 }
 
@@ -97,10 +106,30 @@ export const projects: Project[] = [
       }
     },
     heroAsset: {
-      src: '/assets/projects/huruf-lab/huruf-puzzle-stand.jpg',
-      alt: "A Huruf La'b laser-cut wooden puzzle spelling an Arabic word, resting on a matching wooden stand and lit against a dark background.",
-      caption: "The Huruf La'b puzzle — laser-cut wooden tiles that interlock to build Arabic words by hand."
+      src: '/assets/projects/huruf-lab/huruf-tiles-hero.webp',
+      alt: "Huruf La'b Arabic letter tiles — close view of the hand-crafted wooden tiles that form the core of the tactile learning system.",
+      caption: "The Huruf La'b tile system — every tile is a character form a learner can touch, move, and combine."
     },
+    ytVideos: [
+      {
+        ytId: 'LAC1ZccTSk0',
+        title: "Huruf La'b in motion",
+        caption: 'Short-form demo: the tiles assembled and in use.',
+        aspect: 'portrait'
+      },
+      {
+        ytId: 'JJDS0yMyJgU',
+        title: "Arabic script — hands-on",
+        caption: 'Building Arabic letter forms from the tactile pieces.',
+        aspect: 'portrait'
+      },
+      {
+        ytId: 'rL2kn87Bz2M',
+        title: "Letter by letter",
+        caption: "How the puzzle system turns script literacy into a physical routine.",
+        aspect: 'portrait'
+      }
+    ],
     videos: [
       {
         src: '/assets/projects/huruf-lab/video/blue-tiles-zoom-out.mp4',
@@ -462,6 +491,7 @@ export const projects: Project[] = [
       alt: 'The Sahara dunes near Merzouga, Morocco — sweeping sand ridges with camels at the base, a landscape tied to mobility and fieldwork.',
       caption: 'Merzouga, Morocco — the Sahara edge. Fieldwork during the 2023–24 Fulbright year trained a reading of mobility at multiple scales: roads, routes, archives, airlines, and everyday movement.'
     },
+    heroVideo: '/assets/projects/fulbright-morocco/video/hassan-ii-bg.mp4',
     links: [
       {
         label: 'Original Morocco fieldwork page',
@@ -489,6 +519,26 @@ export const projects: Project[] = [
       title: 'Fulbright Morocco / International Research & Teaching',
       description: "Project profile for Reese Hollister's Morocco-based research, teaching, and language-learning work."
     },
+    ytVideos: [
+      {
+        ytId: 'dcMU990QZew',
+        title: 'Morocco — field footage',
+        caption: 'Documentary footage from the Fulbright year in Morocco.',
+        aspect: 'landscape'
+      },
+      {
+        ytId: 'wiq-s7y4Jss',
+        title: 'Morocco & U.S. History: Through the Decades',
+        caption: 'Event presentation on the arc of U.S.–Morocco relations and historical contact.',
+        aspect: 'landscape'
+      },
+      {
+        ytId: 'yM_sz5yexpo',
+        title: 'Fulbright fieldwork',
+        caption: 'Field video from the 2023–24 Fulbright year — Morocco, research, and movement.',
+        aspect: 'landscape'
+      }
+    ],
     sections: [
       {
         heading: 'Overview',
