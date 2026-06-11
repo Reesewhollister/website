@@ -8,7 +8,25 @@ import { withBase } from '../utils/paths';
 <BaseLayout
   title="Teaching"
   description="Teaching portfolio for Reese Hollister — Arabic instruction, writing consultation, political science TA work, and student-centered pedagogy."
+  image="/assets/fieldwork/og/og-teaching.jpg"
 >
+  <script type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://reesehollister.com' },
+      { '@type': 'ListItem', position: 2, name: 'Teaching', item: 'https://reesehollister.com/teaching' }
+    ]
+  })} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'EducationalOccupationalCredential',
+    name: 'CRLA Level III Certified Writing Consultant',
+    description: 'College Reading and Learning Association Level III certification for advanced writing consultation — the highest CRLA tutor certification level.',
+    credentialCategory: 'certification',
+    recognizedBy: { '@type': 'Organization', name: 'College Reading and Learning Association (CRLA)' },
+    holder: { '@type': 'Person', name: 'Reese W. Hollister', url: 'https://reesehollister.com' }
+  })} slot="head" />
   <section class="page-hero site-shell">
     <p class="section-kicker">Teaching</p>
     <h1>Teaching</h1>
