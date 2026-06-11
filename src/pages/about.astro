@@ -1,13 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
-import { aboutTimeline } from '../data/site';
+import { aboutTimeline, partnerInstitutions } from '../data/site';
 import { withBase } from '../utils/paths';
 ---
 
 <BaseLayout
   title="About"
   description="About Reese Hollister: a scholar-builder working across historical research, international studies, pedagogy, and learning design."
+  image="/assets/fieldwork/og/og-about.jpg"
 >
   <section class="page-hero site-shell">
     <div class="about-hero__layout">
@@ -25,10 +26,10 @@ import { withBase } from '../utils/paths';
         <figure class="about-inline-figure">
           <img
             class="about-portrait"
-            src={withBase('/assets/ui/2026-03-31__reese-portfolio__asset__v01__reese-public-profile.jpg')}
-            alt="Public profile portrait of Reese Hollister."
+            src={withBase('/assets/fieldwork/cards/reese-aui-portrait-4x5.webp')}
+            alt="Reese Hollister outside Al Akhawayn University in Ifrane, Morocco."
           />
-          <figcaption class="about-portrait__caption">Profile image previously used on Reese&apos;s public-facing profiles.</figcaption>
+          <figcaption class="about-portrait__caption">Al Akhawayn University, Ifrane, Morocco — Fulbright research base, 2023–24.</figcaption>
         </figure>
       </div>
     </div>
@@ -48,5 +49,65 @@ import { withBase } from '../utils/paths';
         </li>
       ))}
     </ol>
+  </section>
+
+  <section class="site-shell about-partners-section">
+    <SectionHeading
+      eyebrow="Affiliations"
+      title="Partner institutions"
+      intro="Programs, universities, and organizations I have worked with as a researcher, teacher, and scholar."
+    />
+    <ul class="partners-strip">
+      {partnerInstitutions.map((inst) => (
+        <li class="partner-item">
+          <a href={inst.href} target="_blank" rel="noreferrer" class="partner-link" aria-label={inst.name}>
+            <img
+              src={withBase(inst.logo)}
+              alt={inst.name}
+              class="partner-logo"
+              width="180"
+              height="52"
+              loading="lazy"
+            />
+          </a>
+          <p class="partner-role">{inst.role}</p>
+          <p class="partner-period">{inst.period}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="site-shell about-fieldwork-section">
+    <SectionHeading
+      eyebrow="Fieldwork"
+      title="Morocco, 2023–24"
+      intro="Fieldwork images from the Fulbright year — North Africa as a research site, not just a destination."
+    />
+    <div class="about-fieldwork-grid">
+      <figure>
+        <img
+          src={withBase('/assets/fieldwork/heroes/chefchaouen-blue-plaza-hero-16x9.webp')}
+          alt="The blue medina of Chefchaouen, Morocco — narrow streets and blue-washed buildings."
+          loading="lazy"
+        />
+        <figcaption>Chefchaouen — fieldwork site and visual language study.</figcaption>
+      </figure>
+      <figure>
+        <img
+          src={withBase('/assets/fieldwork/cards/mohammed-vi-library-aui-card-4x3.webp')}
+          alt="Mohammed VI Library at Al Akhawayn University, Ifrane, Morocco — the archival research base."
+          loading="lazy"
+        />
+        <figcaption>Mohammed VI Library, AUI — primary archival research site.</figcaption>
+      </figure>
+      <figure>
+        <img
+          src={withBase('/assets/fieldwork/heroes/merzouga-dunes-camels-hero-16x9.webp')}
+          alt="The Sahara dunes near Merzouga, Morocco, with camels and desert landscape."
+          loading="lazy"
+        />
+        <figcaption>Merzouga, Sahara — reading mobility and landscape in the research frame.</figcaption>
+      </figure>
+    </div>
   </section>
 </BaseLayout>

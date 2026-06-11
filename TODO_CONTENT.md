@@ -7,6 +7,13 @@ These items should be resolved before a final public launch. They are tracked he
 - Add direct links for every publication currently routed through the old research archive.
 - Decide whether to include the full undergraduate publication list or only a curated selected list.
 - Add any post-2023 publications or presentations only after verifying exact titles, venues, dates, and links.
+- DONE (2026-06-11): Added a dedicated `presentations` array + "Conference talks & presentations"
+  section on Research and Writing pages. Currently lists two verified talks — the H-Grad/H-Net
+  Lightning Talk "Occidentalism & Selfhood" (2023, sourced from the Substack post) and the Western
+  Sahara capstone at the NC State Graduate History Conference. Conference talks are kept separate
+  from the peer-reviewed `publications` list so a lightning talk is never mislabeled as a journal article.
+- Verify and add the From Colonies to Carriers and Truth After Tazmamart presentation venues/dates
+  before listing them as formal presentations (decks exist; venues not yet documented).
 
 ## Resume / CV
 
@@ -25,7 +32,10 @@ These items should be resolved before a final public launch. They are tracked he
 - Truth After Tazmamart now has a self-hosted deck, rendered slides, and paper in `public/assets/projects/tazmamart/`.
 - Add source assets to `design-assets/` before any further visual redesign.
 - Add Google Sites screenshots to `design-assets/google-sites-screenshots/`.
-- Replace temporary Huruf La'b, Fulbright Morocco, and teaching-support SVGs with approved real artifacts when available.
+- Fulbright Morocco now uses real fieldwork photography (Essaouira harbor hero + a six-image mosaic
+  including the AUI Mohammed VI Library archive display and AUI campus, sourced from the Substack
+  dispatches). The placeholder SVG for this project is retired.
+- Replace temporary Huruf La'b and teaching-support SVGs with approved real artifacts when available.
 
 ## Content Migration
 

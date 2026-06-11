@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
-import { publications, secondaryWork } from '../data/site';
+import { publications, presentations, secondaryWork, substackPosts } from '../data/site';
+import { withBase } from '../utils/paths';
 ---
 
 <BaseLayout
@@ -39,6 +40,26 @@ import { publications, secondaryWork } from '../data/site';
 
   <section class="site-shell">
     <SectionHeading
+      eyebrow="Presentations"
+      title="Conference talks & presentations"
+      intro="Talks delivered at academic conferences and graduate research events."
+    />
+    <ul class="action-list action-list--stacked">
+      {presentations.map((talk) => (
+        <li>
+          {talk.internal ? (
+            <a class="resource-link" href={withBase(talk.href)}>{talk.venue}</a>
+          ) : (
+            <a class="resource-link" href={talk.href} target="_blank" rel="noreferrer">{talk.venue}</a>
+          )}
+          <span class="action-note">{talk.title} ({talk.year})</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="site-shell">
+    <SectionHeading
       eyebrow="Public Scholarship"
       title="Public-facing writing and media"
       intro="Writing and video work designed to reach audiences beyond the seminar room."
@@ -53,6 +74,30 @@ import { publications, secondaryWork } from '../data/site';
         </article>
       ))}
     </div>
+  </section>
+
+  <section class="site-shell">
+    <SectionHeading
+      eyebrow="Newsletter"
+      title="Fieldwork & scholarship dispatches"
+      intro="Public writing from the field, the classroom, and the research desk — on Substack since 2023."
+    />
+    <ul class="action-list action-list--stacked">
+      {substackPosts.map((post) => (
+        <li>
+          <a class="resource-link" href={post.href} target="_blank" rel="noreferrer">
+            {post.title} — {post.year}
+          </a>
+          <span class="action-note">{post.subtitle}</span>
+        </li>
+      ))}
+      <li>
+        <a class="resource-link" href="https://reesewhollister.substack.com" target="_blank" rel="noreferrer">
+          Full archive on Substack
+        </a>
+        <span class="action-note">All dispatches — Morocco, Oman, teaching, research, and public scholarship writing since 2023.</span>
+      </li>
+    </ul>
   </section>
 
   <section class="site-shell">

@@ -1,0 +1,11 @@
+<svg width="200" height="60" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fulbright Program">
+  <!-- Stylized F mark -->
+  <rect x="0" y="8" width="32" height="44" rx="3" fill="#1B4172"/>
+  <rect x="6" y="16" width="18" height="3.5" rx="1" fill="#fff"/>
+  <rect x="6" y="24" width="14" height="3.5" rx="1" fill="#fff"/>
+  <rect x="6" y="32" width="8" height="3.5" rx="1" fill="#fff"/>
+  <rect x="6" y="22" width="3.5" height="18" rx="1" fill="#fff"/>
+  <!-- FULBRIGHT wordmark -->
+  <text x="40" y="28" font-family="Georgia, 'Times New Roman', serif" font-size="17" font-weight="700" fill="#1B4172" letter-spacing="2">FULBRIGHT</text>
+  <text x="40" y="46" font-family="Arial, Helvetica, sans-serif" font-size="9.5" fill="#1B4172" letter-spacing="1.5" opacity="0.72">U.S. EXCHANGE PROGRAM</text>
+</svg>

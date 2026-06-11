@@ -190,7 +190,7 @@ export const projects: Project[] = [
     sortOrder: 2,
     card: {
       title: 'Western Sahara Highways',
-      summary: 'Capstone project showing how roads, logistics, and diplomacy made sovereignty claims more durable.',
+      summary: 'Research on how highways, logistics corridors, and territorial administration helped Morocco convert claims over Western Sahara into durable control.',
       accent: 'rust',
       materials: ['Deck', 'Map', 'Timeline', 'Roads']
     },
@@ -277,7 +277,7 @@ export const projects: Project[] = [
     sortOrder: 3,
     card: {
       title: 'From Colonies to Carriers',
-      summary: 'Digital history project on postcolonial African airlines, sovereignty, and Royal Air Maroc.',
+      summary: 'Dataset and digital history project tracing how newly independent African states used national airlines and route networks to make sovereignty operational — with Royal Air Maroc as the close case.',
       accent: 'map',
       materials: ['Deck', 'Paper', 'Dataset', 'Map']
     },
@@ -302,6 +302,13 @@ export const projects: Project[] = [
         kind: 'download',
         available: true,
         note: 'Structured 16-field dataset rebuilt from Ben Guttery airline entries.'
+      },
+      {
+        label: 'Newsletter: Promoting a Project',
+        shortLabel: 'Newsletter',
+        href: 'https://reesewhollister.substack.com/p/promoting-a-project',
+        available: true,
+        note: 'Substack post introducing the From Colonies to Carriers research project and the airline dataset.'
       },
       {
         label: 'Academia profile',
@@ -377,7 +384,7 @@ export const projects: Project[] = [
     sortOrder: 4,
     card: {
       title: 'Truth After Tazmamart',
-      summary: "Deck-first research on Morocco's truth commission, state violence, and justice without punishment.",
+      summary: "Research on Tazmamart, Morocco's Equity and Reconciliation Commission, and the political limits of truth-seeking when accountability remains constrained.",
       accent: 'rust',
       materials: ['Deck', 'Paper', 'Justice']
     },
@@ -442,7 +449,7 @@ export const projects: Project[] = [
     sortOrder: 5,
     card: {
       title: 'Fulbright Morocco',
-      summary: 'Fieldwork, language study, and teaching from a Fulbright year in Morocco.',
+      summary: 'Fieldwork and language-study archive from a Fulbright year in Morocco — connecting archival research practice, Arabic and Darija study, and public historical interpretation.',
       accent: 'olive',
       materials: ['Fieldwork', 'Arabic', 'Teaching'],
       secondaryAction: {
@@ -451,9 +458,9 @@ export const projects: Project[] = [
       }
     },
     heroAsset: {
-      src: '/assets/ui/chefchaouen-03.jpg',
-      alt: 'The blue-washed medina of Chefchaouen below the Rif mountains, northern Morocco.',
-      caption: 'Chefchaouen, northern Morocco — fieldwork during the 2023–24 Fulbright year.'
+      src: '/assets/fieldwork/heroes/merzouga-dunes-camels-hero-16x9.webp',
+      alt: 'The Sahara dunes near Merzouga, Morocco — sweeping sand ridges with camels at the base, a landscape tied to mobility and fieldwork.',
+      caption: 'Merzouga, Morocco — the Sahara edge. Fieldwork during the 2023–24 Fulbright year trained a reading of mobility at multiple scales: roads, routes, archives, airlines, and everyday movement.'
     },
     links: [
       {
@@ -469,6 +476,13 @@ export const projects: Project[] = [
         href: 'https://sites.google.com/ncsu.edu/reese/teaching-arabic',
         available: true,
         note: "Public teaching page tied to Reese's Arabic pedagogy and Morocco experience."
+      },
+      {
+        label: 'Fieldwork dispatches on Substack',
+        shortLabel: 'Dispatches',
+        href: 'https://reesewhollister.substack.com',
+        available: true,
+        note: 'Newsletter archive of Morocco and Oman fieldwork — settling in, teaching, travel, and language study.'
       }
     ],
     seo: {
@@ -491,10 +505,40 @@ export const projects: Project[] = [
         ],
         artifacts: [
           {
-            src: '/assets/ui/chefchaouen-02.jpg',
-            alt: 'Rooftops and blue-painted walls of Chefchaouen, with the Rif mountains beyond.',
-            eyebrow: 'Fieldwork',
-            caption: 'Chefchaouen during the Fulbright year — one of the Moroccan sites that shaped this work.'
+            src: '/assets/projects/fulbright-morocco/atlantic-harbor-essaouira.jpg',
+            alt: 'Blue fishing boats moored in the Atlantic harbor at Essaouira, Morocco.',
+            eyebrow: 'Fieldwork / place',
+            caption: 'Essaouira harbor — Atlantic Morocco as a site of movement, trade, and historical circulation.'
+          },
+          {
+            src: '/assets/projects/fulbright-morocco/merzouga-sahara-map.jpg',
+            alt: 'Illustrated map of the Moroccan Sahara showing the Erfoud, Rissani, Merzouga, and Taouz region, with painted camels, Tuareg figures, and the Hamada de Guir desert plateau labeled in French.',
+            eyebrow: 'Fieldwork / artifact',
+            caption: 'Painted map of the Sahara border region — Erfoud, Rissani, and Merzouga — documenting research terrain in southeastern Morocco.'
+          },
+          {
+            src: '/assets/projects/fulbright-morocco/jebel-shams-oman.jpg',
+            alt: 'A black-and-white goat standing on a rocky cliff above the Wadi Ghul canyon at Jebel Shams, Oman — dramatic layered rock strata and mountain ridges recede into a hazy horizon.',
+            eyebrow: 'Comparative fieldwork / Oman',
+            caption: 'Jebel Shams, Oman — comparative fieldwork and language study in the Arab world alongside the Morocco Fulbright year.'
+          },
+          {
+            src: '/assets/projects/fulbright-morocco/essaouira-atlantic-wall.jpg',
+            alt: 'An orange cat resting on the sun-warmed rampart wall of Essaouira, with the grey Atlantic Ocean and a rocky breakwater visible behind it.',
+            eyebrow: 'Atlantic coast / Morocco',
+            caption: "Essaouira's Atlantic ramparts — the walled city and port that anchors Morocco's connection to the ocean."
+          },
+          {
+            src: '/assets/projects/fulbright-morocco/aui-archive-display-web.jpg',
+            alt: 'Display case at Mohammed VI Library, Al-Akhawayn University in Ifrane, Morocco, showing archival materials including postcards, letters, advertisements, vacation photos, and maps from the colonial and postcolonial period.',
+            eyebrow: 'Archive / Mohammed VI Library',
+            caption: 'Archival materials at Mohammed VI Library, Al-Akhawayn University, Ifrane — postcards, letters, advertisements, vacation photos, maps, and other ephemera from the colonial period. The library holds hundreds of pieces of visual culture from Ifrane\'s history as a French hill station.'
+          },
+          {
+            src: '/assets/projects/fulbright-morocco/aui-campus-reese-web.jpg',
+            alt: 'Reese Hollister standing on the campus of Al-Akhawayn University (AUI) in Ifrane, Morocco — a 1930s French colonial hill station, now an English-language university.',
+            eyebrow: 'Research site / AUI campus',
+            caption: 'Al-Akhawayn University in Ifrane — established in the 1930s as a French colonial hill station, today home to the Mohammed VI Library and the archival collections at the center of this research.'
           }
         ]
       },

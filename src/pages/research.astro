@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import SectionHeading from '../components/SectionHeading.astro';
-import { publications } from '../data/site';
+import { publications, presentations } from '../data/site';
 import { getProjectBySlug, type Project } from '../data/projects';
 import { withBase } from '../utils/paths';
 
@@ -19,16 +19,78 @@ const researchProjects = [
 <BaseLayout
   title="Research"
   description="Historical and political research by Reese Hollister — North Africa, postcolonial African institutions, French institutional history, and digital history methodology."
+  image="/assets/fieldwork/og/og-research.jpg"
 >
   <section class="page-hero site-shell">
+    <div class="research-hero-bg" aria-hidden="true">
+      <svg
+        class="research-route-line"
+        viewBox="0 0 900 64"
+        preserveAspectRatio="none"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          class="route-main"
+          d="M-20,46 C60,52 140,18 240,34 C340,50 400,12 500,28 C600,44 660,10 760,24 C810,31 860,36 920,32"
+          stroke="var(--accent-map)"
+          stroke-width="1.4"
+          pathLength="1000"
+          stroke-dasharray="1000"
+          stroke-dashoffset="1000"
+        />
+        <path
+          class="route-branch"
+          d="M240,34 C268,50 302,60 344,62"
+          stroke="var(--accent-rust)"
+          stroke-width="0.9"
+          pathLength="300"
+          stroke-dasharray="300"
+          stroke-dashoffset="300"
+        />
+        <circle class="route-dot" cx="240" cy="34" r="3.2" fill="var(--accent-rust)" opacity="0"/>
+        <circle class="route-dot" cx="500" cy="28" r="3.2" fill="var(--accent-rust)" opacity="0"/>
+        <circle class="route-dot" cx="760" cy="24" r="3.2" fill="var(--accent-map)" opacity="0"/>
+      </svg>
+    </div>
+    <div class="research-compass-deco" aria-hidden="true">
+      <img src={withBase('/assets/ui/compass-rose.svg')} alt="" width="48" height="48" loading="eager" />
+    </div>
     <p class="section-kicker">Research</p>
     <h1>Research</h1>
     <p class="page-lead">
-      Research on North Africa, postcolonial institutions, aviation, sovereignty, and transitional justice.
+      Research on North Africa, infrastructure, mobility, sovereignty, and postcolonial state-building — with a focus on Morocco, Western Sahara, and the broader Arab world.
     </p>
     <p>
-      The projects below are the best entry points: decks, maps, datasets, papers, and artifacts rather than another layer of summary.
+      The projects below are the best entry points: decks, maps, datasets, papers, and fieldwork artifacts rather than another layer of summary.
     </p>
+  </section>
+
+  <section class="site-shell research-method-image-section">
+    <figure class="research-method-figure">
+      <img
+        src={withBase('/assets/fieldwork/heroes/mohammed-vi-library-aui-hero-16x9.webp')}
+        alt="Mohammed VI Library at Al Akhawayn University in Ifrane, Morocco — the archival research base for Reese Hollister's Fulbright fieldwork."
+        loading="lazy"
+      />
+      <figcaption>Mohammed VI Library, Al Akhawayn University — fieldwork and archival research base, Ifrane, Morocco.</figcaption>
+    </figure>
+  </section>
+
+  <section class="site-shell research-agenda-section" aria-labelledby="research-agenda-heading">
+    <img class="section-atlas-deco" src={withBase('/assets/ui/atlas-grid.svg')} alt="" aria-hidden="true" width="260" height="260" />
+    <div class="research-agenda">
+      <p id="research-agenda-heading" class="section-kicker">Research agenda</p>
+      <p class="research-agenda__text">
+        My work asks how infrastructure, mobility systems, and political institutions made sovereignty visible and durable across postcolonial North Africa. I combine archival research, digital mapping, fieldwork, and historical dataset construction to study how roads, airlines, images, and state agencies shaped authority on the ground.
+      </p>
+      <ul class="research-agenda__chips" aria-label="Research themes and methods">
+        <li>Infrastructure &amp; sovereignty</li>
+        <li>Archives &amp; visual evidence</li>
+        <li>Digital mapping &amp; datasets</li>
+        <li>Fieldwork &amp; language study</li>
+      </ul>
+    </div>
   </section>
 
   <section class="site-shell research-mosaic-section" aria-label="Research project visuals">
@@ -61,7 +123,7 @@ const researchProjects = [
     <SectionHeading
       eyebrow="Publications"
       title="Published writing"
-      intro="Selected publications and the public archive."
+      intro="Earlier public-facing history writing and the publication archive."
     />
     <ul class="action-list action-list--stacked">
       {publications.map((pub) => (
@@ -76,6 +138,26 @@ const researchProjects = [
         </a>
         <span class="action-note">Research profile with all publications and presentations.</span>
       </li>
+    </ul>
+  </section>
+
+  <section class="site-shell">
+    <SectionHeading
+      eyebrow="Presentations"
+      title="Conference talks & presentations"
+      intro="Selected talks delivered at academic conferences and graduate research events."
+    />
+    <ul class="action-list action-list--stacked">
+      {presentations.map((talk) => (
+        <li>
+          {talk.internal ? (
+            <a class="resource-link" href={withBase(talk.href)}>{talk.venue} — {talk.year}</a>
+          ) : (
+            <a class="resource-link" href={talk.href} target="_blank" rel="noreferrer">{talk.venue} — {talk.year}</a>
+          )}
+          <span class="action-note">{talk.title}</span>
+        </li>
+      ))}
     </ul>
   </section>
 </BaseLayout>
