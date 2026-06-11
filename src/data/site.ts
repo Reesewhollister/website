@@ -405,13 +405,25 @@ export const publications = [
     year: '2023',
     href: 'https://digitalcommons.georgiasouthern.edu/aujh/vol13/iss1/5/',
     note: 'Open-access journal page.'
-  },
+  }
+];
+
+export const presentations = [
   {
     title: "Occidentalism & Selfhood: Nawal El Saadawi's Travels in Europe",
     venue: 'H-Grad Lightning Talks, H-Net',
     year: '2023',
     href: 'https://reesewhollister.substack.com/p/online-conference-presentation-tomorrow',
-    note: 'Conference presentation examining Arabic travel literature through the lens of occidentalism — Nawal El Saadawi\'s self-construction through journeys to Europe. Presented at the H-Net Graduate Student Lightning Talks series.'
+    internal: false,
+    note: "Lightning talk on Arabic travel literature and occidentalism — Nawal El Saadawi's self-construction through her journeys to Europe. Part of the inaugural H-Net Graduate Student Lightning Talks series, presented from Morocco during the Fulbright year."
+  },
+  {
+    title: "How Highways Decided Morocco's Victory in the Western Sahara Conflict",
+    venue: 'NC State Graduate History Conference',
+    year: '2026',
+    href: '/projects/western-sahara-capstone',
+    internal: true,
+    note: 'Capstone presentation tracing how transport-infrastructure build-out helped normalize Moroccan sovereignty claims over the Western Sahara.'
   }
 ];
 

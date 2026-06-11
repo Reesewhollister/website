@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import SectionHeading from '../components/SectionHeading.astro';
-import { publications } from '../data/site';
+import { publications, presentations } from '../data/site';
 import { getProjectBySlug, type Project } from '../data/projects';
 import { withBase } from '../utils/paths';
 
@@ -125,6 +125,26 @@ const researchProjects = [
         </a>
         <span class="action-note">Research profile with all publications and presentations.</span>
       </li>
+    </ul>
+  </section>
+
+  <section class="site-shell">
+    <SectionHeading
+      eyebrow="Presentations"
+      title="Conference talks & presentations"
+      intro="Selected talks delivered at academic conferences and graduate research events."
+    />
+    <ul class="action-list action-list--stacked">
+      {presentations.map((talk) => (
+        <li>
+          {talk.internal ? (
+            <a class="resource-link" href={withBase(talk.href)}>{talk.venue} — {talk.year}</a>
+          ) : (
+            <a class="resource-link" href={talk.href} target="_blank" rel="noreferrer">{talk.venue} — {talk.year}</a>
+          )}
+          <span class="action-note">{talk.title}</span>
+        </li>
+      ))}
     </ul>
   </section>
 </BaseLayout>
