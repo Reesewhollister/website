@@ -17,8 +17,10 @@ const projectUrl = new URL(`/projects/${project.slug}/`, siteUrl).toString();
 const visibleLinks = project.links.filter((link) => link.available !== false);
 const deck = project.deck;
 const videos = project.videos ?? [];
+const ytVideos = project.ytVideos ?? [];
 const materialLinks = [
   ...(deck ? [{ label: 'Deck', href: '#deck' }] : []),
+  ...(ytVideos.length > 0 ? [{ label: 'Watch', href: '#watch' }] : []),
   ...visibleLinks.map((link) => ({
     label: link.shortLabel ?? link.label,
     href: link.href
@@ -160,6 +162,36 @@ const materialLinks = [
               </figure>
             );
           })}
+        </div>
+      </section>
+    )}
+    {ytVideos.length > 0 && (
+      <section class="project-yt-videos site-shell" id="watch">
+        <p class="section-kicker">Watch</p>
+        <div class={`yt-videos-grid yt-videos-grid--${ytVideos[0].aspect === 'portrait' ? 'shorts' : 'landscape'}`}>
+          {ytVideos.map((vid) => (
+            <a
+              class={`yt-video-card yt-video-card--${vid.aspect ?? 'landscape'}`}
+              href={`https://www.youtube.com/watch?v=${vid.ytId}`}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`Watch: ${vid.title}`}
+            >
+              <div class="yt-video-card__thumb">
+                <img
+                  src={`https://img.youtube.com/vi/${vid.ytId}/hqdefault.jpg`}
+                  alt={vid.title}
+                  loading="lazy"
+                />
+                <span class="yt-video-card__play" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="36" height="36">
+                    <path d="M8 5.5v13a1 1 0 0 0 1.5.87l11-6.5a1 1 0 0 0 0-1.74l-11-6.5A1 1 0 0 0 8 5.5Z"/>
+                  </svg>
+                </span>
+              </div>
+              {vid.caption && <p class="yt-video-card__caption">{vid.caption}</p>}
+            </a>
+          ))}
         </div>
       </section>
     )}
