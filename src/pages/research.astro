@@ -21,6 +21,40 @@ const researchProjects = [
   description="Historical and political research by Reese Hollister — North Africa, postcolonial African institutions, French institutional history, and digital history methodology."
 >
   <section class="page-hero site-shell">
+    <div class="research-hero-bg" aria-hidden="true">
+      <svg
+        class="research-route-line"
+        viewBox="0 0 900 64"
+        preserveAspectRatio="none"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          class="route-main"
+          d="M-20,46 C60,52 140,18 240,34 C340,50 400,12 500,28 C600,44 660,10 760,24 C810,31 860,36 920,32"
+          stroke="var(--accent-map)"
+          stroke-width="1.4"
+          pathLength="1000"
+          stroke-dasharray="1000"
+          stroke-dashoffset="1000"
+        />
+        <path
+          class="route-branch"
+          d="M240,34 C268,50 302,60 344,62"
+          stroke="var(--accent-rust)"
+          stroke-width="0.9"
+          pathLength="300"
+          stroke-dasharray="300"
+          stroke-dashoffset="300"
+        />
+        <circle class="route-dot" cx="240" cy="34" r="3.2" fill="var(--accent-rust)" opacity="0"/>
+        <circle class="route-dot" cx="500" cy="28" r="3.2" fill="var(--accent-rust)" opacity="0"/>
+        <circle class="route-dot" cx="760" cy="24" r="3.2" fill="var(--accent-map)" opacity="0"/>
+      </svg>
+    </div>
+    <div class="research-compass-deco" aria-hidden="true">
+      <img src={withBase('/assets/ui/compass-rose.svg')} alt="" width="48" height="48" loading="eager" />
+    </div>
     <p class="section-kicker">Research</p>
     <h1>Research</h1>
     <p class="page-lead">
