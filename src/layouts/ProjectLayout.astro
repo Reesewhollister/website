@@ -12,6 +12,8 @@ const { project } = Astro.props;
 const image = project.heroAsset.src;
 const title = project.seo.title ?? project.title;
 const description = project.seo.description ?? project.summary;
+const siteUrl = Astro.site ?? new URL('https://reesehollister.com');
+const projectUrl = new URL(`/projects/${project.slug}/`, siteUrl).toString();
 const visibleLinks = project.links.filter((link) => link.available !== false);
 const deck = project.deck;
 const videos = project.videos ?? [];
@@ -25,6 +27,21 @@ const materialLinks = [
 ---
 
 <BaseLayout title={title} description={description} image={image}>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: title,
+    description: description,
+    url: projectUrl,
+    image: new URL(withBase(image), siteUrl).toString(),
+    author: {
+      '@type': 'Person',
+      name: 'Reese W. Hollister',
+      url: siteUrl.toString()
+    },
+    keywords: project.skills?.join(', ') ?? project.categories.join(', '),
+    genre: project.categories.join(', ')
+  })} slot="head" />
   <article class="project-page">
     <section class="project-hero site-shell">
       <p class="section-kicker">Project</p>

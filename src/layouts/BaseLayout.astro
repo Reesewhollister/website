@@ -29,8 +29,8 @@ const faviconHref = withBase('/assets/ui/favicon.svg');
 <html lang="en">
   <head>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V4RR8JGB9W"></script>
-    <script>
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-V4RR8JGB9W"></script>
+    <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
@@ -40,6 +40,7 @@ const faviconHref = withBase('/assets/ui/favicon.svg');
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
+    <meta name="author" content="Reese W. Hollister" />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href={faviconHref} />
     <link rel="apple-touch-icon" sizes="180x180" href={withBase('/assets/ui/apple-touch-icon.png')} />
@@ -48,6 +49,7 @@ const faviconHref = withBase('/assets/ui/favicon.svg');
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="en_US" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
@@ -58,20 +60,35 @@ const faviconHref = withBase('/assets/ui/favicon.svg');
       name: 'Reese W. Hollister',
       url: siteUrl.toString(),
       image: new URL(withBase('/assets/fieldwork/og/og-home.jpg'), siteUrl).toString(),
-      jobTitle: 'Historian and Educator',
-      description: 'Historian of North Africa, writing coach, and educational media maker.',
+      jobTitle: 'Historian, Educator, and Writing Consultant',
+      description: 'Historian of North Africa and postcolonial institutions, Fulbright Scholar, CRLA Level III writing consultant, and educational media maker based in Bucks County, PA.',
       alumniOf: {
         '@type': 'CollegeOrUniversity',
         name: 'North Carolina State University'
       },
+      affiliation: [
+        { '@type': 'CollegeOrUniversity', name: 'North Carolina State University' },
+        { '@type': 'CollegeOrUniversity', name: 'Al Akhawayn University in Ifrane' }
+      ],
+      award: [
+        'Fulbright Scholar – Morocco 2023–24',
+        'VenturePack Winner – NC State 2026'
+      ],
+      hasCredential: [
+        { '@type': 'EducationalOccupationalCredential', name: 'CRLA Level III Writing Consultant' },
+        { '@type': 'EducationalOccupationalCredential', name: 'Fulbright Scholar, U.S. Department of State' },
+        { '@type': 'EducationalOccupationalCredential', name: 'Master of International Studies, NC State University' }
+      ],
       knowsLanguage: ['English', 'Arabic', 'French'],
-      knowsAbout: ['North African history', 'Morocco', 'Western Sahara', 'Postcolonial institutions', 'Arabic language education', 'Academic writing'],
+      knowsAbout: ['North African history', 'Morocco', 'Western Sahara', 'Postcolonial institutions', 'Arabic language education', 'Academic writing', 'Fulbright Program', 'Digital history', 'Public history'],
       sameAs: [
         'https://ncsu.academia.edu/ReeseHollister',
-        'https://www.youtube.com/channel/UCCRhHuIxYd3wyzYuaCNH3AA/',
-        'https://github.com/Reesewhollister'
+        'https://www.youtube.com/@HistoricalMethodMan/featured',
+        'https://github.com/Reesewhollister',
+        'https://www.linkedin.com/in/reese-h-13b09519a/'
       ]
     })} />
+    <slot name="head" />
     <ClientRouter />
   </head>
   <body>
