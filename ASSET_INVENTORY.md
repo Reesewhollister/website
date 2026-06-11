@@ -42,8 +42,7 @@
 - `public/assets/projects/huruf-lab/huruf-tiles-in-play.jpg` - strong; 1800x1200; tiles mid-game with hands only (no faces). Artifact "Product in use". Source: iCloud `Huruf Lab/HL_graphic_design/Garage Event Photos - Edited/Garage Edited 2`.
 - `public/assets/projects/huruf-lab/huruf-puzzle-detail.jpg` - strong; 1600x899; front-on studio detail of the puzzle on its stand. Artifact "Visual / artifact". Source: Scrabble Stand Photos.
 - `public/assets/projects/huruf-lab/huruf-brand-board.jpg` / `huruf-in-use.jpg` / `huruf-packaging.jpg` - SUPERSEDED (prior selection from the Photos album); kept on disk, no longer referenced. Reese preferred the iCloud studio/event photos above.
-- `public/assets/projects/huruf-lab/huruf-lab-poster.svg` - ORPHANED placeholder (still referenced only by vestigial MDX).
-- `public/assets/projects/huruf-lab/huruf-lab-board.svg` - ORPHANED placeholder.
+- `huruf-lab-poster.svg` / `huruf-lab-board.svg` - DELETED (2026-06-11): orphaned placeholders superseded by real product photos; vestigial MDX updated to the real assets.
 - `public/assets/projects/huruf-lab/huruf-tiles.jpg` / `huruf-tile-closeup.jpg` - orphaned video-frame stills; candidates for removal.
 - NOTE: Garage Event photos 1 & 3 (`HL_graphic_design/Garage Event Photos - Edited`) show identifiable attendees/founders — deliberately NOT used; only the face-free "Garage Edited 2" was published.
 - `public/assets/projects/fulbright-morocco/fulbright-morocco-poster.svg` - usable temporary editorial key art.

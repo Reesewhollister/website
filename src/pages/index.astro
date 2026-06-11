@@ -82,7 +82,18 @@ const otherProjects = featuredProjects.filter((project) => project.slug !== spot
     </div>
   </section>
 
-  <section class="site-shell home-cta-section">
+  <section class="site-shell home-cta-section has-video-backdrop">
+    <video
+      class="video-backdrop"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="none"
+      poster={withBase('/assets/projects/huruf-lab/video/portrait-bg-2710-poster.jpg')}
+      src={withBase('/assets/projects/huruf-lab/video/portrait-bg-2710.mp4')}
+    ></video>
+    <div class="video-backdrop-scrim"></div>
     <img class="section-atlas-deco section-atlas-deco--left" src={withBase('/assets/ui/atlas-grid.svg')} alt="" aria-hidden="true" width="260" height="260" />
     <article class="compact-cta">
       <div>
