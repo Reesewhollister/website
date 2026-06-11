@@ -155,6 +155,49 @@ export const proofItems = [
   }
 ];
 
+export const partnerInstitutions = [
+  {
+    name: 'Fulbright Program',
+    shortName: 'Fulbright',
+    role: 'Fulbright Scholar · Morocco',
+    period: '2023–2024',
+    logo: '/assets/ui/partners/fulbright.svg',
+    href: 'https://us.fulbrightonline.org/'
+  },
+  {
+    name: 'NC State University',
+    shortName: 'NC State',
+    role: 'M.I.S. · GTA · Writing Consultant',
+    period: '2022–2026',
+    logo: '/assets/ui/partners/ncstate.svg',
+    href: 'https://www.ncsu.edu/'
+  },
+  {
+    name: 'Al Akhawayn University in Ifrane',
+    shortName: 'AUI',
+    role: 'Research & Fieldwork Base',
+    period: '2023–2024',
+    logo: '/assets/ui/partners/aui.svg',
+    href: 'https://www.aui.ma/'
+  },
+  {
+    name: 'American Language Center, Rabat',
+    shortName: 'ALC Rabat',
+    role: 'History Teacher · BrainLyne',
+    period: '2023–2024',
+    logo: '/assets/ui/partners/alc.svg',
+    href: 'https://www.alc.org.ma/'
+  },
+  {
+    name: 'H-Net: Humanities & Social Sciences',
+    shortName: 'H-Net',
+    role: 'Conference Presenter · H-Grad',
+    period: '2023',
+    logo: '/assets/ui/partners/hnet.svg',
+    href: 'https://www.h-net.org/'
+  }
+];
+
 export const aboutTimeline = [
   {
     period: 'Research and writing support',

@@ -1,0 +1,7 @@
+<svg width="200" height="60" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="NC State University">
+  <!-- Red accent block -->
+  <rect x="0" y="8" width="5" height="44" rx="1.5" fill="#CC0000"/>
+  <!-- NC STATE wordmark -->
+  <text x="14" y="28" font-family="Georgia, 'Times New Roman', serif" font-size="20" font-weight="700" fill="#1a1a1a" letter-spacing="1">NC STATE</text>
+  <text x="14" y="47" font-family="Arial, Helvetica, sans-serif" font-size="9.5" fill="#444" letter-spacing="2.5">UNIVERSITY</text>
+</svg>

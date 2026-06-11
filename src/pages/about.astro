@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
-import { aboutTimeline } from '../data/site';
+import { aboutTimeline, partnerInstitutions } from '../data/site';
 import { withBase } from '../utils/paths';
 ---
 
@@ -49,6 +49,32 @@ import { withBase } from '../utils/paths';
         </li>
       ))}
     </ol>
+  </section>
+
+  <section class="site-shell about-partners-section">
+    <SectionHeading
+      eyebrow="Affiliations"
+      title="Partner institutions"
+      intro="Programs, universities, and organizations I have worked with as a researcher, teacher, and scholar."
+    />
+    <ul class="partners-strip">
+      {partnerInstitutions.map((inst) => (
+        <li class="partner-item">
+          <a href={inst.href} target="_blank" rel="noreferrer" class="partner-link" aria-label={inst.name}>
+            <img
+              src={withBase(inst.logo)}
+              alt={inst.name}
+              class="partner-logo"
+              width="180"
+              height="52"
+              loading="lazy"
+            />
+          </a>
+          <p class="partner-role">{inst.role}</p>
+          <p class="partner-period">{inst.period}</p>
+        </li>
+      ))}
+    </ul>
   </section>
 
   <section class="site-shell about-fieldwork-section">

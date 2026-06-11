@@ -1,0 +1,10 @@
+<svg width="200" height="60" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="American Language Center, Rabat">
+  <!-- Globe arc motif -->
+  <circle cx="24" cy="30" r="15" fill="none" stroke="#1A5C99" stroke-width="2"/>
+  <path d="M9 30 Q24 20 39 30 Q24 40 9 30Z" fill="none" stroke="#1A5C99" stroke-width="1.2"/>
+  <line x1="24" y1="15" x2="24" y2="45" stroke="#1A5C99" stroke-width="1.2"/>
+  <!-- ALC text -->
+  <text x="46" y="25" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1A5C99" letter-spacing="2.5">ALC</text>
+  <text x="46" y="38" font-family="Arial, Helvetica, sans-serif" font-size="8.5" fill="#1a1a1a" letter-spacing="0.5">AMERICAN LANGUAGE</text>
+  <text x="46" y="49" font-family="Arial, Helvetica, sans-serif" font-size="8.5" fill="#1a1a1a" letter-spacing="0.5">CENTER · RABAT</text>
+</svg>
