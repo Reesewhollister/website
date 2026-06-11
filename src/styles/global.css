@@ -2000,6 +2000,63 @@ html.reveal-ready .reveal.is-visible {
   }
 }
 
+/* ── Research method image ── */
+.research-method-image-section {
+  padding-top: 0;
+}
+
+.research-method-figure {
+  margin: 0;
+  border: 1px solid rgba(59, 46, 31, 0.12);
+  background: rgba(255, 252, 247, 0.58);
+  padding: 0.85rem;
+}
+
+.research-method-figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid var(--line);
+  max-height: 440px;
+  object-fit: cover;
+  object-position: centre;
+}
+
+.research-method-figure figcaption {
+  color: var(--ink-soft);
+  font-size: 0.88rem;
+  margin-top: 0.55rem;
+  padding: 0 0.15rem;
+}
+
+/* ── About fieldwork image row ── */
+.about-fieldwork-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.about-fieldwork-grid figure {
+  margin: 0;
+  border: 1px solid rgba(59, 46, 31, 0.12);
+  background: rgba(255, 252, 247, 0.58);
+  padding: 0.75rem;
+}
+
+.about-fieldwork-grid img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+  border: 1px solid var(--line);
+}
+
+.about-fieldwork-grid figcaption {
+  color: var(--ink-soft);
+  font-size: 0.84rem;
+  margin-top: 0.5rem;
+}
+
 [hidden] {
   display: none !important;
 }
@@ -2067,6 +2124,10 @@ html.reveal-ready .reveal.is-visible {
 
   .about-portrait {
     max-width: 12rem;
+  }
+
+  .about-fieldwork-grid {
+    grid-template-columns: 1fr;
   }
 
   .cinematic-hero {

@@ -15,7 +15,7 @@ interface Props {
 const {
   title = siteMeta.title,
   description = siteMeta.description,
-  image = '/assets/ui/chefchaouen-01.jpg'
+  image = '/assets/fieldwork/og/og-home.jpg'
 } = Astro.props;
 
 const pageTitle = title === siteMeta.title ? title : `${title} | ${siteMeta.title}`;
@@ -49,7 +49,7 @@ const faviconHref = withBase('/assets/ui/favicon.svg');
       '@type': 'Person',
       name: 'Reese W. Hollister',
       url: siteUrl.toString(),
-      image: new URL(withBase('/assets/ui/chefchaouen-01.jpg'), siteUrl).toString(),
+      image: new URL(withBase('/assets/fieldwork/og/og-home.jpg'), siteUrl).toString(),
       jobTitle: 'Historian and Educator',
       description: 'Historian of North Africa, writing coach, and educational media maker.',
       alumniOf: {

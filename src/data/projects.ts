@@ -458,9 +458,9 @@ export const projects: Project[] = [
       }
     },
     heroAsset: {
-      src: '/assets/projects/fulbright-morocco/atlantic-harbor-essaouira.jpg',
-      alt: 'Blue fishing boats moored in the Atlantic harbor at Essaouira, Morocco — wooden hulls, fishing nets, and the grey-green sea.',
-      caption: 'Essaouira harbor, Atlantic coast of Morocco — fieldwork during the 2023–24 Fulbright year.'
+      src: '/assets/fieldwork/heroes/merzouga-dunes-camels-hero-16x9.webp',
+      alt: 'The Sahara dunes near Merzouga, Morocco — sweeping sand ridges with camels at the base, a landscape tied to mobility and fieldwork.',
+      caption: 'Merzouga, Morocco — the Sahara edge. Fieldwork during the 2023–24 Fulbright year trained a reading of mobility at multiple scales: roads, routes, archives, airlines, and everyday movement.'
     },
     links: [
       {
