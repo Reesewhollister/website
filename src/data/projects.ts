@@ -304,6 +304,13 @@ export const projects: Project[] = [
         note: 'Structured 16-field dataset rebuilt from Ben Guttery airline entries.'
       },
       {
+        label: 'Newsletter: Promoting a Project',
+        shortLabel: 'Newsletter',
+        href: 'https://reesewhollister.substack.com/p/promoting-a-project',
+        available: true,
+        note: 'Substack post introducing the From Colonies to Carriers research project and the airline dataset.'
+      },
+      {
         label: 'Academia profile',
         shortLabel: 'Academia',
         href: 'https://ncsu.academia.edu/ReeseHollister',
@@ -469,6 +476,13 @@ export const projects: Project[] = [
         href: 'https://sites.google.com/ncsu.edu/reese/teaching-arabic',
         available: true,
         note: "Public teaching page tied to Reese's Arabic pedagogy and Morocco experience."
+      },
+      {
+        label: 'Fieldwork dispatches on Substack',
+        shortLabel: 'Dispatches',
+        href: 'https://reesewhollister.substack.com',
+        available: true,
+        note: 'Newsletter archive of Morocco and Oman fieldwork — settling in, teaching, travel, and language study.'
       }
     ],
     seo: {

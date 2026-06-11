@@ -246,6 +246,13 @@ export const contactMethods = [
     note: 'Professional snapshot and network-facing profile.'
   },
   {
+    label: 'Newsletter',
+    value: 'Substack',
+    href: 'https://reesewhollister.substack.com',
+    available: true,
+    note: 'Fieldwork dispatches, project updates, and public scholarship writing.'
+  },
+  {
     label: 'Historical Method Man',
     value: 'YouTube channel',
     href: 'https://www.youtube.com/@HistoricalMethodMan/featured',
@@ -258,6 +265,72 @@ export const contactMethods = [
     href: 'https://ncsu.academia.edu/ReeseHollister',
     available: true,
     note: 'Research profile and publication trail.'
+  }
+];
+
+export const substackPosts = [
+  {
+    title: 'Promoting a Project',
+    subtitle: 'Postcolonial African Airlines: History from Colonies to Carriers',
+    date: '2025-05-28',
+    year: '2025',
+    href: 'https://reesewhollister.substack.com/p/promoting-a-project',
+    category: 'Research',
+    note: 'Newsletter introducing the From Colonies to Carriers project — postcolonial African airline history, Royal Air Maroc, and the dataset.'
+  },
+  {
+    title: 'Teaching Modern United States History',
+    subtitle: 'Reflections Before Our Big Event',
+    date: '2024-02-15',
+    year: '2024',
+    href: 'https://reesewhollister.substack.com/p/teaching-modern-united-states-history',
+    category: 'Teaching',
+    note: 'Reflections on teaching approach ahead of a live public history lecture event.'
+  },
+  {
+    title: 'Marrakech & Ben Guerir',
+    subtitle: 'Busy but Good',
+    date: '2023-12-16',
+    year: '2023',
+    href: 'https://reesewhollister.substack.com/p/marrakech-and-ben-guerir',
+    category: 'Fieldwork',
+    note: 'Fieldwork dispatch from Marrakech and the education city of Ben Guerir during the Fulbright year.'
+  },
+  {
+    title: 'Fes & Ifrane Weekend',
+    subtitle: 'Part One: Fes',
+    date: '2023-09-25',
+    year: '2023',
+    href: 'https://reesewhollister.substack.com/p/fes-and-ifrane-weekend',
+    category: 'Fieldwork',
+    note: 'A weekend between the medina of Fes and the alpine highland town of Ifrane during the Fulbright year.'
+  },
+  {
+    title: 'Settling In',
+    subtitle: 'Morocco Week One',
+    date: '2023-09-04',
+    year: '2023',
+    href: 'https://reesewhollister.substack.com/p/settling-in',
+    category: 'Fieldwork',
+    note: 'Arrival dispatch from the first week in Morocco — orienting, beginning Arabic study, and starting fieldwork.'
+  },
+  {
+    title: 'New Friends',
+    subtitle: 'The Sultanate of Oman: Week II',
+    date: '2023-07-21',
+    year: '2023',
+    href: 'https://reesewhollister.substack.com/p/new-friends',
+    category: 'Fieldwork',
+    note: 'Field observations and Arabic language study from the second week in the Sultanate of Oman.'
+  },
+  {
+    title: 'Transition',
+    subtitle: 'Pennsylvania to Oman',
+    date: '2023-07-03',
+    year: '2023',
+    href: 'https://reesewhollister.substack.com/p/transition',
+    category: 'Fieldwork',
+    note: 'Departure dispatch and first impressions from the Oman language-study placement.'
   }
 ];
 
