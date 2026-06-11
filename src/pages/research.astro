@@ -85,7 +85,17 @@ const researchProjects = [
     </figure>
   </section>
 
-  <section class="site-shell research-agenda-section" aria-labelledby="research-agenda-heading">
+  <section class="site-shell research-agenda-section has-video-backdrop" aria-labelledby="research-agenda-heading">
+    <video
+      class="video-backdrop"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="none"
+      src={withBase('/assets/research/morocco-field-bg.mp4')}
+    ></video>
+    <div class="video-backdrop-scrim"></div>
     <img class="section-atlas-deco" src={withBase('/assets/ui/atlas-grid.svg')} alt="" aria-hidden="true" width="260" height="260" />
     <div class="research-agenda">
       <p id="research-agenda-heading" class="section-kicker">Research agenda</p>
