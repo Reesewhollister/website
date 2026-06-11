@@ -285,7 +285,25 @@ export const substackPosts = [
     year: '2024',
     href: 'https://reesewhollister.substack.com/p/teaching-modern-united-states-history',
     category: 'Teaching',
-    note: 'Reflections on teaching approach ahead of a live public history lecture event.'
+    note: 'Reflections on teaching US History through the Civil Rights Movement, Watergate, and the radical movements of the 1960s — ahead of a live public history lecture event at the American Language Center.'
+  },
+  {
+    title: 'Online Conference Presentation Tomorrow',
+    subtitle: "Occidentalism & Selfhood: Nawal El Saadawi's Travels in Europe",
+    date: '2023-12-07',
+    year: '2023',
+    href: 'https://reesewhollister.substack.com/p/online-conference-presentation-tomorrow',
+    category: 'Research',
+    note: 'Dispatch ahead of an H-Grad Lightning Talk on Arabic travel literature — Nawal El Saadawi\'s self-construction through European journeys. Includes the full conference essay as a PDF. Written from Morocco during the Fulbright year.'
+  },
+  {
+    title: 'Projects Old and New',
+    subtitle: 'Arabic Travel Literature and PhD Applications',
+    date: '2023-11-06',
+    year: '2023',
+    href: 'https://reesewhollister.substack.com/p/projects-old-and-new',
+    category: 'Research',
+    note: 'Research dispatch introducing a new writing sample project on Arabic-language travel literature — sources from Nawal El Saadawi, Gamal Al-Ghitani, and others. Written from Morocco while applying to PhD programs.'
   },
   {
     title: 'Marrakech & Ben Guerir',
@@ -294,7 +312,16 @@ export const substackPosts = [
     year: '2023',
     href: 'https://reesewhollister.substack.com/p/marrakech-and-ben-guerir',
     category: 'Fieldwork',
-    note: 'Fieldwork dispatch from Marrakech and the education city of Ben Guerir during the Fulbright year.'
+    note: 'Fieldwork dispatch from Marrakech and the education city of Ben Guerir — both stops during the Fulbright year in Morocco.'
+  },
+  {
+    title: 'Fes & Ifrane Weekend, Part Two',
+    subtitle: 'Ifrane and the Mohammed VI Library Archive',
+    date: '2023-10-05',
+    year: '2023',
+    href: 'https://reesewhollister.substack.com/p/fes-and-ifrane-weekend-part-two',
+    category: 'Fieldwork',
+    note: 'Research dispatch from Ifrane — a French colonial hill station turned American-style university. Describes first contact with the Mohammed VI Library archive: "Postcards, letters, advertisements, vacation photos, maps, and other ephemera are highly abundant."'
   },
   {
     title: 'Fes & Ifrane Weekend',
@@ -303,7 +330,7 @@ export const substackPosts = [
     year: '2023',
     href: 'https://reesewhollister.substack.com/p/fes-and-ifrane-weekend',
     category: 'Fieldwork',
-    note: 'A weekend between the medina of Fes and the alpine highland town of Ifrane during the Fulbright year.'
+    note: 'First part of a weekend trip from Rabat — the medina of Fes, walking the old city, and a morning walk along the river before heading inland to Ifrane.'
   },
   {
     title: 'Settling In',
@@ -312,7 +339,7 @@ export const substackPosts = [
     year: '2023',
     href: 'https://reesewhollister.substack.com/p/settling-in',
     category: 'Fieldwork',
-    note: 'Arrival dispatch from the first week in Morocco — orienting, beginning Arabic study, and starting fieldwork.'
+    note: 'Arrival dispatch from the first week in Morocco — orienting, beginning Arabic study, and starting fieldwork in Rabat.'
   },
   {
     title: 'New Friends',
@@ -321,7 +348,7 @@ export const substackPosts = [
     year: '2023',
     href: 'https://reesewhollister.substack.com/p/new-friends',
     category: 'Fieldwork',
-    note: 'Field observations and Arabic language study from the second week in the Sultanate of Oman.'
+    note: 'Field observations and Arabic language study from the second week in the Sultanate of Oman — pre-Fulbright Arabic immersion placement.'
   },
   {
     title: 'Transition',
@@ -330,7 +357,7 @@ export const substackPosts = [
     year: '2023',
     href: 'https://reesewhollister.substack.com/p/transition',
     category: 'Fieldwork',
-    note: 'Departure dispatch and first impressions from the Oman language-study placement.'
+    note: 'Departure dispatch from Pennsylvania and first impressions from the Oman language-study placement — the start of a year of Arabic study and fieldwork.'
   }
 ];
 
@@ -378,6 +405,13 @@ export const publications = [
     year: '2023',
     href: 'https://digitalcommons.georgiasouthern.edu/aujh/vol13/iss1/5/',
     note: 'Open-access journal page.'
+  },
+  {
+    title: "Occidentalism & Selfhood: Nawal El Saadawi's Travels in Europe",
+    venue: 'H-Grad Lightning Talks, H-Net',
+    year: '2023',
+    href: 'https://reesewhollister.substack.com/p/online-conference-presentation-tomorrow',
+    note: 'Conference presentation examining Arabic travel literature through the lens of occidentalism — Nawal El Saadawi\'s self-construction through journeys to Europe. Presented at the H-Net Graduate Student Lightning Talks series.'
   }
 ];
 

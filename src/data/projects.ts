@@ -527,6 +527,18 @@ export const projects: Project[] = [
             alt: 'An orange cat resting on the sun-warmed rampart wall of Essaouira, with the grey Atlantic Ocean and a rocky breakwater visible behind it.',
             eyebrow: 'Atlantic coast / Morocco',
             caption: "Essaouira's Atlantic ramparts — the walled city and port that anchors Morocco's connection to the ocean."
+          },
+          {
+            src: '/assets/projects/fulbright-morocco/aui-archive-display-web.jpg',
+            alt: 'Display case at Mohammed VI Library, Al-Akhawayn University in Ifrane, Morocco, showing archival materials including postcards, letters, advertisements, vacation photos, and maps from the colonial and postcolonial period.',
+            eyebrow: 'Archive / Mohammed VI Library',
+            caption: 'Archival materials at Mohammed VI Library, Al-Akhawayn University, Ifrane — postcards, letters, advertisements, vacation photos, maps, and other ephemera from the colonial period. The library holds hundreds of pieces of visual culture from Ifrane\'s history as a French hill station.'
+          },
+          {
+            src: '/assets/projects/fulbright-morocco/aui-campus-reese-web.jpg',
+            alt: 'Reese Hollister standing on the campus of Al-Akhawayn University (AUI) in Ifrane, Morocco — a 1930s French colonial hill station, now an English-language university.',
+            eyebrow: 'Research site / AUI campus',
+            caption: 'Al-Akhawayn University in Ifrane — established in the 1930s as a French colonial hill station, today home to the Mohammed VI Library and the archival collections at the center of this research.'
           }
         ]
       },
