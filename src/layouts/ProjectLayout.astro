@@ -45,7 +45,21 @@ const materialLinks = [
     genre: project.categories.join(', ')
   })} slot="head" />
   <article class="project-page">
-    <section class="project-hero site-shell">
+    <section class={`project-hero site-shell${project.heroVideo ? ' has-video-backdrop' : ''}`}>
+      {project.heroVideo && (
+        <>
+          <video
+            class="video-backdrop"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="none"
+            src={withBase(project.heroVideo)}
+          ></video>
+          <div class="video-backdrop-scrim"></div>
+        </>
+      )}
       <p class="section-kicker">Project</p>
       <h1>{project.title}</h1>
       <p class="project-hero__summary">{project.summary}</p>

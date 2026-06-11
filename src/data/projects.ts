@@ -80,6 +80,7 @@ export interface Project {
   deck?: ProjectDeck;
   videos?: ProjectVideo[];
   ytVideos?: ProjectYtVideo[];
+  heroVideo?: string;
   sections: ProjectSection[];
 }
 
@@ -490,6 +491,7 @@ export const projects: Project[] = [
       alt: 'The Sahara dunes near Merzouga, Morocco — sweeping sand ridges with camels at the base, a landscape tied to mobility and fieldwork.',
       caption: 'Merzouga, Morocco — the Sahara edge. Fieldwork during the 2023–24 Fulbright year trained a reading of mobility at multiple scales: roads, routes, archives, airlines, and everyday movement.'
     },
+    heroVideo: '/assets/projects/fulbright-morocco/video/hassan-ii-bg.mp4',
     links: [
       {
         label: 'Original Morocco fieldwork page',
