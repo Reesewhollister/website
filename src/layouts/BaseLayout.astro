@@ -121,8 +121,8 @@ const faviconHref = withBase('/assets/ui/favicon.svg');
           { rootMargin: '0px 0px -8% 0px', threshold: 0.06 }
         );
         sections.forEach((section) => {
-          // Never hide the cinematic hero (it has its own entrance animation).
-          if (section.classList.contains('cinematic-hero')) {
+          // Never hide hero sections — they have their own entrance animations.
+          if (section.classList.contains('cinematic-hero') || section.classList.contains('page-hero')) {
             section.classList.add('is-visible');
             return;
           }
