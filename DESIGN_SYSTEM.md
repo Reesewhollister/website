@@ -33,6 +33,8 @@ CTA hover); clay + blue + espresso on cream carry the serious core.
   deck — `public/assets/projects/western-sahara/ws-mural-hero.jpg`. Case-study artifacts include
   the dual-track timeline and the four-panel "Where is Western Sahara?" map (also from the deck).
 - **Hurūf La'b**: the gold-on-blue laʿb brand mark — `public/assets/projects/huruf-lab/huruf-logo.jpg`.
+- **From Colonies to Carriers**: the interactive atlas map — `public/assets/projects/from-colonies-to-carriers/atlas-map.png`.
+- **Fulbright Morocco**: optimized Chefchaouen fieldwork panorama — `public/assets/ui/2026-06-07__reese-portfolio__asset__v01__chefchaouen-fieldwork-panorama.jpg`.
 - Source decks rasterized with `pdftoppm` from `design-assets/western-sahara/capstone-slides.pdf`.
 
 ## Typography
@@ -48,6 +50,7 @@ CTA hover); clay + blue + espresso on cream carry the serious core.
 - Cards should stay simple, editorial, and lightly bordered.
 - Avoid nested cards and decorative section containers.
 - Use project cards for repeated project entries, resume cards for professional highlights, and proof/support cards for outside links.
+- Homepage positioning now uses a proof strip, a large thesis line ("I make difficult ideas clear without making them shallow."), and three service cards. This should remain the primary first-page narrative before adding more animation.
 
 ## Asset Choices
 
@@ -58,9 +61,9 @@ Current production assets are intentionally restrained:
 - Publication thumb: `public/assets/ui/2026-03-31__reese-portfolio__asset__v01__history-matters-publication-thumb.jpg`
 - Sitewide texture/motif candidates: `paper-grain.svg`, `atlas-grid.svg`, `og-placeholder.svg`
 - Strongest project-specific assets: Western Sahara map, dual timeline, Dakhla port photo, contract-programmes diagram, and roads one-pager
-- Placeholder/editorial assets: Huruf La'b, Fulbright Morocco, and teaching-support SVG boards/posters
+- Placeholder/editorial assets: teaching-support SVG board/poster and the Huruf/Fulbright editorial boards where used as supporting figures
 
-The Western Sahara assets are the strongest current production visuals because they are specific, high-resolution, and tied to real work. The Huruf/Fulbright/teaching SVGs are acceptable temporary placeholders but should be replaced with approved real artifacts when available.
+The Western Sahara assets and imported Chefchaouen fieldwork panorama are the strongest current production visuals because they are specific, high-resolution, and tied to real work. The Huruf brand mark is usable, but real product photography should replace it once the blue-tile/prototype frame is available. Teaching-support SVGs remain temporary until an approved classroom or workshop photo is added.
 
 ## Asset Rejection Rules
 
@@ -71,7 +74,9 @@ Ignore or replace assets that are visibly AI-generated, distorted, low-resolutio
 Pass 3 should be restrained:
 
 - page transitions should be subtle
-- scroll reveals should be short and non-blocking
+- scroll reveals should be short, non-blocking, and implemented in the static build path
 - project-card hover states should lift gently
 - route-line/map motifs should be background texture, not the main content
 - every animation must respect `prefers-reduced-motion`
+
+Current static implementation includes a reduced-motion-safe hero entrance, card hover treatment, and scroll reveal script inside `src/build-static.cjs`.

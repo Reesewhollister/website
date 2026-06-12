@@ -16,6 +16,7 @@
 - `public/assets/ui/2026-03-31__reese-portfolio__asset__v02__google-site-welcome-photo.jpg` - usable; 462x756; current homepage/Morocco visual.
 - `public/assets/ui/2026-03-31__reese-portfolio__asset__v01__reese-public-profile.jpg` - usable with size limits; 200x200; current portrait.
 - `public/assets/ui/2026-03-31__reese-portfolio__asset__v01__history-matters-publication-thumb.jpg` - usable only as a small thumbnail; 94x142.
+- `public/assets/ui/2026-06-07__reese-portfolio__asset__v01__chefchaouen-fieldwork-panorama.jpg` - strong; optimized from `design-assets/images/P1060276.jpeg`; current Fulbright Morocco project hero.
 - `public/assets/ui/atlas-grid.svg` - usable as a map/grid placeholder or background motif.
 - `public/assets/ui/paper-grain.svg` - usable as subtle paper texture.
 - `public/assets/ui/og-placeholder.svg` - usable as temporary OG art only.
@@ -28,18 +29,25 @@
 - `public/assets/projects/western-sahara/2026-03-31__reese-portfolio__artifact__v01__contract-programmes-diagram.png` - strong but tall; 1654x2339; use as an artifact figure.
 - `public/assets/projects/western-sahara/2026-03-31__reese-portfolio__artifact__v01__dakhla-atlantic-port-photo.jpg` - strong; 1200x675; use in Western Sahara case study.
 - `public/assets/projects/western-sahara/2026-03-31__reese-portfolio__artifact__v01__roads-timeseries-one-pager.pdf` - usable download.
+- `public/assets/projects/from-colonies-to-carriers/atlas-map.png` - strong; 1800x1067; current From Colonies to Carriers hero/card image.
 - `public/assets/projects/huruf-lab/huruf-lab-poster.svg` - usable temporary editorial key art; replace with approved prototype photography later.
 - `public/assets/projects/huruf-lab/huruf-lab-board.svg` - usable temporary concept board.
-- `public/assets/projects/fulbright-morocco/fulbright-morocco-poster.svg` - usable temporary editorial key art.
-- `public/assets/projects/fulbright-morocco/fulbright-morocco-board.svg` - usable temporary board; replace with fieldwork artifacts later.
+- `public/assets/projects/fulbright-morocco/fulbright-morocco-poster.svg` - usable temporary editorial key art, no longer the main hero.
+- `public/assets/projects/fulbright-morocco/fulbright-morocco-board.svg` - usable temporary supporting board.
 - `public/assets/projects/teaching-writing-support/teaching-support-poster.svg` - usable temporary editorial key art.
 - `public/assets/projects/teaching-writing-support/teaching-support-board.svg` - usable temporary board; replace with approved teaching artifacts later.
 
 ## Ignore / Replace Later
 
 - Do not enlarge the 94x142 publication thumbnail beyond small supporting contexts.
-- Treat all generated SVG boards/posters as temporary until stronger real artifacts are available.
+- Treat generated SVG boards/posters as temporary until stronger real artifacts are available.
 - Do not use empty source folders as design input until actual assets are added.
+
+## Homepage / Link Updates (2026-06-07)
+
+- Homepage now uses the active static build path for a proof strip, thesis line, "what I do" prose, service cards, and reduced-motion-safe reveal behavior.
+- Hurūf La'b now links to the NC State CHASS article: `https://chass.ncsu.edu/news/2026/05/05/puzzle-project-aims-to-make-learning-arabic-a-fun-hands-on-experience/`.
+- Historical Method Man links now use the supplied channel URL: `https://www.youtube.com/channel/UCCRhHuIxYd3wyzYuaCNH3AA/`.
 
 ## Imported Source Assets (2026-06-07)
 

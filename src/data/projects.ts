@@ -26,6 +26,7 @@ export interface Project {
   summary: string;
   categories: string[];
   pillars: string[];
+  tags: string[];
   role: string;
   skills: string[];
   featured: boolean;
@@ -50,6 +51,7 @@ export const projects: Project[] = [
     summary: 'A tactile Arabic learning system designed to turn early Arabic literacy into a classroom routine instead of a wall.',
     categories: ['Teaching & Learning', 'Product / Design'],
     pillars: ['Teaching', 'Building'],
+    tags: ['Teaching', 'Product / Design', 'Arabic', 'North Africa'],
     role: 'Co-founder, instructional design lead, user-research lead, and product framer',
     skills: ['Pedagogy', 'Product development', 'User research', 'Entrepreneurship', 'Language learning'],
     featured: true,
@@ -61,16 +63,16 @@ export const projects: Project[] = [
     },
     links: [
       {
-        label: 'Prototype images',
-        href: '#',
-        available: false,
-        note: 'Internal resource.'
+        label: 'NC State feature on Huruf La\'b',
+        href: 'https://chass.ncsu.edu/news/2026/05/05/puzzle-project-aims-to-make-learning-arabic-a-fun-hands-on-experience/',
+        available: true,
+        note: 'Public story on the Arabic puzzle project and its classroom-facing purpose.'
       },
       {
-        label: 'Pilot testing notes',
-        href: '#',
-        available: false,
-        note: 'Internal resource.'
+        label: 'Historical Method Man channel',
+        href: 'https://www.youtube.com/channel/UCCRhHuIxYd3wyzYuaCNH3AA/',
+        available: true,
+        note: 'Public scholarship channel connected to Reese\'s broader teaching and explanation work.'
       }
     ],
     seo: {
@@ -130,6 +132,7 @@ export const projects: Project[] = [
     summary: 'A capstone argument tracing how infrastructure build-out helped make later sovereignty claims and diplomatic normalization more plausible.',
     categories: ['Research', 'Public Scholarship'],
     pillars: ['Research', 'Building'],
+    tags: ['Research', 'Digital History', 'Public Scholarship', 'North Africa'],
     role: 'Historical researcher, source synthesist, and data / visual workflow builder',
     skills: ['Historical research', 'Process tracing', 'Visual evidence design', 'Data analysis', 'International studies'],
     featured: true,
@@ -229,24 +232,25 @@ export const projects: Project[] = [
     summary: 'A digital history project tracing how newly independent African states used civil aviation to project sovereignty, establish national identity, and build postcolonial institutions — with a case study on Royal Air Maroc.',
     categories: ['Digital History', 'Research'],
     pillars: ['Research'],
+    tags: ['Research', 'Digital History', 'North Africa', 'Public Scholarship'],
     role: 'Researcher and data archaeologist',
     skills: ['Archival research', 'Digital history', 'Database design', 'Data archaeology', 'Postcolonial history'],
     featured: true,
     sortOrder: 3,
     heroAsset: {
-      src: '/assets/ui/atlas-grid.svg',
-      alt: 'Grid map visualization representing airline route networks across postcolonial Africa.',
-      caption: 'Map-grid visual representing airline route networks across postcolonial Africa.'
+      src: '/assets/projects/from-colonies-to-carriers/atlas-map.png',
+      alt: 'Interactive atlas-style map showing African airline count patterns across the continent.',
+      caption: 'Interactive atlas visual from the From Colonies to Carriers digital-history project.'
     },
     links: [
       {
-        label: 'Working paper',
-        href: '#',
-        available: false,
-        note: 'Internal resource.'
+        label: 'Explore the interactive encyclopedia',
+        href: '/african-airlines',
+        available: true,
+        note: 'Searchable database of 723 African airlines with maps, timelines, and source provenance.'
       },
       {
-        label: 'Dataset',
+        label: 'Working paper',
         href: '#',
         available: false,
         note: 'Internal resource.'
@@ -298,14 +302,15 @@ export const projects: Project[] = [
     summary: 'Field-based research, language study, teaching, and public-facing academic work carried out in Morocco during 2023-2024.',
     categories: ['Research', 'Teaching & Learning', 'Public Scholarship'],
     pillars: ['Research', 'Teaching'],
+    tags: ['Research', 'Teaching', 'Public Scholarship', 'North Africa', 'Arabic'],
     role: 'Fulbright researcher, language learner, teacher, and public-facing interpreter',
     skills: ['Fulbright', 'Morocco', 'Arabic', 'French', 'Intercultural work', 'Public-facing scholarship'],
     featured: true,
     sortOrder: 4,
     heroAsset: {
-      src: '/assets/ui/2026-03-31__reese-portfolio__asset__v02__google-site-welcome-photo.jpg',
-      alt: "Reese in Morocco in a public photo previously used on his original site.",
-      caption: "Public photo previously used on Reese's original NCSU site."
+      src: '/assets/ui/2026-06-07__reese-portfolio__asset__v01__chefchaouen-fieldwork-panorama.jpg',
+      alt: 'Chefchaouen, Morocco, seen from above with blue-washed buildings, Rif mountains, and cactus in the foreground.',
+      caption: "Chefchaouen, northern Morocco — fieldwork visual from Reese's Morocco source assets."
     },
     links: [
       {
@@ -362,6 +367,7 @@ export const projects: Project[] = [
     summary: 'Writing consultation, large-lecture teaching support, and student-centered pedagogy grounded in real learning bottlenecks.',
     categories: ['Teaching & Learning', 'Public Scholarship'],
     pillars: ['Teaching', 'Research'],
+    tags: ['Teaching', 'Writing', 'Public Scholarship'],
     role: 'Graduate writing consultant, teaching assistant, learning diagnostician, and instructional designer',
     skills: ['Writing pedagogy', 'Tutoring', 'AI and learning', 'Student support', 'Instructional design'],
     featured: false,

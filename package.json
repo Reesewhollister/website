@@ -11,6 +11,7 @@
     "build": "node src/build-static.cjs",
     "preview": "node src/build-static.cjs --serve",
     "check": "node src/build-static.cjs --check",
+    "sync:airlines": "node src/sync-airlines.cjs",
     "astro:dev": "astro dev",
     "astro:build": "astro build",
     "astro:check": "astro check"

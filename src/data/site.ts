@@ -3,7 +3,7 @@ export const siteMeta = {
   description:
     'Public website for Reese Hollister — historian, educator, and public scholarship creator working across North Africa, language pedagogy, and historical research.',
   position:
-    'Historian · Educator · Language Learner · Skateboarder'
+    'Historian · Educator · Writing Consultant · Public Scholarship Creator'
 };
 
 export const navLinks = [
@@ -11,6 +11,7 @@ export const navLinks = [
   { href: '/about', label: 'About' },
   { href: '/research', label: 'Research' },
   { href: '/projects', label: 'Projects' },
+  { href: '/african-airlines', label: 'African Airlines' },
   { href: '/writing', label: 'Writing' },
   { href: '/teaching', label: 'Teaching' },
   { href: '/resume', label: 'CV' },
@@ -19,6 +20,53 @@ export const navLinks = [
 
 export const homeIntro =
   'I am a historian by training and a recent Master of International Studies graduate from NC State. My work brings together historical research, teaching, language learning, and public-facing projects, with a particular focus on North Africa, pedagogy, and the problem of making complex subjects easier to understand.';
+
+export const brandThesis =
+  'I make difficult ideas clear without making them shallow.';
+
+export const proofStrip = [
+  {
+    label: 'Fulbright Morocco',
+    detail: 'Field research, Arabic study, and teaching in Morocco from 2023 to 2024.'
+  },
+  {
+    label: 'Published historian',
+    detail: 'Work in History Matters, Gettysburg Historical Journal, and Armstrong Undergraduate Journal of History.'
+  },
+  {
+    label: 'Builder and educator',
+    detail: "Huruf La'b, writing consultation, public history video, and classroom-facing learning design."
+  }
+];
+
+export const whatIDo = [
+  'I turn complex research, source material, and learning problems into clear public-facing work. Sometimes that means historical writing. Sometimes it means a classroom routine, a visual explanation, a dataset, a video, or a better way to help a student revise.',
+  'The common thread is translation without dilution: serious material shaped for people who need to understand it, use it, and act on it.'
+];
+
+export const serviceCards = [
+  {
+    title: 'Research and public scholarship',
+    summary:
+      'Historical research, digital-history projects, visual explanation, and public-facing writing grounded in North Africa, infrastructure, and postcolonial institutions.',
+    href: '/research',
+    cta: 'View research'
+  },
+  {
+    title: 'Writing coaching',
+    summary:
+      'One-on-one support for college essays, research papers, personal statements, and academic revision, with a focus on structure, argument, and voice.',
+    href: '/coaching',
+    cta: 'Work with me'
+  },
+  {
+    title: 'Teaching and learning design',
+    summary:
+      'Student-centered teaching, Arabic learning design, writing consultation, and practical tools for making difficult material easier to grasp.',
+    href: '/teaching',
+    cta: 'See teaching'
+  }
+];
 
 export const homePillars = [
   {
@@ -55,7 +103,7 @@ export const proofItems = [
     type: 'YouTube / public scholarship',
     description:
       'A digital history channel built to make historical method more accessible to a wider audience.',
-    href: 'https://www.youtube.com/@HistoricalMethodMan/featured',
+    href: 'https://www.youtube.com/channel/UCCRhHuIxYd3wyzYuaCNH3AA/',
     cta: 'Watch channel'
   },
   {
@@ -97,7 +145,7 @@ export const secondaryWork = [
     title: 'Historical Method Man',
     category: 'Public Scholarship',
     summary: 'Educational video work that translates historical method for a broader audience.',
-    href: 'https://www.youtube.com/@HistoricalMethodMan/featured',
+    href: 'https://www.youtube.com/channel/UCCRhHuIxYd3wyzYuaCNH3AA/',
     cta: 'Watch channel'
   },
   {
@@ -161,7 +209,7 @@ export const contactMethods = [
   {
     label: 'Historical Method Man',
     value: 'YouTube channel',
-    href: 'https://www.youtube.com/@HistoricalMethodMan/featured',
+    href: 'https://www.youtube.com/channel/UCCRhHuIxYd3wyzYuaCNH3AA/',
     available: true,
     note: 'Public-facing scholarship and educational video work.'
   },
@@ -268,5 +316,125 @@ export const coachingServices = [
     title: 'Academic Writing and Revision',
     description:
       'Session-based writing consultation for essays, papers, and academic assignments. We diagnose the problem, work through the draft, and build toward independent revision habits.'
+  }
+];
+
+export const researchClusters = [
+  {
+    id: 'mobility',
+    kicker: 'Cluster I',
+    label: 'Mobility after empire',
+    keyQuestion: 'What did it mean for a new state to operate an airline — and why did so many choose to do it even when it made no economic sense?',
+    description:
+      'How newly independent African states turned civil aviation into an instrument of sovereignty. Airlines were not just transport — they were flags, assertions of postcolonial existence, and daily performances of statehood. The project reconstructs a continent-wide dataset from fragmentary archival sources.',
+    projectSlug: 'from-colonies-to-carriers',
+    projectLabel: 'From Colonies to Carriers',
+    methods: ['Archival research', 'Data archaeology', 'Statistical reconstruction', 'Comparative institutional analysis']
+  },
+  {
+    id: 'infrastructure',
+    kicker: 'Cluster II',
+    label: 'Infrastructure and sovereignty',
+    keyQuestion: 'When does building a road become a sovereignty claim — and how do we trace the mechanism that connects infrastructure to diplomatic recognition?',
+    description:
+      'How physical integration — roads, ports, corridors — helped settle political questions that diplomacy alone could not. The Western Sahara case shows how infrastructure functions as argument, fait accompli, and slow-moving sovereignty claim simultaneously across five decades.',
+    projectSlug: 'western-sahara-capstone',
+    projectLabel: 'Western Sahara Highways',
+    methods: ['Process tracing', 'Visual evidence design', 'OSM / ohsome geospatial workflow', 'Diplomatic archive synthesis']
+  },
+  {
+    id: 'memory',
+    kicker: 'Cluster III',
+    label: 'Memory, justice, and state legitimacy',
+    keyQuestion: 'How does a state tell the truth about its own violence and still claim legitimacy — and what does that tell us about the limits of institutional memory?',
+    description:
+      "How states manage their own histories of violence through truth commissions, institutional reform, and official memory work. The Moroccan case — Tazmamart, the Equity and Reconciliation Commission — shows how legitimacy is rebuilt after acknowledged atrocity. Active research area.",
+    projectSlug: null,
+    projectLabel: 'Truth After Tazmamart',
+    methods: ['Institutional history', 'Narrative analysis', 'Comparative transitional justice', 'Primary source synthesis']
+  }
+];
+
+export const methodMachineSteps = [
+  {
+    step: 'Question',
+    description:
+      'The research question is the constraint that shapes everything else. A good question is specific enough to be answerable and broad enough to matter beyond the case.',
+    example:
+      'From Colonies to Carriers: "Why did African states build national airlines even when they could not afford to?" Western Sahara: "How did infrastructure build-out help make Morocco\'s sovereignty claims easier to normalize?"'
+  },
+  {
+    step: 'Archive',
+    description:
+      'Where is the evidence, and what form does it take? Archive work means locating scattered, incomplete, or hostile sources and deciding what counts as evidence for this specific question.',
+    example:
+      'Aviation records from ICAO, timetable ephemera, colonial administrative files, diplomatic cables, trade press. OSM relation data, ohsome API snapshots, contract-programme institutional diagrams, road-network photography.'
+  },
+  {
+    step: 'Dataset',
+    description:
+      'When the archive is fragmentary, the dataset is reconstructed. Every design decision about schema, fields, and blanks is also an interpretive decision about what the evidence can support.',
+    example:
+      "A 16-field structured dataset of 723 African airlines spanning 1919–1998, built from Ben Guttery's 1995 Encyclopedia of African Airlines. A roads-over-time workflow using year-end OSM snapshots from 2008–2025."
+  },
+  {
+    step: 'Map',
+    description:
+      'Spatial and visual analysis surfaces patterns that linear argument cannot. A map can show simultaneity, distribution, and absence — things prose can describe but not demonstrate.',
+    example:
+      'City-level route arc map showing African airline networks at independence, overlaid on decolonization chronology. Dual-timeline graphic pairing infrastructure milestones against diplomatic recognition events.'
+  },
+  {
+    step: 'Argument',
+    description:
+      'The argument is a claim about why things happened and what they mean — supported by evidence, honest about gaps, and clear about what it is and is not claiming.',
+    example:
+      'African airlines were sovereignty instruments, not rational economic actors. Infrastructure build-out in Western Sahara preceded and enabled diplomatic normalization through three mechanisms: logistical leverage, administrative normalization, and spatial fait accompli.'
+  },
+  {
+    step: 'Public Output',
+    description:
+      'The argument leaves the archive and enters a form that an audience can engage with: an interactive dataset, a visual case study, a video, a slide deck, a paper.',
+    example:
+      'The From Colonies to Carriers interactive encyclopedia at /african-airlines/ — searchable database of 723 airlines with maps, timelines, and source provenance. The Western Sahara capstone with downloadable one-pager and dual timeline.'
+  }
+];
+
+export const aboutTimelineFull = [
+  {
+    period: 'Manhattan College',
+    date: '2019–2023',
+    summary:
+      'Undergraduate work in history and international studies. Early research in colonial and postcolonial history, medieval queer history, and American visual culture. Began tutoring, supplemental instruction, and writing support alongside coursework — the beginning of a long parallel track between scholarship and pedagogy.'
+  },
+  {
+    period: 'SALAM School, Oman',
+    date: 'Summer 2022',
+    summary:
+      'Teaching and educational exchange in Oman — an early international experience that clarified the connection between language, pedagogy, and cross-cultural communication, and pointed toward the Arabic work that followed.'
+  },
+  {
+    period: 'Fulbright Morocco',
+    date: '2023–2024',
+    summary:
+      'A year of Arabic study, field-based research, and teaching in Morocco under the Fulbright U.S. Student Program. Intensive study of Modern Standard Arabic and Moroccan Darija in Rabat. History teacher and BrainLyne convenor at the American Language Center. Field research into Moroccan institutional history, North African politics, and the long afterlives of colonial infrastructure.'
+  },
+  {
+    period: 'NC State — Graduate study',
+    date: '2024–2026',
+    summary:
+      'Master of International Studies (2026) with a specialization in North Africa. Capstone research on Western Sahara infrastructure and sovereignty. Graduate Teaching Assistant for PS 331: U.S. Foreign Policy (80 students, multiple semesters). Graduate Writing Consultant at the Academic Success Center, Level III CRLA certified. From Colonies to Carriers digital history project — reconstructing 723 African airlines from fragmentary archival sources.'
+  },
+  {
+    period: "Huruf La'b",
+    date: '2025–present',
+    summary:
+      "Co-founder and instructional design lead for a tactile Arabic learning system designed to make early script literacy a classroom routine instead of a wall. Customer discovery across the United States, UK, and Arab world. Early-stage startup work running alongside graduate study — building toward incubator applications and teacher partnerships."
+  },
+  {
+    period: 'Current',
+    date: '2026',
+    summary:
+      'Applying to History PhD programs with a focus on North Africa, postcolonial institutions, and digital history methodology. Continuing research, writing consultation, Arabic teaching, and public scholarship work.'
   }
 ];

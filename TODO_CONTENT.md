@@ -23,7 +23,9 @@ These items should be resolved before a final public launch. They are tracked he
 
 - Add source assets to `design-assets/` before any further visual redesign.
 - Add Google Sites screenshots to `design-assets/google-sites-screenshots/`.
-- Replace temporary Huruf La'b, Fulbright Morocco, and teaching-support SVGs with approved real artifacts when available.
+- Replace the Huruf La'b logo hero with approved real product/tile photography when available.
+- Replace teaching-support SVGs with an approved classroom/presentation photo when available.
+- Fulbright Morocco now has a real Chefchaouen fieldwork hero; keep adding more fieldwork artifacts only if they are stronger than the current image.
 
 ## Content Migration
 
