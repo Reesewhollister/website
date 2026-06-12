@@ -103,7 +103,7 @@ const faviconHref = withBase('/assets/ui/favicon.svg');
       // once JS has run and the user has not requested reduced motion.
       function setupReveals() {
         const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        const sections = Array.from(document.querySelectorAll('main > section'));
+        const sections = Array.from(document.querySelectorAll('main > section, .project-page > section'));
         if (prefersReduced || !('IntersectionObserver' in window)) {
           sections.forEach((s) => s.classList.add('is-visible'));
           return;
@@ -122,7 +122,11 @@ const faviconHref = withBase('/assets/ui/favicon.svg');
         );
         sections.forEach((section) => {
           // Never hide hero sections — they have their own entrance animations.
-          if (section.classList.contains('cinematic-hero') || section.classList.contains('page-hero')) {
+          if (
+            section.classList.contains('cinematic-hero') ||
+            section.classList.contains('page-hero') ||
+            section.classList.contains('project-hero')
+          ) {
             section.classList.add('is-visible');
             return;
           }

@@ -345,6 +345,14 @@ export const projects: Project[] = [
         href: 'https://ncsu.academia.edu/ReeseHollister',
         available: true,
         note: 'Research profile and publication trail.'
+      },
+      {
+        label: 'Explore the interactive encyclopedia',
+        shortLabel: 'Encyclopedia',
+        href: '/african-airlines/',
+        kind: 'link',
+        available: true,
+        note: 'Searchable database of 723 airlines with maps, timelines, and source provenance.'
       }
     ],
     seo: {
