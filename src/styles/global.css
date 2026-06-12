@@ -994,7 +994,8 @@ section {
   z-index: -2;
 }
 
-.cinematic-hero__media img {
+.cinematic-hero__media img,
+.cinematic-hero__media video {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -2018,7 +2019,8 @@ html.reveal-ready .reveal.is-visible {
   .cinematic-hero__tagline { animation: heroRise 0.85s 0.3s both; }
   .cinematic-hero__lead { animation: heroRise 0.85s 0.42s both; }
   .cinematic-hero__actions { animation: heroRise 0.85s 0.54s both; }
-  .cinematic-hero__media img { animation: heroZoom 1.6s ease both; }
+  .cinematic-hero__media img,
+  .cinematic-hero__media video { animation: heroZoom 1.6s ease both; }
 
   /* Page hero stagger - fires on page load, excluded from scroll-reveal */
   .page-hero .section-kicker { animation: heroRise 0.52s 0.05s both; }

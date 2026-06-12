@@ -14,11 +14,17 @@ const otherProjects = featuredProjects.filter((project) => project.slug !== spot
 <BaseLayout title={siteMeta.title} description={siteMeta.description}>
   <section class="cinematic-hero">
     <div class="cinematic-hero__media">
-      <img
-        src={withBase('/assets/fieldwork/heroes/chefchaouen-blue-plaza-hero-16x9.webp')}
-        alt="Chefchaouen, Morocco — the blue-washed medina where Reese conducted Fulbright fieldwork in North Africa."
-        fetchpriority="high"
-      />
+      <video
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        poster={withBase('/assets/fieldwork/heroes/chefchaouen-blue-plaza-hero-16x9.webp')}
+        aria-hidden="true"
+      >
+        <source src={withBase('/assets/projects/fulbright-morocco/video/hassan-ii-bg.mp4')} type="video/mp4" />
+      </video>
     </div>
     <div class="cinematic-hero__inner site-shell">
       <p class="cinematic-hero__kicker">Reese W. Hollister · North Africa / Digital Research</p>
@@ -33,7 +39,7 @@ const otherProjects = featuredProjects.filter((project) => project.slug !== spot
         <li><a href={withBase('/resume')}>CV</a></li>
       </ul>
     </div>
-    <span class="cinematic-hero__credit">Chefchaouen, Morocco</span>
+    <span class="cinematic-hero__credit">Hassan II Mosque, Casablanca, Morocco</span>
   </section>
 
   <section class="site-shell proof-strip-section">
