@@ -67,22 +67,11 @@ const researchProjects = [
     <p class="section-kicker">Research</p>
     <h1>Research</h1>
     <p class="page-lead">
-      Research on North Africa, infrastructure, mobility, sovereignty, and postcolonial state-building — with a focus on Morocco, Western Sahara, and the broader Arab world.
+      Research on North Africa, infrastructure, mobility, sovereignty, and postcolonial state-building, with Morocco and Western Sahara at the center.
     </p>
     <p>
-      The projects below are the best entry points: decks, maps, datasets, papers, and fieldwork artifacts rather than another layer of summary.
+      My work combines archival research, fieldwork, digital mapping, historical datasets, and public-facing interpretation to study how roads, airlines, images, and state institutions made political authority visible and durable.
     </p>
-  </section>
-
-  <section class="site-shell research-method-image-section">
-    <figure class="research-method-figure">
-      <img
-        src={withBase('/assets/fieldwork/heroes/mohammed-vi-library-aui-hero-16x9.webp')}
-        alt="Mohammed VI Library at Al Akhawayn University in Ifrane, Morocco — the archival research base for Reese Hollister's Fulbright fieldwork."
-        loading="lazy"
-      />
-      <figcaption>Mohammed VI Library, Al Akhawayn University — fieldwork and archival research base, Ifrane, Morocco.</figcaption>
-    </figure>
   </section>
 
   <section class="site-shell research-agenda-section has-video-backdrop" aria-labelledby="research-agenda-heading">
@@ -100,7 +89,7 @@ const researchProjects = [
     <div class="research-agenda">
       <p id="research-agenda-heading" class="section-kicker">Research agenda</p>
       <p class="research-agenda__text">
-        My work asks how infrastructure, mobility systems, and political institutions made sovereignty visible and durable across postcolonial North Africa. I combine archival research, digital mapping, fieldwork, and historical dataset construction to study how roads, airlines, images, and state agencies shaped authority on the ground.
+        These projects ask how mobility systems, visual evidence, and state institutions turned claims into routines: roads that made territorial control durable, airlines that made sovereignty operational, and truth-commission archives that shaped the public limits of accountability.
       </p>
       <ul class="research-agenda__chips" aria-label="Research themes and methods">
         <li>Infrastructure &amp; sovereignty</li>
@@ -108,6 +97,40 @@ const researchProjects = [
         <li>Digital mapping &amp; datasets</li>
         <li>Fieldwork &amp; language study</li>
       </ul>
+    </div>
+  </section>
+
+  <section class="site-shell research-evidence-section">
+    <SectionHeading
+      eyebrow="Evidence base"
+      title="Archives, fieldwork, and datasets"
+      intro="The research is organized around inspectable materials: archival sites, field observation, reconstructed datasets, and visual sources."
+    />
+    <div class="research-evidence-grid">
+      <figure class="research-evidence-card">
+        <img
+          src={withBase('/assets/fieldwork/heroes/mohammed-vi-library-aui-hero-16x9.webp')}
+          alt="Mohammed VI Library at Al Akhawayn University in Ifrane, Morocco, an archival research base for Reese Hollister's Fulbright fieldwork."
+          loading="lazy"
+        />
+        <figcaption>Archives: Mohammed VI Library, Al Akhawayn University, Ifrane.</figcaption>
+      </figure>
+      <figure class="research-evidence-card">
+        <img
+          src={withBase('/assets/projects/fulbright-morocco/jebel-shams-oman.jpg')}
+          alt="Layered cliffs of Wadi Ghul at Jebel Shams, Oman, photographed during Arabic language study and comparative fieldwork."
+          loading="lazy"
+        />
+        <figcaption>Field/language context: Jebel Shams and Wadi Ghul, Oman.</figcaption>
+      </figure>
+      <figure class="research-evidence-card">
+        <img
+          src={withBase('/assets/projects/from-colonies-to-carriers/2026-06-09__from-colonies-to-carriers__artifact__v01__atlas-panel.jpg')}
+          alt="Atlas panel from the From Colonies to Carriers project showing African countries shaded by national airline count."
+          loading="lazy"
+        />
+        <figcaption>Dataset work: postcolonial African airline atlas panel.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -140,8 +163,8 @@ const researchProjects = [
   <section class="site-shell">
     <SectionHeading
       eyebrow="Publications"
-      title="Published writing"
-      intro="Earlier public-facing history writing and the publication archive."
+      title="Published writing & research archive"
+      intro="Earlier undergraduate research and public-facing history writing, kept as a compact archive behind the current project work."
     />
     <ul class="action-list action-list--stacked">
       {publications.map((pub) => (
@@ -150,6 +173,12 @@ const researchProjects = [
           <span class="action-note">{pub.title}</span>
         </li>
       ))}
+      <li>
+        <a class="resource-link" href="https://sites.google.com/ncsu.edu/reese/history-research?authuser=0" target="_blank" rel="noreferrer">
+          Undergraduate research archive
+        </a>
+        <span class="action-note">Public NC State archive of earlier history research from Manhattan College, including published essays on colonial visual culture, museums, soft power, and anti-colonial politics.</span>
+      </li>
       <li>
         <a class="resource-link" href="https://ncsu.academia.edu/ReeseHollister" target="_blank" rel="noreferrer">
           Full archive on Academia.edu
