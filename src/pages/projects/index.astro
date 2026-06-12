@@ -1,10 +1,13 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
+import ProjectFilters from '../../components/ProjectFilters.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
 import { secondaryWork } from '../../data/site';
 import { sortedProjects as projects } from '../../data/projects';
 import { withBase, isExternal } from '../../utils/paths';
+
+const allTags = [...new Set(projects.flatMap((p) => p.tags ?? []))].sort();
 ---
 
 <BaseLayout
@@ -26,6 +29,7 @@ import { withBase, isExternal } from '../../utils/paths';
       title="Main projects"
       intro="A simple index of the larger projects featured on the site."
     />
+    <ProjectFilters categories={allTags} />
     <div class="project-grid">
       {projects.map((project) => <ProjectCard project={project} />)}
     </div>

@@ -56,11 +56,19 @@ export interface ProjectSection {
   artifacts?: ProjectArtifact[];
 }
 
+export interface ProjectPaper {
+  title: string;
+  pdfPath: string;
+  description?: string;
+}
+
 export interface Project {
   slug: string;
   title: string;
   summary: string;
   categories: string[];
+  /** Filter tags — drives the chip filter on /projects. Separate from display categories. */
+  tags?: string[];
   pillars: string[];
   role: string;
   skills: string[];
@@ -78,6 +86,8 @@ export interface Project {
   };
   card?: ProjectCardMeta;
   deck?: ProjectDeck;
+  /** Embeds a written paper PDF on the project page — distinct from the slide deck. */
+  paper?: ProjectPaper;
   videos?: ProjectVideo[];
   ytVideos?: ProjectYtVideo[];
   heroVideo?: string;
@@ -90,6 +100,7 @@ export const projects: Project[] = [
     title: "Huruf La'b",
     summary: 'A tactile Arabic learning system designed to turn early Arabic literacy into a classroom routine instead of a wall.',
     categories: ['Teaching & Learning', 'Product / Design'],
+    tags: ['Teaching', 'Arabic', 'Product / Design', 'Video'],
     pillars: ['Teaching', 'Building'],
     role: 'Co-founder, instructional design lead, user-research lead, and product framer',
     skills: ['Pedagogy', 'Product development', 'User research', 'Entrepreneurship', 'Language learning'],
@@ -212,6 +223,7 @@ export const projects: Project[] = [
     title: "How Highways Decided Morocco's Victory in the Western Sahara Conflict",
     summary: 'A capstone argument tracing how infrastructure build-out helped make later sovereignty claims and diplomatic normalization more plausible.',
     categories: ['Research', 'Public Scholarship'],
+    tags: ['Research', 'North Africa', 'Digital History', 'Public Scholarship'],
     pillars: ['Research', 'Building'],
     role: 'Historical researcher, source synthesist, and data / visual workflow builder',
     skills: ['Historical research', 'Process tracing', 'Visual evidence design', 'Data analysis', 'International studies'],
@@ -249,6 +261,11 @@ export const projects: Project[] = [
     seo: {
       title: 'Western Sahara Capstone',
       description: "Project profile for Reese Hollister's Western Sahara capstone on roads, sovereignty, and process tracing."
+    },
+    paper: {
+      title: 'Roads-over-time methodology one-pager',
+      pdfPath: '/assets/projects/western-sahara/2026-03-31__reese-portfolio__artifact__v01__roads-timeseries-one-pager.pdf',
+      description: 'Methodology summary for the OSM and ohsome workflow tracking Western Sahara road stock from 2008 to 2025.'
     },
     deck: {
       title: 'Capstone presentation — NC State Graduate History Conference, April 2026',
@@ -299,6 +316,7 @@ export const projects: Project[] = [
     title: 'From Colonies to Carriers',
     summary: 'A digital history project tracing how newly independent African states used civil aviation to project sovereignty, establish national identity, and build postcolonial institutions — with a case study on Royal Air Maroc.',
     categories: ['Digital History', 'Research'],
+    tags: ['Research', 'Digital History', 'North Africa', 'Public Scholarship'],
     pillars: ['Research'],
     role: 'Researcher and data archaeologist',
     skills: ['Archival research', 'Digital history', 'Database design', 'Data archaeology', 'Postcolonial history'],
@@ -359,6 +377,11 @@ export const projects: Project[] = [
       title: 'From Colonies to Carriers',
       description: 'Digital history project on postcolonial African airline development by Reese Hollister.'
     },
+    paper: {
+      title: 'From Colonies to Carriers — working paper (intro & conclusion)',
+      pdfPath: '/assets/projects/from-colonies-to-carriers/2026-06-09__from-colonies-to-carriers__paper__v01__intro-conclusion.pdf',
+      description: 'Intro and conclusion from the research paper on postcolonial African civil aviation and Royal Air Maroc.'
+    },
     deck: {
       title: 'African Airlines presentation',
       pdf: '/assets/projects/from-colonies-to-carriers/2026-06-09__from-colonies-to-carriers__deck__v01__african-airlines.pdf',
@@ -414,6 +437,7 @@ export const projects: Project[] = [
     title: 'Truth After Tazmamart',
     summary: "A deck-first research project on Morocco's Equity and Reconciliation Commission, the Years of Lead, and the political logic of transitional justice without punishment.",
     categories: ['Research', 'Public Scholarship'],
+    tags: ['Research', 'North Africa', 'Public Scholarship'],
     pillars: ['Research', 'Building'],
     role: 'Historical researcher, legal analyst, and documentary storyteller',
     skills: ['Human rights history', 'International law', 'Transitional justice', 'Morocco', 'Public scholarship'],
@@ -443,6 +467,11 @@ export const projects: Project[] = [
     seo: {
       title: 'Truth After Tazmamart',
       description: "Project profile for Reese Hollister's research on Tazmamart, Moroccan transitional justice, and public memory."
+    },
+    paper: {
+      title: 'Truth After Tazmamart — research paper',
+      pdfPath: '/assets/projects/tazmamart/2026-06-09__tazmamart__paper__v01__truth-after-tazmamart.pdf',
+      description: "Research paper on Morocco's Equity and Reconciliation Commission and the political logic of transitional justice without punishment."
     },
     deck: {
       title: 'Truth After Tazmamart presentation',
@@ -479,6 +508,7 @@ export const projects: Project[] = [
     title: 'Fulbright Morocco / International Research & Teaching',
     summary: 'Field-based research, language study, teaching, and public-facing academic work carried out in Morocco during 2023-2024.',
     categories: ['Research', 'Teaching & Learning', 'Public Scholarship'],
+    tags: ['Research', 'North Africa', 'Arabic', 'Public Scholarship'],
     pillars: ['Research', 'Teaching'],
     role: 'Fulbright researcher, language learner, teacher, and public-facing interpreter',
     skills: ['Fulbright', 'Morocco', 'Arabic', 'French', 'Intercultural work', 'Public-facing scholarship'],
@@ -613,6 +643,7 @@ export const projects: Project[] = [
     title: 'Teaching and Writing Support',
     summary: 'Writing consultation, large-lecture teaching support, and student-centered pedagogy grounded in real learning bottlenecks.',
     categories: ['Teaching & Learning', 'Public Scholarship'],
+    tags: ['Teaching', 'Writing', 'Public Scholarship'],
     pillars: ['Teaching', 'Research'],
     role: 'Graduate writing consultant, teaching assistant, learning diagnostician, and instructional designer',
     skills: ['Writing pedagogy', 'Tutoring', 'AI and learning', 'Student support', 'Instructional design'],

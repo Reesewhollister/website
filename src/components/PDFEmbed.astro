@@ -1,0 +1,49 @@
+---
+interface Props {
+  pdfPath: string;
+  title: string;
+  description?: string;
+}
+
+const { pdfPath, title, description } = Astro.props;
+---
+
+<div class="pdf-embed">
+  <div class="pdf-embed__header">
+    <div class="pdf-embed__meta">
+      <span class="pdf-embed__label">PDF</span>
+      <span class="pdf-embed__title">{title}</span>
+      {description && <p class="pdf-embed__desc">{description}</p>}
+    </div>
+    <div class="pdf-embed__actions">
+      <a
+        class="pdf-embed__action"
+        href={pdfPath}
+        target="_blank"
+        rel="noreferrer"
+        data-track="pdf_open"
+        data-track-label={title}
+      >Open in new tab</a>
+      <a
+        class="pdf-embed__action pdf-embed__action--dl"
+        href={pdfPath}
+        download
+        data-track="pdf_download"
+        data-track-label={title}
+      >Download</a>
+    </div>
+  </div>
+  <div class="pdf-embed__frame-wrap">
+    <iframe
+      src={pdfPath}
+      title={`PDF preview: ${title}`}
+      loading="lazy"
+      class="pdf-embed__frame"
+    ></iframe>
+    <noscript>
+      <p class="pdf-embed__noscript">
+        <a href={pdfPath} target="_blank" rel="noreferrer">Open PDF: {title}</a>
+      </p>
+    </noscript>
+  </div>
+</div>

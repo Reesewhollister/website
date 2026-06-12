@@ -27,6 +27,9 @@ const { categories } = Astro.props;
         const filter = button.getAttribute('data-filter');
         buttons.forEach((item) => item.classList.remove('is-active'));
         button.classList.add('is-active');
+        if (filter && typeof window.gtag === 'function') {
+          window.gtag('event', 'project_filter_click', { event_label: filter });
+        }
         cards.forEach((card) => {
           const categories = (card.getAttribute('data-categories') || '').split('|');
           const matches = filter === 'all' || categories.includes(filter);

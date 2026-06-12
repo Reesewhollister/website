@@ -1,6 +1,7 @@
 ---
 import type { Project } from '../data/projects';
 import BaseLayout from './BaseLayout.astro';
+import PDFEmbed from '../components/PDFEmbed.astro';
 import { withBase, isExternal } from '../utils/paths';
 import { getImageDims } from '../utils/imageDims';
 
@@ -111,7 +112,7 @@ const materialLinks = [
         <div class="project-deck__head">
           <p class="section-kicker">The deck</p>
           <h2>{deck.title}</h2>
-          <a class="deck-download" href={withBase(deck.pdf)} target="_blank" rel="noreferrer">Download the full deck (PDF) →</a>
+          <a class="deck-download" href={withBase(deck.pdf)} target="_blank" rel="noreferrer" data-track="deck_open" data-track-label={deck.title}>Download the full deck (PDF) →</a>
         </div>
         <div class="deck-strip" tabindex="0" aria-label={`${deck.title} — slide deck, scroll horizontally to advance`}>
           {Array.from({ length: deck.slideCount }, (_, i) => {
@@ -128,6 +129,16 @@ const materialLinks = [
           })}
         </div>
         <p class="deck-hint">Scroll or swipe through all {deck.slideCount} slides — or open the full PDF above.</p>
+      </section>
+    )}
+    {project.paper && (
+      <section class="project-paper site-shell" id="paper">
+        <p class="section-kicker">Written paper</p>
+        <PDFEmbed
+          pdfPath={withBase(project.paper.pdfPath)}
+          title={project.paper.title}
+          description={project.paper.description}
+        />
       </section>
     )}
     {videos.length > 0 && (

@@ -99,6 +99,25 @@ const faviconHref = withBase('/assets/ui/favicon.svg');
     </main>
     <SiteFooter />
     <script>
+      // Global delegated analytics handler. Picks up data-track / data-track-label
+      // on any element and fires gtag safely. Re-wired on each Astro page transition.
+      let _trackHandler: ((e: MouseEvent) => void) | null = null;
+      function setupTracking() {
+        if (_trackHandler) document.removeEventListener('click', _trackHandler as EventListener);
+        _trackHandler = (e: MouseEvent) => {
+          const el = (e.target as Element).closest('[data-track]');
+          if (!el) return;
+          const eventName = el.getAttribute('data-track');
+          const label = el.getAttribute('data-track-label') ?? undefined;
+          if (eventName && typeof window.gtag === 'function') {
+            window.gtag('event', eventName, label ? { event_label: label } : {});
+          }
+        };
+        document.addEventListener('click', _trackHandler as EventListener);
+      }
+      document.addEventListener('astro:page-load', setupTracking);
+    </script>
+    <script>
       // Scroll-reveal for sections. Safe by design: content is only hidden
       // once JS has run and the user has not requested reduced motion.
       function setupReveals() {

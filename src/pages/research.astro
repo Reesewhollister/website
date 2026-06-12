@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import SectionHeading from '../components/SectionHeading.astro';
+import ResearchProcess from '../components/ResearchProcess.astro';
 import { publications, presentations } from '../data/site';
 import { getProjectBySlug, type Project } from '../data/projects';
 import { withBase } from '../utils/paths';
@@ -133,6 +134,44 @@ const researchProjects = [
       </figure>
     </div>
   </section>
+
+  <section class="site-shell research-clusters-section" aria-labelledby="research-clusters-heading">
+    <p class="section-kicker">Research clusters</p>
+    <h2 id="research-clusters-heading" class="section-title">Three lines of inquiry</h2>
+    <div class="research-clusters">
+      <article class="research-cluster">
+        <h3 class="research-cluster__title">Mobility after empire</h3>
+        <p class="research-cluster__body">
+          How did newly independent African states use civil aviation, roads, and transport networks to build postcolonial sovereignty — and how did those infrastructure choices constrain and enable what came after? This cluster centers the From Colonies to Carriers dataset and the Western Sahara highway research.
+        </p>
+        <ul class="research-cluster__projects">
+          <li><a href="/projects/from-colonies-to-carriers">From Colonies to Carriers</a></li>
+          <li><a href="/projects/western-sahara-capstone">Western Sahara Highways</a></li>
+        </ul>
+      </article>
+      <article class="research-cluster">
+        <h3 class="research-cluster__title">Infrastructure and sovereignty</h3>
+        <p class="research-cluster__body">
+          Territory is not a given — it is made durable through infrastructure, administration, and repeated material presence. This cluster asks how roads, buildings, and state facilities turn contested claims into routine facts on the ground, with a focus on the Western Sahara conflict and Moroccan state-building after 1975.
+        </p>
+        <ul class="research-cluster__projects">
+          <li><a href="/projects/western-sahara-capstone">Western Sahara Highways Capstone</a></li>
+          <li><a href="/projects/fulbright-morocco">Fulbright Morocco</a></li>
+        </ul>
+      </article>
+      <article class="research-cluster">
+        <h3 class="research-cluster__title">Memory, justice, and state legitimacy</h3>
+        <p class="research-cluster__body">
+          Truth commissions, political prisons, and transitional justice archives — how do states manage the memory of political violence, and what does the management of that memory reveal about the limits of accountability? This cluster centers the Tazmamart research and the Equity and Reconciliation Commission.
+        </p>
+        <ul class="research-cluster__projects">
+          <li><a href="/projects/tazmamart">Truth After Tazmamart</a></li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <ResearchProcess />
 
   <section class="site-shell research-mosaic-section" aria-label="Research project visuals">
     <div class="research-mosaic">
