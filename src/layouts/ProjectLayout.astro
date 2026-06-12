@@ -221,6 +221,7 @@ const materialLinks = [
   // browser chrome before play; keeps the section feeling intentional.
   function setupProjectVideos() {
     document.querySelectorAll('.project-video--play').forEach((figure) => {
+      if (!(figure instanceof HTMLElement)) return;
       const video = figure.querySelector('video');
       const button = figure.querySelector('.project-video__play');
       if (!video || !button || figure.dataset.wired === 'true') return;

@@ -19,6 +19,7 @@ export const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/projects', label: 'Projects' },
   { href: '/research', label: 'Research' },
+  { href: '/african-airlines/', label: 'African Airlines' },
   { href: '/coaching', label: 'Coaching' },
   { href: '/resume', label: 'CV' },
   { href: '/contact', label: 'Contact' }
