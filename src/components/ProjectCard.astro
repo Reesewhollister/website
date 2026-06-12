@@ -18,7 +18,7 @@ const deckHref = `${href}#deck`;
 const secondaryAction = !project.deck ? card?.secondaryAction : undefined;
 ---
 
-<article class="project-card" data-categories={project.categories.join('|')} data-accent={accent}>
+<article class="project-card" data-categories={[...project.categories, ...(project.tags ?? [])].join('|')} data-accent={accent}>
   <a class="project-card__media" href={withBase(href)}>
     <img src={heroSrc} alt={project.heroAsset.alt} loading="lazy" />
   </a>

@@ -28,7 +28,8 @@ export const navLinks = [
 export const footerLinks = [
   { href: '/about', label: 'About' },
   { href: '/writing', label: 'Writing' },
-  { href: '/teaching', label: 'Teaching' }
+  { href: '/teaching', label: 'Teaching' },
+  { href: '/works', label: 'Works' }
 ];
 
 export const homeIntro =
@@ -214,6 +215,45 @@ export const aboutTimeline = [
     period: 'NC State and public scholarship',
     summary:
       "Graduate work, public history, and Huruf La'b turned the research into decks, datasets, lessons, and tools."
+  }
+];
+
+export const aboutTimelineFull = [
+  {
+    period: 'Manhattan College',
+    date: '2019–2023',
+    summary:
+      'B.A. in History and Political Science. Published in peer-reviewed history journals; won institutional research awards; developed the core interest in postcolonial Africa and French institutional history that drives the current work.'
+  },
+  {
+    period: 'SALAM School — Oman',
+    date: 'Summer 2022',
+    summary:
+      'Intensive Arabic language study and early teaching experience at the Sultan Qaboos Cultural Center language program in Muscat. First sustained engagement with the Arab world as a research and teaching context.'
+  },
+  {
+    period: 'Fulbright Scholar — Morocco',
+    date: '2023–2024',
+    summary:
+      "Field-based research in Ifrane, Rabat, Fez, and across Morocco. Archival work at Mohammed VI Library, AUI. Arabic and Darija study; teaching history at the American Language Center, Rabat. The year grounded the North Africa focus and produced the fieldwork that runs through everything since."
+  },
+  {
+    period: 'NC State — M.I.S.',
+    date: '2024–2026',
+    summary:
+      "Master of International Studies with a focus on North Africa, postcolonial institutions, and digital history. Graduate Teaching Assistant in Political Science; writing consultant at the Academic Success Center; Huruf La'b co-founder and VenturePack winner ($4,000, April 2026)."
+  },
+  {
+    period: "Huruf La'b",
+    date: '2025–present',
+    summary:
+      "Co-founder of a tactile Arabic learning startup. Designed and tested a puzzle-based system for early Arabic script literacy; led outreach to 100+ Arabic teachers globally; pitched successfully in NC State's campus-wide venture competition."
+  },
+  {
+    period: 'Current — Research, Teaching, Writing',
+    date: '2026',
+    summary:
+      'Working on postcolonial African airline history, Western Sahara infrastructure research, and writing coaching. Applying to PhD programs in History. Writing publicly on Substack and through the Historical Method Man channel.'
   }
 ];
 

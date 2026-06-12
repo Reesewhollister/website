@@ -1,0 +1,62 @@
+---
+import type { Work } from '../data/works';
+import { workTypeLabels } from '../data/works';
+
+interface Props {
+  work: Work;
+}
+
+const { work } = Astro.props;
+const label = workTypeLabels[work.type];
+---
+
+<article class="pdf-card">
+  {work.thumbnailPath && (
+    <a
+      class="pdf-card__thumb-wrap"
+      href={work.pdfPath}
+      target="_blank"
+      rel="noreferrer"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <img
+        class="pdf-card__thumb"
+        src={work.thumbnailPath}
+        alt=""
+        loading="lazy"
+        width="240"
+        height="135"
+      />
+    </a>
+  )}
+  <div class="pdf-card__body">
+    <span class="pdf-card__type">{label}</span>
+    <h3 class="pdf-card__title">
+      <a href={work.pdfPath} target="_blank" rel="noreferrer">{work.title}</a>
+    </h3>
+    <p class="pdf-card__desc">{work.description}</p>
+    <div class="pdf-card__actions">
+      <a
+        class="pdf-card__open"
+        href={work.pdfPath}
+        target="_blank"
+        rel="noreferrer"
+        data-track="pdf_open"
+        data-track-label={work.title}
+      >Open PDF</a>
+      <a
+        class="pdf-card__dl"
+        href={work.pdfPath}
+        download
+        data-track="pdf_download"
+        data-track-label={work.title}
+      >Download</a>
+      {work.projectSlug && (
+        <a class="pdf-card__project" href={`/projects/${work.projectSlug}`}>
+          View project
+        </a>
+      )}
+    </div>
+  </div>
+</article>

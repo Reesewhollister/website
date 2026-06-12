@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import SectionHeading from '../components/SectionHeading.astro';
+import ChoosePath from '../components/ChoosePath.astro';
 import { heroThesis, proofStrip, coachingCta, contactCta, siteMeta } from '../data/site';
 import { featuredProjects, getProjectBySlug } from '../data/projects';
 import { withBase } from '../utils/paths';
@@ -45,6 +46,8 @@ const otherProjects = featuredProjects.filter((project) => project.slug !== spot
       ))}
     </ul>
   </section>
+
+  <ChoosePath />
 
   {spotlight && (
     <section class="site-shell">

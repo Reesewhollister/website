@@ -101,6 +101,81 @@ import { withBase } from '../utils/paths';
 
   <section class="site-shell">
     <SectionHeading
+      eyebrow="Process"
+      title="How sessions work"
+      intro="Every session follows the same three phases — the details depend on what the draft needs."
+    />
+    <div class="session-phases">
+      <details class="session-phase">
+        <summary class="session-phase__summary">
+          <span class="session-phase__label">Before</span>
+          <span class="session-phase__desc">Send the draft, prompt, and context</span>
+        </summary>
+        <div class="session-phase__detail">
+          <p>Share the assignment prompt or thesis requirement, the draft you have (or a description of what you're working on), and the deadline. A sentence about where you feel stuck is more useful than a long explanation. I read everything before the session so we can spend the time working, not orienting.</p>
+        </div>
+      </details>
+      <details class="session-phase">
+        <summary class="session-phase__summary">
+          <span class="session-phase__label">During</span>
+          <span class="session-phase__desc">Targeted conversation on the draft</span>
+        </summary>
+        <div class="session-phase__detail">
+          <p>Sessions are 60–90 minutes and move through the draft with a specific question: What is the argument doing here? Where is the evidence thin? Does the reader know what to do with this paragraph? I mark up the draft as we talk and explain the edits so you understand why, not just what changed.</p>
+        </div>
+      </details>
+      <details class="session-phase">
+        <summary class="session-phase__summary">
+          <span class="session-phase__label">After</span>
+          <span class="session-phase__desc">Annotated draft + next steps</span>
+        </summary>
+        <div class="session-phase__detail">
+          <p>You leave with a marked draft and a short list of specific revisions ranked by impact. If there's a follow-up session, I read the revision before we meet so you're not re-explaining the project. For ongoing clients, we build a shared sense of your writing patterns over time.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="site-shell">
+    <SectionHeading
+      eyebrow="What do you need?"
+      title="Find the right kind of help"
+      intro="Different stages need different kinds of work. Pick what fits."
+    />
+    <div class="writing-chooser">
+      <details class="writing-chooser__item">
+        <summary>I have a rough draft and don't know if the argument works</summary>
+        <div class="writing-chooser__detail">
+          <p>This is a structural read. I'll identify where the claim is, whether the evidence supports it, where the reader will get lost, and what the revision priority should be. Good for any stage from outline through second draft.</p>
+          <a href={coachingBookingUrl} target="_blank" rel="noreferrer">Book a structure session →</a>
+        </div>
+      </details>
+      <details class="writing-chooser__item">
+        <summary>I'm writing a college essay or personal statement</summary>
+        <div class="writing-chooser__detail">
+          <p>The challenge with personal statements is that students try to say everything and end up saying nothing. We'll narrow the focus to one or two specific moments that carry the whole essay, and make the voice feel like you wrote it — not like a template.</p>
+          <a href={coachingBookingUrl} target="_blank" rel="noreferrer">Book a personal statement session →</a>
+        </div>
+      </details>
+      <details class="writing-chooser__item">
+        <summary>I need help with citations, formatting, or academic style</summary>
+        <div class="writing-chooser__detail">
+          <p>Chicago, MLA, APA — I work across citation styles and can explain the logic behind the rules rather than just correcting the format. Usually combined with a substantive session rather than done alone.</p>
+          <a href={coachingBookingUrl} target="_blank" rel="noreferrer">Book a session →</a>
+        </div>
+      </details>
+      <details class="writing-chooser__item">
+        <summary>I'm applying to graduate school</summary>
+        <div class="writing-chooser__detail">
+          <p>Statement of purpose, writing sample selection and framing, diversity statement — the application package tells a story, and the pieces need to reinforce each other. I've been through the PhD application cycle and know what strong SOPs do differently.</p>
+          <a href={coachingBookingUrl} target="_blank" rel="noreferrer">Book a grad school application session →</a>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="site-shell">
+    <SectionHeading
       eyebrow="Contact"
       title="Book a session"
       intro="Choose a time online or email a short note."

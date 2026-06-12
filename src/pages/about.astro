@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
-import { aboutTimeline, partnerInstitutions } from '../data/site';
+import { aboutTimelineFull, partnerInstitutions } from '../data/site';
 import { withBase } from '../utils/paths';
 ---
 
@@ -38,13 +38,14 @@ import { withBase } from '../utils/paths';
   <section class="site-shell">
     <SectionHeading
       eyebrow="Background"
-      title="Three context points"
-      intro="A short frame for the project work."
+      title="Where the work comes from"
+      intro="Six stages that shaped the research, teaching, and building."
     />
     <ol class="timeline-list">
-      {aboutTimeline.map((item) => (
+      {aboutTimelineFull.map((item) => (
         <li>
           <span class="timeline-label">{item.period}</span>
+          {item.date && <span class="timeline-date">{item.date}</span>}
           <p>{item.summary}</p>
         </li>
       ))}

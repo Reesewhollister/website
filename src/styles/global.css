@@ -2662,3 +2662,610 @@ html.reveal-ready .reveal.is-visible {
     grid-template-columns: 1fr;
   }
 }
+
+/* ── Choose Path ─────────────────────────────────────────────────────────── */
+
+.choose-path {
+  padding-block: var(--space-6);
+}
+
+.choose-path .section-kicker {
+  text-align: center;
+  margin-bottom: var(--space-4);
+}
+
+.choose-path__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.choose-path__card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: var(--space-3) var(--space-3);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  text-decoration: none;
+  color: var(--ink);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.choose-path__card:hover,
+.choose-path__card:focus-visible {
+  border-color: var(--accent-map);
+  box-shadow: 0 2px 12px var(--accent-map-wash);
+  outline: none;
+}
+
+.choose-path__icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.choose-path__label {
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.925rem;
+  color: var(--ink);
+}
+
+.choose-path__desc {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+
+@media (max-width: 680px) {
+  .choose-path__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 400px) {
+  .choose-path__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── PDF Embed ───────────────────────────────────────────────────────────── */
+
+.pdf-embed {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--paper);
+}
+
+.pdf-embed__header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+
+.pdf-embed__meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.pdf-embed__label {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent-rust);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.pdf-embed__title {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--ink);
+  display: block;
+}
+
+.pdf-embed__desc {
+  margin: 0.4rem 0 0;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+.pdf-embed__actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-shrink: 0;
+  align-items: center;
+}
+
+.pdf-embed__action {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent-map);
+  text-decoration: none;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--accent-map);
+  border-radius: 4px;
+  white-space: nowrap;
+  transition: background 0.12s;
+}
+
+.pdf-embed__action:hover,
+.pdf-embed__action:focus-visible {
+  background: var(--accent-map-wash);
+}
+
+.pdf-embed__action--dl {
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+.pdf-embed__action--dl:hover,
+.pdf-embed__action--dl:focus-visible {
+  background: var(--paper-deep);
+}
+
+.pdf-embed__frame-wrap {
+  position: relative;
+}
+
+.pdf-embed__frame {
+  display: block;
+  width: 100%;
+  height: 540px;
+  border: none;
+  background: #f0ebe3;
+}
+
+.pdf-embed__noscript {
+  padding: var(--space-4);
+  text-align: center;
+}
+
+/* ── PDF Card ────────────────────────────────────────────────────────────── */
+
+.pdf-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
+  gap: var(--space-4);
+}
+
+.pdf-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--paper);
+}
+
+.pdf-card__thumb-wrap {
+  display: block;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+
+.pdf-card__thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.2s;
+}
+
+.pdf-card__thumb-wrap:hover .pdf-card__thumb {
+  transform: scale(1.02);
+}
+
+.pdf-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-3);
+  flex: 1;
+}
+
+.pdf-card__type {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent-rust);
+}
+
+.pdf-card__title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.pdf-card__title a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.pdf-card__title a:hover {
+  color: var(--accent-map);
+}
+
+.pdf-card__desc {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.pdf-card__actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--line);
+}
+
+.pdf-card__open,
+.pdf-card__dl,
+.pdf-card__project {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--accent-map);
+}
+
+.pdf-card__dl,
+.pdf-card__project {
+  color: var(--ink-soft);
+}
+
+.pdf-card__open:hover,
+.pdf-card__dl:hover,
+.pdf-card__project:hover {
+  color: var(--accent-map);
+}
+
+/* ── Research Clusters ───────────────────────────────────────────────────── */
+
+.research-clusters-section {
+  padding-block: var(--space-6);
+}
+
+.research-clusters {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.research-cluster {
+  padding: var(--space-4);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--accent-map);
+  border-radius: 6px;
+}
+
+.research-cluster__title {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 500;
+  margin: 0 0 var(--space-2);
+  color: var(--ink);
+}
+
+.research-cluster__body {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--ink-soft);
+  margin: 0 0 var(--space-3);
+}
+
+.research-cluster__projects {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.research-cluster__projects a {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent-map);
+  text-decoration: none;
+}
+
+.research-cluster__projects a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 760px) {
+  .research-clusters {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Research Process ────────────────────────────────────────────────────── */
+
+.research-process {
+  padding-block: var(--space-6);
+}
+
+.research-process__steps {
+  list-style: none;
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.research-process__step + .research-process__step {
+  border-top: 1px solid var(--line);
+}
+
+.research-process__details {
+  width: 100%;
+}
+
+.research-process__summary {
+  display: grid;
+  grid-template-columns: 2.2rem 7rem 1fr;
+  gap: var(--space-2);
+  align-items: center;
+  padding: var(--space-3) var(--space-4);
+  cursor: pointer;
+  background: var(--paper);
+  list-style: none;
+  transition: background 0.12s;
+}
+
+.research-process__summary::-webkit-details-marker {
+  display: none;
+}
+
+.research-process__summary:hover {
+  background: var(--paper-deep);
+}
+
+.research-process__details[open] .research-process__summary {
+  background: var(--paper-deep);
+}
+
+.research-process__num {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-rust);
+  letter-spacing: 0.04em;
+}
+
+.research-process__step-label {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.research-process__step-summary {
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+}
+
+.research-process__detail {
+  padding: 0 var(--space-4) var(--space-3) calc(2.2rem + var(--space-2) + var(--space-4));
+  background: var(--paper-deep);
+}
+
+.research-process__detail p {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 560px) {
+  .research-process__summary {
+    grid-template-columns: 2rem 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  .research-process__step-label {
+    grid-column: 2;
+  }
+
+  .research-process__step-summary {
+    grid-column: 1 / -1;
+    margin-top: 0.25rem;
+  }
+
+  .research-process__detail {
+    padding-left: var(--space-4);
+  }
+}
+
+/* ── Session phases (coaching) ───────────────────────────────────────────── */
+
+.session-phases {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: var(--space-4);
+}
+
+.session-phase + .session-phase {
+  border-top: 1px solid var(--line);
+}
+
+.session-phase__summary {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  cursor: pointer;
+  background: var(--paper);
+  list-style: none;
+  transition: background 0.12s;
+}
+
+.session-phase__summary::-webkit-details-marker {
+  display: none;
+}
+
+.session-phase__summary:hover,
+.session-phase[open] .session-phase__summary {
+  background: var(--paper-deep);
+}
+
+.session-phase__label {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent-rust);
+  min-width: 4rem;
+  flex-shrink: 0;
+}
+
+.session-phase__desc {
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+
+.session-phase__detail {
+  padding: var(--space-2) var(--space-4) var(--space-3);
+  background: var(--paper-deep);
+}
+
+.session-phase__detail p {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+/* ── Writing Chooser (coaching) ──────────────────────────────────────────── */
+
+.writing-chooser {
+  margin-top: var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.writing-chooser__item + .writing-chooser__item {
+  border-top: 1px solid var(--line);
+}
+
+.writing-chooser__item > summary {
+  padding: var(--space-3) var(--space-4);
+  cursor: pointer;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--paper);
+  list-style: none;
+  transition: background 0.12s;
+}
+
+.writing-chooser__item > summary::-webkit-details-marker {
+  display: none;
+}
+
+.writing-chooser__item > summary:hover,
+.writing-chooser__item[open] > summary {
+  background: var(--paper-deep);
+}
+
+.writing-chooser__detail {
+  padding: var(--space-2) var(--space-4) var(--space-3);
+  background: var(--paper-deep);
+}
+
+.writing-chooser__detail p {
+  margin: 0 0 var(--space-2);
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+.writing-chooser__detail a {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--accent-map);
+  text-decoration: none;
+}
+
+.writing-chooser__detail a:hover {
+  text-decoration: underline;
+}
+
+/* ── About Timeline (expanded) ───────────────────────────────────────────── */
+
+.timeline-date {
+  display: block;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--accent-rust);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.15rem;
+  margin-bottom: 0.35rem;
+}
+
+/* ── Project Paper section ───────────────────────────────────────────────── */
+
+.project-paper {
+  padding-block: var(--space-6);
+}
+
+.project-paper .section-kicker {
+  margin-bottom: var(--space-3);
+}
+
+/* ── Works page ──────────────────────────────────────────────────────────── */
+
+.works-section {
+  padding-block: var(--space-5);
+}
+
+.works-section + .works-section {
+  border-top: 1px solid var(--line);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .choose-path__card,
+  .pdf-card__thumb,
+  .research-process__summary,
+  .session-phase__summary,
+  .writing-chooser__item > summary {
+    transition: none;
+  }
+}

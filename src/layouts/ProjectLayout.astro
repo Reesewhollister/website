@@ -1,6 +1,7 @@
 ---
 import type { Project } from '../data/projects';
 import BaseLayout from './BaseLayout.astro';
+import PDFEmbed from '../components/PDFEmbed.astro';
 import { withBase, isExternal } from '../utils/paths';
 import { getImageDims } from '../utils/imageDims';
 
@@ -128,6 +129,16 @@ const materialLinks = [
           })}
         </div>
         <p class="deck-hint">Scroll or swipe through all {deck.slideCount} slides — or open the full PDF above.</p>
+      </section>
+    )}
+    {project.paper && (
+      <section class="project-paper site-shell" id="paper">
+        <p class="section-kicker">Written paper</p>
+        <PDFEmbed
+          pdfPath={withBase(project.paper.pdfPath)}
+          title={project.paper.title}
+          description={project.paper.description}
+        />
       </section>
     )}
     {videos.length > 0 && (

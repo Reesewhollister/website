@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PDFCard from '../components/PDFCard.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { works, workTypeLabels } from '../data/works';
+import type { WorkType } from '../data/works';
+
+const typeOrder: WorkType[] = ['paper', 'deck', 'public-scholarship', 'writing-sample', 'teaching', 'dataset'];
+const groupedWorks = typeOrder
+  .map((type) => ({ type, label: workTypeLabels[type], items: works.filter((w) => w.type === type) }))
+  .filter((group) => group.items.length > 0);
+---
+
+<BaseLayout
+  title="Works — Papers, Decks & Research Artifacts"
+  description="Papers, slide decks, and research artifacts by Reese Hollister — downloadable PDFs from postcolonial African history, Western Sahara, Morocco, and Arabic language teaching."
+>
+  <section class="page-hero site-shell">
+    <p class="section-kicker">Works</p>
+    <h1>Papers, Decks & Research Artifacts</h1>
+    <p class="page-lead">
+      Downloadable PDFs organized by type — research papers, presentation decks, and public scholarship artifacts.
+    </p>
+  </section>
+
+  {groupedWorks.map((group) => (
+    <section class="site-shell works-section" aria-labelledby={`works-${group.type}-heading`}>
+      <SectionHeading
+        eyebrow={group.label}
+        title={group.label}
+      />
+      <div class="pdf-card-grid">
+        {group.items.map((work) => <PDFCard work={work} />)}
+      </div>
+    </section>
+  ))}
+</BaseLayout>

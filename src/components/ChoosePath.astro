@@ -1,0 +1,60 @@
+---
+const paths = [
+  {
+    label: 'Research Projects',
+    href: '/projects',
+    icon: '🗂',
+    desc: 'Postcolonial Africa, Western Sahara, Morocco'
+  },
+  {
+    label: 'Maps & Datasets',
+    href: '/projects/from-colonies-to-carriers',
+    icon: '🗺',
+    desc: '723-airline encyclopedia, road time-series'
+  },
+  {
+    label: 'Writing Coaching',
+    href: '/coaching',
+    icon: '✏️',
+    desc: 'Academic, graduate, personal statement'
+  },
+  {
+    label: 'Teaching Work',
+    href: '/teaching',
+    icon: '📖',
+    desc: "Arabic instruction, Huruf La'b, tutoring"
+  },
+  {
+    label: 'Videos & Public Scholarship',
+    href: '/writing',
+    icon: '🎬',
+    desc: 'YouTube, Substack, conference talks'
+  },
+  {
+    label: 'CV & PDFs',
+    href: '/works',
+    icon: '📄',
+    desc: 'Papers, decks, teaching materials'
+  }
+];
+---
+
+<section class="choose-path site-shell" aria-labelledby="choose-path-heading">
+  <p id="choose-path-heading" class="section-kicker">What are you here to see?</p>
+  <ul class="choose-path__grid" role="list">
+    {paths.map((p) => (
+      <li>
+        <a
+          class="choose-path__card"
+          href={p.href}
+          data-track="choose_path"
+          data-track-label={p.label}
+        >
+          <span class="choose-path__icon" aria-hidden="true">{p.icon}</span>
+          <span class="choose-path__label">{p.label}</span>
+          <span class="choose-path__desc">{p.desc}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</section>

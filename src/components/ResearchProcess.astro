@@ -1,0 +1,62 @@
+---
+const steps = [
+  {
+    id: 'question',
+    label: 'Question',
+    summary: 'Start with a historical puzzle — something that does not fit the standard account.',
+    detail: "The question has to be specific enough to answer with evidence and consequential enough to matter. For the airlines project: why did newly independent states invest in national airlines immediately after independence, even when they could not afford them? For Western Sahara: can road infrastructure serve as a proxy for measuring territorial consolidation over time?"
+  },
+  {
+    id: 'archive',
+    label: 'Archive',
+    summary: 'Find where the evidence lives — documents, images, data, field observation.',
+    detail: "Archives can be paper (the Mohammed VI Library at AUI, the National Archives of Morocco), digital (airline route databases, ICAO records, OpenStreetMap history), or field-based (on-the-ground observation and interview notes from Morocco and Oman). Knowing the archive's gaps matters as much as knowing its contents."
+  },
+  {
+    id: 'dataset',
+    label: 'Dataset',
+    summary: 'Build structured data where the archive is fragmented or comparative.',
+    detail: "Some questions require reconstructing evidence from scratch. The African airlines dataset combines ICAO records, airline histories, Wikipedia entries, and regional databases into a unified 723-airline, 54-country spreadsheet. The Western Sahara road data required pulling OpenStreetMap history through the ohsome API and computing year-by-year road stock for each territory from 2008 to 2025."
+  },
+  {
+    id: 'map',
+    label: 'Map',
+    summary: 'Visualize the spatial and temporal structure of the evidence.',
+    detail: "Mapping is both analytical and communicative. It reveals patterns invisible in tables — the geographic clustering of airline founding dates, the directional expansion of road networks from north to south across Western Sahara — and makes those patterns legible to audiences who have not read the underlying data."
+  },
+  {
+    id: 'argument',
+    label: 'Argument',
+    summary: 'Build the historical claim that the evidence supports.',
+    detail: "The argument connects the empirical pattern to a broader historical or political interpretation. Airlines were not just transportation infrastructure — they were sovereignty performances, proof to the world and to domestic audiences that the new state was real and operational. Western Sahara roads are not just roads — they are territorial infrastructure, making Moroccan administrative presence materially durable in a contested zone."
+  },
+  {
+    id: 'public',
+    label: 'Public Output',
+    summary: 'Make the argument accessible without dumbing it down.',
+    detail: "Public outputs include conference papers, slide decks, interactive databases, Substack posts, and YouTube videos. The goal is for the research to reach people who can use it: other historians, journalists, policymakers, and anyone curious about North Africa and postcolonial state-building. The interactive African Airlines encyclopedia is the fullest expression of this — 723 airlines in a searchable, mappable, downloadable format."
+  }
+];
+---
+
+<section class="research-process site-shell" aria-labelledby="research-process-heading">
+  <p class="section-kicker">How the research works</p>
+  <h2 id="research-process-heading" class="section-title">Research process</h2>
+  <p class="section-intro">
+    Each project moves through the same sequence — a question, an archive, a dataset, a map, an argument, and a public output. The steps look like a pipeline, but in practice they loop back on each other.
+  </p>
+  <ol class="research-process__steps" role="list">
+    {steps.map((step, i) => (
+      <li class="research-process__step">
+        <details class="research-process__details">
+          <summary class="research-process__summary">
+            <span class="research-process__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <span class="research-process__step-label">{step.label}</span>
+            <span class="research-process__step-summary">{step.summary}</span>
+          </summary>
+          <div class="research-process__detail">{step.detail}</div>
+        </details>
+      </li>
+    ))}
+  </ol>
+</section>
