@@ -2940,6 +2940,24 @@ html.reveal-ready .reveal.is-visible {
   color: var(--accent-map);
 }
 
+/* ── Works see-all link ──────────────────────────────────────────────────── */
+
+.works-see-all {
+  margin-top: var(--space-3);
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.875rem;
+}
+
+.works-see-all a {
+  color: var(--accent-map);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.works-see-all a:hover {
+  text-decoration: underline;
+}
+
 /* ── Research Clusters ───────────────────────────────────────────────────── */
 
 .research-clusters-section {
