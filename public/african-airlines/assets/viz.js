@@ -28,13 +28,15 @@
   const SUBS = [
     ["timelines", "Timelines"],
     ["trends", "Trends over time"],
+    ["growth", "Africa over time"],
     ["map", "Route map"],
     ["decolonization", "Decolonization"],
   ];
   const CAPTIONS = {
     timelines: "Every airline across 1920–1998. Press play to watch carriers appear at their founding year and fade when they cease; the lifelines below show each airline's full span.",
     trends: "Active carriers per year, stacked by former colonial power — the post-independence aviation boom made visible — with annual foundings below.",
-    map: "Hub cities and reconstructed route arcs. Bubble size = carriers serving a city; country shading = airlines based there. Drag to pan, scroll to zoom.",
+    growth: "Active airlines per country, year by year (1920–1998). Press play to watch aviation spread across Africa — darker shading = more airlines. The decolonization wave of the 1960s is unmistakable.",
+    map: "Hub cities and reconstructed route arcs. Bubble size = carriers serving a city; country shading = airlines based there. Use the decade filter to see how routes evolved over time.",
     decolonization: "Independence year vs. the first airline founded in each country. Points above the diagonal mean aviation came after independence. Classifications are scholarly judgments — contested cases flagged.",
   };
 
@@ -133,6 +135,7 @@
   function draw(sub) {
     if (sub === "timelines") return drawTimelines();
     if (sub === "trends") return drawTrends();
+    if (sub === "growth") return drawGrowth();
     if (sub === "map") return drawMap();
     if (sub === "decolonization") return drawDecolonization();
     drawTimelines();
@@ -300,20 +303,25 @@
   // ---------------------------------------------------------------------- MAP
   function drawMap() {
     const m = vizData.map;
-    const counts = m.country_counts || {};
-    const choro = Object.keys(counts).map(c => ({ name: GEO_ALIAS[c] || c, value: counts[c] }))
-      .filter(d => d.name !== "Canary Islands");
-    const maxCount = Math.max(1, ...choro.map(d => d.value));
+    const host = document.getElementById("vizbody");
 
-    const hubs = m.cities.filter(c => c.asHub).map(c =>
-      ({ name: c.city, value: [c.lng, c.lat, c.carriers], carriers: c.carriers, country: c.country }));
-    const dests = m.cities.filter(c => !c.asHub).map(c =>
-      ({ name: c.city, value: [c.lng, c.lat, c.carriers], carriers: c.carriers, country: c.country }));
-    const maxCarriers = Math.max(1, ...m.cities.map(c => c.carriers));
-    const sz = n => 4 + Math.sqrt(n / maxCarriers) * 22;
-    const maxW = Math.max(1, ...m.routes.map(r => r.weight));
-    const routes = m.routes.map(r => ({ coords: [r.from, r.to], value: r.weight,
-      lineStyle: { width: 0.4 + (r.weight / maxW) * 2.4, opacity: 0.18 + (r.weight / maxW) * 0.5 } }));
+    // build city coordinate lookup once for decade filtering
+    const cityLookup = {};
+    m.cities.forEach(c => { cityLookup[c.city] = c; });
+
+    // decade filter chips
+    const DECADES = [null, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990];
+    const DECADE_LABELS = ["All time", "1920s", "1930s", "1940s", "1950s", "1960s", "1970s", "1980s", "1990s"];
+    const filterEl = document.createElement("div");
+    filterEl.className = "decade-filter";
+    filterEl.innerHTML = `<span class="decade-label">Filter by decade:</span>` +
+      DECADES.map((d, i) =>
+        `<button class="decade-chip${i === 0 ? " active" : ""}" data-decade="${d != null ? d : ""}">${DECADE_LABELS[i]}</button>`
+      ).join("");
+    host.appendChild(filterEl);
+
+    const allMaxCount = Math.max(1, ...Object.values(m.country_counts || {}));
+    const allMaxCarriers = Math.max(1, ...m.cities.map(c => c.carriers));
 
     const inst = chartDiv("680px");
     inst.setOption({
@@ -321,11 +329,12 @@
         formatter: p => {
           if (p.seriesType === "lines") return "";
           if (p.seriesType === "map") return `<b>${esc(p.name)}</b><br>${p.value || 0} airline(s) based here`;
-          return `<b>${esc(p.name)}</b><br>${esc(p.data.country || "")}<br>${p.data.carriers} carrier(s) served`;
+          if (p.data) return `<b>${esc(p.name)}</b><br>${esc(p.data.country || "")}<br>${p.data.carriers} carrier(s) served`;
+          return "";
         },
       },
       visualMap: {
-        type: "continuous", min: 0, max: maxCount, left: 12, bottom: 24, seriesIndex: 0,
+        type: "continuous", min: 0, max: allMaxCount, left: 12, bottom: 24, seriesIndex: 0,
         text: ["more airlines", "fewer"], calculable: true,
         inRange: { color: ["#f4e7d6", "#c4dae9", "#7aa9c4", "#2f7ea3", "#006191"] },
         textStyle: { fontSize: 11 },
@@ -336,18 +345,203 @@
         emphasis: { itemStyle: { areaColor: "#eee0c9" }, label: { show: false } },
       },
       series: [
-        { type: "map", geoIndex: 0, name: "Based here", data: choro },
+        { type: "map", geoIndex: 0, name: "Based here" },
         { type: "lines", coordinateSystem: "geo", name: "Routes", polyline: false,
           lineStyle: { color: "#b07d2b", curveness: 0.18 }, blendMode: "source-over",
           effect: { show: true, period: 6, trailLength: 0.2, symbol: "arrow", symbolSize: 3, color: "#b07d2b" },
-          data: routes, silent: true, z: 2 },
+          silent: true, z: 2 },
         { type: "scatter", coordinateSystem: "geo", name: "Cities", z: 3,
-          symbolSize: p => sz(p[2]), itemStyle: { color: "#006191", opacity: 0.55 }, data: dests },
+          itemStyle: { color: "#006191", opacity: 0.55 } },
         { type: "effectScatter", coordinateSystem: "geo", name: "Hubs", z: 4,
           showEffectOn: "render", rippleEffect: { scale: 2.4, brushType: "stroke" },
-          symbolSize: p => sz(p[2]), itemStyle: { color: "#b07d2b" }, data: hubs },
+          itemStyle: { color: "#b07d2b" } },
       ],
     });
+
+    function renderDecade(decadeStart) {
+      let choro, hubData, destData, routes, maxC;
+      if (decadeStart === null) {
+        const counts = m.country_counts || {};
+        choro = Object.keys(counts).map(c => ({ name: GEO_ALIAS[c] || c, value: counts[c] }))
+          .filter(d => d.name !== "Canary Islands");
+        const maxW = Math.max(1, ...m.routes.map(r => r.weight));
+        routes = m.routes.map(r => ({ coords: [r.from, r.to],
+          lineStyle: { width: 0.4 + (r.weight / maxW) * 2.4, opacity: 0.18 + (r.weight / maxW) * 0.5 } }));
+        maxC = allMaxCarriers;
+        destData = m.cities.filter(c => !c.asHub).map(c =>
+          ({ name: c.city, value: [c.lng, c.lat, c.carriers], carriers: c.carriers, country: c.country }));
+        hubData = m.cities.filter(c => c.asHub).map(c =>
+          ({ name: c.city, value: [c.lng, c.lat, c.carriers], carriers: c.carriers, country: c.country }));
+      } else {
+        const computed = computeDecadeData(decadeStart);
+        choro = Object.keys(computed.countryCounts)
+          .map(c => ({ name: GEO_ALIAS[c] || c, value: computed.countryCounts[c] }))
+          .filter(d => d.name !== "Canary Islands");
+        const maxW = computed.routes.length ? Math.max(1, ...computed.routes.map(r => r.weight)) : 1;
+        routes = computed.routes.map(r => ({ coords: [r.from, r.to],
+          lineStyle: { width: 0.4 + (r.weight / maxW) * 2.4, opacity: 0.18 + (r.weight / maxW) * 0.5 } }));
+        const hubEntries = Object.entries(computed.hubCounts);
+        maxC = hubEntries.length ? Math.max(1, ...hubEntries.map(([, v]) => v)) : 1;
+        hubData = hubEntries.map(([city, count]) => {
+          const cd = cityLookup[city];
+          if (!cd) return null;
+          return { name: city, value: [cd.lng, cd.lat, count], carriers: count, country: cd.country };
+        }).filter(Boolean);
+        destData = [];
+      }
+      const sz = n => 4 + Math.sqrt(n / maxC) * 22;
+      inst.setOption({
+        series: [
+          { data: choro },
+          { data: routes },
+          { symbolSize: p => sz(p[2]), data: destData },
+          { symbolSize: p => sz(p[2]), data: hubData },
+        ],
+      });
+    }
+
+    renderDecade(null);
+
+    filterEl.querySelectorAll(".decade-chip").forEach(btn => {
+      btn.addEventListener("click", () => {
+        filterEl.querySelectorAll(".decade-chip").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        const ds = btn.dataset.decade !== "" ? parseInt(btn.dataset.decade, 10) : null;
+        renderDecade(ds);
+      });
+    });
+  }
+
+  // --------------------------------------------------------- AFRICA OVER TIME
+  function drawGrowth() {
+    const data = window.DATA || [];
+    const END = (vizData && vizData.survey_end) || 1998;
+
+    // country name → colonial power (for tooltip)
+    const countryPower = {};
+    data.forEach(a => { if (a.country) countryPower[a.country] = a.colonial_power || "Unknown"; });
+
+    // GeoJSON name → database country name (reverse alias, for power lookup on hover)
+    const geoToDb = {};
+    Object.entries(GEO_ALIAS).forEach(([db, geo]) => { geoToDb[geo] = db; });
+
+    // per-country per-year active airline count
+    const byCountry = {};
+    data.forEach(a => {
+      if (!a.year_founded) return;
+      const endY = a.year_ceased ?? END;
+      const c = a.country;
+      if (!byCountry[c]) byCountry[c] = {};
+      for (let y = a.year_founded; y <= Math.min(endY, END); y++) {
+        byCountry[c][y] = (byCountry[c][y] || 0) + 1;
+      }
+    });
+
+    const countries = Object.keys(byCountry);
+    const years = [];
+    for (let y = 1920; y <= END; y++) years.push(y);
+
+    let maxCount = 0;
+    countries.forEach(c => Object.values(byCountry[c]).forEach(v => { if (v > maxCount) maxCount = v; }));
+    maxCount = Math.max(1, maxCount);
+
+    const options = years.map(y => ({
+      title: { text: String(y) },
+      series: [{
+        data: countries.map(c => ({
+          name: GEO_ALIAS[c] || c,
+          value: byCountry[c][y] || 0,
+        })),
+      }],
+    }));
+
+    const inst = chartDiv("640px");
+    inst.setOption({
+      baseOption: {
+        animation: false,
+        timeline: {
+          axisType: "category", data: years, autoPlay: true, playInterval: 240,
+          currentIndex: 0, bottom: 8, left: 40, right: 40,
+          label: { interval: 9, fontSize: 11 },
+          checkpointStyle: { color: "#006191" },
+          controlStyle: { color: "#006191", borderColor: "#006191" },
+        },
+        title: {
+          left: "center", top: 8,
+          textStyle: { fontSize: 18, fontFamily: VIZ_FONT, color: "#281d15", fontWeight: "700" },
+          subtext: "Active airlines by country — darker blue = more airlines",
+          subtextStyle: { color: "rgba(40,29,21,.6)", fontSize: 12, fontFamily: VIZ_FONT },
+        },
+        tooltip: {
+          formatter: p => {
+            if (!p || !p.name) return "";
+            const geoName = p.name;
+            const dbName = geoToDb[geoName] || geoName;
+            const power = countryPower[dbName] || countryPower[geoName] || "—";
+            const count = (p.data && p.data.value != null) ? p.data.value : (p.value ?? 0);
+            if (count === 0) return `<b>${esc(geoName)}</b><br>No airlines recorded`;
+            return `<b>${esc(geoName)}</b><br>${count} airline(s) active<br>` +
+              `<span style="color:rgba(40,29,21,.6)">Colonial power: ${esc(shortPower(power))}</span>`;
+          },
+        },
+        visualMap: {
+          type: "continuous", min: 0, max: maxCount,
+          left: 16, bottom: 80, calculable: true,
+          text: ["more airlines", "fewer"],
+          inRange: { color: ["#f4e7d6", "#d5e9f0", "#89c0d5", "#3b88a8", "#006191"] },
+          textStyle: { fontSize: 11, fontFamily: VIZ_FONT },
+        },
+        series: [{
+          type: "map", map: "africa", roam: false,
+          label: { show: false },
+          emphasis: {
+            label: { show: true, fontSize: 10, fontFamily: VIZ_FONT },
+            itemStyle: { areaColor: "#f7941d" },
+          },
+          itemStyle: { areaColor: "#f9efe2", borderColor: "#d8c6ad", borderWidth: 0.6 },
+          data: [],
+        }],
+      },
+      options,
+    });
+  }
+
+  // ------------------------------------------------ DECADE-FILTERED MAP DATA
+  function computeDecadeData(decadeStart) {
+    const de = decadeStart + 9;
+    const m = vizData.map;
+    const cityLookup = {};
+    m.cities.forEach(c => { cityLookup[c.city] = c; });
+
+    const active = (window.DATA || []).filter(a =>
+      a.year_founded && a.year_founded <= de &&
+      (!a.year_ceased || a.year_ceased > decadeStart)
+    );
+
+    const countryCounts = {};
+    const hubCounts = {};
+    const routeMap = {};
+
+    active.forEach(a => {
+      if (a.country) countryCounts[a.country] = (countryCounts[a.country] || 0) + 1;
+      const baseCity = a.detail && a.detail.base_city;
+      const baseCityData = baseCity && cityLookup[baseCity];
+      if (!baseCityData) return;
+      hubCounts[baseCity] = (hubCounts[baseCity] || 0) + 1;
+      (a.destinations || []).forEach(dest => {
+        const destData = cityLookup[dest.city];
+        if (!destData || dest.city === baseCity) return;
+        const key = [baseCity, dest.city].sort().join("|");
+        if (!routeMap[key]) routeMap[key] = {
+          from: [baseCityData.lng, baseCityData.lat],
+          to: [destData.lng, destData.lat],
+          weight: 0,
+        };
+        routeMap[key].weight++;
+      });
+    });
+
+    return { countryCounts, hubCounts, routes: Object.values(routeMap) };
   }
 
   // ------------------------------------------------------------ DECOLONIZATION

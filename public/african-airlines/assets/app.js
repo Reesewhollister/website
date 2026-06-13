@@ -71,6 +71,7 @@
   }
 
   function renderBrowse() {
+    document.title = DEFAULT_TITLE;
     view.innerHTML = `
       <div class="browse">
         <aside class="filters" id="filters"></aside>
@@ -179,9 +180,11 @@
   }
 
   // ---------- detail ----------
+  const DEFAULT_TITLE = document.title;
   function renderDetail(entry) {
     const a = state.byEntry.get(entry);
     if (!a) { view.innerHTML = `<div class="empty"><h2>Not found</h2><p><a href="#/">Back to browse</a></p></div>`; return; }
+    document.title = `${a.name} (${a.country}) — African Airlines Encyclopedia`;
     const d = a.detail || {};
     const p = a.provenance;
 
@@ -290,6 +293,7 @@
 
   // ---------- about ----------
   function renderAbout() {
+    document.title = "About — African Airlines Encyclopedia";
     view.innerHTML = `<article class="page">
       <h1>About this dataset</h1>
       <p><strong>From Colonies to Carriers</strong> is a structured, provenance-tracked encyclopedia of African
@@ -319,7 +323,13 @@
       while operational fields await extraction. Fleet sizes and founding dates are as stated by Guttery and reflect
       the data available to him.</p>
 
-      <p style="margin-top:24px"><a href="#/">← Back to browse</a></p>
+      <h2>Research behind this dataset</h2>
+      <p>This encyclopedia is part of <em>From Colonies to Carriers</em>, a digital history project examining how
+      colonial structure shaped African aviation. The working paper argues that ownership model, decolonization
+      pathway, and settler status predict airline survival and route geography more than geography alone does.</p>
+      <p><a href=”/projects/from-colonies-to-carriers/”>← Read the research project →</a></p>
+
+      <p style=”margin-top:24px”><a href=”#/”>← Back to browse</a></p>
     </article>`;
   }
 })();
