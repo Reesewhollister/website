@@ -3382,3 +3382,490 @@ body::after { right: 16px; }
   -webkit-mask: url('/assets/ui/ornament/khatam.svg') no-repeat center / contain;
           mask: url('/assets/ui/ornament/khatam.svg') no-repeat center / contain;
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Visible geometric graphics pass — color, animation, mini graphics
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Geometric section-strip divider ──────────────────────────────────────── */
+.geo-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+  margin: var(--space-3) 0;
+  overflow: hidden;
+}
+
+.geo-strip img {
+  width: 100%;
+  max-width: 340px;
+  height: 32px;
+  color: var(--accent-map);
+  opacity: 0.3;
+}
+
+.geo-strip--rust img { color: var(--accent-rust); }
+.geo-strip--gold img { color: var(--accent-gold); }
+
+/* ── Research cluster accent differentiation ──────────────────────────────── */
+.research-cluster:nth-child(1) {
+  border-top-color: var(--accent-map);
+  background: color-mix(in srgb, var(--accent-map) 4%, var(--paper));
+}
+.research-cluster:nth-child(2) {
+  border-top-color: var(--accent-rust);
+  background: color-mix(in srgb, var(--accent-rust) 4%, var(--paper));
+}
+.research-cluster:nth-child(3) {
+  border-top-color: var(--accent-gold);
+  background: color-mix(in srgb, var(--accent-gold) 5%, var(--paper));
+}
+
+.research-cluster:nth-child(1) .research-cluster__projects a { color: var(--accent-map); }
+.research-cluster:nth-child(2) .research-cluster__projects a { color: var(--accent-rust); }
+.research-cluster:nth-child(3) .research-cluster__projects a { color: var(--accent-gold); }
+
+/* ── Research cluster hover ───────────────────────────────────────────────── */
+.research-cluster {
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+.research-cluster:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px -14px rgba(40, 29, 21, 0.18);
+}
+
+/* ── Publication row: translateX nudge + note color lift ──────────────────── */
+.action-list--stacked li {
+  transition: background 0.2s ease, border-left-color 0.2s ease, transform 0.22s ease;
+}
+.action-list--stacked li:hover {
+  transform: translateX(5px);
+}
+.action-list--stacked li:hover .action-note {
+  color: var(--ink);
+  transition: color 0.18s ease;
+}
+
+/* ── Proof strip: larger, accent-colored labels ───────────────────────────── */
+.proof-strip__label {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+.proof-strip__item:nth-child(1) .proof-strip__label { color: var(--accent-map); }
+.proof-strip__item:nth-child(2) .proof-strip__label { color: var(--accent-rust); }
+.proof-strip__item:nth-child(3) .proof-strip__label { color: var(--accent-gold); }
+.proof-strip__item:nth-child(4) .proof-strip__label { color: var(--accent-olive); }
+
+/* ── Project card: slightly more visible accent bar at rest ───────────────── */
+.project-card::before {
+  transform: scaleY(0.7);
+}
+
+/* ── Float animation for atlas-grid, compass, zellige elements ────────────── */
+@keyframes geoFloat {
+  0%, 100% { transform: translateY(-50%) rotate(0deg); }
+  40% { transform: translateY(calc(-50% - 5px)) rotate(3deg); }
+  70% { transform: translateY(calc(-50% + 3px)) rotate(-2deg); }
+}
+
+@keyframes geoFloatFree {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  40% { transform: translateY(-5px) rotate(3deg); }
+  70% { transform: translateY(3px) rotate(-2deg); }
+}
+
+@keyframes compassSpin {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(8deg); }
+  75% { transform: rotate(-6deg); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .section-atlas-deco {
+    animation: geoFloat 10s ease-in-out infinite;
+  }
+  .section-atlas-deco--left {
+    animation-direction: alternate-reverse;
+    animation-duration: 13s;
+  }
+  .research-compass-deco img {
+    animation: compassSpin 14s ease-in-out infinite;
+  }
+}
+
+/* ── Zellige tile decoration: visible 20%-opacity geometric pattern ────────── */
+.zellige-bg-deco {
+  pointer-events: none;
+  position: absolute;
+  opacity: 0.12;
+  color: var(--accent-map);
+  -webkit-mask: url('/assets/ui/ornament/zellige-tile.svg') repeat center / 120px 120px;
+          mask: url('/assets/ui/ornament/zellige-tile.svg') repeat center / 120px 120px;
+  background-color: currentColor;
+}
+
+/* ── Route dot persistent pulse (research page) ───────────────────────────── */
+@keyframes routeDotPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.6); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .route-dot:nth-child(3),
+  .route-dot:nth-child(4),
+  .route-dot:nth-child(5) {
+    animation: routeDotPulse 2.4s ease-in-out infinite !important;
+  }
+  .route-dot:nth-child(4) { animation-delay: 0.8s !important; }
+  .route-dot:nth-child(5) { animation-delay: 1.6s !important; }
+}
+
+/* ── Khatam section-kicker hover: gentle spin ─────────────────────────────── */
+@keyframes khatamSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(45deg); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .section-kicker:hover::before {
+    animation: khatamSpin 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+}
+
+/* ── Ornament rails: slightly more visible ────────────────────────────────── */
+body::before,
+body::after {
+  opacity: 0.09;
+}
+html::before {
+  opacity: 0.1;
+}
+
+/* ── Mini graphic img elements (location-pin, arch-motif, etc.) ───────────── */
+.mini-graphic {
+  display: inline-block;
+  color: var(--accent-map);
+  flex-shrink: 0;
+}
+.mini-graphic--rust { color: var(--accent-rust); }
+.mini-graphic--gold { color: var(--accent-gold); }
+.mini-graphic--ink  { color: var(--ink-soft); }
+
+/* ── Home CTA section: zellige tile overlay ───────────────────────────────── */
+.home-cta-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--accent-map);
+  -webkit-mask: url('/assets/ui/ornament/zellige-tile.svg') repeat center / 80px 80px;
+          mask: url('/assets/ui/ornament/zellige-tile.svg') repeat center / 80px 80px;
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Compact-CTA: add arch decoration via pseudo ─────────────────────────── */
+.compact-cta {
+  position: relative;
+  overflow: hidden;
+}
+.compact-cta::after {
+  content: '';
+  position: absolute;
+  right: -24px;
+  top: -16px;
+  width: 100px;
+  height: 88px;
+  background-color: var(--accent-olive);
+  -webkit-mask: url('/assets/ui/ornament/arch-motif.svg') no-repeat center / contain;
+          mask: url('/assets/ui/ornament/arch-motif.svg') no-repeat center / contain;
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+/* ── Featured project: diamond-divider below ──────────────────────────────── */
+.featured-project-geo {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-2);
+  color: var(--accent-map);
+  opacity: 0.22;
+}
+.featured-project-geo img {
+  width: 100%;
+  max-width: 280px;
+  height: 16px;
+}
+
+/* ── Research hero: compass rose float ────────────────────────────────────── */
+.research-compass-deco {
+  position: absolute;
+  right: 0;
+  top: var(--space-4);
+}
+
+/* ── Stagger reveal for research clusters ─────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  html.reveal-ready .reveal.is-visible .research-cluster {
+    animation: heroRise 0.6s ease both;
+  }
+  html.reveal-ready .reveal.is-visible .research-cluster:nth-child(1) { animation-delay: 0.06s; }
+  html.reveal-ready .reveal.is-visible .research-cluster:nth-child(2) { animation-delay: 0.18s; }
+  html.reveal-ready .reveal.is-visible .research-cluster:nth-child(3) { animation-delay: 0.3s; }
+}
+
+/* ── Stagger reveal for contact/support cards ─────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  html.reveal-ready .reveal.is-visible .contact-card {
+    animation: heroRise 0.58s ease both;
+  }
+  html.reveal-ready .reveal.is-visible .contact-card:nth-child(1) { animation-delay: 0.06s; }
+  html.reveal-ready .reveal.is-visible .contact-card:nth-child(2) { animation-delay: 0.18s; }
+  html.reveal-ready .reveal.is-visible .contact-card:nth-child(3) { animation-delay: 0.3s; }
+
+  html.reveal-ready .reveal.is-visible .support-card {
+    animation: heroRise 0.58s ease both;
+  }
+  html.reveal-ready .reveal.is-visible .support-card:nth-child(1) { animation-delay: 0.06s; }
+  html.reveal-ready .reveal.is-visible .support-card:nth-child(2) { animation-delay: 0.18s; }
+  html.reveal-ready .reveal.is-visible .support-card:nth-child(3) { animation-delay: 0.3s; }
+}
+
+/* ── PDF card hover: border color shift ───────────────────────────────────── */
+.pdf-card {
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+.pdf-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px -12px rgba(40, 29, 21, 0.2);
+  border-color: color-mix(in srgb, var(--accent-map) 40%, var(--line));
+}
+
+/* ── Works section-divider geo strip ─────────────────────────────────────── */
+.works-section-geo {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-2) 0;
+}
+.works-section-geo img {
+  width: 220px;
+  height: 16px;
+  color: var(--accent-rust);
+  opacity: 0.25;
+}
+
+/* ── Section atlas deco: higher opacity variant for key sections ──────────── */
+.section-atlas-deco--prominent {
+  opacity: 0.28;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Coaching Quiz — ported from Codex build
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.coaching-quiz {
+  max-width: 48rem;
+  margin-top: var(--space-3);
+}
+
+.quiz-step {
+  margin-bottom: var(--space-3);
+}
+
+.quiz-step--hidden {
+  display: none;
+}
+
+.quiz-step__question {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 0 0 0.75rem;
+  color: var(--ink);
+}
+
+.quiz-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.quiz-option {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  padding: 0.52rem 1rem;
+  background: rgba(255, 252, 247, 0.8);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color 0.18s ease, background-color 0.18s ease, color 0.18s ease;
+}
+
+.quiz-option:hover,
+.quiz-option:focus-visible {
+  border-color: var(--accent-map);
+  background: var(--accent-map-wash);
+}
+
+.quiz-option.is-selected {
+  border-color: var(--accent-map);
+  background: var(--accent-map-wash);
+  color: var(--accent-map);
+  font-weight: 600;
+}
+
+.quiz-result {
+  background: var(--accent-map-wash);
+  border: 1px solid rgba(0, 97, 145, 0.24);
+  border-left: 4px solid var(--accent-map);
+  border-radius: 3px;
+  padding: 1.2rem 1.4rem;
+  margin-top: 1rem;
+}
+
+.quiz-result .section-kicker {
+  margin-bottom: 0.3rem;
+}
+
+.quiz-result__type {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 500;
+  margin: 0 0 0.5rem;
+  color: var(--accent-map);
+}
+
+.quiz-result__description {
+  font-size: 0.97rem;
+  color: var(--ink-soft);
+  margin: 0 0 1rem;
+  max-width: 42rem;
+  line-height: 1.65;
+}
+
+.quiz-result__cta {
+  display: inline-block;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--paper);
+  background: var(--accent-rust);
+  padding: 0.55rem 1.1rem;
+  border-radius: 2px;
+  text-decoration: none;
+  margin-right: 0.85rem;
+  transition: background-color 0.2s ease;
+}
+
+.quiz-result__cta:hover,
+.quiz-result__cta:focus-visible {
+  background: #7c1518;
+}
+
+.quiz-reset {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  vertical-align: middle;
+}
+
+.quiz-reset:hover {
+  color: var(--ink);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Project sticky subnav with scroll-spy — ported from Codex build
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.project-subnav {
+  position: sticky;
+  top: 0;
+  z-index: 19;
+  background: rgba(255, 244, 234, 0.95);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.project-subnav__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.project-subnav__list::-webkit-scrollbar {
+  display: none;
+}
+
+.project-subnav__link {
+  display: inline-block;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  text-decoration: none;
+  padding: 0.65rem 0.9rem;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+
+.project-subnav__link:hover,
+.project-subnav__link:focus-visible {
+  color: var(--ink);
+  border-bottom-color: var(--accent-rust);
+  text-decoration: none;
+}
+
+.project-subnav__link.is-active {
+  color: var(--ink);
+  border-bottom-color: var(--accent-map);
+}
+
+@media (max-width: 560px) {
+  .project-subnav__link {
+    padding: 0.6rem 0.65rem;
+    font-size: 0.74rem;
+  }
+}
+
+/* ── Print / prefers-reduced-motion cleanup ───────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .section-atlas-deco,
+  .research-compass-deco img {
+    animation: none;
+  }
+  .action-list--stacked li {
+    transition: background 0.12s ease, border-left-color 0.12s ease;
+  }
+  .action-list--stacked li:hover {
+    transform: none;
+  }
+  .research-cluster {
+    transition: none;
+  }
+  .research-cluster:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  .pdf-card {
+    transition: none;
+  }
+  .pdf-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}

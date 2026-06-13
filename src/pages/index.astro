@@ -51,6 +51,9 @@ const otherProjects = featuredProjects.filter((project) => project.slug !== spot
         </li>
       ))}
     </ul>
+    <div class="geo-strip" aria-hidden="true">
+      <img src={withBase('/assets/ui/ornament/zellige-strip.svg')} alt="" width="340" height="32" />
+    </div>
   </section>
 
   <ChoosePath />
@@ -80,6 +83,10 @@ const otherProjects = featuredProjects.filter((project) => project.slug !== spot
     </section>
   )}
 
+  <div class="site-shell featured-project-geo" aria-hidden="true">
+    <img src={withBase('/assets/ui/ornament/diamond-divider.svg')} alt="" width="280" height="16" />
+  </div>
+
   <section class="site-shell">
     <SectionHeading
       eyebrow="Selected work"
@@ -93,6 +100,7 @@ const otherProjects = featuredProjects.filter((project) => project.slug !== spot
 
   <section class="site-shell home-cta-section">
     <img class="section-atlas-deco section-atlas-deco--left" src={withBase('/assets/ui/atlas-grid.svg')} alt="" aria-hidden="true" width="260" height="260" />
+    <img class="section-atlas-deco section-atlas-deco--prominent" src={withBase('/assets/ui/compass-rose.svg')} alt="" aria-hidden="true" width="80" height="80" style="width:80px;height:80px;right:2rem;opacity:0.22;" />
     <article class="compact-cta">
       <div>
         <p class="section-kicker">Connect</p>
