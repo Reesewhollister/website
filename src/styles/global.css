@@ -3289,3 +3289,85 @@ html.reveal-ready .reveal.is-visible {
     transition: none;
   }
 }
+
+/* ============================================================
+   Ambient ornament — Maghrebi geometry + topographic contours
+   Faint, decorative, behind content. Tinted via mask-image so
+   everything stays in the brand palette. Pointer-events: none.
+   ============================================================ */
+
+/* Keep real content above the fixed decorative layers */
+.site-header,
+main,
+.site-footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* Ambient topographic shape, anchored off the bottom-right corner */
+html::before {
+  content: "";
+  position: fixed;
+  right: -13vmin;
+  bottom: -13vmin;
+  width: 58vmin;
+  height: 58vmin;
+  z-index: 0;
+  pointer-events: none;
+  background-color: var(--accent-map);
+  -webkit-mask: url('/assets/ui/ornament/contours.svg') no-repeat center / contain;
+          mask: url('/assets/ui/ornament/contours.svg') no-repeat center / contain;
+  opacity: 0.07;
+}
+
+/* Vertical zellige star-chains pinned to the page edges (desktop only) */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 64px;
+  z-index: 0;
+  pointer-events: none;
+  background-color: var(--ink);
+  -webkit-mask: url('/assets/ui/ornament/rail.svg') repeat-y center top / 64px auto;
+          mask: url('/assets/ui/ornament/rail.svg') repeat-y center top / 64px auto;
+  opacity: 0.06;
+}
+
+body::before { left: 16px; }
+body::after { right: 16px; }
+
+/* Hide the edge rails when there isn't margin room beside the content column */
+@media (max-width: 1180px) {
+  body::before,
+  body::after {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  html::before {
+    width: 80vmin;
+    height: 80vmin;
+    opacity: 0.05;
+  }
+}
+
+/* Khatam star — a small signature mark before every section kicker */
+.section-kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.section-kicker::before {
+  content: "";
+  flex: none;
+  width: 0.85em;
+  height: 0.85em;
+  background-color: currentColor;
+  -webkit-mask: url('/assets/ui/ornament/khatam.svg') no-repeat center / contain;
+          mask: url('/assets/ui/ornament/khatam.svg') no-repeat center / contain;
+}
