@@ -3659,6 +3659,189 @@ html::before {
   opacity: 0.28;
 }
 
+/* ══════════════════════════════════════════════════════════════════════════
+   Coaching Quiz — ported from Codex build
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.coaching-quiz {
+  max-width: 48rem;
+  margin-top: var(--space-3);
+}
+
+.quiz-step {
+  margin-bottom: var(--space-3);
+}
+
+.quiz-step--hidden {
+  display: none;
+}
+
+.quiz-step__question {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 0 0 0.75rem;
+  color: var(--ink);
+}
+
+.quiz-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.quiz-option {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  padding: 0.52rem 1rem;
+  background: rgba(255, 252, 247, 0.8);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color 0.18s ease, background-color 0.18s ease, color 0.18s ease;
+}
+
+.quiz-option:hover,
+.quiz-option:focus-visible {
+  border-color: var(--accent-map);
+  background: var(--accent-map-wash);
+}
+
+.quiz-option.is-selected {
+  border-color: var(--accent-map);
+  background: var(--accent-map-wash);
+  color: var(--accent-map);
+  font-weight: 600;
+}
+
+.quiz-result {
+  background: var(--accent-map-wash);
+  border: 1px solid rgba(0, 97, 145, 0.24);
+  border-left: 4px solid var(--accent-map);
+  border-radius: 3px;
+  padding: 1.2rem 1.4rem;
+  margin-top: 1rem;
+}
+
+.quiz-result .section-kicker {
+  margin-bottom: 0.3rem;
+}
+
+.quiz-result__type {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 500;
+  margin: 0 0 0.5rem;
+  color: var(--accent-map);
+}
+
+.quiz-result__description {
+  font-size: 0.97rem;
+  color: var(--ink-soft);
+  margin: 0 0 1rem;
+  max-width: 42rem;
+  line-height: 1.65;
+}
+
+.quiz-result__cta {
+  display: inline-block;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--paper);
+  background: var(--accent-rust);
+  padding: 0.55rem 1.1rem;
+  border-radius: 2px;
+  text-decoration: none;
+  margin-right: 0.85rem;
+  transition: background-color 0.2s ease;
+}
+
+.quiz-result__cta:hover,
+.quiz-result__cta:focus-visible {
+  background: #7c1518;
+}
+
+.quiz-reset {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  vertical-align: middle;
+}
+
+.quiz-reset:hover {
+  color: var(--ink);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Project sticky subnav with scroll-spy — ported from Codex build
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.project-subnav {
+  position: sticky;
+  top: 0;
+  z-index: 19;
+  background: rgba(255, 244, 234, 0.95);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.project-subnav__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.project-subnav__list::-webkit-scrollbar {
+  display: none;
+}
+
+.project-subnav__link {
+  display: inline-block;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  text-decoration: none;
+  padding: 0.65rem 0.9rem;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+
+.project-subnav__link:hover,
+.project-subnav__link:focus-visible {
+  color: var(--ink);
+  border-bottom-color: var(--accent-rust);
+  text-decoration: none;
+}
+
+.project-subnav__link.is-active {
+  color: var(--ink);
+  border-bottom-color: var(--accent-map);
+}
+
+@media (max-width: 560px) {
+  .project-subnav__link {
+    padding: 0.6rem 0.65rem;
+    font-size: 0.74rem;
+  }
+}
+
 /* ── Print / prefers-reduced-motion cleanup ───────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .section-atlas-deco,

@@ -1,0 +1,116 @@
+---
+const quizRecs: Record<string, [string, string]> = {
+  'college-essay|blank-page': ['College Essay: Discovery Session', 'We dig into your experiences together and find the story worth telling. Bring anything — lists, memories, drafts, nothing at all.'],
+  'college-essay|argument': ['College Essay: Draft Workshop', 'You have the material. We will build the arc that makes the admissions reader stop.'],
+  'college-essay|structure': ['College Essay: Structure and Flow', 'We will reorder, cut, and tighten until the shape is right and the essay earns its ending.'],
+  'college-essay|voice': ['College Essay: Voice and Revision', 'We will find the version that sounds unmistakably like you — not like a generic applicant.'],
+  'college-essay|revision': ['College Essay: Final Read', 'A close editorial pass before you submit. Line by line, word by word.'],
+  'research-paper|blank-page': ['Research Paper: Getting Started', 'We will find your research question and map a path through the sources.'],
+  'research-paper|argument': ['Research Paper: Argument Development', 'You have sources. We will build the claim they support and the structure that carries it.'],
+  'research-paper|structure': ['Research Paper: Structure Workshop', 'We will diagnose the structural problem — buried thesis, weak transitions, paragraph drift — and rebuild.'],
+  'research-paper|voice': ['Research Paper: Academic Voice', 'Clear, precise, and genuinely yours. We will work on sentence-level clarity without flattening the argument.'],
+  'research-paper|revision': ['Research Paper: Editorial Review', 'A second eye before submission. I will read as a reader, not as a co-author.'],
+  'graduate|blank-page': ['Graduate Application: Concept Session', 'We will find your intellectual narrative before you write a single sentence.'],
+  'graduate|argument': ['Graduate Application: Positioning', 'We will make your intellectual case clear, specific, and distinctive for the readers who matter.'],
+  'graduate|structure': ['Graduate Application: Statement Workshop', 'Opening, intellectual trajectory, program fit, close — we will get the architecture right.'],
+  'graduate|voice': ['Graduate Application: Voice and Precision', 'Formal but human. We will find that register and hold it across every paragraph.'],
+  'graduate|revision': ['Graduate Application: Final Polish', 'A close read before you send it out. Nothing vague, nothing wasted.'],
+  'other|blank-page': ['Open Session: Getting Started', 'Bring your project and we will find the entry point together.'],
+  'other|argument': ['Open Session: Argument and Evidence', 'We will work through your claim and figure out how to support it.'],
+  'other|structure': ['Open Session: Structure and Clarity', 'We will diagnose the structural problem and begin rebuilding.'],
+  'other|voice': ['Open Session: Voice and Revision', 'Clear writing that sounds like you. We will get there.'],
+  'other|revision': ['Open Session: Review and Feedback', 'A second read on whatever you are working on before it goes out.'],
+};
+---
+
+<div class="coaching-quiz" id="coaching-quiz">
+  <div class="quiz-step" id="quiz-step-1">
+    <p class="quiz-step__question">What are you working on?</p>
+    <div class="quiz-options" role="group" aria-label="Project type">
+      <button class="quiz-option" type="button" data-project="college-essay">College essay</button>
+      <button class="quiz-option" type="button" data-project="research-paper">Research paper</button>
+      <button class="quiz-option" type="button" data-project="graduate">Graduate or personal statement</button>
+      <button class="quiz-option" type="button" data-project="other">Something else</button>
+    </div>
+  </div>
+  <div class="quiz-step quiz-step--hidden" id="quiz-step-2" aria-hidden="true">
+    <p class="quiz-step__question">Where are you stuck?</p>
+    <div class="quiz-options" role="group" aria-label="Stuck point">
+      <button class="quiz-option" type="button" data-stuck="blank-page">Blank page — I do not know where to start</button>
+      <button class="quiz-option" type="button" data-stuck="argument">I have material but no argument</button>
+      <button class="quiz-option" type="button" data-stuck="structure">The structure is wrong</button>
+      <button class="quiz-option" type="button" data-stuck="voice">It does not sound like me</button>
+      <button class="quiz-option" type="button" data-stuck="revision">I need a second read before I submit</button>
+    </div>
+  </div>
+  <div class="quiz-result" id="quiz-result" hidden aria-live="polite">
+    <p class="section-kicker">Recommended session type</p>
+    <h3 class="quiz-result__type" id="quiz-result-type"></h3>
+    <p class="quiz-result__description" id="quiz-result-desc"></p>
+    <a class="quiz-result__cta" href="mailto:reesewhollister@gmail.com">Get in touch to book this session</a>
+    <button class="quiz-reset" type="button" id="quiz-reset">Start over</button>
+  </div>
+</div>
+
+<script define:vars={{ quizRecs }}>
+  (function () {
+    const QUIZ = quizRecs;
+    let projectType = null;
+    const step2 = document.getElementById('quiz-step-2');
+    const resultEl = document.getElementById('quiz-result');
+    const resultType = document.getElementById('quiz-result-type');
+    const resultDesc = document.getElementById('quiz-result-desc');
+    const resetBtn = document.getElementById('quiz-reset');
+
+    document.querySelectorAll('[data-project]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('[data-project]').forEach(function (b) {
+          b.classList.remove('is-selected');
+          b.setAttribute('aria-pressed', 'false');
+        });
+        btn.classList.add('is-selected');
+        btn.setAttribute('aria-pressed', 'true');
+        projectType = btn.dataset.project;
+        step2.classList.remove('quiz-step--hidden');
+        step2.removeAttribute('aria-hidden');
+        resultEl.hidden = true;
+        document.querySelectorAll('[data-stuck]').forEach(function (b) {
+          b.classList.remove('is-selected');
+          b.setAttribute('aria-pressed', 'false');
+        });
+        step2.querySelector('.quiz-option').focus();
+      });
+    });
+
+    document.querySelectorAll('[data-stuck]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('[data-stuck]').forEach(function (b) {
+          b.classList.remove('is-selected');
+          b.setAttribute('aria-pressed', 'false');
+        });
+        btn.classList.add('is-selected');
+        btn.setAttribute('aria-pressed', 'true');
+        const key = projectType + '|' + btn.dataset.stuck;
+        const rec = QUIZ[key] || ['Open Session', 'We will figure out the right approach together.'];
+        resultType.textContent = rec[0];
+        resultDesc.textContent = rec[1];
+        resultEl.hidden = false;
+        resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+    });
+
+    if (resetBtn) {
+      resetBtn.addEventListener('click', function () {
+        projectType = null;
+        document.querySelectorAll('.quiz-option').forEach(function (b) {
+          b.classList.remove('is-selected');
+          b.setAttribute('aria-pressed', 'false');
+        });
+        step2.classList.add('quiz-step--hidden');
+        step2.setAttribute('aria-hidden', 'true');
+        resultEl.hidden = true;
+        document.querySelector('[data-project]').focus();
+      });
+    }
+  })();
+</script>

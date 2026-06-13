@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import { coachingServices, coachingBookingUrl } from '../data/site';
 import { withBase } from '../utils/paths';
+import CoachingQuiz from '../components/CoachingQuiz.astro';
 ---
 
 <BaseLayout
@@ -134,6 +135,15 @@ import { withBase } from '../utils/paths';
         </div>
       </details>
     </div>
+  </section>
+
+  <section class="site-shell coaching-quiz-section">
+    <SectionHeading
+      eyebrow="Not sure where to start?"
+      title="Find your session type"
+      intro="Two questions — get a specific recommendation."
+    />
+    <CoachingQuiz />
   </section>
 
   <section class="site-shell">

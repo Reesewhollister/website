@@ -2,6 +2,7 @@
 import type { Project } from '../data/projects';
 import BaseLayout from './BaseLayout.astro';
 import PDFEmbed from '../components/PDFEmbed.astro';
+import ProjectSubnav from '../components/ProjectSubnav.astro';
 import { withBase, isExternal } from '../utils/paths';
 import { getImageDims } from '../utils/imageDims';
 
@@ -27,6 +28,15 @@ const materialLinks = [
     href: link.href
   }))
 ];
+
+const subnavLinks = [
+  { label: 'Overview', href: '#overview' },
+  ...(deck ? [{ label: 'Deck', href: '#deck' }] : []),
+  ...(project.paper ? [{ label: 'Paper', href: '#paper' }] : []),
+  ...(videos.length > 0 ? [{ label: 'Videos', href: '#video' }] : []),
+  ...(ytVideos.length > 0 ? [{ label: 'Watch', href: '#watch' }] : []),
+  { label: 'About', href: '#about' },
+];
 ---
 
 <BaseLayout title={title} description={description} image={image}>
@@ -46,7 +56,8 @@ const materialLinks = [
     genre: project.categories.join(', ')
   })} slot="head" />
   <article class="project-page">
-    <section class={`project-hero site-shell${project.heroVideo ? ' has-video-backdrop' : ''}`}>
+    <ProjectSubnav links={subnavLinks} />
+    <section id="overview" class={`project-hero site-shell${project.heroVideo ? ' has-video-backdrop' : ''}`}>
       {project.heroVideo && (
         <>
           <video
@@ -220,7 +231,7 @@ const materialLinks = [
         </div>
       </section>
     )}
-    <section class="project-body site-shell prose-shell">
+    <section id="about" class="project-body site-shell prose-shell">
       <slot />
     </section>
   </article>
