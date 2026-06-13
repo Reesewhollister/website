@@ -2836,6 +2836,17 @@ html.reveal-ready .reveal.is-visible {
   text-align: center;
 }
 
+/* Inline reader stack on the Works page */
+.works-featured {
+  margin-bottom: var(--space-6);
+}
+
+.works-featured__stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
 /* ── PDF Card ────────────────────────────────────────────────────────────── */
 
 .pdf-card-grid {

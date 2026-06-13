@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PDFCard from '../components/PDFCard.astro';
+import PDFEmbed from '../components/PDFEmbed.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import { works, workTypeLabels } from '../data/works';
 import type { WorkType } from '../data/works';
@@ -9,6 +10,9 @@ const typeOrder: WorkType[] = ['paper', 'deck', 'public-scholarship', 'writing-s
 const groupedWorks = typeOrder
   .map((type) => ({ type, label: workTypeLabels[type], items: works.filter((w) => w.type === type) }))
   .filter((group) => group.items.length > 0);
+
+// Featured papers get an inline reader at the top — read without leaving the page.
+const featuredPapers = works.filter((w) => w.featured && w.type === 'paper').slice(0, 3);
 ---
 
 <BaseLayout
@@ -22,6 +26,21 @@ const groupedWorks = typeOrder
       Downloadable PDFs organized by type — research papers, presentation decks, and public scholarship artifacts.
     </p>
   </section>
+
+  {featuredPapers.length > 0 && (
+    <section class="site-shell works-featured">
+      <SectionHeading
+        eyebrow="Read here"
+        title="Featured papers"
+        intro="Read the papers in full below, or open and download any work from the index that follows."
+      />
+      <div class="works-featured__stack">
+        {featuredPapers.map((work) => (
+          <PDFEmbed pdfPath={work.pdfPath} title={work.title} description={work.description} />
+        ))}
+      </div>
+    </section>
+  )}
 
   {groupedWorks.map((group) => (
     <section class="site-shell works-section" aria-labelledby={`works-${group.type}-heading`}>

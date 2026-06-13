@@ -52,18 +52,49 @@ export const works: Work[] = [
 
   {
     id: 'colonies-carriers-paper',
-    title: 'From Colonies to Carriers — Working paper (intro & conclusion)',
+    title: 'From Colonies to Carriers — A History of Postcolonial African Airlines',
     type: 'paper',
     project: 'From Colonies to Carriers',
     projectSlug: 'from-colonies-to-carriers',
     year: '2026',
     description:
-      'Intro and conclusion from the African airlines research paper tracing how newly independent states used civil aviation to project sovereignty and build postcolonial institutions.',
+      'The full research paper (49 pp.) tracing how newly independent African states used civil aviation — Royal Air Maroc and its peers — to project sovereignty and build postcolonial institutions, backed by an original airline dataset.',
     pdfPath:
-      '/assets/projects/from-colonies-to-carriers/2026-06-09__from-colonies-to-carriers__paper__v01__intro-conclusion.pdf',
+      '/assets/projects/from-colonies-to-carriers/2026__from-colonies-to-carriers__paper__v02__full-research-paper.pdf',
     thumbnailPath: '/assets/projects/from-colonies-to-carriers/airlines-title.jpg',
     tags: ['Research', 'North Africa', 'Digital History'],
     featured: true
+  },
+
+  {
+    id: 'western-sahara-paper',
+    title: "How Highways Decided Morocco's Victory in the Western Sahara Conflict",
+    type: 'paper',
+    project: 'Western Sahara Highways',
+    projectSlug: 'western-sahara-capstone',
+    year: '2026',
+    description:
+      'Capstone research paper (40 pp.) arguing that road infrastructure — not only diplomacy or arms — built the infrastructural power and sovereignty recognition behind Morocco’s position in Western Sahara, 1975–2025.',
+    pdfPath:
+      '/assets/projects/western-sahara/2026__western-sahara__paper__v01__highways-sovereignty.pdf',
+    thumbnailPath: '/assets/projects/western-sahara/slides/slide-01.jpg',
+    tags: ['Research', 'North Africa', 'Digital History'],
+    featured: true
+  },
+
+  {
+    id: 'senegal-river-finances',
+    title: 'The Finances of River Transport in Colonial Senegal',
+    type: 'paper',
+    project: 'Modern European Imperialism',
+    year: '2025',
+    description:
+      'Co-authored archival study (with Anta Idya Sall) of the economics of river transport on the Senegal River under French colonial rule — how freight, concessions, and subsidy shaped a colonial transport economy.',
+    pdfPath:
+      '/assets/works/senegal-river-finances/2025-12-04__senegal-river-finances__paper__v01__colonial-river-transport.pdf',
+    thumbnailPath: '/assets/works/senegal-river-finances/thumb-first-page.jpg',
+    tags: ['Research', 'West Africa', 'Colonial History'],
+    featured: false
   },
 
   {

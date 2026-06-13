@@ -577,6 +577,20 @@ export const projects: Project[] = [
         aspect: 'landscape'
       }
     ],
+    videos: [
+      {
+        src: '/assets/projects/fulbright-morocco/video/azrou-barley-field.mp4',
+        poster: '/assets/projects/fulbright-morocco/video/azrou-barley-field-poster.jpg',
+        caption: 'A barley field near Azrou in the Middle Atlas — wind moving through the green. Fieldwork travel during the Fulbright year.',
+        mode: 'loop'
+      },
+      {
+        src: '/assets/projects/fulbright-morocco/video/morocco-1700.mp4',
+        poster: '/assets/projects/fulbright-morocco/video/morocco-1700-poster.jpg',
+        caption: 'The Kasbah of the Udayas above the Bou Regreg, Rabat — the walled quarter where the river meets the Atlantic.',
+        mode: 'play'
+      }
+    ],
     sections: [
       {
         heading: 'Overview',
