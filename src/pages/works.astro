@@ -4,6 +4,7 @@ import PDFCard from '../components/PDFCard.astro';
 import PDFEmbed from '../components/PDFEmbed.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import { works, workTypeLabels } from '../data/works';
+import { withBase } from '../utils/paths';
 import type { WorkType } from '../data/works';
 
 const typeOrder: WorkType[] = ['paper', 'deck', 'public-scholarship', 'writing-sample', 'teaching', 'dataset'];
@@ -41,6 +42,10 @@ const featuredPapers = works.filter((w) => w.featured && w.type === 'paper').sli
       </div>
     </section>
   )}
+
+  <div class="site-shell works-section-geo" aria-hidden="true">
+    <img src={withBase('/assets/ui/ornament/diamond-divider.svg')} alt="" width="220" height="16" />
+  </div>
 
   {groupedWorks.map((group) => (
     <section class="site-shell works-section" aria-labelledby={`works-${group.type}-heading`}>

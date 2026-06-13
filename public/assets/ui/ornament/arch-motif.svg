@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 44" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+  <!-- columns -->
+  <line x1="8" y1="44" x2="8" y2="22"/>
+  <line x1="52" y1="44" x2="52" y2="22"/>
+  <!-- pointed arch -->
+  <path d="M 8,22 C 8,8 22,3 30,3 C 38,3 52,8 52,22"/>
+  <!-- inner arch (smaller echo) -->
+  <path d="M 14,30 C 14,18 24,13 30,13 C 36,13 46,18 46,30" stroke-width="0.9" opacity="0.6"/>
+  <!-- keystone diamond at apex -->
+  <polygon points="30,3 33,7 30,11 27,7" fill="currentColor" stroke="none"/>
+  <!-- base line -->
+  <line x1="2" y1="44" x2="58" y2="44" stroke-width="0.8"/>
+</svg>
