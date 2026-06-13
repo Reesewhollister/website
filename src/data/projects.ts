@@ -605,12 +605,6 @@ export const projects: Project[] = [
             caption: 'Painted map of the Sahara border region — Erfoud, Rissani, and Merzouga — documenting research terrain in southeastern Morocco.'
           },
           {
-            src: '/assets/projects/fulbright-morocco/jebel-shams-oman.jpg',
-            alt: 'A black-and-white goat standing on a rocky cliff above the Wadi Ghul canyon at Jebel Shams, Oman — dramatic layered rock strata and mountain ridges recede into a hazy horizon.',
-            eyebrow: 'Comparative fieldwork / Oman',
-            caption: 'Jebel Shams, Oman — comparative fieldwork and language study in the Arab world alongside the Morocco Fulbright year.'
-          },
-          {
             src: '/assets/projects/fulbright-morocco/essaouira-atlantic-wall.jpg',
             alt: 'An orange cat resting on the sun-warmed rampart wall of Essaouira, with the grey Atlantic Ocean and a rocky breakwater visible behind it.',
             eyebrow: 'Atlantic coast / Morocco',
@@ -639,6 +633,83 @@ export const projects: Project[] = [
     ]
   },
   {
+    slug: 'oman-arabic',
+    title: 'Oman / Arabic Language Study',
+    summary:
+      "An immersive Arabic study program based in Manah, Oman, in the summer of 2023 — daily language work paired with the landscape, craft, and everyday life of the country's interior.",
+    categories: ['Teaching & Learning', 'Public Scholarship'],
+    tags: ['Arabic', 'Oman', 'Language immersion'],
+    pillars: ['Teaching', 'Research'],
+    role: 'Arabic language student and intercultural learner',
+    skills: ['Arabic', 'Oman', 'Language immersion', 'Intercultural work'],
+    featured: true,
+    sortOrder: 6,
+    card: {
+      title: 'Oman / Arabic Study',
+      summary:
+        'An immersive Arabic program in Manah, Oman — language study carried into the mountains and markets of the interior.',
+      accent: 'map',
+      materials: ['Arabic', 'Immersion', 'Fieldwork']
+    },
+    heroAsset: {
+      src: '/assets/projects/oman-arabic/jebel-shams.jpg',
+      alt: 'A small group stands on the overhanging rim of Jebel Shams at dusk — the highest peak in Oman — above the haze of the Wadi Ghul canyon.',
+      caption: 'Jebel Shams, Oman — the rim of the Wadi Ghul canyon at dusk, during a 2023 Arabic study program based in Manah.'
+    },
+    links: [
+      {
+        label: 'Fieldwork dispatches on Substack',
+        shortLabel: 'Dispatches',
+        href: 'https://reesewhollister.substack.com',
+        available: true,
+        note: 'Newsletter archive of Morocco and Oman fieldwork — settling in, teaching, travel, and language study.'
+      }
+    ],
+    seo: {
+      title: 'Oman / Arabic Language Study',
+      description:
+        "Reese Hollister's 2023 Arabic language study program in Manah, Oman — immersion paired with the landscape and daily life of the country's interior."
+    },
+    videos: [
+      {
+        src: '/assets/projects/oman-arabic/video/jebel-shams-goat.mp4',
+        poster: '/assets/projects/oman-arabic/video/jebel-shams-goat-poster.jpg',
+        caption: "One of the long-haired goats of Jebel Shams — the mountain interior where the program's field trips ran.",
+        mode: 'loop'
+      }
+    ],
+    sections: [
+      {
+        heading: 'Overview',
+        paragraphs: [
+          "In the summer of 2023, Reese studied Arabic through an immersive program based in Manah, a town in Oman's Ad Dakhiliyah interior — pairing daily formal language work with travel across the country.",
+          'The title of that summer’s photo album — منح... وسط لا مكان, "Manah… in the middle of nowhere" — captures the setting: a small interior town as the base for full immersion in Gulf Arabic and everyday Omani life.'
+        ]
+      },
+      {
+        heading: 'What to notice',
+        paragraphs: [
+          "Language study here was not confined to a classroom. It ran through markets, mountain villages, and the country's dramatic interior — from the Wadi Ghul canyon at Jebel Shams to the date-palm towns of the Dakhiliyah.",
+          "Oman extended a long arc of Arabic study, adding a Gulf dialect region alongside the Modern Standard Arabic, Moroccan Darija, and French behind the rest of Reese's work."
+        ],
+        artifacts: [
+          {
+            src: '/assets/projects/oman-arabic/goat-jebel-shams.jpg',
+            alt: 'A long-haired goat with curved horns stands among the pale rocks of Jebel Shams, Oman.',
+            eyebrow: 'Place / Jebel Shams',
+            caption: "The long-haired goats of Jebel Shams — a small detail of the mountain interior where the program's field trips ran."
+          }
+        ]
+      },
+      {
+        heading: 'Why it matters',
+        paragraphs: [
+          'The Oman program deepened Reese’s Arabic across a second dialect region and reinforced a habit of learning a language by living inside it — the same approach behind his teaching and Huruf Lab.'
+        ]
+      }
+    ]
+  },
+  {
     slug: 'teaching-writing-support',
     title: 'Teaching and Writing Support',
     summary: 'Writing consultation, large-lecture teaching support, and student-centered pedagogy grounded in real learning bottlenecks.',
@@ -648,7 +719,7 @@ export const projects: Project[] = [
     role: 'Graduate writing consultant, teaching assistant, learning diagnostician, and instructional designer',
     skills: ['Writing pedagogy', 'Tutoring', 'AI and learning', 'Student support', 'Instructional design'],
     featured: false,
-    sortOrder: 6,
+    sortOrder: 7,
     card: {
       title: 'Teaching & Writing Support',
       summary: 'Writing consultation and teaching support grounded in real learning bottlenecks.',

@@ -36,6 +36,21 @@ export const works: Work[] = [
   // ── Research papers ────────────────────────────────────────────────────────
 
   {
+    id: 'moroccan-other-archives',
+    title: 'Moroccan Other Archives, Memory & Methodology',
+    type: 'paper',
+    project: 'Historiography & Method',
+    year: '2024',
+    description:
+      "A historiographical essay on Brahim El Guabli's Moroccan Other-Archives — how memory studies reframe Morocco's Years of Lead, Tamazight erasure, and Jewish-Moroccan memory as living sources when the state archive stays closed.",
+    pdfPath:
+      '/assets/works/moroccan-other-archives/2024-12-25__moroccan-other-archives__paper__v01__memory-methodology.pdf',
+    thumbnailPath: '/assets/works/moroccan-other-archives/thumb-first-page.jpg',
+    tags: ['Research', 'North Africa', 'Historiography'],
+    featured: true
+  },
+
+  {
     id: 'colonies-carriers-paper',
     title: 'From Colonies to Carriers — Working paper (intro & conclusion)',
     type: 'paper',
