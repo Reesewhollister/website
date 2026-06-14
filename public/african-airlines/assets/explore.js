@@ -1,5 +1,4 @@
-/* explore.js — Atlas, Countries, Networks, Sources views
-   Reads window.DATA (set by app.js) and loads geo/viz data independently. */
+/* explore.js — Unified Atlas: Time / Country / Network / Institution / Sources tabs */
 (function (global) {
   const VIZ_FONT = '"Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif';
   const GEO_ALIAS = {
@@ -8,29 +7,37 @@
     "Tanzania": "United Republic of Tanzania",
     "Guinea-Bissau": "Guinea Bissau",
   };
+  // reverse: geo name → db name
+  const GEO_TO_DB = {};
+  const DB_TO_GEO = {};
+  Object.entries(GEO_ALIAS).forEach(([db, geo]) => { GEO_TO_DB[geo] = db; DB_TO_GEO[db] = geo; });
 
   const esc = s => (s == null ? "" : String(s).replace(/[&<>"']/g,
     c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])));
 
   let _geoReady = false;
+  let _vizData = null;
+  let _cityCoords = {};   // city name → [lng, lat]
   let _charts = [];
+  let _playInterval = null;
 
   function disposeCharts() {
-    _charts.forEach(c => { try { c.dispose(); } catch (e) {} });
+    if (_playInterval) { clearInterval(_playInterval); _playInterval = null; }
+    _charts.forEach(c => { try { c.dispose(); } catch (_) {} });
     _charts = [];
   }
 
-  function chartDiv(container, height) {
+  function chartDiv(parent, height) {
     const d = document.createElement("div");
     d.className = "vchart";
     d.style.height = height;
-    container.appendChild(d);
+    parent.appendChild(d);
     const inst = echarts.init(d, "portfolio");
     _charts.push(inst);
     let t;
     window.addEventListener("resize", () => {
       clearTimeout(t);
-      t = setTimeout(() => { try { inst.resize(); } catch (e) {} }, 120);
+      t = setTimeout(() => { try { inst.resize(); } catch (_) {} }, 120);
     });
     return inst;
   }
@@ -41,140 +48,388 @@
       .then(g => { echarts.registerMap("africa", g); _geoReady = true; });
   }
 
-  // Compute per-country per-year active airline count from window.DATA
+  function ensureViz() {
+    if (_vizData) return Promise.resolve(_vizData);
+    return fetch("data/viz.json").then(r => r.json()).then(d => {
+      _vizData = d;
+      const cities = (d.map && d.map.cities) || [];
+      cities.forEach(c => {
+        if (c.city && c.lng != null && c.lat != null) _cityCoords[c.city] = [c.lng, c.lat];
+      });
+      return d;
+    });
+  }
+
   function buildCountryYearCounts() {
     const data = window.DATA || [];
     const END = 1998;
-    const byCountry = {};
+    const out = {};
     data.forEach(a => {
-      if (!a.year_founded) return;
-      const endY = a.year_ceased ?? END;
-      if (!byCountry[a.country]) byCountry[a.country] = {};
-      for (let y = a.year_founded; y <= Math.min(endY, END); y++) {
-        byCountry[a.country][y] = (byCountry[a.country][y] || 0) + 1;
+      if (!a.year_founded || !a.country) return;
+      const endY = Math.min(a.year_ceased ?? END, END);
+      if (!out[a.country]) out[a.country] = {};
+      for (let y = a.year_founded; y <= endY; y++) {
+        out[a.country][y] = (out[a.country][y] || 0) + 1;
       }
     });
-    return byCountry;
+    return out;
   }
 
-  // ================================================================= ATLAS
-  function renderAtlas(view) {
-    const data = window.DATA || [];
-    const END = 1998;
+  // =========================================================== UNIFIED RENDER
+  function render(view, hash) {
+    disposeCharts();
+
+    if (!window.DATA) {
+      view.innerHTML = `<div class="empty"><p>Loading data…</p></div>`;
+      const poll = setInterval(() => {
+        if (window.DATA) { clearInterval(poll); render(view, hash); }
+      }, 80);
+      return;
+    }
+
+    // Determine initial tab
+    let activeTab = "time";
+    let preselected = null;
+    if (hash.startsWith("/countries")) {
+      activeTab = "country";
+      const raw = hash.replace(/^\/countries\/?/, "");
+      preselected = raw ? decodeURIComponent(raw) : null;
+    } else if (hash.startsWith("/networks")) {
+      activeTab = "network";
+    } else if (hash.startsWith("/sources")) {
+      activeTab = "sources";
+    }
+
+    const data = window.DATA;
+    const nAirlines = data.length;
     const nCountries = new Set(data.map(a => a.country).filter(Boolean)).size;
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     view.innerHTML = `
-      <div class="atlas-wrap">
-        <div class="atlas-header">
+      <div class="atlas-container">
+        <div class="atlas-topbar">
           <div class="atlas-kickers">
-            <span class="atlas-kicker"><b>${data.length}</b> airlines</span>
+            <span class="atlas-kicker"><b>${nAirlines}</b> airlines</span>
             <span class="atlas-kicker"><b>${nCountries}</b> countries</span>
             <span class="atlas-kicker"><b>1910–1998</b></span>
           </div>
-          <p class="atlas-byline">
-            African aviation was shaped less by geography than by colonial structure — and the data shows it.
-            Watch the network grow: slowly through the colonial era, then surging after 1960.
-          </p>
-          ${prefersReduced ? `<p class="atlas-note">Autoplay is paused — use the timeline controls below to step through years.</p>` : ""}
+          <div class="atlas-tabs" role="tablist">
+            <button class="atlas-tab${activeTab==="time"?" active":""}" data-tab="time">Time</button>
+            <button class="atlas-tab${activeTab==="country"?" active":""}" data-tab="country">Country</button>
+            <button class="atlas-tab${activeTab==="network"?" active":""}" data-tab="network">Network</button>
+            <button class="atlas-tab${activeTab==="institution"?" active":""}" data-tab="institution">Institution</button>
+            <button class="atlas-tab${activeTab==="sources"?" active":""}" data-tab="sources">Sources</button>
+          </div>
         </div>
-        <div id="atlas-chart-area"></div>
-        <p class="atlas-note">
-          Shading = airlines headquartered in each country. Click any country to compare it in
-          <a href="#/countries">Countries</a>. Data ends at Guttery's 1998 survey horizon.
+        <div id="atlas-content" class="atlas-content"></div>
+      </div>`;
+
+    function activateTab(tab, presel) {
+      disposeCharts();
+      view.querySelectorAll(".atlas-tab").forEach(b =>
+        b.classList.toggle("active", b.dataset.tab === tab));
+      const content = document.getElementById("atlas-content");
+      if (!content) return;
+      content.innerHTML = "";
+      switch (tab) {
+        case "time":        renderTimeTab(content); break;
+        case "country":     renderCountryTab(content, presel); break;
+        case "network":     renderNetworkTab(content); break;
+        case "institution": renderInstitutionTab(content); break;
+        case "sources":     renderSourcesTab(content); break;
+      }
+    }
+
+    view.querySelectorAll(".atlas-tab").forEach(btn =>
+      btn.addEventListener("click", () => activateTab(btn.dataset.tab, null)));
+
+    activateTab(activeTab, preselected);
+  }
+
+  // ============================================================= TIME TAB
+  function renderTimeTab(container) {
+    container.innerHTML = `
+      <div class="atlas-time">
+        <div class="atlas-controls-bar">
+          <div class="atlas-year-row">
+            <span class="atlas-year-label">YEAR</span>
+            <input type="range" class="atlas-year-slider" id="atlas-year-slider"
+              min="1920" max="1998" step="1" value="1960">
+            <span class="atlas-year-value" id="atlas-year-val">1960</span>
+            <button class="atlas-play-btn" id="atlas-play-btn">▶ Play</button>
+          </div>
+          <div class="atlas-scope-row">
+            <span class="atlas-scope-heading">Show:</span>
+            <label class="atlas-scope-label"><input type="checkbox" checked data-scope="Domestic"> Domestic</label>
+            <label class="atlas-scope-label"><input type="checkbox" checked data-scope="Regional"> Regional</label>
+            <label class="atlas-scope-label"><input type="checkbox" checked data-scope="Intercontinental"> Intercontinental</label>
+            <label class="atlas-scope-label atlas-scope-label--dim"><input type="checkbox" data-scope="routes"> Route arcs</label>
+          </div>
+        </div>
+        <div id="atlas-map-area" class="atlas-map-area"></div>
+        <div id="atlas-stat-row" class="atlas-stat-row"></div>
+        <p class="atlas-map-legend">
+          <span class="legend-dot" style="background:#006191"></span> Active hub city &nbsp;
+          <span class="legend-dot" style="background:#61692d"></span> Founded this year &nbsp;
+          <span class="legend-dot" style="background:#9e1c1f"></span> Ceased this year
+          &nbsp;·&nbsp; Click a country to explore in Country tab.
         </p>
       </div>`;
 
-    ensureGeo().then(() => {
-      const area = document.getElementById("atlas-chart-area");
-      if (!area) return;
+    Promise.all([ensureGeo(), ensureViz()]).then(() => {
+      const mapArea = document.getElementById("atlas-map-area");
+      if (!mapArea) return;
+      _initTimeChart(container, mapArea);
+    });
+  }
 
-      const byCountry = buildCountryYearCounts();
-      const countries = Object.keys(byCountry);
-      const years = [];
-      for (let y = 1920; y <= END; y++) years.push(y);
+  function _initTimeChart(container, mapArea) {
+    const data = window.DATA;
+    const byCountry = buildCountryYearCounts();
+    const countries = Object.keys(byCountry);
 
-      let maxCount = 0;
-      countries.forEach(c => Object.values(byCountry[c]).forEach(v => { if (v > maxCount) maxCount = v; }));
-      maxCount = Math.max(1, maxCount);
+    let maxCount = 0;
+    countries.forEach(c => Object.values(byCountry[c]).forEach(v => { if (v > maxCount) maxCount = v; }));
+    maxCount = Math.max(1, maxCount);
 
-      const countryPower = {};
-      data.forEach(a => { if (a.country) countryPower[a.country] = a.colonial_power || "Unknown"; });
-      const geoToDb = {};
-      Object.entries(GEO_ALIAS).forEach(([db, geo]) => { geoToDb[geo] = db; });
+    const countryPower = {};
+    data.forEach(a => { if (a.country) countryPower[a.country] = a.colonial_power || "Unknown"; });
 
-      const options = years.map(y => ({
-        title: { text: String(y) },
-        series: [{
-          data: countries.map(c => ({
-            name: GEO_ALIAS[c] || c,
-            value: byCountry[c][y] || 0,
-          })),
-        }],
+    let currentYear = 1960;
+    let activeScopes = new Set(["Domestic", "Regional", "Intercontinental"]);
+
+    function seriesData(year, scopes) {
+      const countryData = countries.map(c => ({
+        name: DB_TO_GEO[c] || c,
+        value: byCountry[c][year] || 0,
       }));
 
-      const inst = chartDiv(area, "600px");
-      inst.setOption({
-        baseOption: {
-          animation: false,
-          timeline: {
-            axisType: "category", data: years,
-            autoPlay: !prefersReduced, playInterval: 240,
-            currentIndex: 0, bottom: 8, left: 40, right: 40,
-            label: { interval: 9, fontSize: 11 },
-            checkpointStyle: { color: "#006191" },
-            controlStyle: { color: "#006191", borderColor: "#006191" },
-          },
-          title: {
-            left: "center", top: 8,
-            textStyle: { fontSize: 20, fontFamily: VIZ_FONT, color: "#281d15", fontWeight: "700" },
-            subtext: "Active airlines by country — darker = more airlines",
-            subtextStyle: { color: "rgba(40,29,21,.6)", fontSize: 12, fontFamily: VIZ_FONT },
-          },
-          tooltip: {
-            formatter: p => {
-              if (!p || !p.name) return "";
-              const dbName = geoToDb[p.name] || p.name;
-              const power = countryPower[dbName] || "—";
-              const count = (p.data && p.data.value != null) ? p.data.value : 0;
-              if (count === 0) return `<b>${esc(p.name)}</b><br>No airlines recorded`;
-              return `<b>${esc(p.name)}</b><br>${count} airline(s) active` +
-                `<br><span style="color:rgba(40,29,21,.6)">Colonial power: ${esc(power)}</span>` +
-                `<br><span style="color:#006191;font-size:11px">Click to explore this country →</span>`;
-            },
-          },
-          visualMap: {
-            type: "continuous", min: 0, max: maxCount,
-            left: 16, bottom: 80, calculable: true,
-            text: ["more airlines", "fewer"],
-            inRange: { color: ["#f4e7d6", "#d5e9f0", "#89c0d5", "#3b88a8", "#006191"] },
-            textStyle: { fontSize: 11, fontFamily: VIZ_FONT },
-          },
-          series: [{
-            type: "map", map: "africa", roam: false,
-            label: { show: false },
-            emphasis: {
-              label: { show: true, fontSize: 10, fontFamily: VIZ_FONT },
-              itemStyle: { areaColor: "#f7941d" },
-            },
-            itemStyle: { areaColor: "#f9efe2", borderColor: "#d8c6ad", borderWidth: 0.6 },
-            data: [],
-          }],
-        },
-        options,
+      const activeCities = {};
+      data.forEach(a => {
+        if (!a.year_founded || a.year_founded > year) return;
+        const endY = a.year_ceased ?? 1998;
+        if (endY < year) return;
+        if (scopes.size > 0 && a.scopes && a.scopes.length > 0 && !a.scopes.some(s => scopes.has(s))) return;
+        const city = a.detail && a.detail.base_city;
+        if (city && _cityCoords[city]) activeCities[city] = _cityCoords[city];
+      });
+      const cityData = Object.entries(activeCities).map(([city, coord]) => ({
+        name: city, value: [...coord, 1],
+      }));
+
+      const foundedData = [];
+      const ceasedData = [];
+      data.forEach(a => {
+        if (a.year_founded === year) {
+          const city = a.detail && a.detail.base_city;
+          if (city && _cityCoords[city]) foundedData.push({ name: a.name, value: [..._cityCoords[city], 1] });
+        }
+        if (a.year_ceased === year) {
+          const city = a.detail && a.detail.base_city;
+          if (city && _cityCoords[city]) ceasedData.push({ name: a.name, value: [..._cityCoords[city], 1] });
+        }
       });
 
-      // click a country → open Countries view with that country pre-selected
-      inst.on("click", p => {
-        if (!p || !p.name) return;
-        const dbName = geoToDb[p.name] || p.name;
-        location.hash = "#/countries/" + encodeURIComponent(dbName);
+      return { countryData, cityData, foundedData, ceasedData };
+    }
+
+    function statCounts(year, scopes) {
+      let total = 0, founded = 0, ceased = 0;
+      const active = new Set();
+      data.forEach(a => {
+        if (a.year_founded === year) founded++;
+        if (a.year_ceased === year) ceased++;
+        if (!a.year_founded || a.year_founded > year) return;
+        const endY = a.year_ceased ?? 1998;
+        if (endY < year) return;
+        if (scopes.size > 0 && a.scopes && a.scopes.length > 0 && !a.scopes.some(s => scopes.has(s))) return;
+        total++;
+        if (a.country) active.add(a.country);
+      });
+      return { total, countries: active.size, founded, ceased };
+    }
+
+    function updateStatRow(year) {
+      const s = statCounts(year, activeScopes);
+      const el = document.getElementById("atlas-stat-row");
+      if (!el) return;
+      el.innerHTML = `
+        <div class="atlas-stat-card">
+          <span class="atlas-stat-num">${s.total}</span>
+          <span class="atlas-stat-lab">airlines active</span>
+        </div>
+        <div class="atlas-stat-card">
+          <span class="atlas-stat-num">${s.countries}</span>
+          <span class="atlas-stat-lab">countries served</span>
+        </div>
+        <div class="atlas-stat-card atlas-stat-green">
+          <span class="atlas-stat-num">${s.founded}</span>
+          <span class="atlas-stat-lab">founded this year</span>
+        </div>
+        <div class="atlas-stat-card atlas-stat-red">
+          <span class="atlas-stat-num">${s.ceased}</span>
+          <span class="atlas-stat-lab">ceased this year</span>
+        </div>`;
+    }
+
+    const chart = chartDiv(mapArea, "520px");
+    const { countryData, cityData, foundedData, ceasedData } = seriesData(currentYear, activeScopes);
+
+    chart.setOption({
+      animation: false,
+      backgroundColor: "transparent",
+      geo: {
+        map: "africa", roam: false,
+        itemStyle: { areaColor: "#f9efe2", borderColor: "#d8c6ad", borderWidth: 0.6 },
+        emphasis: { itemStyle: { areaColor: "#f7941d" }, label: { show: false } },
+        label: { show: false },
+      },
+      tooltip: {
+        show: true,
+        formatter: p => {
+          if (!p || !p.name) return "";
+          if (p.seriesId === "s-choropleth") {
+            const dbName = GEO_TO_DB[p.name] || p.name;
+            const power = countryPower[dbName] || "—";
+            const count = p.data ? (p.data.value ?? 0) : 0;
+            if (!count) return `<b>${esc(p.name)}</b><br><span style="opacity:.6">No airlines on record</span>`;
+            return `<span style="font-family:${VIZ_FONT}"><b>${esc(p.name)}</b><br>${count} airline(s) active<br><span style="opacity:.65">${esc(power)}</span></span>`;
+          }
+          return `<span style="font-family:${VIZ_FONT};font-size:12px">${esc(p.name)}</span>`;
+        },
+      },
+      visualMap: {
+        type: "continuous", min: 0, max: maxCount,
+        left: 12, bottom: 16, calculable: false,
+        text: ["more airlines", "fewer"],
+        inRange: { color: ["#f4e7d6", "#d5e9f0", "#89c0d5", "#3b88a8", "#006191"] },
+        textStyle: { fontSize: 10, fontFamily: VIZ_FONT },
+        seriesIndex: [0],
+      },
+      series: [
+        {
+          id: "s-choropleth",
+          type: "map", map: "africa", geoIndex: 0,
+          label: { show: false },
+          emphasis: { label: { show: false } },
+          data: countryData,
+        },
+        {
+          id: "s-cities",
+          type: "scatter", coordinateSystem: "geo",
+          data: cityData,
+          symbolSize: 5,
+          itemStyle: { color: "#006191", opacity: 0.65 },
+          zlevel: 2,
+        },
+        {
+          id: "s-founded",
+          type: "effectScatter", coordinateSystem: "geo",
+          data: foundedData,
+          symbolSize: 7,
+          itemStyle: { color: "#61692d" },
+          rippleEffect: { brushType: "fill", scale: 2.5, period: 1.5 },
+          zlevel: 3,
+        },
+        {
+          id: "s-ceased",
+          type: "effectScatter", coordinateSystem: "geo",
+          data: ceasedData,
+          symbolSize: 7,
+          itemStyle: { color: "#9e1c1f" },
+          rippleEffect: { brushType: "fill", scale: 2.5, period: 1.5 },
+          zlevel: 3,
+        },
+      ],
+    });
+
+    updateStatRow(currentYear);
+
+    function updateAll(year) {
+      const sd = seriesData(year, activeScopes);
+      chart.setOption({
+        series: [
+          { id: "s-choropleth", data: sd.countryData },
+          { id: "s-cities", data: sd.cityData },
+          { id: "s-founded", data: sd.foundedData },
+          { id: "s-ceased", data: sd.ceasedData },
+        ],
+      });
+      updateStatRow(year);
+    }
+
+    // Click country → switch to Country tab with pre-selection
+    chart.on("click", p => {
+      if (p && p.seriesId === "s-choropleth" && p.name) {
+        const dbName = GEO_TO_DB[p.name] || p.name;
+        const countryBtn = document.querySelector('.atlas-tab[data-tab="country"]');
+        if (countryBtn) countryBtn.click();
+        // Wait for country tab to render, then pre-select
+        setTimeout(() => {
+          const clist = document.getElementById("country-list");
+          if (clist) {
+            const btn = clist.querySelector(`[data-country="${esc(dbName)}"]`);
+            if (btn) btn.click();
+          }
+        }, 80);
+      }
+    });
+
+    // Slider
+    const slider = document.getElementById("atlas-year-slider");
+    const yearVal = document.getElementById("atlas-year-val");
+    if (slider) {
+      slider.addEventListener("input", () => {
+        currentYear = parseInt(slider.value, 10);
+        if (yearVal) yearVal.textContent = currentYear;
+        updateAll(currentYear);
+      });
+    }
+
+    // Play / pause
+    const playBtn = document.getElementById("atlas-play-btn");
+    if (playBtn) {
+      playBtn.addEventListener("click", () => {
+        if (_playInterval) {
+          clearInterval(_playInterval);
+          _playInterval = null;
+          playBtn.textContent = "▶ Play";
+        } else {
+          if (currentYear >= 1998) {
+            currentYear = 1920;
+            if (slider) slider.value = 1920;
+            if (yearVal) yearVal.textContent = 1920;
+          }
+          playBtn.textContent = "⏸ Pause";
+          _playInterval = setInterval(() => {
+            currentYear++;
+            if (currentYear > 1998) {
+              clearInterval(_playInterval);
+              _playInterval = null;
+              playBtn.textContent = "▶ Play";
+              return;
+            }
+            if (slider) slider.value = currentYear;
+            if (yearVal) yearVal.textContent = currentYear;
+            updateAll(currentYear);
+          }, 240);
+        }
+      });
+    }
+
+    // Scope checkboxes
+    container.querySelectorAll("[data-scope]").forEach(cb => {
+      cb.addEventListener("change", () => {
+        const scope = cb.dataset.scope;
+        if (scope === "routes") return; // route arcs future work
+        if (cb.checked) activeScopes.add(scope);
+        else activeScopes.delete(scope);
+        updateAll(currentYear);
       });
     });
   }
 
-  // ============================================================== COUNTRIES
-  function renderCountries(view, preselected) {
+  // =========================================================== COUNTRY TAB
+  function renderCountryTab(container, preselected) {
     const data = window.DATA || [];
     const allCountries = Array.from(new Set(data.map(a => a.country).filter(Boolean))).sort();
     const selected = new Set(preselected && allCountries.includes(preselected) ? [preselected] : []);
@@ -212,7 +467,7 @@
       if (!statsEl || !chartEl) return;
 
       statsEl.innerHTML = sel.length === 0
-        ? `<p style="color:rgba(40,29,21,.6);font-size:14px">Select up to three countries to compare timelines and stats.</p>`
+        ? `<p class="country-placeholder">Select up to three countries to compare timelines and statistics.</p>`
         : `<div class="country-stats-area">${sel.map((c, i) => {
             const s = statsFor(c);
             return `<div class="country-card" style="border-top-color:${PALETTE[i]}">
@@ -261,7 +516,7 @@
       }
     }
 
-    view.innerHTML = `
+    container.innerHTML = `
       <div class="explore-wrap">
         <aside class="explore-sidebar">
           <p class="explore-sidebar__label">Select up to three countries</p>
@@ -292,8 +547,8 @@
       listEl.querySelectorAll(".country-list-item").forEach(btn => {
         btn.addEventListener("click", () => {
           const c = btn.dataset.country;
-          if (selected.has(c)) { selected.delete(c); }
-          else if (selected.size < 3) { selected.add(c); }
+          if (selected.has(c)) selected.delete(c);
+          else if (selected.size < 3) selected.add(c);
           renderList(searchEl.value);
           refresh();
         });
@@ -305,8 +560,8 @@
     refresh();
   }
 
-  // ============================================================== NETWORKS
-  function renderNetworks(view) {
+  // =========================================================== NETWORK TAB
+  function renderNetworkTab(container) {
     const data = window.DATA || [];
     const SCOPES = ["Domestic", "Regional", "Intercontinental"];
     let currentScope = "Regional";
@@ -335,7 +590,7 @@
 
     const totals = scopeTotals();
 
-    view.innerHTML = `
+    container.innerHTML = `
       <div class="explore-full">
         <div class="network-scope-filter">
           ${SCOPES.map((s, i) => {
@@ -363,7 +618,7 @@
       disposeCharts();
 
       if (!hubs.length) {
-        chartEl.innerHTML = `<p class="muted" style="text-align:center;padding:40px">No hub data.</p>`;
+        chartEl.innerHTML = `<p class="muted" style="text-align:center;padding:40px">No hub data for this scope.</p>`;
         tableEl.innerHTML = "";
         return;
       }
@@ -372,8 +627,8 @@
       const inst = chartDiv(chartEl, h);
       inst.setOption({
         title: {
-          text: `Top hubs by ${scope.toLowerCase()} service`,
-          subtext: "Carriers with a recorded base city — active at any point 1910–1998",
+          text: `Top hubs — ${scope.toLowerCase()} service`,
+          subtext: "Carriers with a recorded base city, active any point 1910–1998",
           left: "center",
           textStyle: { fontSize: 14, fontFamily: VIZ_FONT },
           subtextStyle: { color: "rgba(40,29,21,.6)", fontSize: 11, fontFamily: VIZ_FONT },
@@ -403,9 +658,9 @@
         </table>`;
     }
 
-    view.querySelectorAll(".network-scope-btn").forEach(btn => {
+    container.querySelectorAll(".network-scope-btn").forEach(btn => {
       btn.addEventListener("click", () => {
-        view.querySelectorAll(".network-scope-btn").forEach(b => b.classList.remove("active"));
+        container.querySelectorAll(".network-scope-btn").forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
         currentScope = btn.dataset.scope;
         renderScope(currentScope);
@@ -415,8 +670,214 @@
     renderScope(currentScope);
   }
 
-  // ============================================================== SOURCES
-  function renderSources(view) {
+  // ======================================================== INSTITUTION TAB
+  function renderInstitutionTab(container) {
+    const data = window.DATA || [];
+
+    // Group airlines by colonial power — at each year
+    const powers = Array.from(new Set(data.map(a => a.colonial_power).filter(Boolean))).sort();
+    const decolTypes = Array.from(new Set(data.map(a => a.decolonization).filter(Boolean))).sort();
+    const END = 1998, START = 1920;
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // For each power, airlines active per year
+    function computePowerYear(year) {
+      const counts = {};
+      data.forEach(a => {
+        if (!a.year_founded || a.year_founded > year) return;
+        const endY = a.year_ceased ?? END;
+        if (endY < year) return;
+        const p = a.colonial_power || "Unknown";
+        counts[p] = (counts[p] || 0) + 1;
+      });
+      return counts;
+    }
+
+    function computeDecolYear(year) {
+      const counts = {};
+      data.forEach(a => {
+        if (!a.year_founded || a.year_founded > year) return;
+        const endY = a.year_ceased ?? END;
+        if (endY < year) return;
+        const d = a.decolonization || "Not stated";
+        counts[d] = (counts[d] || 0) + 1;
+      });
+      return counts;
+    }
+
+    function computeStateLinked(year) {
+      // "State-linked" = airlines where decolonization type is not null/unknown
+      // (i.e., their trajectory was shaped by a colonial/state transition)
+      const active = data.filter(a => {
+        if (!a.year_founded || a.year_founded > year) return false;
+        const endY = a.year_ceased ?? END;
+        return endY >= year;
+      });
+      const stateLinked = active.filter(a => a.colonial_power && a.colonial_power !== "None");
+      const stateCountries = new Set(stateLinked.map(a => a.country).filter(Boolean));
+      return { count: stateLinked.length, countries: stateCountries.size, total: active.length };
+    }
+
+    let currentYear = 1960;
+    const POWER_COLORS = {
+      "Britain": "#006191",
+      "France": "#2d7a5f",
+      "Portugal": "#8b5e2a",
+      "Belgium": "#9e1c1f",
+      "Italy": "#5b3a8b",
+      "Spain": "#b07d2b",
+      "Germany": "#3c6e3c",
+      "Unknown": "rgba(40,29,21,.3)",
+    };
+
+    container.innerHTML = `
+      <div class="atlas-institution">
+        <div class="atlas-controls-bar">
+          <div class="atlas-year-row">
+            <span class="atlas-year-label">YEAR</span>
+            <input type="range" class="atlas-year-slider" id="inst-year-slider"
+              min="${START}" max="${END}" step="1" value="${currentYear}">
+            <span class="atlas-year-value" id="inst-year-val">${currentYear}</span>
+            <button class="atlas-play-btn" id="inst-play-btn">▶ Play</button>
+          </div>
+        </div>
+        <div id="inst-stat-row" class="atlas-stat-row"></div>
+        <div class="inst-charts-grid">
+          <div>
+            <p class="vsection">Active airlines by colonial power affiliation</p>
+            <div id="inst-power-chart"></div>
+          </div>
+          <div>
+            <p class="vsection">Active airlines by decolonization pathway</p>
+            <div id="inst-decol-chart"></div>
+          </div>
+        </div>
+        <p class="atlas-map-legend">
+          Colonial power affiliation reflects the recorded historical colonial relationship, not current government policy.
+          "State-linked" = airlines with a documented colonial-power connection (Britain, France, Portugal, etc.).
+        </p>
+      </div>`;
+
+    function updateStatRow(year) {
+      const { count, countries, total } = computeStateLinked(year);
+      const el = document.getElementById("inst-stat-row");
+      if (!el) return;
+      el.innerHTML = `
+        <div class="atlas-stat-card">
+          <span class="atlas-stat-num">${count}</span>
+          <span class="atlas-stat-lab">state-linked institutions</span>
+        </div>
+        <div class="atlas-stat-card">
+          <span class="atlas-stat-num">${countries}</span>
+          <span class="atlas-stat-lab">countries</span>
+        </div>
+        <div class="atlas-stat-card">
+          <span class="atlas-stat-num">${total}</span>
+          <span class="atlas-stat-lab">airlines on record</span>
+        </div>`;
+    }
+
+    let powerChart = null, decolChart = null;
+
+    function updateCharts(year) {
+      const powerCounts = computePowerYear(year);
+      const decolCounts = computeDecolYear(year);
+
+      const pEntries = Object.entries(powerCounts).sort((a, b) => b[1] - a[1]).slice(0, 10);
+      const dEntries = Object.entries(decolCounts).sort((a, b) => b[1] - a[1]).slice(0, 10);
+
+      if (!powerChart) {
+        const el = document.getElementById("inst-power-chart");
+        if (el) powerChart = chartDiv(el, "280px");
+      }
+      if (!decolChart) {
+        const el = document.getElementById("inst-decol-chart");
+        if (el) decolChart = chartDiv(el, "280px");
+      }
+
+      if (powerChart) {
+        powerChart.setOption({
+          animation: false,
+          grid: { left: 80, right: 40, top: 12, bottom: 12 },
+          tooltip: { trigger: "axis", axisPointer: { type: "shadow" } },
+          xAxis: { type: "value", splitLine: { lineStyle: { color: "#efe2d2" } } },
+          yAxis: { type: "category", data: pEntries.map(e => e[0]).reverse(),
+            axisLabel: { fontSize: 11 } },
+          series: [{
+            type: "bar", barMaxWidth: 20,
+            data: pEntries.map(e => e[1]).reverse(),
+            itemStyle: {
+              color: p => POWER_COLORS[pEntries[pEntries.length - 1 - p.dataIndex]?.[0]] || "#006191"
+            },
+          }],
+        });
+      }
+
+      if (decolChart) {
+        decolChart.setOption({
+          animation: false,
+          grid: { left: 110, right: 40, top: 12, bottom: 12 },
+          tooltip: { trigger: "axis", axisPointer: { type: "shadow" } },
+          xAxis: { type: "value", splitLine: { lineStyle: { color: "#efe2d2" } } },
+          yAxis: { type: "category", data: dEntries.map(e => e[0]).reverse(),
+            axisLabel: { fontSize: 11 } },
+          series: [{
+            type: "bar", barMaxWidth: 20,
+            data: dEntries.map(e => e[1]).reverse(),
+            itemStyle: { color: "#9e1c1f" },
+          }],
+        });
+      }
+    }
+
+    updateStatRow(currentYear);
+    updateCharts(currentYear);
+
+    const slider = document.getElementById("inst-year-slider");
+    const yearVal = document.getElementById("inst-year-val");
+    if (slider) {
+      slider.addEventListener("input", () => {
+        currentYear = parseInt(slider.value, 10);
+        if (yearVal) yearVal.textContent = currentYear;
+        updateStatRow(currentYear);
+        updateCharts(currentYear);
+      });
+    }
+
+    const playBtn = document.getElementById("inst-play-btn");
+    if (playBtn) {
+      playBtn.addEventListener("click", () => {
+        if (_playInterval) {
+          clearInterval(_playInterval);
+          _playInterval = null;
+          playBtn.textContent = "▶ Play";
+        } else {
+          if (currentYear >= END) {
+            currentYear = START;
+            if (slider) slider.value = START;
+            if (yearVal) yearVal.textContent = START;
+          }
+          playBtn.textContent = "⏸ Pause";
+          _playInterval = setInterval(() => {
+            currentYear++;
+            if (currentYear > END) {
+              clearInterval(_playInterval);
+              _playInterval = null;
+              playBtn.textContent = "▶ Play";
+              return;
+            }
+            if (slider) slider.value = currentYear;
+            if (yearVal) yearVal.textContent = currentYear;
+            updateStatRow(currentYear);
+            updateCharts(currentYear);
+          }, 240);
+        }
+      });
+    }
+  }
+
+  // ============================================================= SOURCES TAB
+  function renderSourcesTab(container) {
     const data = window.DATA || [];
     const total = data.length;
     const stubs = data.filter(a => a.is_stub).length;
@@ -445,7 +906,7 @@
     const bar = (v, max, color) =>
       `<div class="bar-track"><div class="bar-fill" style="width:${Math.round(v/max*100)}%;${color ? `background:${color}` : ""}"></div></div>`;
 
-    view.innerHTML = `
+    container.innerHTML = `
       <article class="page sources-page">
         <h1>Sources &amp; data quality</h1>
         <p>This encyclopedia is built on a scholarly principle:
@@ -528,25 +989,6 @@
         </ul>
         <p style="margin-top:24px"><a href="#/">← Browse airlines</a> · <a href="#/about">Full methodology →</a></p>
       </article>`;
-  }
-
-  // ================================================================= RENDER
-  function render(view, hash) {
-    disposeCharts();
-    if (!window.DATA) {
-      view.innerHTML = `<div class="empty"><p>Loading data…</p></div>`;
-      const poll = setInterval(() => {
-        if (window.DATA) { clearInterval(poll); render(view, hash); }
-      }, 80);
-      return;
-    }
-    if (hash.startsWith("/countries")) {
-      const country = decodeURIComponent((hash.replace(/^\/countries\/?/, "") || "")) || null;
-      return renderCountries(view, country);
-    }
-    if (hash.startsWith("/networks")) return renderNetworks(view);
-    if (hash.startsWith("/sources")) return renderSources(view);
-    renderAtlas(view);
   }
 
   global.Atlas = { render };
