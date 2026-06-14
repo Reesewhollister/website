@@ -27,7 +27,10 @@
 - `public/assets/projects/western-sahara/2026-03-31__reese-portfolio__artifact__v01__contract-programmes-diagram.png` - strong but tall; 1654x2339; use as an artifact figure.
 - `public/assets/projects/western-sahara/2026-03-31__reese-portfolio__artifact__v01__dakhla-atlantic-port-photo.jpg` - strong; 1200x675; use in Western Sahara case study.
 - `public/assets/projects/western-sahara/2026-03-31__reese-portfolio__artifact__v01__roads-timeseries-one-pager.pdf` - usable download.
-- `public/assets/projects/from-colonies-to-carriers/airlines-title.jpg` - current From Colonies to Carriers project hero.
+- `public/assets/projects/from-colonies-to-carriers/airlines-title.jpg` - retained title artwork; superseded as the From Colonies to Carriers project hero by the real source-folder route map.
+- `public/assets/projects/from-colonies-to-carriers/2026-06-13__reese-portfolio__asset__v01__african-airlines-routes-from-europe.png` - current From Colonies to Carriers project hero and African Airlines atlas hero.
+- `public/assets/projects/from-colonies-to-carriers/2026-06-13__reese-portfolio__asset__v01__african-airlines-admin-divisions-1960.jpg` - historical geography source image used in the project artifact set and atlas archive strip.
+- `public/assets/projects/from-colonies-to-carriers/2026-06-13__reese-portfolio__asset__v01__african-airlines-air-afrique-advertisement.png` - visual source image used in the project artifact set and atlas archive strip.
 - `public/assets/projects/from-colonies-to-carriers/2026-06-09__from-colonies-to-carriers__deck__v01__african-airlines.pdf` - live self-hosted African Airlines deck; exported from Google Slides; 27 slides.
 - `public/assets/projects/from-colonies-to-carriers/slides/slide-01.jpg` through `slide-27.jpg` - rendered web slide images for the From Colonies to Carriers deck strip; 1500x844 each.
 - `public/assets/projects/from-colonies-to-carriers/2026-06-09__from-colonies-to-carriers__paper__v01__intro-conclusion.pdf` - live paper excerpt download; replaces prior dead Working paper link.
@@ -70,6 +73,8 @@ copied into the portfolio yet. Verify licensing before publishing any third-part
 - **Interactive atlas map** — `.../From_Colonies_to_Carriers/.playwright-cli/atlas-panel-a.png` (2468x1464) + sibling page-*.png screenshots. Cream choropleth "Airline Count" map (Natural Earth boundaries); palette MATCHES portfolio. Reviewed. Strong card/hero candidate once a clean full-continent frame is captured.
 - **Interactive map (live HTML)** — `.../From_Colonies_to_Carriers/Maps/2026-06-04__from-colonies-to-carriers__interactive-map__v02__youtube-ready.html` + `africa_map_ONLINE_SINGLE-*.html`. Embeddable / screenshot source.
 - **Dashboard web app** — `~/Documents/colonies-to-carriers/` (echarts viz.js, search/filter, stats). Could be linked or screenshotted as the "interactive" project artifact.
+- **Copied African Airlines source images** — selected from `/Users/reesehollister/Movies/Resolve/Media/African Airlines/08_airlines-video-assets/` after user-provided Finder context. The route-map source image now overrides `airlines-title.jpg` as the project hero and is also used in the `/african-airlines/#/atlas` hero; the archive strip uses the selected six-image set.
+- **Portfolio exploratory atlas overlay** — `src/airlines-overlay/` and `public/african-airlines/assets/explore.js`. Adds the unified Time, Country, Network, Institution, and Sources atlas views using existing app data. Reviewed as workspace-owned code rather than a third-party visual asset.
 - **African Airlines Presentation** (Drive, 24MB pptx, id 12m8XCaMGkE9IBKnlAyQnCyx0hpYP0108tfxmTMqPGEs) — full deck; likely RAM logos / timetables / route diagrams inside. Not yet extracted.
 - Related Drive decks: "History Centennial Celebration Presentation" (14MB), "Airlines Video".
 
