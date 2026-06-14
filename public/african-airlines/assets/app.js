@@ -48,10 +48,11 @@
     const h = location.hash.replace(/^#/, "") || "/";
     setNav(h);
     if (h.startsWith("/a/")) return renderDetail(parseInt(h.slice(3), 10));
-    if (h.startsWith("/atlas")) return Atlas.render(view, h);
-    if (h.startsWith("/countries")) return Atlas.render(view, h);
-    if (h.startsWith("/networks")) return Atlas.render(view, h);
-    if (h.startsWith("/sources")) return Atlas.render(view, h);
+    if (h.startsWith("/atlas")) return Explore.renderAtlas(view, state.all);
+    if (h.startsWith("/countries")) return Explore.renderCountries(view, state.all);
+    if (h.startsWith("/networks")) return Explore.renderNetworks(view, state.all);
+    if (h.startsWith("/institution")) return Explore.renderInstitution(view, state.all);
+    if (h.startsWith("/sources")) return Explore.renderSources(view, state.all);
     if (h.startsWith("/viz")) return Viz.render(view, h);
     if (h.startsWith("/stats")) return Stats.render(view, state.all);
     if (h.startsWith("/about")) return renderAbout();
@@ -60,12 +61,11 @@
   function setNav(h) {
     const map = {
       browse: h === "/" || h.startsWith("/a/"),
-      atlas: h.startsWith("/atlas"),
-      countries: h.startsWith("/countries"),
+      atlas: h.startsWith("/atlas") || h.startsWith("/viz"),
+      countries: h.startsWith("/countries") || h.startsWith("/stats"),
       networks: h.startsWith("/networks"),
+      institution: h.startsWith("/institution"),
       sources: h.startsWith("/sources"),
-      viz: h.startsWith("/viz"),
-      stats: h.startsWith("/stats"),
       about: h.startsWith("/about"),
     };
     document.querySelectorAll(".site-nav a").forEach(a =>
@@ -83,7 +83,6 @@
   }
 
   function renderBrowse() {
-    document.title = DEFAULT_TITLE;
     view.innerHTML = `
       <div class="browse">
         <aside class="filters" id="filters"></aside>
@@ -192,11 +191,9 @@
   }
 
   // ---------- detail ----------
-  const DEFAULT_TITLE = document.title;
   function renderDetail(entry) {
     const a = state.byEntry.get(entry);
     if (!a) { view.innerHTML = `<div class="empty"><h2>Not found</h2><p><a href="#/">Back to browse</a></p></div>`; return; }
-    document.title = `${a.name} (${a.country}) — African Airlines Encyclopedia`;
     const d = a.detail || {};
     const p = a.provenance;
 
@@ -305,7 +302,6 @@
 
   // ---------- about ----------
   function renderAbout() {
-    document.title = "About — African Airlines Encyclopedia";
     view.innerHTML = `<article class="page">
       <h1>About this dataset</h1>
       <p><strong>From Colonies to Carriers</strong> is a structured, provenance-tracked encyclopedia of African
@@ -335,13 +331,7 @@
       while operational fields await extraction. Fleet sizes and founding dates are as stated by Guttery and reflect
       the data available to him.</p>
 
-      <h2>Research behind this dataset</h2>
-      <p>This encyclopedia is part of <em>From Colonies to Carriers</em>, a digital history project examining how
-      colonial structure shaped African aviation. The working paper argues that ownership model, decolonization
-      pathway, and settler status predict airline survival and route geography more than geography alone does.</p>
-      <p><a href=”/projects/from-colonies-to-carriers/”>← Read the research project →</a></p>
-
-      <p style=”margin-top:24px”><a href=”#/”>← Back to browse</a></p>
+      <p style="margin-top:24px"><a href="#/">← Back to browse</a></p>
     </article>`;
   }
 })();

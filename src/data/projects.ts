@@ -329,9 +329,9 @@ export const projects: Project[] = [
       materials: ['Deck', 'Paper', 'Dataset', 'Map']
     },
     heroAsset: {
-      src: '/assets/projects/from-colonies-to-carriers/airlines-title.jpg',
-      alt: 'Title artwork for "From Colonies to Carriers: Postcolonial African Airlines" — a stylized airliner tracing a contrail across the African continent.',
-      caption: 'Title art from the From Colonies to Carriers project on postcolonial African aviation.'
+      src: '/assets/projects/from-colonies-to-carriers/2026-06-13__reese-portfolio__asset__v01__african-airlines-routes-from-europe.png',
+      alt: 'Historic route map showing European airline connections across Africa.',
+      caption: 'Source image from the African Airlines archive/video folder, now used as the project visual anchor.'
     },
     links: [
       {
@@ -421,6 +421,18 @@ export const projects: Project[] = [
             alt: 'Primary-source map of protected Royal Air Maroc routes in Africa.',
             eyebrow: 'Source visual',
             caption: 'Primary-source route map used to connect postcolonial airline policy to the geography of protected routes.'
+          },
+          {
+            src: '/assets/projects/from-colonies-to-carriers/2026-06-13__reese-portfolio__asset__v01__african-airlines-admin-divisions-1960.jpg',
+            alt: 'Map of African administrative divisions around 1960.',
+            eyebrow: 'Historical geography',
+            caption: 'Continental political geography gives the airline data a clearer independence-era frame.'
+          },
+          {
+            src: '/assets/projects/from-colonies-to-carriers/2026-06-13__reese-portfolio__asset__v01__african-airlines-air-afrique-advertisement.png',
+            alt: 'Air Afrique advertisement source image.',
+            eyebrow: 'Visual source',
+            caption: 'Airline advertising helps show how carriers projected identity, modernity, and regional ambition.'
           }
         ]
       },

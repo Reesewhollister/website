@@ -33,6 +33,7 @@ CTA hover); clay + blue + espresso on cream carry the serious core.
   deck — `public/assets/projects/western-sahara/ws-mural-hero.jpg`. Case-study artifacts include
   the dual-track timeline and the four-panel "Where is Western Sahara?" map (also from the deck).
 - **Hurūf La'b**: the gold-on-blue laʿb brand mark — `public/assets/projects/huruf-lab/huruf-logo.jpg`.
+- **From Colonies to Carriers**: real African Airlines source-folder imagery now overrides the older title/atlas placeholder. The project and atlas hero use `public/assets/projects/from-colonies-to-carriers/2026-06-13__reese-portfolio__asset__v01__african-airlines-routes-from-europe.png`; the app uses a unified Time, Country, Network, Institution, and Sources atlas shell with a six-image archive strip.
 - **Fulbright Morocco**: real fieldwork photography now carries this project instead of placeholder
   SVGs. Hero is the Essaouira Atlantic harbor (`atlantic-harbor-essaouira.jpg`); the "What to notice"
   mosaic pairs place and evidence — the painted Sahara border map (`merzouga-sahara-map.jpg`), Jebel
