@@ -238,9 +238,9 @@ export const projects: Project[] = [
     featured: true,
     sortOrder: 3,
     heroAsset: {
-      src: '/assets/projects/from-colonies-to-carriers/atlas-map.png',
-      alt: 'Interactive atlas-style map showing African airline count patterns across the continent.',
-      caption: 'Interactive atlas visual from the From Colonies to Carriers digital-history project.'
+      src: '/assets/projects/from-colonies-to-carriers/2026-06-13__reese-portfolio__asset__v01__african-airlines-routes-from-europe.png',
+      alt: 'Historic route map showing European airline connections across Africa.',
+      caption: 'Source image from the African Airlines archive/video folder, now used as the project visual anchor.'
     },
     links: [
       {
@@ -286,6 +286,26 @@ export const projects: Project[] = [
         paragraphs: [
           'Civil aviation records from this period are scattered across national archives, ICAO documents, colonial administrative files, aviation trade press, and timetable ephemera.',
           'The project involves systematic reconstruction: identifying sources, cross-referencing discontinuous records, and building a structured dataset from fragmentary evidence.'
+        ],
+        artifacts: [
+          {
+            src: '/assets/projects/from-colonies-to-carriers/2026-06-13__reese-portfolio__asset__v01__african-airlines-admin-divisions-1960.jpg',
+            alt: 'Map of African administrative divisions around 1960.',
+            eyebrow: 'Historical geography',
+            caption: 'Continental political geography gives the airline data a clearer independence-era frame.'
+          },
+          {
+            src: '/assets/projects/from-colonies-to-carriers/2026-06-13__reese-portfolio__asset__v01__african-airlines-air-afrique-advertisement.png',
+            alt: 'Air Afrique advertisement source image.',
+            eyebrow: 'Visual source',
+            caption: 'Airline advertising helps show how carriers projected identity, modernity, and regional ambition.'
+          },
+          {
+            src: '/assets/projects/from-colonies-to-carriers/2026-06-13__reese-portfolio__asset__v01__african-airlines-ram-ridership-chart.png',
+            alt: 'Royal Air Maroc ridership chart source image.',
+            eyebrow: 'Quantitative source',
+            caption: 'Royal Air Maroc source material supports the Morocco case study with institutional and traffic evidence.'
+          }
         ]
       },
       {

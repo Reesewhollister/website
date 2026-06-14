@@ -48,14 +48,26 @@
     const h = location.hash.replace(/^#/, "") || "/";
     setNav(h);
     if (h.startsWith("/a/")) return renderDetail(parseInt(h.slice(3), 10));
+    if (h.startsWith("/atlas")) return Explore.renderAtlas(view, state.all);
+    if (h.startsWith("/countries")) return Explore.renderCountries(view, state.all);
+    if (h.startsWith("/networks")) return Explore.renderNetworks(view, state.all);
+    if (h.startsWith("/institution")) return Explore.renderInstitution(view, state.all);
+    if (h.startsWith("/sources")) return Explore.renderSources(view, state.all);
     if (h.startsWith("/viz")) return Viz.render(view, h);
     if (h.startsWith("/stats")) return Stats.render(view, state.all);
     if (h.startsWith("/about")) return renderAbout();
     return renderBrowse();
   }
   function setNav(h) {
-    const map = { browse: h === "/" || h.startsWith("/a/"), viz: h.startsWith("/viz"),
-                  stats: h.startsWith("/stats"), about: h.startsWith("/about") };
+    const map = {
+      browse: h === "/" || h.startsWith("/a/"),
+      atlas: h.startsWith("/atlas") || h.startsWith("/viz"),
+      countries: h.startsWith("/countries") || h.startsWith("/stats"),
+      networks: h.startsWith("/networks"),
+      institution: h.startsWith("/institution"),
+      sources: h.startsWith("/sources"),
+      about: h.startsWith("/about"),
+    };
     document.querySelectorAll(".site-nav a").forEach(a =>
       a.classList.toggle("active", !!map[a.dataset.nav]));
   }

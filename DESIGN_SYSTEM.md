@@ -33,7 +33,7 @@ CTA hover); clay + blue + espresso on cream carry the serious core.
   deck — `public/assets/projects/western-sahara/ws-mural-hero.jpg`. Case-study artifacts include
   the dual-track timeline and the four-panel "Where is Western Sahara?" map (also from the deck).
 - **Hurūf La'b**: the gold-on-blue laʿb brand mark — `public/assets/projects/huruf-lab/huruf-logo.jpg`.
-- **From Colonies to Carriers**: the interactive atlas map — `public/assets/projects/from-colonies-to-carriers/atlas-map.png`.
+- **From Colonies to Carriers**: real African Airlines source-folder imagery now overrides the older atlas placeholder. The project hero uses `public/assets/projects/from-colonies-to-carriers/2026-06-13__reese-portfolio__asset__v01__african-airlines-routes-from-europe.png`; the case study also uses the 1960 administrative map, Air Afrique advertisement, and RAM ridership chart as source artifacts.
 - **Fulbright Morocco**: optimized Chefchaouen fieldwork panorama — `public/assets/ui/2026-06-07__reese-portfolio__asset__v01__chefchaouen-fieldwork-panorama.jpg`.
 - Source decks rasterized with `pdftoppm` from `design-assets/western-sahara/capstone-slides.pdf`.
 
@@ -60,7 +60,7 @@ Current production assets are intentionally restrained:
 - Homepage hero/Morocco visual: `public/assets/ui/2026-03-31__reese-portfolio__asset__v02__google-site-welcome-photo.jpg`
 - Publication thumb: `public/assets/ui/2026-03-31__reese-portfolio__asset__v01__history-matters-publication-thumb.jpg`
 - Sitewide texture/motif candidates: `paper-grain.svg`, `atlas-grid.svg`, `og-placeholder.svg`
-- Strongest project-specific assets: Western Sahara map, dual timeline, Dakhla port photo, contract-programmes diagram, and roads one-pager
+- Strongest project-specific assets: Western Sahara map, dual timeline, Dakhla port photo, contract-programmes diagram, roads one-pager, and the African Airlines route/source-image set
 - Placeholder/editorial assets: teaching-support SVG board/poster and the Huruf/Fulbright editorial boards where used as supporting figures
 
 The Western Sahara assets and imported Chefchaouen fieldwork panorama are the strongest current production visuals because they are specific, high-resolution, and tied to real work. The Huruf brand mark is usable, but real product photography should replace it once the blue-tile/prototype frame is available. Teaching-support SVGs remain temporary until an approved classroom or workshop photo is added.
@@ -80,3 +80,16 @@ Pass 3 should be restrained:
 - every animation must respect `prefers-reduced-motion`
 
 Current static implementation includes a reduced-motion-safe hero entrance, card hover treatment, and scroll reveal script inside `src/build-static.cjs`.
+
+## Interaction Direction (2026-06-12)
+
+The current static build path now uses lightweight interaction to make the site stickier without changing the serious academic/public-scholarship tone.
+
+- Homepage visitor-lens selector: routes admissions committees, employers, coaching clients, public-scholarship viewers, and collaborators toward the strongest proof first.
+- Homepage African Airlines sampler: reuses `public/african-airlines/data/stats.json` for a compact country lookup and project stats preview before sending visitors into `/african-airlines/`.
+- African Airlines exploratory atlas: the standalone app now leads with question-first views — Time, Country, Network, Institution, and Sources — inside a unified atlas tab shell while preserving legacy Visualize/Statistics hash routes. The view uses copied source imagery from the African Airlines project folder, including the European route-map image as the hero visual and a six-image archive strip.
+- Projects page filters: combines topic filtering with a visitor-lens filter so the same project set can be scanned by audience need.
+- Writing page filters: lets visitors isolate academic writing, presentations, public scholarship, and Morocco fieldwork dispatches.
+- Coaching quiz handoff: completed quiz results now generate a prefilled email with project type, stuck point, and recommended session.
+
+The interaction layer reuses the existing Chefchaouen imagery, African Airlines atlas screenshot, selected African Airlines source images, project assets, app-local ECharts maps, and site palette.

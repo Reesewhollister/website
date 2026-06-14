@@ -46,8 +46,19 @@ function loadTsModule(relativePath) {
   return module.exports;
 }
 
+function loadJson(relativePath, fallback = null) {
+  const filePath = path.join(root, relativePath);
+  try {
+    return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  } catch (error) {
+    debug(`Could not load ${relativePath}: ${error.message}`);
+    return fallback;
+  }
+}
+
 const siteData = loadTsModule('src/data/site.ts');
 const projectData = loadTsModule('src/data/projects.ts');
+const airlineStats = loadJson('public/african-airlines/data/stats.json', {});
 const {
   aboutTimeline,
   aboutTimelineFull,
@@ -117,6 +128,10 @@ function pageTitle(title) {
 
 function slugify(text) {
   return String(text).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+function formatNumber(value) {
+  return Number(value || 0).toLocaleString('en-US');
 }
 
 function layout({ route, title = siteMeta.title, description = siteMeta.description, image = '/assets/ui/2026-03-31__reese-portfolio__asset__v02__google-site-welcome-photo.jpg', body }) {
@@ -241,12 +256,39 @@ function projectCard(project) {
   </article>`;
 }
 
+function projectAudienceTags(project) {
+  const haystack = [
+    project.title,
+    project.summary,
+    project.role,
+    ...(project.categories || []),
+    ...(project.pillars || []),
+    ...(project.tags || []),
+    ...(project.skills || [])
+  ].join(' ').toLowerCase();
+  const audiences = [];
+  if (/research|north africa|western sahara|airline|archive|digital history|infrastructure/.test(haystack)) {
+    audiences.push('Admissions / research');
+  }
+  if (/teaching|arabic|writing|pedagogy|learning|coaching/.test(haystack)) {
+    audiences.push('Teaching / coaching');
+  }
+  if (/product|design|building|data|visual|entrepreneurship|public/.test(haystack)) {
+    audiences.push('Employers / collaborators');
+  }
+  if (/public scholarship|youtube|digital history|interactive|case study/.test(haystack)) {
+    audiences.push('Public audiences');
+  }
+  return Array.from(new Set(audiences.length ? audiences : ['General']));
+}
+
 function expandableProjectCard(project) {
   const expandId = `expand-${project.slug}`;
   const overviewPara = (project.sections[0] && project.sections[0].paragraphs && project.sections[0].paragraphs[0]) || project.summary;
   const visibleLinks = project.links.filter((l) => l.available !== false && l.href !== '#');
   const tagList = (project.tags || project.categories);
-  return `<article class="project-card project-card--expandable" data-tags="${escapeHtml(tagList.join('|'))}">
+  const audienceTags = projectAudienceTags(project);
+  return `<article class="project-card project-card--expandable" data-tags="${escapeHtml(tagList.join('|'))}" data-audiences="${escapeHtml(audienceTags.join('|'))}">
     <a class="project-card__media" href="${routeHref(`/projects/${project.slug}`)}" tabindex="-1" aria-hidden="true">
       <img src="${assetHref(project.heroAsset.src)}" alt="${escapeHtml(project.heroAsset.alt)}" loading="lazy">
     </a>
@@ -321,63 +363,136 @@ function artifactFigure(artifact) {
 // ── Choose-your-path module ───────────────────────────────────────────────────
 
 function choosePathHtml() {
-  const paths = [
+  const audiences = [
     {
-      icon: '⊞',
-      label: 'Research Projects',
-      detail: 'Historical analysis of North Africa, postcolonial institutions, and digital history',
-      href: routeHref('/research'),
-      track: 'choose_path_click'
+      id: 'admissions',
+      label: 'PhD / admissions',
+      title: 'Show the research spine first',
+      summary: 'Lead with the North Africa research agenda, then prove method through the Western Sahara and African Airlines case studies.',
+      proof: [
+        'Master of International Studies graduate from NC State, 2026.',
+        'Research agenda centered on North Africa, infrastructure, institutions, and digital history.',
+        'Case studies show source synthesis, process tracing, mapping, and public-facing argument.'
+      ],
+      actions: [
+        { label: 'Read the research agenda', href: routeHref('/research'), track: 'choose_path_click' },
+        { label: 'Open Western Sahara case study', href: routeHref('/projects/western-sahara-capstone'), track: 'project_expand' },
+        { label: 'View CV highlights', href: routeHref('/resume'), track: 'cv_click' }
+      ]
     },
     {
-      icon: '◎',
-      label: 'Digital Maps &amp; Datasets',
-      detail: 'Interactive encyclopedia of 723 African airlines and Western Sahara infrastructure data',
-      href: routeHref('/african-airlines'),
-      track: 'choose_path_click'
+      id: 'employers',
+      label: 'Employers',
+      title: 'Start with transferable proof',
+      summary: 'Show work that combines research judgment, writing, teaching, data cleanup, visual explanation, and product thinking.',
+      proof: [
+        'Interactive database of 723 African airlines built from fragmented historical sources.',
+        'Writing coaching and teaching experience with real student-facing outcomes.',
+        'Huruf La\'b connects language pedagogy, user research, and product framing.'
+      ],
+      actions: [
+        { label: 'Browse projects', href: routeHref('/projects'), track: 'choose_path_click' },
+        { label: 'See teaching work', href: routeHref('/teaching'), track: 'choose_path_click' },
+        { label: 'Contact Reese', href: routeHref('/contact'), track: 'email_click' }
+      ]
     },
     {
-      icon: '&#10000;',
-      label: 'Writing Coaching',
-      detail: 'College essays, research papers, personal statements, and academic revision support',
-      href: routeHref('/coaching'),
-      track: 'choose_path_click'
+      id: 'coaching',
+      label: 'Writing coaching',
+      title: 'Get to the right kind of help fast',
+      summary: 'Parents and students should see the coaching offer, diagnose the writing problem, and leave with a clear next step.',
+      proof: [
+        'Level III CRLA-certified writing consultant.',
+        'Support for college essays, research papers, personal statements, and academic revision.',
+        'Session model focuses on diagnosis, structure, argument, and independent revision.'
+      ],
+      actions: [
+        { label: 'Take the coaching quiz', href: routeHref('/coaching') + '#coaching-quiz', track: 'coaching_book_click' },
+        { label: 'See teaching background', href: routeHref('/teaching'), track: 'choose_path_click' },
+        { label: 'Email about coaching', href: 'mailto:reesewhollister@gmail.com?subject=Writing%20coaching%20inquiry', track: 'email_click' }
+      ]
     },
     {
-      icon: '&#9672;',
-      label: 'Teaching Work',
-      detail: 'Arabic instruction, writing consultation, and student-centered pedagogy',
-      href: routeHref('/teaching'),
-      track: 'choose_path_click'
+      id: 'public',
+      label: 'Public scholarship',
+      title: 'See the work built for real audiences',
+      summary: 'Public-facing projects show how complex history becomes something searchable, visual, teachable, and usable.',
+      proof: [
+        'Historical Method Man translates historical method for non-specialist audiences.',
+        'African Airlines turns an archival dataset into a searchable public encyclopedia.',
+        'Project pages are written as case studies rather than resume entries.'
+      ],
+      actions: [
+        { label: 'Explore African Airlines', href: routeHref('/african-airlines'), track: 'dataset_click' },
+        { label: 'Read writing and public work', href: routeHref('/writing'), track: 'choose_path_click' },
+        { label: 'Watch the channel', href: 'https://www.youtube.com/channel/UCCRhHuIxYd3wyzYuaCNH3AA/', track: 'youtube_click' }
+      ]
     },
     {
-      icon: '&#9654;',
-      label: 'Videos / Public Scholarship',
-      detail: 'Historical Method Man — historical thinking for audiences beyond the seminar room',
-      href: 'https://www.youtube.com/channel/UCCRhHuIxYd3wyzYuaCNH3AA/',
-      external: true,
-      track: 'youtube_click'
-    },
-    {
-      icon: '&#8853;',
-      label: 'CV',
-      detail: 'Academic record, publications, teaching experience, and professional background',
-      href: routeHref('/resume'),
-      track: 'cv_click'
+      id: 'collaborators',
+      label: 'Collaborators',
+      title: 'Find the shared project surface',
+      summary: 'Researchers, educators, and builders can quickly find the artifacts, methods, and contact routes that match a possible collaboration.',
+      proof: [
+        'Research clusters clarify the questions Reese is actively pursuing.',
+        'Project materials include maps, timelines, one-pagers, and interactive data.',
+        'Contact page separates email, profiles, publications, and public scholarship routes.'
+      ],
+      actions: [
+        { label: 'Scan research clusters', href: routeHref('/research') + '#cluster-mobility', track: 'choose_path_click' },
+        { label: 'Review project artifacts', href: routeHref('/projects'), track: 'choose_path_click' },
+        { label: 'Get in touch', href: routeHref('/contact'), track: 'email_click' }
+      ]
     }
   ];
-  return `<section class="site-shell choose-path-section">
+  return `<section class="site-shell choose-path-section" id="start-here">
     <div class="section-heading">
       <p class="section-kicker">Start here</p>
       <h2>What are you here to see?</h2>
+      <p class="section-intro">Choose a visitor lens and the site will point you to the strongest evidence first.</p>
     </div>
-    <div class="choose-path__grid">
-      ${paths.map((p) => `<a class="choose-path__btn" href="${p.href}"${p.external ? ' target="_blank" rel="noreferrer"' : ''} data-track="${p.track}">
-        <span class="choose-path__icon" aria-hidden="true">${p.icon}</span>
-        <span class="choose-path__label">${p.label}</span>
-        <span class="choose-path__detail">${p.detail}</span>
-      </a>`).join('')}
+    <div class="choose-path__layout">
+      <div class="choose-path__tabs" role="tablist" aria-label="Choose visitor type">
+        ${audiences.map((item, index) => `<button class="choose-path__tab${index === 0 ? ' is-active' : ''}" type="button" role="tab" id="audience-tab-${escapeHtml(item.id)}" aria-selected="${index === 0 ? 'true' : 'false'}" aria-controls="audience-panel-${escapeHtml(item.id)}" data-audience-target="${escapeHtml(item.id)}" data-track="choose_path_click" data-track-label="${escapeHtml(item.label)}">${escapeHtml(item.label)}</button>`).join('')}
+      </div>
+      <div class="choose-path__panel-stack">
+        ${audiences.map((item, index) => `<article class="choose-path__panel" id="audience-panel-${escapeHtml(item.id)}" role="tabpanel" aria-labelledby="audience-tab-${escapeHtml(item.id)}"${index === 0 ? '' : ' hidden'}>
+          <div>
+            <p class="section-kicker">Recommended route</p>
+            <h3>${escapeHtml(item.title)}</h3>
+            <p>${escapeHtml(item.summary)}</p>
+          </div>
+          <ul class="choose-path__proof">
+            ${item.proof.map((proof) => `<li>${escapeHtml(proof)}</li>`).join('')}
+          </ul>
+          <div class="choose-path__actions">
+            ${item.actions.map((action, actionIndex) => `<a class="${actionIndex === 0 ? 'choose-path__primary' : 'choose-path__secondary'}" ${linkAttrs(action.href)} data-track="${escapeHtml(action.track)}">${escapeHtml(action.label)}</a>`).join('')}
+          </div>
+        </article>`).join('')}
+      </div>
     </div>
+    <script>
+      (function() {
+        var section = document.getElementById('start-here');
+        if (!section) return;
+        var tabs = section.querySelectorAll('[data-audience-target]');
+        var panels = section.querySelectorAll('.choose-path__panel');
+        tabs.forEach(function(tab) {
+          tab.addEventListener('click', function() {
+            var target = tab.dataset.audienceTarget;
+            tabs.forEach(function(item) {
+              var active = item === tab;
+              item.classList.toggle('is-active', active);
+              item.setAttribute('aria-selected', String(active));
+            });
+            panels.forEach(function(panel) {
+              panel.hidden = panel.id !== 'audience-panel-' + target;
+            });
+            window.siteTrack && window.siteTrack('audience_path_select', { audience: target });
+          });
+        });
+      })();
+    </script>
   </section>`;
 }
 
@@ -412,15 +527,106 @@ function featuredObjectHtml(project) {
   </div>`;
 }
 
+function airlinePreviewHtml() {
+  const byCountry = airlineStats.by_country || {};
+  const countryEntries = Object.entries(byCountry).sort((a, b) => b[1] - a[1]);
+  if (!countryEntries.length) return '';
+  const preferred = ['Morocco', 'South Africa', 'Nigeria', 'Kenya', 'Egypt', 'Algeria'];
+  const chipCountries = Array.from(new Set([
+    ...preferred.filter((country) => byCountry[country]),
+    ...countryEntries.slice(0, 8).map(([country]) => country)
+  ])).slice(0, 8);
+  const initialCountry = byCountry.Morocco ? 'Morocco' : countryEntries[0][0];
+  const countryOptions = Object.keys(byCountry).sort((a, b) => a.localeCompare(b));
+  return `<div class="airline-preview" id="airline-preview">
+    <div class="airline-preview__copy">
+      <p class="section-kicker">Database sampler</p>
+      <h3>Try the African Airlines encyclopedia</h3>
+      <p>Search a country to see how much of the source dataset sits behind the full interactive project.</p>
+      <div class="airline-preview__stats" aria-label="African Airlines database summary">
+        <span><strong>${formatNumber(airlineStats.total)}</strong> airlines</span>
+        <span><strong>${formatNumber(airlineStats.total_routes)}</strong> route records</span>
+        <span><strong>${formatNumber(airlineStats.active_1998)}</strong> active in 1998</span>
+      </div>
+    </div>
+    <div class="airline-preview__tool">
+      <label class="airline-preview__label" for="airline-country-search">Country lookup</label>
+      <input class="airline-preview__input" id="airline-country-search" type="search" list="airline-country-list" value="${escapeHtml(initialCountry)}" autocomplete="off">
+      <datalist id="airline-country-list">
+        ${countryOptions.map((country) => `<option value="${escapeHtml(country)}"></option>`).join('')}
+      </datalist>
+      <div class="airline-preview__result" aria-live="polite">
+        <span class="airline-preview__count" id="airline-country-count">${formatNumber(byCountry[initialCountry])}</span>
+        <span class="airline-preview__result-text" id="airline-country-result">documented airlines for ${escapeHtml(initialCountry)} in the dataset.</span>
+      </div>
+      <div class="airline-preview__chips" aria-label="Suggested countries">
+        ${chipCountries.map((country) => `<button class="airline-chip" type="button" data-airline-country="${escapeHtml(country)}">${escapeHtml(country)} <span>${formatNumber(byCountry[country])}</span></button>`).join('')}
+      </div>
+      <a class="featured-object__cta--primary" href="${routeHref('/african-airlines')}" data-track="dataset_click">Open the full database</a>
+    </div>
+  </div>
+  <script>
+    (function() {
+      var counts = ${JSON.stringify(byCountry)};
+      var input = document.getElementById('airline-country-search');
+      var countEl = document.getElementById('airline-country-count');
+      var resultEl = document.getElementById('airline-country-result');
+      if (!input || !countEl || !resultEl) return;
+      var countries = Object.keys(counts);
+      function findCountry(value) {
+        var query = String(value || '').trim().toLowerCase();
+        if (!query) return null;
+        return countries.find(function(country) { return country.toLowerCase() === query; }) ||
+          countries.find(function(country) { return country.toLowerCase().indexOf(query) !== -1; });
+      }
+      function update(value) {
+        var country = findCountry(value);
+        if (!country) {
+          countEl.textContent = '0';
+          resultEl.textContent = 'No matching country yet. Try Morocco, Nigeria, Kenya, or South Africa.';
+          return;
+        }
+        var count = counts[country];
+        countEl.textContent = Number(count).toLocaleString('en-US');
+        resultEl.textContent = (count === 1 ? 'documented airline' : 'documented airlines') + ' for ' + country + ' in the dataset.';
+        window.siteTrack && window.siteTrack('airline_preview_search', { country: country });
+      }
+      input.addEventListener('input', function() { update(input.value); });
+      document.querySelectorAll('[data-airline-country]').forEach(function(button) {
+        button.addEventListener('click', function() {
+          input.value = button.dataset.airlineCountry;
+          update(input.value);
+          input.focus();
+        });
+      });
+    })();
+  </script>`;
+}
+
 // ── Project filter bar ────────────────────────────────────────────────────────
 
 function filterBarHtml(projectList) {
   const allTags = new Set();
+  const allAudiences = new Set();
   projectList.forEach((p) => (p.tags || p.categories).forEach((t) => allTags.add(t)));
+  projectList.forEach((p) => projectAudienceTags(p).forEach((t) => allAudiences.add(t)));
   const tags = Array.from(allTags).sort();
-  return `<div class="filter-bar" role="group" aria-label="Filter projects by tag">
-    <button class="filter-chip is-active" type="button" data-filter="all" aria-pressed="true">All</button>
-    ${tags.map((t) => `<button class="filter-chip" type="button" data-filter="${escapeHtml(t)}" aria-pressed="false">${escapeHtml(t)}</button>`).join('')}
+  const audiences = Array.from(allAudiences).sort();
+  return `<div class="filter-panel" aria-label="Project filters">
+    <div class="filter-group" role="group" aria-label="Filter projects by topic">
+      <span class="filter-label">Topic</span>
+      <div class="filter-bar">
+        <button class="filter-chip is-active" type="button" data-filter="all" aria-pressed="true">All</button>
+        ${tags.map((t) => `<button class="filter-chip" type="button" data-filter="${escapeHtml(t)}" aria-pressed="false">${escapeHtml(t)}</button>`).join('')}
+      </div>
+    </div>
+    <div class="filter-group" role="group" aria-label="Filter projects by visitor lens">
+      <span class="filter-label">Best for</span>
+      <div class="filter-bar">
+        <button class="filter-chip is-active" type="button" data-audience-filter="all" aria-pressed="true">All visitors</button>
+        ${audiences.map((t) => `<button class="filter-chip" type="button" data-audience-filter="${escapeHtml(t)}" aria-pressed="false">${escapeHtml(t)}</button>`).join('')}
+      </div>
+    </div>
   </div>
   <p class="filter-count" id="filter-count" aria-live="polite">${projectList.length} projects</p>`;
 }
@@ -532,7 +738,7 @@ function coachingQuizHtml() {
       <p class="section-kicker">Recommended session type</p>
       <h3 class="quiz-result__type" id="quiz-result-type"></h3>
       <p class="quiz-result__description" id="quiz-result-desc"></p>
-      <a class="quiz-result__cta" href="mailto:reesewhollister@gmail.com" data-track="coaching_book_click">Get in touch to book this session</a>
+      <a class="quiz-result__cta" id="quiz-result-cta" href="mailto:reesewhollister@gmail.com" data-track="coaching_book_click">Email Reese about this session</a>
       <button class="quiz-reset" type="button" id="quiz-reset">Start over</button>
     </div>
   </div>
@@ -544,7 +750,9 @@ function coachingQuizHtml() {
       var resultEl = document.getElementById('quiz-result');
       var resultType = document.getElementById('quiz-result-type');
       var resultDesc = document.getElementById('quiz-result-desc');
+      var resultCta = document.getElementById('quiz-result-cta');
       var resetBtn = document.getElementById('quiz-reset');
+      var projectLabel = '';
 
       document.querySelectorAll('[data-project]').forEach(function(btn) {
         btn.addEventListener('click', function() {
@@ -552,6 +760,7 @@ function coachingQuizHtml() {
           btn.classList.add('is-selected');
           btn.setAttribute('aria-pressed', 'true');
           projectType = btn.dataset.project;
+          projectLabel = btn.textContent.trim();
           step2.classList.remove('quiz-step--hidden');
           step2.removeAttribute('aria-hidden');
           resultEl.hidden = true;
@@ -567,8 +776,27 @@ function coachingQuizHtml() {
           btn.setAttribute('aria-pressed', 'true');
           var key = projectType + '|' + btn.dataset.stuck;
           var rec = QUIZ[key] || ['Open Session', 'We will figure out the right approach together.'];
+          var stuckLabel = btn.textContent.trim();
           resultType.textContent = rec[0];
           resultDesc.textContent = rec[1];
+          if (resultCta) {
+            var subject = 'Writing coaching: ' + rec[0];
+            var body = [
+              'Hi Reese,',
+              '',
+              'I am interested in a writing coaching session.',
+              '',
+              'Project type: ' + projectLabel,
+              'Where I am stuck: ' + stuckLabel,
+              'Recommended session: ' + rec[0],
+              '',
+              'Timeline:',
+              'Draft or context I can share:',
+              '',
+              'Thanks,'
+            ].join('\\n');
+            resultCta.href = 'mailto:reesewhollister@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+          }
           resultEl.hidden = false;
           resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
           window.siteTrack && window.siteTrack('coaching_quiz_complete', { result: rec[0] });
@@ -578,6 +806,7 @@ function coachingQuizHtml() {
       if (resetBtn) {
         resetBtn.addEventListener('click', function() {
           projectType = null;
+          projectLabel = '';
           document.querySelectorAll('.quiz-option').forEach(function(b) { b.classList.remove('is-selected'); b.setAttribute('aria-pressed', 'false'); });
           step2.classList.add('quiz-step--hidden');
           step2.setAttribute('aria-hidden', 'true');
@@ -707,6 +936,7 @@ function homePage() {
     <section class="site-shell">
       ${sectionHeading('Featured Research', 'Research you can interact with', 'The largest digital history project on the site — a searchable database of 723 African airlines built from archival sources.')}
       ${coloniesProject ? featuredObjectHtml(coloniesProject) : ''}
+      ${airlinePreviewHtml()}
       ${otherFeatured.length > 0 ? `<div class="project-grid home-project-grid">${otherFeatured.map(projectCard).join('')}</div>` : ''}
     </section>
     <section class="site-shell">
@@ -845,25 +1075,46 @@ function projectsPage() {
     </section>
     <script>
       (function() {
-        var chips = document.querySelectorAll('.filter-chip');
+        var tagChips = document.querySelectorAll('[data-filter]');
+        var audienceChips = document.querySelectorAll('[data-audience-filter]');
         var cards = document.querySelectorAll('#project-grid .project-card');
         var countEl = document.getElementById('filter-count');
+        var activeTag = 'all';
+        var activeAudience = 'all';
 
-        chips.forEach(function(chip) {
+        function applyFilters() {
+          var visible = 0;
+          cards.forEach(function(card) {
+            var tags = (card.dataset.tags || '').split('|');
+            var audiences = (card.dataset.audiences || '').split('|');
+            var tagMatch = activeTag === 'all' || tags.indexOf(activeTag) !== -1;
+            var audienceMatch = activeAudience === 'all' || audiences.indexOf(activeAudience) !== -1;
+            var show = tagMatch && audienceMatch;
+            card.hidden = !show;
+            if (show) visible++;
+          });
+          if (countEl) countEl.textContent = visible === 1 ? '1 project' : visible + ' projects';
+        }
+
+        tagChips.forEach(function(chip) {
           chip.addEventListener('click', function() {
-            chips.forEach(function(c) { c.classList.remove('is-active'); c.setAttribute('aria-pressed', 'false'); });
+            tagChips.forEach(function(c) { c.classList.remove('is-active'); c.setAttribute('aria-pressed', 'false'); });
             chip.classList.add('is-active');
             chip.setAttribute('aria-pressed', 'true');
-            var filter = chip.dataset.filter;
-            var visible = 0;
-            cards.forEach(function(card) {
-              var tags = (card.dataset.tags || '').split('|');
-              var show = filter === 'all' || tags.indexOf(filter) !== -1;
-              card.hidden = !show;
-              if (show) visible++;
-            });
-            if (countEl) countEl.textContent = visible === 1 ? '1 project' : visible + ' projects';
-            window.siteTrack && window.siteTrack('project_filter_click', { filter: filter });
+            activeTag = chip.dataset.filter;
+            applyFilters();
+            window.siteTrack && window.siteTrack('project_filter_click', { filter: activeTag });
+          });
+        });
+
+        audienceChips.forEach(function(chip) {
+          chip.addEventListener('click', function() {
+            audienceChips.forEach(function(c) { c.classList.remove('is-active'); c.setAttribute('aria-pressed', 'false'); });
+            chip.classList.add('is-active');
+            chip.setAttribute('aria-pressed', 'true');
+            activeAudience = chip.dataset.audienceFilter;
+            applyFilters();
+            window.siteTrack && window.siteTrack('project_audience_filter_click', { filter: activeAudience });
           });
         });
 
@@ -957,8 +1208,20 @@ function writingPage() {
       <p>My writing moves between academic venues and public formats. Peer-reviewed work tends toward close argumentation and archival grounding. Public writing — including the Historical Method Man channel — aims to make historical thinking legible to an audience that did not choose to study it.</p>
     </section>
     <section class="site-shell">
+      <div class="filter-panel writing-filter-panel" aria-label="Writing filters">
+        <div class="filter-group" role="group" aria-label="Filter writing by type">
+          <span class="filter-label">Type</span>
+          <div class="filter-bar">
+            <button class="filter-chip is-active" type="button" data-writing-filter="all" aria-pressed="true">All writing</button>
+            <button class="filter-chip" type="button" data-writing-filter="Academic" aria-pressed="false">Academic</button>
+            <button class="filter-chip" type="button" data-writing-filter="Presentations" aria-pressed="false">Presentations</button>
+            <button class="filter-chip" type="button" data-writing-filter="Public scholarship" aria-pressed="false">Public scholarship</button>
+            <button class="filter-chip" type="button" data-writing-filter="Fieldwork" aria-pressed="false">Fieldwork</button>
+          </div>
+        </div>
+      </div>
       <div class="writing-categories">
-        <article class="writing-category">
+        <article class="writing-category" data-writing-type="Academic">
           <div class="writing-category__head">
             <p class="section-kicker">Academic</p>
             <h3>Peer-reviewed articles</h3>
@@ -968,7 +1231,7 @@ function writingPage() {
             ${publicationList()}
           </div>
         </article>
-        <article class="writing-category">
+        <article class="writing-category" data-writing-type="Presentations">
           <div class="writing-category__head">
             <p class="section-kicker">Conference &amp; workshop</p>
             <h3>Presentations</h3>
@@ -981,7 +1244,7 @@ function writingPage() {
             </ul>
           </div>
         </article>
-        <article class="writing-category">
+        <article class="writing-category" data-writing-type="Public scholarship">
           <div class="writing-category__head">
             <p class="section-kicker">Video &amp; digital</p>
             <h3>Public scholarship</h3>
@@ -994,7 +1257,7 @@ function writingPage() {
             </ul>
           </div>
         </article>
-        <article class="writing-category">
+        <article class="writing-category" data-writing-type="Fieldwork">
           <div class="writing-category__head">
             <p class="section-kicker">Morocco, 2023–24</p>
             <h3>Fieldwork dispatches</h3>
@@ -1008,7 +1271,27 @@ function writingPage() {
           </div>
         </article>
       </div>
-    </section>`
+    </section>
+    <script>
+      (function() {
+        var buttons = document.querySelectorAll('[data-writing-filter]');
+        var categories = document.querySelectorAll('[data-writing-type]');
+        buttons.forEach(function(button) {
+          button.addEventListener('click', function() {
+            var filter = button.dataset.writingFilter;
+            buttons.forEach(function(item) {
+              var active = item === button;
+              item.classList.toggle('is-active', active);
+              item.setAttribute('aria-pressed', String(active));
+            });
+            categories.forEach(function(category) {
+              category.hidden = filter !== 'all' && category.dataset.writingType !== filter;
+            });
+            window.siteTrack && window.siteTrack('writing_filter_click', { filter: filter });
+          });
+        });
+      })();
+    </script>`
   });
 }
 

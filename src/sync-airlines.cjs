@@ -17,6 +17,7 @@ const path = require('node:path');
 const SRC = process.env.AIRLINES_SRC
   || '/Users/reesehollister/Documents/colonies-to-carriers';
 const DEST = path.join(__dirname, '..', 'public', 'african-airlines');
+const OVERLAY = path.join(__dirname, 'airlines-overlay');
 
 // Exactly what the running app needs — nothing else from the source repo.
 const MANIFEST = [
@@ -50,6 +51,9 @@ fs.mkdirSync(DEST, { recursive: true });
 for (const entry of MANIFEST) {
   fs.cpSync(path.join(SRC, entry), path.join(DEST, entry), { recursive: true });
 }
+if (fs.existsSync(OVERLAY)) {
+  fs.cpSync(OVERLAY, DEST, { recursive: true });
+}
 
 // Report what was copied.
 let files = 0;
@@ -65,4 +69,5 @@ let bytes = 0;
 console.log(`[sync:airlines] source : ${SRC}`);
 console.log(`[sync:airlines] dest   : ${DEST}`);
 console.log(`[sync:airlines] copied : ${files} files, ${(bytes / 1024 / 1024).toFixed(1)} MB`);
+if (fs.existsSync(OVERLAY)) console.log(`[sync:airlines] overlay: ${OVERLAY}`);
 console.log('[sync:airlines] done — next: npm run build');
