@@ -91,6 +91,8 @@ export interface Project {
   videos?: ProjectVideo[];
   ytVideos?: ProjectYtVideo[];
   heroVideo?: string;
+  /** Renders the animated Royal Air Maroc route map (Asset & Motion System) after the hero. */
+  routeMap?: boolean;
   sections: ProjectSection[];
 }
 
@@ -389,6 +391,7 @@ export const projects: Project[] = [
       slideExt: 'jpg',
       slideCount: 27
     },
+    routeMap: true,
     sections: [
       {
         heading: 'Overview',

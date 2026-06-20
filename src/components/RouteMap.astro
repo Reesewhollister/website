@@ -1,0 +1,380 @@
+---
+import {
+  RAM_CITIES,
+  RAM_HUB,
+  RAM_REGION_COLORS,
+  RAM_REGION_LABELS,
+  RAM_MAP_W as W,
+  RAM_MAP_H as H,
+  px,
+  py,
+  COAST_AFRICA,
+  COAST_EUROPE
+} from '../data/ramNetwork';
+import Sparkline from './Sparkline.astro';
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  blurb?: string;
+}
+const {
+  eyebrow = 'Digital history / Research',
+  title = 'Royal Air Maroc, 1957–1970',
+  blurb = 'The postcolonial route network drawn from Casablanca — each arc traced the way the airline flew it. Built from the project dataset, not hand-drawn.'
+} = Astro.props;
+
+const hx = px(RAM_HUB.lon);
+const hy = py(RAM_HUB.lat);
+
+// Graticule
+const gridV = Array.from({ length: 6 }, (_, i) => px(-20 + i * 10));
+const gridH = Array.from({ length: 5 }, (_, i) => py(10 + i * 10));
+
+const coastPath = (pts: [number, number][]) =>
+  'M' + pts.map((p) => `${px(p[0]).toFixed(1)} ${py(p[1]).toFixed(1)}`).join(' L');
+
+// Build each arc + its geometry (server-side; SMIL-free, animated via CSS).
+const routes = RAM_CITIES.map((c, i) => {
+  const dx = px(c.lon);
+  const dy = py(c.lat);
+  const mx = (hx + dx) / 2;
+  const my = (hy + dy) / 2;
+  const vx = dx - hx;
+  const vy = dy - hy;
+  const len = Math.hypot(vx, vy) || 1;
+  const nx = -vy / len;
+  const ny = vx / len;
+  const sign = dy < hy ? 1 : -1; // bow outward from hub, biased up
+  const bow = Math.min(len * 0.18, 70);
+  const cxp = mx + nx * bow * sign;
+  const cyp = my + ny * bow * sign - 8;
+  const path = `M${hx.toFixed(1)} ${hy.toFixed(1)} Q${cxp.toFixed(1)} ${cyp.toFixed(1)} ${dx.toFixed(1)} ${dy.toFixed(1)}`;
+  const dash = Math.round(len * 1.6);
+  const left = dx > W - 70;
+  return {
+    ...c,
+    dx,
+    dy,
+    path,
+    dash,
+    color: RAM_REGION_COLORS[c.region],
+    delay: (i * 0.12).toFixed(2),
+    labelX: dx + (left ? -7 : 7),
+    labelAnchor: left ? 'end' : 'start',
+    nodeDelay: (i * 0.12 + 1.5).toFixed(2)
+  };
+});
+
+const minYear = Math.min(...RAM_CITIES.map((c) => c.year));
+const maxYear = Math.max(...RAM_CITIES.map((c) => c.year));
+const rangeLabel = `${minYear}–${maxYear}`;
+
+// Cumulative destinations opened per year — the sparkline is built from the data.
+const cumulative = Array.from({ length: maxYear - minYear + 1 }, (_, i) => {
+  const y = minYear + i;
+  return RAM_CITIES.filter((c) => c.year <= y).length;
+});
+
+const stats = [
+  { value: String(RAM_CITIES.length), label: 'destinations reconstructed in the early RAM network' },
+  { value: '723', label: 'African airlines in the wider project dataset', accent: 'zellige' },
+  { value: '1956', label: 'Moroccan independence — the year the network starts to grow', accent: 'terracotta' }
+];
+---
+
+<section class="system route-map" aria-labelledby="route-map-title">
+  <div class="route-map__head">
+    <p class="sys-eyebrow route-map__eyebrow">{eyebrow}</p>
+    <h2 id="route-map-title" class="route-map__title">{title}</h2>
+    <p class="route-map__blurb">{blurb}</p>
+  </div>
+
+  <figure class="route-map__figure">
+    <figcaption class="route-map__bar">
+      <span>Network map · equirectangular · {rangeLabel}</span>
+      <span class="route-map__bar-hub">Hub · CMN 33.6°N 7.6°W</span>
+    </figcaption>
+
+    <svg
+      class="route-map__svg"
+      viewBox={`0 0 ${W} ${H}`}
+      width="100%"
+      height="auto"
+      role="img"
+      aria-label="Royal Air Maroc route network radiating from Casablanca across Europe, the Maghreb, and West Africa"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect width={W} height={H} fill="var(--sys-ink-map)" />
+
+      <!-- graticule -->
+      {gridV.map((x) => (
+        <line x1={x.toFixed(1)} y1="0" x2={x.toFixed(1)} y2={H} stroke="var(--sys-brass)" stroke-width="0.4" opacity="0.07" />
+      ))}
+      {gridH.map((y) => (
+        <line x1="0" y1={y.toFixed(1)} x2={W} y2={y.toFixed(1)} stroke="var(--sys-brass)" stroke-width="0.4" opacity="0.07" />
+      ))}
+
+      <!-- coastlines -->
+      <path d={coastPath(COAST_AFRICA)} fill="none" stroke="var(--sys-zellige)" stroke-width="1.1" opacity="0.55" />
+      <path d={coastPath(COAST_EUROPE)} fill="none" stroke="var(--sys-zellige)" stroke-width="1.1" opacity="0.55" />
+
+      <!-- arcs (draw on) -->
+      {routes.map((r) => (
+        <path
+          class="route-arc"
+          d={r.path}
+          fill="none"
+          stroke={r.color}
+          stroke-width="1.3"
+          opacity="0.8"
+          stroke-dasharray={r.dash}
+          style={`--dash:${r.dash};animation-delay:${r.delay}s`}
+        />
+      ))}
+
+      <!-- traveling planes -->
+      {routes.map((r) => (
+        <path
+          class="route-plane"
+          d="M5 0 L-4 -3 L-1.4 0 L-4 3 Z"
+          fill="var(--sys-cream)"
+          style={`offset-path:path('${r.path}');animation-delay:${r.delay}s`}
+        />
+      ))}
+
+      <!-- destination nodes + labels -->
+      {routes.map((r) => (
+        <g class="route-node" style={`animation-delay:${r.nodeDelay}s`}>
+          <circle cx={r.dx.toFixed(1)} cy={r.dy.toFixed(1)} r="3.4" fill={r.color} />
+          <text
+            x={r.labelX.toFixed(1)}
+            y={(r.dy + 3).toFixed(1)}
+            text-anchor={r.labelAnchor}
+            class="route-node__label"
+          >{r.code}</text>
+        </g>
+      ))}
+
+      <!-- hub -->
+      <circle cx={hx.toFixed(1)} cy={hy.toFixed(1)} r="6.5" fill="var(--sys-terracotta)" />
+      <circle class="route-hub-pulse" cx={hx.toFixed(1)} cy={hy.toFixed(1)} r="13" fill="none" stroke="var(--sys-terracotta)" stroke-width="1.2" style={`transform-origin:${hx.toFixed(1)}px ${hy.toFixed(1)}px`} />
+      <text x={hx.toFixed(1)} y={(hy + 24).toFixed(1)} text-anchor="middle" class="route-hub__label">CMN</text>
+    </svg>
+
+    <div class="route-map__legend">
+      {RAM_REGION_LABELS.map((rl) => (
+        <span class="route-map__legend-item"><span class="route-map__swatch" style={`background:${rl.color}`}></span>{rl.label}</span>
+      ))}
+      <span class="route-map__legend-item"><span class="route-map__swatch route-map__swatch--dot" style="background:var(--sys-terracotta)"></span>Hub · Casablanca</span>
+    </div>
+  </figure>
+
+  <div class="route-stats">
+    <div class="route-stats__spark">
+      <p class="sys-eyebrow route-stats__spark-label">Destinations opened · {rangeLabel}</p>
+      <Sparkline points={cumulative} color="var(--sys-brass)" ariaLabel={`Cumulative Royal Air Maroc destinations from ${minYear} to ${maxYear}`} />
+      <div class="route-stats__spark-axis"><span>{minYear}</span><span>{maxYear}</span></div>
+    </div>
+    {stats.map((s) => (
+      <div class:list={['route-stats__card', s.accent ? `route-stats__card--${s.accent}` : '']}>
+        <div class="route-stats__value" data-count={s.value}>{s.value}</div>
+        <div class="route-stats__label">{s.label}</div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .route-map {
+    background: var(--sys-ink);
+    color: var(--sys-cream);
+    padding: clamp(3rem, 6vw, 5rem) 7vw;
+  }
+  .route-map__head {
+    max-width: 1180px;
+    margin: 0 auto 2.5rem;
+  }
+  .route-map__eyebrow {
+    color: var(--sys-ember);
+    margin: 0 0 0.9rem;
+  }
+  .route-map__title {
+    font-family: var(--sys-display);
+    font-weight: 500;
+    font-size: clamp(1.9rem, 4vw, 3rem);
+    letter-spacing: -0.015em;
+    color: var(--sys-card);
+    margin: 0 0 0.75rem;
+  }
+  .route-map__blurb {
+    font-family: var(--sys-body);
+    font-weight: 300;
+    font-size: 1.05rem;
+    line-height: 1.55;
+    color: #cfc3a8;
+    max-width: 42rem;
+    margin: 0;
+  }
+  .route-map__figure {
+    max-width: 1180px;
+    margin: 0 auto;
+    background: var(--sys-ink-map);
+    border: 1px solid var(--sys-hairline-dark);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .route-map__bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(239, 230, 212, 0.1);
+    font-family: var(--sys-mono);
+    font-size: 0.69rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sys-ember);
+  }
+  .route-map__bar-hub { color: #7c7460; }
+  .route-map__svg { display: block; width: 100%; }
+  .route-node__label {
+    font-family: var(--sys-mono);
+    font-size: 10.5px;
+    fill: #cfc3a8;
+  }
+  .route-hub__label {
+    font-family: var(--sys-mono);
+    font-size: 11px;
+    fill: var(--sys-card);
+  }
+  .route-map__legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.4rem;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid rgba(239, 230, 212, 0.1);
+  }
+  .route-map__legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--sys-mono);
+    font-size: 0.69rem;
+    letter-spacing: 0.12em;
+    color: #cfc3a8;
+  }
+  .route-map__swatch { width: 18px; height: 2px; display: inline-block; }
+  .route-map__swatch--dot { width: 9px; height: 9px; border-radius: 50%; }
+
+  /* Stat strip — chart language */
+  .route-stats {
+    max-width: 1180px;
+    margin: 1.5rem auto 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    gap: 1.25rem;
+  }
+  .route-stats__spark,
+  .route-stats__card {
+    border-radius: 6px;
+    padding: 1.4rem;
+  }
+  .route-stats__spark {
+    background: var(--sys-card);
+    border: 1px solid var(--sys-hairline-strong);
+  }
+  .route-stats__spark-label { color: #8a7e64; margin: 0 0 0.9rem; }
+  .route-stats__spark-axis {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--sys-mono);
+    font-size: 0.62rem;
+    color: #9a8e74;
+    margin-top: 0.5rem;
+  }
+  .route-stats__card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--sys-card);
+    border: 1px solid var(--sys-hairline-strong);
+  }
+  .route-stats__card--zellige {
+    background: var(--sys-zellige);
+    border-color: transparent;
+  }
+  .route-stats__card--terracotta {
+    background: var(--sys-terracotta);
+    border-color: transparent;
+  }
+  .route-stats__value {
+    font-family: var(--sys-display);
+    font-size: 2.75rem;
+    line-height: 1;
+    color: #211e18;
+  }
+  .route-stats__card--zellige .route-stats__value,
+  .route-stats__card--terracotta .route-stats__value { color: var(--sys-card); }
+  .route-stats__label {
+    font-family: var(--sys-body);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: #5a5141;
+    margin-top: 0.5rem;
+  }
+  .route-stats__card--zellige .route-stats__label { color: #b6d3cb; }
+  .route-stats__card--terracotta .route-stats__label { color: #eac9b7; }
+
+  /* Resting state = fully drawn / static (freeze-safe; reduced-motion default). */
+  .route-arc { stroke-dashoffset: 0; }
+  .route-plane { opacity: 0; }
+  .route-hub-pulse { opacity: 0; }
+  .route-node { opacity: 1; }
+
+  /* Where offset-path isn't supported, never show stray planes at the origin. */
+  @supports not (offset-path: path('M0 0 L1 1')) {
+    .route-plane { display: none; }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .route-arc {
+      animation: routeDraw 1.8s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+    }
+    .route-plane {
+      opacity: 1;
+      offset-rotate: auto;
+      animation: routePlane 3.6s linear infinite;
+    }
+    .route-hub-pulse {
+      transform-box: fill-box;
+      animation: routePulse 3s ease-in-out infinite;
+    }
+    /* Pin drop — destinations settle in after their arc draws */
+    .route-node {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: routeNodeDrop 0.6s cubic-bezier(0.34, 1.2, 0.64, 1) both;
+    }
+    @keyframes routeNodeDrop {
+      0% { opacity: 0; transform: translateY(-14px); }
+      70% { opacity: 1; transform: translateY(2px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes routeDraw {
+      from { stroke-dashoffset: var(--dash); }
+      to { stroke-dashoffset: 0; }
+    }
+    @keyframes routePlane {
+      from { offset-distance: 0%; }
+      to { offset-distance: 100%; }
+    }
+    @keyframes routePulse {
+      0%, 100% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(2.1); opacity: 0; }
+    }
+  }
+</style>

@@ -1,0 +1,47 @@
+---
+// Minimal draw-on sparkline for the Asset & Motion System chart language.
+// Server-renders the path; animates the draw with CSS (reduced-motion safe —
+// resting state is fully drawn). Color defaults to terracotta.
+interface Props {
+  points: number[];
+  width?: number;
+  height?: number;
+  color?: string;
+  ariaLabel?: string;
+}
+const { points, width = 240, height = 64, color = 'var(--sys-terracotta)', ariaLabel = 'Sparkline' } = Astro.props;
+
+const max = Math.max(...points, 1);
+const step = points.length > 1 ? width / (points.length - 1) : width;
+const coords = points.map((v, i) => [i * step, height - (v / max) * (height - 8) - 4] as const);
+const line = 'M' + coords.map((c) => `${c[0].toFixed(1)} ${c[1].toFixed(1)}`).join(' L');
+const area = `${line} L${width} ${height} L0 ${height} Z`;
+const last = coords[coords.length - 1];
+const len = Math.round(width * 2.5);
+---
+<svg
+  class="sparkline"
+  viewBox={`0 0 ${width} ${height}`}
+  width="100%"
+  height={height}
+  preserveAspectRatio="none"
+  role="img"
+  aria-label={ariaLabel}
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path d={area} fill={color} opacity="0.1" />
+  <path class="sparkline__line" d={line} stroke={color} stroke-width="2" fill="none" stroke-dasharray={len} style={`--dash:${len}`} />
+  <circle cx={last[0].toFixed(1)} cy={last[1].toFixed(1)} r="3.5" fill={color} />
+</svg>
+
+<style>
+  .sparkline { display: block; width: 100%; }
+  .sparkline__line { stroke-dashoffset: 0; }
+  @media (prefers-reduced-motion: no-preference) {
+    .sparkline__line { animation: sparkDraw 2.2s cubic-bezier(0.22, 0.61, 0.36, 1) both; }
+    @keyframes sparkDraw {
+      from { stroke-dashoffset: var(--dash); }
+      to { stroke-dashoffset: 0; }
+    }
+  }
+</style>
