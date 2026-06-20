@@ -5,6 +5,13 @@
 @import '@fontsource/source-serif-4/600.css';
 @import '@fontsource/work-sans/500.css';
 @import '@fontsource/work-sans/600.css';
+/* Asset & Motion System type — scoped to .system surfaces (see [data-system] block) */
+@import '@fontsource/spectral/300.css';
+@import '@fontsource/spectral/400.css';
+@import '@fontsource/spectral/400-italic.css';
+@import '@fontsource/spectral/500.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
 
 :root {
   /* Palette derived from Reese's own Huruf La'b brand system */
@@ -30,6 +37,59 @@
   --space-4: 1.75rem;
   --space-5: 2.5rem;
   --space-6: 3.25rem;
+}
+
+/* ── Asset & Motion System (scoped) ───────────────────────────────────────────
+   The "research system" register from the design handoff. Applied via the
+   `.system` class (or `[data-system]`) on project / dataset / cover surfaces,
+   so home + about keep the Huruf-derived palette above. Tokens are prefixed
+   --sys-* to avoid colliding with the base scheme. */
+.system,
+[data-system] {
+  --sys-ink: #15130f;
+  --sys-ink-map: #13110d;
+  --sys-terracotta: #b0512b;
+  --sys-ember: #d88c5a;
+  --sys-brass: #c2913d;
+  --sys-zellige: #1e5e50;
+  --sys-sand: #d9c49c;
+  --sys-parchment: #f1e9d9;
+  --sys-parchment-2: #eae0cb;
+  --sys-card: #f4eee2;
+  --sys-cream: #efe6d4;
+  --sys-hairline: rgba(33, 30, 24, 0.12);
+  --sys-hairline-strong: rgba(33, 30, 24, 0.16);
+  --sys-hairline-dark: rgba(239, 230, 212, 0.18);
+  --sys-display: 'Newsreader', Georgia, serif;
+  --sys-body: 'Spectral', Georgia, serif;
+  --sys-mono: 'IBM Plex Mono', ui-monospace, monospace;
+}
+
+/* Type defaults on scoped surfaces */
+.system,
+[data-system] {
+  font-family: var(--sys-body);
+  font-weight: 300;
+  line-height: 1.55;
+}
+.system h1,
+.system h2,
+.system h3,
+[data-system] h1,
+[data-system] h2,
+[data-system] h3 {
+  font-family: var(--sys-display);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+/* Mono eyebrow / label utility for scoped surfaces */
+.system .sys-eyebrow,
+[data-system] .sys-eyebrow {
+  font-family: var(--sys-mono);
+  font-weight: 500;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
 }
 
 *,
@@ -2706,8 +2766,20 @@ html.reveal-ready .reveal.is-visible {
 }
 
 .choose-path__icon {
-  font-size: 1.4rem;
-  line-height: 1;
+  display: inline-flex;
+  line-height: 0;
+  color: var(--accent-olive);
+  transition: color 0.15s, transform 0.15s;
+}
+
+.choose-path__icon svg {
+  display: block;
+}
+
+.choose-path__card:hover .choose-path__icon,
+.choose-path__card:focus-visible .choose-path__icon {
+  color: var(--accent-rust);
+  transform: translateY(-1px);
 }
 
 .choose-path__label {
@@ -3868,4 +3940,296 @@ html::before {
     transform: none;
     box-shadow: none;
   }
+}
+
+/* ── Home hero (Asset & Motion System) ────────────────────────────────────── */
+.home-hero {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  min-height: min(92vh, 820px);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--sys-ink);
+  color: var(--sys-cream);
+}
+.home-hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+}
+.home-hero__media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42%;
+  filter: saturate(0.82) brightness(0.62);
+}
+/* Route-fan backdrop drifts over the footage */
+.home-hero__map {
+  position: absolute;
+  top: 50%;
+  right: -8%;
+  width: min(58vw, 760px);
+  aspect-ratio: 1;
+  transform: translateY(-50%);
+  z-index: -2;
+  opacity: 0.5;
+  pointer-events: none;
+}
+.home-hero__compass {
+  position: absolute;
+  top: 7%;
+  right: 5%;
+  width: min(30vw, 320px);
+  z-index: -2;
+  opacity: 0.4;
+  pointer-events: none;
+}
+.home-hero__compass img { width: 100%; height: auto; display: block; }
+/* Ink scrim: legible text on the left, atmospheric on the right */
+.home-hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 90% at 16% 50%, rgba(21, 19, 15, 0.2) 0%, rgba(21, 19, 15, 0.8) 58%, var(--sys-ink) 100%),
+    linear-gradient(180deg, rgba(21, 19, 15, 0.5) 0%, rgba(21, 19, 15, 0.1) 30%, rgba(21, 19, 15, 0.7) 100%);
+}
+.home-hero__inner {
+  padding: 5.5rem 0 5rem;
+  max-width: 1080px;
+}
+.home-hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-family: var(--sys-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--sys-brass);
+  margin: 0 0 1.6rem;
+}
+.home-hero__rule {
+  width: 40px;
+  height: 1px;
+  background: var(--sys-brass);
+  display: inline-block;
+  flex: none;
+}
+.home-hero__title {
+  font-family: var(--sys-display);
+  font-weight: 500;
+  font-size: clamp(3rem, 8.5vw, 7rem);
+  line-height: 0.96;
+  letter-spacing: -0.02em;
+  color: #f4eee2;
+  margin: 0 0 1.6rem;
+  text-shadow: 0 2px 40px rgba(12, 10, 7, 0.45);
+}
+.home-hero__title em {
+  font-style: italic;
+  color: var(--sys-ember);
+}
+.home-hero__lead {
+  font-family: var(--sys-body);
+  font-weight: 300;
+  font-size: clamp(1.05rem, 1.7vw, 1.35rem);
+  line-height: 1.55;
+  max-width: 34rem;
+  color: #cfc3a8;
+  margin: 0 0 2rem;
+}
+.home-hero__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  list-style: none;
+  margin: 0 0 2.2rem;
+  padding: 0;
+}
+.home-hero__tags li {
+  font-family: var(--sys-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sys-cream);
+  border: 1px solid rgba(239, 230, 212, 0.28);
+  border-radius: 100px;
+  padding: 0.55rem 1rem;
+}
+.home-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 0.85rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.home-hero__actions a {
+  display: inline-block;
+  font-family: var(--sys-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.7rem 1.35rem;
+  border: 1px solid rgba(239, 230, 212, 0.45);
+  border-radius: 100px;
+  color: var(--sys-cream);
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.home-hero__actions a:hover,
+.home-hero__actions a:focus-visible {
+  background: var(--sys-terracotta);
+  border-color: var(--sys-terracotta);
+  color: #f4eee2;
+  transform: translateY(-1px);
+}
+.home-hero__actions li:first-child a {
+  background: var(--sys-terracotta);
+  border-color: var(--sys-terracotta);
+  color: #f7e9df;
+}
+.home-hero__coords {
+  position: absolute;
+  left: 7vw;
+  right: 7vw;
+  bottom: 1.4rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-family: var(--sys-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  color: rgba(239, 230, 212, 0.45);
+  pointer-events: none;
+}
+@media (max-width: 640px) {
+  .home-hero__compass { display: none; }
+  .home-hero__map { opacity: 0.32; }
+  .home-hero__coords { font-size: 0.58rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-hero__actions a { transition: none; }
+}
+
+/* ── Framed project cards (Asset & Motion System cover frame) ──────────────── */
+.project-card--framed .project-cover__img {
+  transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.project-card--framed:hover .project-cover__img {
+  transform: scale(1.04);
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-card--framed .project-cover__img {
+    transition: none;
+  }
+  .project-card--framed:hover .project-cover__img {
+    transform: none;
+  }
+}
+
+/* ══ Motion library (Asset & Motion System) ═══════════════════════════════════
+   Reusable web motions in the archival vocabulary. Every entrance is freeze-safe:
+   the resting state is fully visible, and animations are layered on only after JS
+   adds `html.motion-ready` (set immediately when motion is allowed). All looping
+   / entrance motion is gated on prefers-reduced-motion. */
+
+@keyframes rdClipUp { from { opacity: 0; transform: translateY(108%); } to { opacity: 1; transform: translateY(0); } }
+@keyframes rdDrop { 0% { opacity: 0; transform: translateY(-26px); } 60% { opacity: 1; transform: translateY(4px); } 100% { opacity: 1; transform: translateY(0); } }
+@keyframes rdTicker { to { transform: translateX(-50%); } }
+
+/* 02 · Kinetic headline — masked lines rise, staggered.
+   Markup: .kinetic wrapping one .kinetic__mask per line, each holding a .kinetic__line.
+   Resting state is visible; JS applies an inline `animation` per line when motion is
+   allowed (no class-cascade fighting the keyframe). */
+.kinetic__mask { display: block; overflow: hidden; }
+.kinetic__line { display: inline-block; will-change: transform, opacity; }
+
+/* 03 · Underline draw — brass rule sweeps in from the left on hover. */
+.link-underline { position: relative; text-decoration: none; }
+.link-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 2px;
+  width: 100%;
+  background: var(--sys-brass, #c2913d);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.link-underline:hover::after,
+.link-underline:focus-visible::after { transform: scaleX(1); }
+@media (prefers-reduced-motion: reduce) {
+  .link-underline::after { transition: none; }
+}
+
+/* 04 · Count-up figures — JS ticks [data-count] up on view; resting = final value. */
+
+/* 06 · Border trace + lift — framed cards: frame draws itself + card lifts on hover. */
+.project-card--framed { transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1); }
+.cover-frame__trace {
+  stroke-dasharray: 1300;
+  stroke-dashoffset: 1300;
+  transition: stroke-dashoffset 1.1s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .project-card--framed:hover,
+  .project-card--framed:focus-within { transform: translateY(-8px); }
+}
+.project-card--framed:hover .cover-frame__trace,
+.project-card--framed:focus-within .cover-frame__trace { stroke-dashoffset: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .project-card--framed { transition: none; }
+  .cover-frame__trace { transition: none; }
+}
+
+/* 07 · Coordinate ticker — place-names / coordinates drift like an archive reel. */
+.coord-ticker {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  background: var(--sys-ink, #15130f);
+  border-block: 1px solid rgba(239, 230, 212, 0.12);
+  padding: 1.1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  overflow: hidden;
+}
+.coord-ticker__row {
+  overflow: hidden;
+  white-space: nowrap;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.coord-ticker__track {
+  display: inline-block;
+  font-family: var(--sys-mono, 'IBM Plex Mono', monospace);
+  font-size: 0.82rem;
+  letter-spacing: 0.18em;
+  color: var(--sys-brass, #c2913d);
+}
+.coord-ticker__row--alt .coord-ticker__track { color: #6fb0a0; }
+@media (prefers-reduced-motion: no-preference) {
+  .coord-ticker__track { animation: rdTicker 30s linear infinite; }
+  .coord-ticker__row--alt .coord-ticker__track { animation-duration: 38s; animation-direction: reverse; }
+}
+
+/* 08 · Image wipe reveal — photo uncovers left-to-right; resting = fully visible. */
+.wipe { clip-path: inset(0 0 0 0); }
+html.motion-ready .wipe.is-armed { clip-path: inset(0 100% 0 0); }
+html.motion-ready .wipe.play { clip-path: inset(0 0 0 0); transition: clip-path 1.1s cubic-bezier(0.4, 0, 0.2, 1); }
+@media (prefers-reduced-motion: reduce) {
+  html.motion-ready .wipe.is-armed,
+  html.motion-ready .wipe.play { clip-path: inset(0 0 0 0); transition: none; }
 }

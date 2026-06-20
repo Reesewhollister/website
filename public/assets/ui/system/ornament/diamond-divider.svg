@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 40" width="600" height="40" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Diamond divider">
+  <line x1="0" y1="20" x2="250" y2="20" stroke="#B0512B" stroke-width="1" opacity="0.5"></line>
+  <line x1="350" y1="20" x2="600" y2="20" stroke="#B0512B" stroke-width="1" opacity="0.5"></line>
+  <circle cx="232" cy="20" r="2" fill="#C2913D"></circle>
+  <circle cx="368" cy="20" r="2" fill="#C2913D"></circle>
+  <rect x="286" y="6" width="28" height="28" transform="rotate(45 300 20)" stroke="#B0512B" stroke-width="1.2" fill="none"></rect>
+  <rect x="293" y="13" width="14" height="14" transform="rotate(45 300 20)" fill="#C2913D"></rect>
+</svg>

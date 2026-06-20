@@ -3,17 +3,26 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import ChoosePath from '../components/ChoosePath.astro';
+import HeroMap from '../components/HeroMap.astro';
+import CoordinateTicker from '../components/CoordinateTicker.astro';
 import { heroThesis, proofStrip, coachingCta, contactCta, siteMeta } from '../data/site';
 import { featuredProjects, getProjectBySlug } from '../data/projects';
 import { withBase } from '../utils/paths';
 
 const spotlight = getProjectBySlug('from-colonies-to-carriers');
 const otherProjects = featuredProjects.filter((project) => project.slug !== spotlight?.slug);
+
+// Split the hero thesis so the final word carries the ember italic accent.
+const titleWords = heroThesis.trim().split(' ');
+const titleEmphasis = titleWords.pop() ?? '';
+const titleLead = titleWords.join(' ');
+
+const heroTags = ['North Africa', 'Digital history', 'Arabic', 'Documentary'];
 ---
 
 <BaseLayout title={siteMeta.title} description={siteMeta.description}>
-  <section class="cinematic-hero">
-    <div class="cinematic-hero__media">
+  <section class="system home-hero">
+    <div class="home-hero__media" aria-hidden="true">
       <video
         autoplay
         muted
@@ -21,25 +30,43 @@ const otherProjects = featuredProjects.filter((project) => project.slug !== spot
         playsinline
         preload="auto"
         poster={withBase('/assets/fieldwork/heroes/chefchaouen-blue-plaza-hero-16x9.webp')}
-        aria-hidden="true"
       >
         <source src={withBase('/assets/projects/fulbright-morocco/video/hassan-ii-bg.mp4')} type="video/mp4" />
       </video>
     </div>
-    <div class="cinematic-hero__inner site-shell">
-      <p class="cinematic-hero__kicker">Reese W. Hollister · North Africa / Digital Research</p>
-      <h1 class="cinematic-hero__title">{heroThesis}</h1>
-      <p class="cinematic-hero__tagline">{siteMeta.position}</p>
-      <p class="cinematic-hero__lead">
-        Decks, datasets, maps, and teaching work from a historian of North Africa and postcolonial institutions.
+    <div class="home-hero__map" aria-hidden="true"><HeroMap /></div>
+    <div class="home-hero__compass" aria-hidden="true">
+      <img src={withBase('/assets/ui/system/compass-rose.svg')} alt="" width="320" height="320" loading="eager" />
+    </div>
+    <div class="home-hero__scrim" aria-hidden="true"></div>
+
+    <div class="home-hero__inner site-shell">
+      <p class="home-hero__eyebrow">
+        <span class="home-hero__rule"></span>
+        Reese W. Hollister · North Africa / Digital Research
       </p>
-      <ul class="cinematic-hero__actions">
+      <h1 class="home-hero__title kinetic">
+        <span class="kinetic__mask"><span class="kinetic__line">{titleLead}</span></span>
+        <span class="kinetic__mask"><span class="kinetic__line"><em>{titleEmphasis}</em></span></span>
+      </h1>
+      <p class="home-hero__lead">
+        Decks, datasets, maps, and teaching work from a historian of North Africa and postcolonial institutions —
+        built so the research is something you can see.
+      </p>
+      <ul class="home-hero__tags" aria-label="Focus areas">
+        {heroTags.map((tag) => <li>{tag}</li>)}
+      </ul>
+      <ul class="home-hero__actions">
         <li><a href={withBase('/projects')}>View Projects</a></li>
         <li><a href={withBase('/research')}>Research</a></li>
         <li><a href={withBase('/resume')}>CV</a></li>
       </ul>
     </div>
-    <span class="cinematic-hero__credit">Hassan II Mosque, Casablanca, Morocco</span>
+
+    <div class="home-hero__coords" aria-hidden="true">
+      <span>PORTFOLIO · HISTORIAN / EDUCATOR / BUILDER</span>
+      <span>33.5731° N, 7.5898° W — CASABLANCA</span>
+    </div>
   </section>
 
   <section class="site-shell proof-strip-section">
@@ -52,7 +79,7 @@ const otherProjects = featuredProjects.filter((project) => project.slug !== spot
       ))}
     </ul>
     <div class="geo-strip" aria-hidden="true">
-      <img src={withBase('/assets/ui/ornament/zellige-strip.svg')} alt="" width="340" height="32" />
+      <img src={withBase('/assets/ui/system/ornament/zellige-strip.svg')} alt="" width="340" height="32" />
     </div>
   </section>
 
@@ -65,7 +92,7 @@ const otherProjects = featuredProjects.filter((project) => project.slug !== spot
         title="From Colonies to Carriers"
       />
       <article class="featured-project">
-        <a class="featured-project__media" href={withBase(`/projects/${spotlight.slug}`)}>
+        <a class="featured-project__media wipe" href={withBase(`/projects/${spotlight.slug}`)}>
           <img src={withBase(spotlight.heroAsset.src)} alt={spotlight.heroAsset.alt} loading="lazy" />
         </a>
         <div class="featured-project__body">
@@ -75,7 +102,7 @@ const otherProjects = featuredProjects.filter((project) => project.slug !== spot
             A reconstructed dataset of early postcolonial African civil aviation, built from fragmentary archival
             records — with a case study on Royal Air Maroc.
           </p>
-          <a class="featured-project__cta" href={withBase(`/projects/${spotlight.slug}`)}>
+          <a class="featured-project__cta link-underline" href={withBase(`/projects/${spotlight.slug}`)}>
             Explore the project →
           </a>
         </div>
@@ -84,7 +111,7 @@ const otherProjects = featuredProjects.filter((project) => project.slug !== spot
   )}
 
   <div class="site-shell featured-project-geo" aria-hidden="true">
-    <img src={withBase('/assets/ui/ornament/diamond-divider.svg')} alt="" width="280" height="16" />
+    <img src={withBase('/assets/ui/system/ornament/diamond-divider.svg')} alt="" width="280" height="16" />
   </div>
 
   <section class="site-shell">
@@ -98,9 +125,11 @@ const otherProjects = featuredProjects.filter((project) => project.slug !== spot
     </div>
   </section>
 
+  <CoordinateTicker />
+
   <section class="site-shell home-cta-section">
-    <img class="section-atlas-deco section-atlas-deco--left" src={withBase('/assets/ui/atlas-grid.svg')} alt="" aria-hidden="true" width="260" height="260" />
-    <img class="section-atlas-deco section-atlas-deco--prominent" src={withBase('/assets/ui/compass-rose.svg')} alt="" aria-hidden="true" width="80" height="80" style="width:80px;height:80px;right:2rem;opacity:0.22;" />
+    <img class="section-atlas-deco section-atlas-deco--left" src={withBase('/assets/ui/system/atlas-grid.svg')} alt="" aria-hidden="true" width="260" height="260" />
+    <img class="section-atlas-deco section-atlas-deco--prominent" src={withBase('/assets/ui/system/compass-rose.svg')} alt="" aria-hidden="true" width="80" height="80" style="width:80px;height:80px;right:2rem;opacity:0.22;" />
     <article class="compact-cta">
       <div>
         <p class="section-kicker">Connect</p>

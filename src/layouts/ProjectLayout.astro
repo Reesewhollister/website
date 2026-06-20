@@ -3,6 +3,7 @@ import type { Project } from '../data/projects';
 import BaseLayout from './BaseLayout.astro';
 import PDFEmbed from '../components/PDFEmbed.astro';
 import ProjectSubnav from '../components/ProjectSubnav.astro';
+import RouteMap from '../components/RouteMap.astro';
 import { withBase, isExternal } from '../utils/paths';
 import { getImageDims } from '../utils/imageDims';
 
@@ -31,6 +32,7 @@ const materialLinks = [
 
 const subnavLinks = [
   { label: 'Overview', href: '#overview' },
+  ...(project.routeMap ? [{ label: 'Route map', href: '#route-map' }] : []),
   ...(deck ? [{ label: 'Deck', href: '#deck' }] : []),
   ...(project.paper ? [{ label: 'Paper', href: '#paper' }] : []),
   ...(videos.length > 0 ? [{ label: 'Videos', href: '#video' }] : []),
@@ -73,9 +75,9 @@ const subnavLinks = [
         </>
       )}
       <p class="section-kicker">Project</p>
-      <h1>{project.title}</h1>
+      <h1 class="kinetic"><span class="kinetic__mask"><span class="kinetic__line">{project.title}</span></span></h1>
       <p class="project-hero__summary">{project.summary}</p>
-      <figure class="project-hero__media">
+      <figure class="project-hero__media wipe">
         <img
           src={withBase(project.heroAsset.src)}
           alt={project.heroAsset.alt}
@@ -118,6 +120,11 @@ const subnavLinks = [
         </nav>
       )}
     </section>
+    {project.routeMap && (
+      <div id="route-map">
+        <RouteMap />
+      </div>
+    )}
     {deck && (
       <section class="project-deck site-shell" id="deck">
         <div class="project-deck__head">
