@@ -1,0 +1,222 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { sortedProjects } from '../data/projects';
+import { substackPosts } from '../data/site';
+import { withBase } from '../utils/paths';
+
+const channel = 'https://www.youtube.com/@HistoricalMethodMan/featured';
+
+// Every YouTube video already in the site's data, with the on-site project page
+// that carries its sources and context — the funnel from video back to the site.
+const episodes = sortedProjects.flatMap((p) =>
+  (p.ytVideos ?? []).map((v) => ({
+    ...v,
+    projectSlug: p.slug,
+    projectTitle: p.title
+  }))
+);
+
+const valueProps = [
+  { label: 'Sources', body: 'The archives, documents, and references behind each episode.' },
+  { label: 'Maps & data', body: 'Route maps, datasets, and the visuals from the videos.' },
+  { label: 'Further reading', body: 'Books and articles to go deeper on each topic.' },
+  { label: 'Context', body: 'The extra background that did not fit in the video.' }
+];
+---
+
+<BaseLayout
+  title="YouTube — Historical Method Man"
+  description="Sources, maps, reading lists, and extra context for Reese Hollister's Historical Method Man YouTube channel — a digital history channel on North Africa, archives, and historical method."
+>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://reesehollister.com' },
+      { '@type': 'ListItem', position: 2, name: 'YouTube', item: 'https://reesehollister.com/youtube' }
+    ]
+  })} slot="head" />
+
+  <section class="page-hero site-shell">
+    <p class="section-kicker">YouTube</p>
+    <h1>Historical Method Man</h1>
+    <p class="page-lead">
+      The companion hub for the channel — where each video opens out into its sources, maps, reading
+      lists, and the context that did not fit on screen. A digital history channel making historical
+      method accessible: North Africa, archives, and how historians actually work.
+    </p>
+    <p class="action-list">
+      <a class="resource-link" href={channel} target="_blank" rel="noreferrer" data-track="youtube_channel_click">
+        Watch the channel on YouTube →
+      </a>
+    </p>
+  </section>
+
+  <section class="site-shell">
+    <ul class="yt-value">
+      {valueProps.map((v) => (
+        <li class="yt-value__item">
+          <span class="yt-value__label">{v.label}</span>
+          <span class="yt-value__body">{v.body}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="site-shell">
+    <SectionHeading
+      eyebrow="Episodes & footage"
+      title="Videos with on-site context"
+      intro="Each video links to the project page on this site, where the sources, maps, and further reading live."
+    />
+    <div class="yt-hub-grid">
+      {episodes.map((ep) => (
+        <article class="yt-hub-card">
+          <a
+            class="yt-hub-card__thumb"
+            href={`https://www.youtube.com/watch?v=${ep.ytId}`}
+            target="_blank"
+            rel="noreferrer"
+            data-track="youtube_video_click"
+            data-track-label={ep.title}
+            aria-label={`Watch on YouTube: ${ep.title}`}
+          >
+            <img src={`https://img.youtube.com/vi/${ep.ytId}/hqdefault.jpg`} alt={ep.title} loading="lazy" />
+            <span class="yt-hub-card__play" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="34" height="34">
+                <path d="M8 5.5v13a1 1 0 0 0 1.5.87l11-6.5a1 1 0 0 0 0-1.74l-11-6.5A1 1 0 0 0 8 5.5Z" />
+              </svg>
+            </span>
+          </a>
+          <div class="yt-hub-card__body">
+            <h3 class="yt-hub-card__title">{ep.title}</h3>
+            {ep.caption && <p class="yt-hub-card__caption">{ep.caption}</p>}
+            <a class="yt-hub-card__link link-underline" href={withBase(`/projects/${ep.projectSlug}`)}>
+              Sources &amp; context: {ep.projectTitle} →
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="site-shell">
+    <SectionHeading
+      eyebrow="Keep up"
+      title="Notes between videos"
+      intro="Research notes and project updates on Substack."
+    />
+    <ul class="action-list action-list--stacked">
+      {substackPosts.map((post) => (
+        <li>
+          <a class="resource-link" href={post.href} target="_blank" rel="noreferrer">{post.title}</a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .yt-value {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .yt-value__item {
+    background: var(--paper);
+    padding: 1.1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  .yt-value__label {
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--ink);
+  }
+  .yt-value__body {
+    font-size: 0.85rem;
+    line-height: 1.45;
+    color: var(--ink-soft);
+  }
+  .yt-hub-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+  .yt-hub-card {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--paper);
+    display: flex;
+    flex-direction: column;
+  }
+  .yt-hub-card__thumb {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+  }
+  .yt-hub-card__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .yt-hub-card:hover .yt-hub-card__thumb img { transform: scale(1.04); }
+  .yt-hub-card__play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background: rgba(20, 14, 8, 0.22);
+    transition: background 0.25s ease;
+  }
+  .yt-hub-card:hover .yt-hub-card__play { background: rgba(158, 28, 31, 0.4); }
+  .yt-hub-card__body {
+    padding: 1rem 1.1rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    flex: 1;
+  }
+  .yt-hub-card__title {
+    font-family: 'Newsreader', Georgia, serif;
+    font-weight: 500;
+    font-size: 1.15rem;
+    margin: 0;
+    color: var(--ink);
+  }
+  .yt-hub-card__caption {
+    font-size: 0.85rem;
+    line-height: 1.45;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+  .yt-hub-card__link {
+    margin-top: auto;
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--accent-rust);
+    text-decoration: none;
+    padding-top: 0.3rem;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .yt-hub-card__thumb img { transition: none; }
+    .yt-hub-card:hover .yt-hub-card__thumb img { transform: none; }
+  }
+</style>

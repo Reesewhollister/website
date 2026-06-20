@@ -18,6 +18,7 @@ export const coachingBookingUrl = 'https://reesehollister.square.site';
 export const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/projects', label: 'Projects' },
+  { href: '/youtube', label: 'YouTube' },
   { href: '/research', label: 'Research' },
   { href: '/african-airlines/', label: 'African Airlines' },
   { href: '/coaching', label: 'Coaching' },
