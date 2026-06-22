@@ -1,0 +1,54 @@
+# Reese W. Hollister — reesehollister.com
+
+Reese W. Hollister is a historian of North Africa, AI-fluent educator, and workflow designer based in Bucks County, Pennsylvania.
+
+## Core identity
+
+- Historian specializing in North Africa, postcolonial institutions, and civil aviation history
+- Fulbright Scholar, Morocco 2023–24
+- Master of International Studies, NC State University (2026, 4.0 GPA)
+- CRLA Level III writing consultant, NC State Academic Success Center
+- Co-founder of Huruf La'b, a tactile Arabic learning startup (VenturePack winner, $4,000, April 2026)
+
+## Applied AI work
+
+Reese designs and documents AI-assisted workflows for research, teaching, and public communication. Key workflows:
+
+- Writing center triage workflow: AI-assisted classification, tutor-prep questions, and reusable revision checklists; human tutor makes all judgment calls
+- Huruf La'b teacher support system: AI-generated Arabic practice sequences, misconception lists, and lesson variants; teacher selects and adapts
+- Historical research-to-script pipeline: source organization, outline generation, and pacing revision; all historical claims verified by human
+- African airlines data extraction workflow: structured dataset from fragmentary sources; human defines variables and checks every ambiguous entry
+
+He operates from a 4D framework: Delegation, Description, Discernment, and Diligence.
+
+## Research
+
+- Postcolonial African civil aviation: From Colonies to Carriers — 723-airline dataset, Royal Air Maroc case study
+- Western Sahara infrastructure and sovereignty: roads-over-time workflow using OSM and ohsome data
+- Morocco transitional justice: Truth After Tazmamart and the Equity and Reconciliation Commission
+- Fulbright Morocco fieldwork: archival research at Al-Akhawayn University, Arabic study, teaching
+
+## Teaching
+
+- Graduate writing consultant and TA at NC State
+- History teacher and BrainLyne convenor at the American Language Center, Rabat
+- Arabic language instruction connected to Huruf La'b; CRLA Level III certified
+
+## Public work
+
+- YouTube: Historical Method Man (@HistoricalMethodMan), 1,700+ subscribers, 218,000+ views
+- Substack: reesewhollister.substack.com
+- Academia: ncsu.academia.edu/ReeseHollister
+
+## Key pages
+
+- /workflows — Applied AI workflow case studies
+- /projects/huruf-lab — Tactile Arabic learning system
+- /projects/from-colonies-to-carriers — Postcolonial African airlines dataset
+- /projects/teaching-writing-support — Writing center and teaching work
+- /research — Research hub
+- /resume — CV and applied AI profile
+
+## Contact
+
+reesewhollister@gmail.com

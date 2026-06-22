@@ -217,6 +217,76 @@ export const projects: Project[] = [
         paragraphs: [
           "The project shows a product-development habit that carries across Reese's work: when understanding stalls, redesign the conditions of understanding."
         ]
+      },
+      {
+        heading: 'How this works as a workflow',
+        paragraphs: [
+          "Huruf La'b generates a documented AI-workflow case study because the teacher-support problem it revealed is structured and repeatable. AI can generate letter-practice sequences, misconception lists, and lesson variants connected to the tile system. The teacher selects, adapts, and tests based on what the class actually needs.",
+          "Claude Corps relevance: the design habit behind Huruf La'b — identifying friction in a learning system and redesigning the conditions of understanding — is the same habit applied to AI-assisted workflow design."
+        ]
+      }
+    ]
+  },
+  {
+    slug: 'applied-ai-workflows',
+    title: 'Applied AI Workflows',
+    summary: 'Practical AI-assisted systems for research, teaching, public communication, and mission-driven knowledge work — built around documented processes a human user can understand, verify, and maintain.',
+    categories: ['Teaching & Learning', 'Research', 'Public Scholarship'],
+    tags: ['Teaching', 'AI Workflows', 'Research', 'Writing'],
+    pillars: ['Teaching', 'Building', 'Research'],
+    role: 'Workflow designer and human-in-the-loop practitioner',
+    skills: ['AI-assisted research', 'Workflow design', 'Prompt engineering', 'Human-in-the-loop systems', 'Instructional design'],
+    featured: true,
+    sortOrder: 2,
+    card: {
+      title: 'Applied AI Workflows',
+      summary: 'Documented AI-assisted systems for research, teaching, and knowledge work — built so a human user can understand, verify, and maintain every step.',
+      accent: 'map' as const,
+      materials: ['Workflow', 'Teaching', 'Research', 'Documentation'],
+      secondaryAction: {
+        label: 'View case studies',
+        href: '/workflows'
+      }
+    },
+    heroAsset: {
+      src: '/assets/ui/system/atlas-grid.svg',
+      alt: 'Grid diagram representing a structured workflow system with structured inputs, review steps, and documented outputs.',
+      caption: 'Applied AI workflows are structured processes, not automation. Each workflow documents inputs, review steps, human judgment points, and what should not be automated.'
+    },
+    links: [
+      {
+        label: 'View all workflow case studies',
+        shortLabel: 'Workflows',
+        href: '/workflows',
+        kind: 'link' as const,
+        available: true,
+        note: 'Four case studies across writing support, Arabic education, historical research, and data archaeology.'
+      }
+    ],
+    seo: {
+      title: 'Applied AI Workflows',
+      description: 'AI-assisted workflow design by Reese Hollister — writing support triage, Arabic teacher resources, historical research pipelines, and dataset extraction systems.'
+    },
+    sections: [
+      {
+        heading: 'Overview',
+        paragraphs: [
+          'AI tools are most useful when the process is documented — when the human role is explicit, the review steps are defined, and the boundaries around what should not be automated are stated in advance.',
+          'These four workflow case studies show how that kind of structured AI use applies across research, teaching, and public communication problems: a writing center triage workflow, a Huruf La\'b teacher support system, a historical research-to-script pipeline, and an African airlines data extraction workflow.'
+        ]
+      },
+      {
+        heading: 'How I work with AI',
+        paragraphs: [
+          'Four principles organize the work. Delegation: decide what belongs with AI and what must remain human-led. Description: turn vague problems into context, constraints, examples, and workflows. Discernment: check outputs against sources, users, and goals. Diligence: document the process so someone else can maintain it.'
+        ]
+      },
+      {
+        heading: 'Why it matters',
+        paragraphs: [
+          'Applied AI fluency is not about using every available tool. It is about knowing which steps benefit from assistance, which require human judgment, and how to document the difference so someone else can maintain the system.',
+          'The point is not to automate judgment. The point is to make complex work easier to understand, verify, teach, and hand off.'
+        ]
       }
     ]
   },
@@ -230,7 +300,7 @@ export const projects: Project[] = [
     role: 'Historical researcher, source synthesist, and data / visual workflow builder',
     skills: ['Historical research', 'Process tracing', 'Visual evidence design', 'Data analysis', 'International studies'],
     featured: true,
-    sortOrder: 2,
+    sortOrder: 3,
     card: {
       title: 'Western Sahara Highways',
       summary: 'Research on how highways, logistics corridors, and territorial administration helped Morocco convert claims over Western Sahara into durable control.',
@@ -323,7 +393,7 @@ export const projects: Project[] = [
     role: 'Researcher and data archaeologist',
     skills: ['Archival research', 'Digital history', 'Database design', 'Data archaeology', 'Postcolonial history'],
     featured: true,
-    sortOrder: 3,
+    sortOrder: 4,
     card: {
       title: 'From Colonies to Carriers',
       summary: 'Dataset and digital history project tracing how newly independent African states used national airlines and route networks to make sovereignty operational — with Royal Air Maroc as the close case.',
@@ -444,6 +514,13 @@ export const projects: Project[] = [
         paragraphs: [
           'African airlines were built at a moment when the infrastructure of sovereignty was being assembled from scratch. Reading them as institutions, symbols, and data problems at once helps explain why flag carriers mattered even when pure market logic was weak.'
         ]
+      },
+      {
+        heading: 'How this works as a workflow',
+        paragraphs: [
+          'This dataset is a practical case study in structured data extraction from fragmentary sources. AI can help identify repeated source patterns and propose variable definitions, converting raw entries into structured rows for a dataset.',
+          'The human role is definitional and verificatory: define what variables are meaningful, check every ambiguous entry against the original source, preserve gaps where evidence is absent rather than estimating, and document the extraction rules so the process is reproducible. What I would not automate: source interpretation, uncertain historical claims, or filling missing fields without clear evidence.'
+        ]
       }
     ]
   },
@@ -457,7 +534,7 @@ export const projects: Project[] = [
     role: 'Historical researcher, legal analyst, and documentary storyteller',
     skills: ['Human rights history', 'International law', 'Transitional justice', 'Morocco', 'Public scholarship'],
     featured: true,
-    sortOrder: 4,
+    sortOrder: 5,
     card: {
       title: 'Truth After Tazmamart',
       summary: "Research on Tazmamart, Morocco's Equity and Reconciliation Commission, and the political limits of truth-seeking when accountability remains constrained.",
@@ -528,7 +605,7 @@ export const projects: Project[] = [
     role: 'Fulbright researcher, language learner, teacher, and public-facing interpreter',
     skills: ['Fulbright', 'Morocco', 'Arabic', 'French', 'Intercultural work', 'Public-facing scholarship'],
     featured: true,
-    sortOrder: 5,
+    sortOrder: 6,
     card: {
       title: 'Fulbright Morocco',
       summary: 'Fieldwork and language-study archive from a Fulbright year in Morocco — connecting archival research practice, Arabic and Darija study, and public historical interpretation.',
@@ -672,7 +749,7 @@ export const projects: Project[] = [
     role: 'Arabic language student and intercultural learner',
     skills: ['Arabic', 'Oman', 'Language immersion', 'Intercultural work'],
     featured: true,
-    sortOrder: 6,
+    sortOrder: 7,
     card: {
       title: 'Oman / Arabic Study',
       summary:
@@ -748,7 +825,7 @@ export const projects: Project[] = [
     role: 'Graduate writing consultant, teaching assistant, learning diagnostician, and instructional designer',
     skills: ['Writing pedagogy', 'Tutoring', 'AI and learning', 'Student support', 'Instructional design'],
     featured: false,
-    sortOrder: 7,
+    sortOrder: 8,
     card: {
       title: 'Teaching & Writing Support',
       summary: 'Writing consultation and teaching support grounded in real learning bottlenecks.',
@@ -809,6 +886,13 @@ export const projects: Project[] = [
         heading: 'Why it matters',
         paragraphs: [
           'The most important outcome is a repeatable practice of helping people move from uncertainty to agency in classrooms, writing centers, and any setting where explanation has to meet a real person at the point of need.'
+        ]
+      },
+      {
+        heading: 'How this works as a workflow',
+        paragraphs: [
+          'Writing center triage is a genuine workflow design challenge: quickly identify the real bottleneck in a draft, generate targeted support questions, and build reusable materials from recurring problems. AI can help classify the issue type — argument structure, evidence integration, clarity, assignment interpretation — and generate tutor-prep questions tailored to that classification.',
+          'The human role is the whole point: the tutor reads the actual writer in front of them, conducts the conversation, makes the judgment about what kind of support is needed, and protects the student\'s ownership of the paper. The AI layer makes the tutor better prepared, not replaceable. What I would not automate: grading, final written feedback, or the tutor-student relationship.'
         ]
       }
     ]

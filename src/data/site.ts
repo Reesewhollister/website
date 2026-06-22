@@ -1,13 +1,16 @@
 export const siteMeta = {
-  title: 'Reese Hollister',
+  title: 'Reese Hollister | AI-Fluent Educator, Researcher & Workflow Builder',
   description:
-    'Reese W. Hollister is a historian of North Africa who turns research into things you can see — decks, datasets, maps, and lessons — and coaches students to write with clarity.',
+    'Reese W. Hollister is an AI-fluent historian of North Africa who turns research, teaching, and communication problems into documented workflows — decks, datasets, maps, lessons, and repeatable systems people can understand, verify, and maintain.',
   position:
-    'Historian · Educator · Research Builder'
+    'Historian · Educator · Workflow Builder'
 };
 
 // Core thesis — the prominent hero lead and the through-line for the whole site.
 export const heroThesis = 'Research you can see.';
+
+// Secondary thesis — workflow layer for Claude Corps and applied AI positioning.
+export const heroSecondThesis = 'Workflows people can use.';
 
 // Recurring brand thesis — secondary phrasing, still used on the About page.
 export const brandThesis = 'Make difficult ideas clear without making them shallow.';
@@ -30,7 +33,8 @@ export const footerLinks = [
   { href: '/about', label: 'About' },
   { href: '/writing', label: 'Writing' },
   { href: '/teaching', label: 'Teaching' },
-  { href: '/works', label: 'Works' }
+  { href: '/works', label: 'Works' },
+  { href: '/workflows', label: 'Workflows' }
 ];
 
 export const homeIntro =
@@ -561,3 +565,63 @@ export const coachingServices = [
       'Session-based writing consultation for essays, papers, and academic assignments. We diagnose the problem, work through the draft, and build toward independent revision habits.'
   }
 ];
+
+// Coaching packages / tiers. `price` is intentionally left blank — the template
+// shows the booking page for rates until a real figure is set here.
+// TODO(reese): set real prices (and a deposit/cancellation note) when ready.
+export const coachingPackages = [
+  {
+    name: 'Single Session',
+    forWho: 'One paper or essay before a deadline',
+    summary:
+      'A focused 60–90 minute session on one draft. We diagnose what the writing needs and you leave able to revise it.',
+    includes: [
+      'Pre-read of your draft, prompt, and deadline',
+      '60–90 minute working session',
+      'Annotated draft + revision priorities ranked by impact'
+    ],
+    price: '',
+    cta: 'Book a single session'
+  },
+  {
+    name: 'Multi-Session Package',
+    forWho: 'A big research paper or ongoing support',
+    summary:
+      'A set of sessions across a project or term. I read each revision between meetings, so we build on progress instead of re-explaining.',
+    includes: [
+      'Everything in a single session',
+      'Revision read between each meeting',
+      'A shared picture of your writing patterns over time'
+    ],
+    price: '',
+    cta: 'Ask about a package',
+    featured: true
+  },
+  {
+    name: 'Graduate Application Intensive',
+    forWho: 'Grad school, PhD, and competitive programs',
+    summary:
+      'Statement of purpose, personal statement, writing-sample selection and framing — built so the pieces of the application reinforce one another.',
+    includes: [
+      'Statement of purpose / personal statement development',
+      'Writing-sample selection and framing',
+      'Package coherence across the application cycle'
+    ],
+    price: '',
+    cta: 'Ask about application support'
+  }
+];
+
+// Credibility points for the coaching page. All verifiable.
+export const coachingProof = [
+  'CRLA Level III certified writing consultant',
+  'Graduate writing consultant, NC State Academic Success Center',
+  'Fulbright Morocco — English teaching and university-access writing instruction (American Language Center, Rabat)',
+  'Graduate Teaching Assistant, PS 331 U.S. Foreign Policy (NC State)',
+  'Published in peer-reviewed history journals',
+  'Navigated the History PhD application cycle (statements of purpose and writing samples)'
+];
+
+// Real client testimonials only. The page hides this section until populated.
+// TODO(reese): add 2–4 short testimonials (quote, first name + context) with permission.
+export const coachingTestimonials: { quote: string; name: string; context: string }[] = [];

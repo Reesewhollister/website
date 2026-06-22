@@ -2607,6 +2607,30 @@ html.reveal-ready .reveal.is-visible {
   margin-top: 0.5rem;
 }
 
+/* ── Claude Corps additions ──────────────────────────────────────────────────── */
+
+.home-hero__title-secondary {
+  display: block;
+  font-size: clamp(1.1rem, 2.6vw, 1.9rem);
+  color: var(--sys-ember);
+  font-style: normal;
+  letter-spacing: -0.01em;
+  margin-top: 0.3rem;
+  opacity: 0.88;
+}
+
+.workflow-4d-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (min-width: 52rem) {
+  .workflow-4d-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
 [hidden] {
   display: none !important;
 }

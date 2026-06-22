@@ -1,0 +1,152 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { withBase } from '../utils/paths';
+---
+
+<script type="application/ld+json" slot="head" set:html={JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Applied AI Workflows — Reese Hollister',
+  description: 'Practical AI-assisted workflow case studies for research, writing support, Arabic education, and historical data archaeology.',
+  url: 'https://reesehollister.com/workflows',
+  author: {
+    '@type': 'Person',
+    name: 'Reese W. Hollister',
+    url: 'https://reesehollister.com'
+  }
+})} />
+
+<BaseLayout
+  title="Applied AI Workflows"
+  description="Practical AI-assisted systems for research, teaching, and public communication — with documented workflows for writing support, Arabic education, historical research, and data archaeology."
+>
+  <section class="page-hero site-shell">
+    <p class="section-kicker">Applied AI Workflows</p>
+    <h1>Applied AI Workflows</h1>
+    <p class="page-lead">
+      Practical AI-assisted systems for research, teaching, public communication, and mission-driven knowledge work.
+    </p>
+    <p>
+      I use Claude and other AI tools to turn messy research, teaching, and communication problems into documented workflows. My focus is not automation for its own sake. I use AI to help people organize sources, clarify writing, generate learning materials, test explanations, and build repeatable systems that a human user can understand, verify, and maintain.
+    </p>
+  </section>
+
+  <section class="site-shell">
+    <SectionHeading
+      eyebrow="Approach"
+      title="How I work with AI"
+      intro="Four principles that organize the work — from deciding what to delegate through to documenting it for someone else."
+    />
+    <div class="workflow-4d-grid">
+      <article class="resume-card">
+        <h3>Delegation</h3>
+        <p>Decide what belongs with AI and what must remain human-led: summarization, drafting, classification, and structure can be assisted; final judgment, source interpretation, teaching, and ethical decisions stay human.</p>
+      </article>
+      <article class="resume-card">
+        <h3>Description</h3>
+        <p>Turn vague problems into context, constraints, examples, and workflows: define the user, the task, the source base, the desired output, and the review process before asking AI to help.</p>
+      </article>
+      <article class="resume-card">
+        <h3>Discernment</h3>
+        <p>Check outputs against sources, users, and goals: compare AI summaries to original documents, identify unsupported claims, and revise prompts when the first answer is not good enough.</p>
+      </article>
+      <article class="resume-card">
+        <h3>Diligence</h3>
+        <p>Document the process so someone else can maintain it: note inputs, review steps, risks, privacy limits, handoff instructions, and what should not be automated.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="site-shell system">
+    <SectionHeading
+      eyebrow="Case studies"
+      title="Workflow examples"
+      intro="Four documented workflows across writing support, Arabic education, historical research, and data archaeology."
+    />
+    <div class="support-grid">
+
+      <article class="support-card">
+        <p class="section-kicker">Teaching / Writing Support / Human-in-the-Loop AI</p>
+        <h3>Writing Center AI Triage Workflow</h3>
+        <p><strong>Problem:</strong> Graduate writers often arrive with unclear drafts and anxiety, but the deeper issue is diagnosing the revision problem.</p>
+        <p><strong>AI-assisted workflow:</strong> Claude can help classify the writing issue, generate tutor-prep questions, suggest resources, and turn recurring writing problems into reusable checklists.</p>
+        <p><strong>Human role:</strong> The tutor still makes the judgment, conducts the conversation, reads the writer's context, and protects student ownership.</p>
+        <p><strong>Handoff:</strong> Session notes, reusable revision checklists, tutor-facing guide, and a repeatable intake structure.</p>
+        <p><strong>What I would not automate:</strong> Grading, final feedback, or replacing the tutor-student relationship.</p>
+        <div class="action-list">
+          <a class="resource-link" href={withBase('/projects/teaching-writing-support')}>View teaching project →</a>
+        </div>
+      </article>
+
+      <article class="support-card">
+        <p class="section-kicker">Arabic / Product Discovery / Education</p>
+        <h3>Huruf La'b Teacher Support System</h3>
+        <p><strong>Problem:</strong> Arabic script learning is intimidating, and teachers need tools that fit real classroom time.</p>
+        <p><strong>AI-assisted workflow:</strong> Claude can help generate letter-practice sequences, misconception lists, cloze exercises, lesson variants, and teacher prompts connected to the tactile tile system.</p>
+        <p><strong>Human role:</strong> Teachers select, adapt, test, and evaluate materials based on the learners in front of them.</p>
+        <p><strong>Handoff:</strong> Teacher guide, classroom-use templates, activity bank, and adoption notes.</p>
+        <p><strong>What I would not automate:</strong> Teacher judgment, pronunciation correction, cultural explanation, or deciding what a class needs.</p>
+        <div class="action-list">
+          <a class="resource-link" href={withBase('/projects/huruf-lab')}>View Huruf La'b project →</a>
+        </div>
+      </article>
+
+      <article class="support-card">
+        <p class="section-kicker">Public Scholarship / Research / Media</p>
+        <h3>Historical Research-to-Script Pipeline</h3>
+        <p><strong>Problem:</strong> Academic research does not automatically become clear public education.</p>
+        <p><strong>AI-assisted workflow:</strong> Claude can help organize source notes, build outlines, test hooks, revise pacing, identify unclear claims, and convert research into production-ready script structures.</p>
+        <p><strong>Human role:</strong> I verify facts, interpret sources, preserve historical nuance, and make editorial decisions.</p>
+        <p><strong>Handoff:</strong> Script template, source-checking checklist, production workflow, and revision notes.</p>
+        <p><strong>What I would not automate:</strong> Historical claims, source interpretation, or final editorial judgment.</p>
+        <div class="action-list">
+          <a class="resource-link" href={withBase('/youtube')}>Historical Method Man channel →</a>
+        </div>
+      </article>
+
+      <article class="support-card">
+        <p class="section-kicker">Digital History / Dataset / Source Verification</p>
+        <h3>African Airlines Data Extraction Workflow</h3>
+        <p><strong>Problem:</strong> Historical source material is often semi-structured, fragmentary, and difficult to compare.</p>
+        <p><strong>AI-assisted workflow:</strong> AI can help identify repeated source patterns and convert entries into structured variables for datasets, maps, and public-facing interpretation.</p>
+        <p><strong>Human role:</strong> I define variables, check ambiguous entries, preserve source gaps, and avoid estimating missing data without evidence.</p>
+        <p><strong>Handoff:</strong> Data dictionary, extraction rules, source notes, and public documentation.</p>
+        <p><strong>What I would not automate:</strong> Source interpretation, uncertain historical claims, or filling missing fields without evidence.</p>
+        <div class="action-list">
+          <a class="resource-link" href={withBase('/projects/from-colonies-to-carriers')}>View dataset project →</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="site-shell">
+    <SectionHeading
+      eyebrow="Practice"
+      title="Responsible AI practice"
+      intro="I do not treat AI output as final evidence. I check claims against original sources, separate draft language from verified facts, avoid unsupported specificity, and keep sensitive student or institutional information out of AI tools unless appropriate safeguards exist. The goal is not to replace teachers, writers, researchers, or nonprofit staff. The goal is to make complex work more usable while keeping human judgment in control."
+    />
+    <ul class="action-list action-list--stacked">
+      <li><span class="action-note">Source verification before publication</span></li>
+      <li><span class="action-note">Human review before teaching or advising</span></li>
+      <li><span class="action-note">No sensitive student or institutional data without safeguards</span></li>
+      <li><span class="action-note">Clear documentation of inputs, assumptions, and review steps</span></li>
+      <li><span class="action-note">Explicit boundaries around what should not be automated</span></li>
+    </ul>
+  </section>
+
+  <section class="site-shell home-cta-section">
+    <article class="compact-cta">
+      <div>
+        <p class="section-kicker">Get in touch</p>
+        <h2>Interested in workflow design or research collaboration?</h2>
+        <p>For research, teaching, or AI workflow questions, start a conversation.</p>
+      </div>
+      <div class="compact-cta__actions">
+        <a href={withBase('/contact')}>Start a conversation</a>
+        <a href={withBase('/projects')}>View all projects</a>
+      </div>
+    </article>
+  </section>
+</BaseLayout>

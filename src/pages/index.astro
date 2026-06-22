@@ -5,7 +5,7 @@ import SectionHeading from '../components/SectionHeading.astro';
 import ChoosePath from '../components/ChoosePath.astro';
 import HeroMap from '../components/HeroMap.astro';
 import CoordinateTicker from '../components/CoordinateTicker.astro';
-import { heroThesis, proofStrip, coachingCta, contactCta, siteMeta } from '../data/site';
+import { heroThesis, heroSecondThesis, proofStrip, coachingCta, contactCta, siteMeta } from '../data/site';
 import { featuredProjects, getProjectBySlug } from '../data/projects';
 import { withBase } from '../utils/paths';
 
@@ -17,7 +17,7 @@ const titleWords = heroThesis.trim().split(' ');
 const titleEmphasis = titleWords.pop() ?? '';
 const titleLead = titleWords.join(' ');
 
-const heroTags = ['North Africa', 'Digital history', 'Arabic', 'Documentary'];
+const heroTags = ['North Africa', 'Digital history', 'Arabic', 'Teaching', 'AI Workflows'];
 ---
 
 <BaseLayout title={siteMeta.title} description={siteMeta.description}>
@@ -48,10 +48,11 @@ const heroTags = ['North Africa', 'Digital history', 'Arabic', 'Documentary'];
       <h1 class="home-hero__title kinetic">
         <span class="kinetic__mask"><span class="kinetic__line">{titleLead}</span></span>
         <span class="kinetic__mask"><span class="kinetic__line"><em>{titleEmphasis}</em></span></span>
+        <span class="kinetic__mask home-hero__title-secondary"><span class="kinetic__line">{heroSecondThesis}</span></span>
       </h1>
       <p class="home-hero__lead">
-        Decks, datasets, maps, and teaching work from a historian of North Africa and postcolonial institutions —
-        built so the research is something you can see.
+        Decks, datasets, maps, teaching tools, and AI-assisted workflows from a historian of North Africa —
+        built so complex research becomes something people can see, test, teach, and use.
       </p>
       <ul class="home-hero__tags" aria-label="Focus areas">
         {heroTags.map((tag) => <li>{tag}</li>)}
@@ -81,6 +82,20 @@ const heroTags = ['North Africa', 'Digital history', 'Arabic', 'Documentary'];
     <div class="geo-strip" aria-hidden="true">
       <img src={withBase('/assets/ui/system/ornament/zellige-strip.svg')} alt="" width="340" height="32" />
     </div>
+  </section>
+
+  <section class="site-shell home-cta-section">
+    <article class="compact-cta">
+      <div>
+        <p class="section-kicker">Applied AI</p>
+        <h2>AI-assisted workflows, without the hype.</h2>
+        <p>I use Claude and other AI tools to turn research, teaching, and communication problems into documented workflows — with explicit human judgment, review steps, and clear limits on what should not be automated.</p>
+      </div>
+      <div class="compact-cta__actions">
+        <a href={withBase('/workflows')}>View workflows</a>
+        <a href={withBase('/projects/applied-ai-workflows')}>Project profile</a>
+      </div>
+    </article>
   </section>
 
   <ChoosePath />

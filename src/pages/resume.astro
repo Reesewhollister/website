@@ -8,16 +8,50 @@ const visibleResources = resumeResources.filter((resource) => resource.available
 ---
 
 <BaseLayout
-  title="CV"
-  description="Selected highlights, live public-profile links, and future resume / CV download slots for Reese Hollister."
+  title="CV & Applied AI Profile"
+  description="CV, credentials, and applied AI workflow profile for Reese Hollister — historian, educator, workflow designer, and Fulbright Scholar."
   image="/assets/fieldwork/og/og-resume.jpg"
 >
   <section class="page-hero site-shell">
-    <p class="section-kicker">CV</p>
+    <p class="section-kicker">CV & Applied AI Profile</p>
     <h1>CV</h1>
     <p class="page-lead">
-      Selected credentials and public profile links. Current resume and CV PDFs are available by email request.
+      Credentials, public profile links, and an application-ready summary of AI-fluent research, teaching, and workflow design. Current resume and CV PDFs are available by email request.
     </p>
+  </section>
+
+  <section class="site-shell">
+    <SectionHeading
+      eyebrow="For Claude Corps reviewers"
+      title="Application-ready profile"
+      intro="A concise framing of AI-fluent practice alongside the existing credentials."
+    />
+    <div class="resume-highlight-grid">
+      <article class="resume-card">
+        <h3>AI-fluent practice</h3>
+        <ul>
+          <li>Designed and documented four AI-assisted workflows across writing support, Arabic education, historical research, and data archaeology.</li>
+          <li>Uses Claude and other AI tools to generate structured drafts, classify problems, and build repeatable processes — with explicit human review at every judgment point.</li>
+          <li>Operates from a 4D framework: Delegation, Description, Discernment, and Diligence.</li>
+        </ul>
+      </article>
+      <article class="resume-card">
+        <h3>Domain knowledge</h3>
+        <ul>
+          <li>Historian of North Africa and postcolonial institutions with graduate-level training in source criticism, process tracing, and public-facing scholarship.</li>
+          <li>CRLA Level III writing consultant with direct experience diagnosing writing and learning problems in graduate and undergraduate contexts.</li>
+          <li>Fulbright Scholar, Arabic language educator, and cross-cultural practitioner — work is grounded in language, cultural context, and situated judgment.</li>
+        </ul>
+      </article>
+      <article class="resume-card">
+        <h3>Communication and building</h3>
+        <ul>
+          <li>Converts complex research into decks, datasets, maps, and educational tools — "research you can see" is the through-line across all projects.</li>
+          <li>Co-founded Huruf La'b (VenturePack winner, $4,000) as a product that emerged directly from diagnosing learning friction in Arabic instruction.</li>
+          <li>Runs Historical Method Man, a public scholarship channel with 1,700+ subscribers, as a demonstration of complex-to-clear translation at scale.</li>
+        </ul>
+      </article>
+    </div>
   </section>
 
   <section class="site-shell">
@@ -71,5 +105,31 @@ const visibleResources = resumeResources.filter((resource) => resource.available
         </ul>
       </article>
     </div>
+  </section>
+
+  <section class="site-shell">
+    <SectionHeading
+      eyebrow="Evidence"
+      title="Selected evidence for applied AI and workflow roles"
+      intro="Specific artifacts, pages, and documented practices that support the applied AI framing."
+    />
+    <ul class="action-list action-list--stacked">
+      <li>
+        <a class="resource-link" href={withBase('/workflows')}>Applied AI Workflows page</a>
+        <span class="action-note">Four documented workflow case studies with problem statements, AI-assisted steps, human roles, handoff artifacts, and explicit automation limits.</span>
+      </li>
+      <li>
+        <a class="resource-link" href={withBase('/projects/huruf-lab')}>Huruf La'b project</a>
+        <span class="action-note">AI-assisted teacher support workflow connected to a VenturePack-winning Arabic learning startup.</span>
+      </li>
+      <li>
+        <a class="resource-link" href={withBase('/projects/from-colonies-to-carriers')}>From Colonies to Carriers dataset</a>
+        <span class="action-note">Structured data extraction from fragmentary historical sources — a documented workflow with explicit human verification steps.</span>
+      </li>
+      <li>
+        <a class="resource-link" href={withBase('/projects/teaching-writing-support')}>Teaching and Writing Support</a>
+        <span class="action-note">Writing center triage workflow — AI-assisted intake, classification, and checklist generation with the human tutor in the loop.</span>
+      </li>
+    </ul>
   </section>
 </BaseLayout>
