@@ -1,16 +1,16 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
-import { contactMethods } from '../data/site';
+import { contactMethods, coachingBookingUrl } from '../data/site';
 import { withBase, isExternal } from '../utils/paths';
 ---
 
-<BaseLayout title="Contact" description="Contact Reese Hollister for roles and projects involving research, teaching, and designed clarity.">
+<BaseLayout title="Contact" description="Contact Reese Hollister for program support, education, research, and public communication roles and projects.">
   <section class="page-hero site-shell">
     <p class="section-kicker">Contact</p>
     <h1>Contact</h1>
     <p class="page-lead">
-      Whether you're a hiring committee, a collaborator, a parent looking for writing help, or a fellow scholar — here is how to reach me.
+      For employment, program support, research, educational work, or collaboration, email me with the role or project you have in mind.
     </p>
   </section>
 
@@ -54,4 +54,5 @@ import { withBase, isExternal } from '../utils/paths';
       ))}
     </div>
   </section>
+  <section class="site-shell"><article class="contact-panel"><p class="section-kicker">Students and families</p><h2>Looking for paid writing coaching?</h2><p>Services, testimonials, availability, and booking are on my separate coaching site.</p><a class="resource-link" href={coachingBookingUrl}>College Essay Coaching ↗</a></article></section>
 </BaseLayout>

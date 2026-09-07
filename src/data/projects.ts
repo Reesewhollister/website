@@ -91,13 +91,19 @@ export interface Project {
   videos?: ProjectVideo[];
   ytVideos?: ProjectYtVideo[];
   heroVideo?: string;
+  caseStudy?: {
+    objective: string;
+    actions: string[];
+    deliverables: string[];
+    result: string;
+  };
   sections: ProjectSection[];
 }
 
 export const projects: Project[] = [
   {
     slug: 'huruf-lab',
-    title: "Huruf La'b",
+    title: "Huruf La’b: Building an Educational Product",
     summary: 'A tactile Arabic learning system designed to turn early Arabic literacy into a classroom routine instead of a wall.',
     categories: ['Teaching & Learning', 'Product / Design'],
     tags: ['Teaching', 'Arabic', 'Product / Design', 'Video'],
@@ -105,10 +111,10 @@ export const projects: Project[] = [
     role: 'Co-founder, instructional design lead, user-research lead, and product framer',
     skills: ['Pedagogy', 'Product development', 'User research', 'Entrepreneurship', 'Language learning'],
     featured: true,
-    sortOrder: 1,
+    sortOrder: 2,
     card: {
-      title: "Huruf La'b",
-      summary: 'Tactile Arabic puzzle system that turns early script learning into a hands-on classroom routine.',
+      title: "Huruf La’b: Building an Educational Product",
+      summary: 'A learning problem taken through prototype development, educator outreach, demonstrations, and a successful venture pitch.',
       accent: 'gold',
       materials: ['Award', 'Product', 'Arabic', 'Teaching'],
       secondaryAction: {
@@ -172,9 +178,21 @@ export const projects: Project[] = [
       }
     ],
     seo: {
-      title: "Huruf La'b",
+      title: "Huruf La’b: Building an Educational Product",
       description: "Project profile for Huruf La'b, a tactile Arabic learning system by Reese Hollister."
     },
+    caseStudy: {
+      "objective": "Help beginning Arabic learners understand how letter forms connect by making the script something they can handle and assemble.",
+      "actions": [
+            "Developed a classroom lesson and tactile learning concept, then worked with co-founder and designer Bella Templeton to refine the prototype.",
+            "Connected instructional design with educator outreach, early feedback, product demonstrations, and a venture pitch."
+      ],
+      "deliverables": [
+            "Tactile Arabic letter puzzles and classroom demonstrations.",
+            "Product photographs, teaching clips, and educator outreach."
+      ],
+      "result": "The team received a $4,000 award in NC State’s 2026 VenturePack Challenge. The product remains in development."
+},
     sections: [
       {
         heading: 'Overview',
@@ -227,8 +245,8 @@ export const projects: Project[] = [
     pillars: ['Research', 'Building'],
     role: 'Historical researcher, source synthesist, and data / visual workflow builder',
     skills: ['Historical research', 'Process tracing', 'Visual evidence design', 'Data analysis', 'International studies'],
-    featured: true,
-    sortOrder: 2,
+    featured: false,
+    sortOrder: 5,
     card: {
       title: 'Western Sahara Highways',
       summary: 'Research on how highways, logistics corridors, and territorial administration helped Morocco convert claims over Western Sahara into durable control.',
@@ -274,6 +292,18 @@ export const projects: Project[] = [
       slideExt: 'jpg',
       slideCount: 22
     },
+    caseStudy: {
+      "objective": "Explain how highways and logistics corridors shaped Moroccan control and sovereignty claims in Western Sahara.",
+      "actions": [
+            "Connected infrastructure evidence to a historical and political argument.",
+            "Organized road development, territorial administration, and recognition into timelines and maps."
+      ],
+      "deliverables": [
+            "Graduate capstone paper and presentation deck.",
+            "Highway route map, dual timeline, and roads-over-time evidence."
+      ],
+      "result": "Completed a graduate capstone with a reusable visual evidence set for explaining the relationship between infrastructure and sovereignty."
+},
     sections: [
       {
         heading: 'Overview',
@@ -318,20 +348,20 @@ export const projects: Project[] = [
     categories: ['Digital History', 'Research'],
     tags: ['Research', 'Digital History', 'North Africa', 'Public Scholarship'],
     pillars: ['Research'],
-    role: 'Researcher and data archaeologist',
+    role: 'Researcher and digital project developer',
     skills: ['Archival research', 'Digital history', 'Database design', 'Data archaeology', 'Postcolonial history'],
     featured: true,
     sortOrder: 3,
     card: {
       title: 'From Colonies to Carriers',
-      summary: 'Dataset and digital history project tracing how newly independent African states used national airlines and route networks to make sovereignty operational — with Royal Air Maroc as the close case.',
+      summary: 'Managing incomplete historical sources to build a 723-record airline encyclopedia, maps, a paper, and a presentation.',
       accent: 'map',
       materials: ['Deck', 'Paper', 'Dataset', 'Map']
     },
     heroAsset: {
       src: '/assets/projects/from-colonies-to-carriers/2026-06-13__reese-portfolio__asset__v01__african-airlines-routes-from-europe.png',
       alt: 'Historic route map showing European airline connections across Africa.',
-      caption: 'Source image from the African Airlines archive/video folder, now used as the project visual anchor.'
+      caption: 'Historical route map showing European airline connections across Africa.'
     },
     links: [
       {
@@ -348,7 +378,7 @@ export const projects: Project[] = [
         href: '/assets/projects/from-colonies-to-carriers/2026-06-09__from-colonies-to-carriers__dataset__v01__guttery-16-field.csv',
         kind: 'download',
         available: true,
-        note: 'Structured 16-field dataset rebuilt from Ben Guttery airline entries.'
+        note: 'Downloadable extract: 59 airline records in 16 fields, rebuilt from Ben Guttery entries. The encyclopedia contains 723 records.'
       },
       {
         label: 'Newsletter: Promoting a Project',
@@ -389,6 +419,18 @@ export const projects: Project[] = [
       slideExt: 'jpg',
       slideCount: 27
     },
+    caseStudy: {
+      "objective": "Reconstruct fragmented airline records and explain how African states used civil aviation to build institutions and communicate national identity.",
+      "actions": [
+            "Organized historical airline entries into structured records, with attention to incomplete sources and provenance.",
+            "Connected the broader dataset to a Royal Air Maroc case study through maps, ridership visuals, a written argument, and a presentation."
+      ],
+      "deliverables": [
+            "A searchable encyclopedia with 723 airline records.",
+            "A separate downloadable 59-row, 16-field CSV extract, a presentation deck, a working-paper excerpt, and maps."
+      ],
+      "result": "The project makes a dispersed body of evidence browseable through country, time, and institutional views. The downloadable CSV is an extract, not the full encyclopedia; incomplete historical records remain a limitation."
+},
     sections: [
       {
         heading: 'Overview',
@@ -453,8 +495,8 @@ export const projects: Project[] = [
     pillars: ['Research', 'Building'],
     role: 'Historical researcher, legal analyst, and documentary storyteller',
     skills: ['Human rights history', 'International law', 'Transitional justice', 'Morocco', 'Public scholarship'],
-    featured: true,
-    sortOrder: 4,
+    featured: false,
+    sortOrder: 6,
     card: {
       title: 'Truth After Tazmamart',
       summary: "Research on Tazmamart, Morocco's Equity and Reconciliation Commission, and the political limits of truth-seeking when accountability remains constrained.",
@@ -492,6 +534,18 @@ export const projects: Project[] = [
       slideExt: 'jpg',
       slideCount: 20
     },
+    caseStudy: {
+      "objective": "Examine what truth-seeking can achieve when a transitional justice process limits punishment and accountability.",
+      "actions": [
+            "Synthesized historical and legal research on Tazmamart and Morocco’s Equity and Reconciliation Commission.",
+            "Built a written analysis and slide narrative explaining the political limits of reconciliation."
+      ],
+      "deliverables": [
+            "Truth After Tazmamart research paper.",
+            "Presentation deck and rendered slides."
+      ],
+      "result": "Produced a paper and presentation that make the argument and supporting material available for readers."
+},
     sections: [
       {
         heading: 'Overview',
@@ -524,8 +578,8 @@ export const projects: Project[] = [
     pillars: ['Research', 'Teaching'],
     role: 'Fulbright researcher, language learner, teacher, and public-facing interpreter',
     skills: ['Fulbright', 'Morocco', 'Arabic', 'French', 'Intercultural work', 'Public-facing scholarship'],
-    featured: true,
-    sortOrder: 5,
+    featured: false,
+    sortOrder: 7,
     card: {
       title: 'Fulbright Morocco',
       summary: 'Fieldwork and language-study archive from a Fulbright year in Morocco — connecting archival research practice, Arabic and Darija study, and public historical interpretation.',
@@ -603,6 +657,18 @@ export const projects: Project[] = [
         mode: 'play'
       }
     ],
+    caseStudy: {
+      "objective": "Investigate Moroccan history while developing language skills and working across research and teaching settings.",
+      "actions": [
+            "Conducted archival research at the Mohammed VI Library in Ifrane.",
+            "Combined Arabic and Darija study with history teaching and outward-facing research communication."
+      ],
+      "deliverables": [
+            "Fieldwork dispatches, photography, and historical presentations.",
+            "Teaching work and research materials grounded in Moroccan archives and places."
+      ],
+      "result": "Completed the 2023–24 Fulbright year with a body of fieldwork, teaching, and public communication that informs later North Africa projects."
+},
     sections: [
       {
         heading: 'Overview',
@@ -668,8 +734,8 @@ export const projects: Project[] = [
     pillars: ['Teaching', 'Research'],
     role: 'Arabic language student and intercultural learner',
     skills: ['Arabic', 'Oman', 'Language immersion', 'Intercultural work'],
-    featured: true,
-    sortOrder: 6,
+    featured: false,
+    sortOrder: 8,
     card: {
       title: 'Oman / Arabic Study',
       summary:
@@ -704,6 +770,17 @@ export const projects: Project[] = [
         mode: 'loop'
       }
     ],
+    caseStudy: {
+      "objective": "Deepen Arabic through an immersive language-study program in Oman.",
+      "actions": [
+            "Studied Arabic in Manah and used the language in everyday interactions.",
+            "Documented learning and field trips through writing and photography."
+      ],
+      "deliverables": [
+            "Written dispatches and field photographs from Oman."
+      ],
+      "result": "Extended Arabic learning into a Gulf setting, adding a further cross-cultural context to the later Morocco research and teaching."
+},
     sections: [
       {
         heading: 'Overview',
@@ -737,23 +814,23 @@ export const projects: Project[] = [
   },
   {
     slug: 'teaching-writing-support',
-    title: 'Teaching and Writing Support',
+    title: 'University Teaching and Student Support',
     summary: 'Writing consultation, large-lecture teaching support, and student-centered pedagogy grounded in real learning bottlenecks.',
     categories: ['Teaching & Learning', 'Public Scholarship'],
     tags: ['Teaching', 'Writing', 'Public Scholarship'],
     pillars: ['Teaching', 'Research'],
-    role: 'Graduate writing consultant, teaching assistant, learning diagnostician, and instructional designer',
-    skills: ['Writing pedagogy', 'Tutoring', 'AI and learning', 'Student support', 'Instructional design'],
-    featured: false,
-    sortOrder: 7,
+    role: 'Graduate Writing Consultant and Graduate Teaching Assistant',
+    skills: ['Writing pedagogy', 'Tutoring', 'Student support', 'Instructional design'],
+    featured: true,
+    sortOrder: 1,
     card: {
-      title: 'Teaching & Writing Support',
-      summary: 'Writing consultation and teaching support grounded in real learning bottlenecks.',
+      title: 'University Teaching and Student Support',
+      summary: 'Course support, grading, student advising, and individualized writing consultation at NC State.',
       accent: 'gold',
       materials: ['Teaching', 'Writing', 'Pedagogy'],
       secondaryAction: {
-        label: 'View coaching',
-        href: '/coaching'
+        label: 'College Essay Coaching ↗',
+        href: 'https://reesehollister.square.site/'
       }
     },
     heroAsset: {
@@ -776,9 +853,22 @@ export const projects: Project[] = [
       }
     ],
     seo: {
-      title: 'Teaching and Writing Support',
+      title: 'University Teaching and Student Support',
       description: "Project profile for Reese Hollister's teaching and writing support work."
     },
+    caseStudy: {
+      "objective": "Help students navigate course material and writing assignments with clear expectations, useful feedback, and individualized support.",
+      "actions": [
+            "Supported instruction, grading, and student advising in NC State’s 80-student PS 331 course across multiple semesters.",
+            "Provided one-on-one writing consultations through the Academic Success Center, helping students interpret prompts, structure arguments, and organize evidence.",
+            "Adapted feedback to each writer’s assignment and stage of revision."
+      ],
+      "deliverables": [
+            "Course assessment and instructional support.",
+            "Individual writing consultations and assignment-specific revision guidance."
+      ],
+      "result": "Provided recurring support in both a lecture course and a writing center, backed by CRLA Level III certification."
+},
     sections: [
       {
         heading: 'Overview',
@@ -792,14 +882,6 @@ export const projects: Project[] = [
         paragraphs: [
           'The work centers on diagnosis: prompts, arguments, structure, evidence, and the moment a writer loses momentum.',
           'At NC State, that meant graduate writing consultations and repeated teaching support in an 80-student U.S. Foreign Policy course.'
-        ],
-        artifacts: [
-          {
-            src: '/assets/projects/teaching-writing-support/teaching-support-board.svg',
-            alt: 'Annotated teaching support board showing diagnosis, scaffolding, and revision pathways.',
-            eyebrow: 'Visual / artifact',
-            caption: 'Editorial diagram showing the consultation logic and scaffolding structure this page is meant to make visible.'
-          }
         ]
       },
       {
@@ -809,7 +891,205 @@ export const projects: Project[] = [
         ]
       }
     ]
-  }
+  },
+  {
+    "slug": "public-history-engagement",
+    "title": "Public History and Audience Engagement",
+    "summary": "History teaching, public presentations, and educational media that connect specialized research with students and wider audiences.",
+    "categories": [
+        "Public Scholarship",
+        "Teaching & Learning"
+    ],
+    "tags": [
+        "Public Scholarship",
+        "Teaching",
+        "Video"
+    ],
+    "pillars": [
+        "Teaching",
+        "Research"
+    ],
+    "role": "History teacher, BrainLyne convenor, presenter, and educational media creator",
+    "skills": [
+        "Audience-aware communication",
+        "History teaching",
+        "Public speaking",
+        "Educational media",
+        "Cross-cultural communication"
+    ],
+    "featured": true,
+    "sortOrder": 4,
+    "card": {
+        "title": "Public History and Audience Engagement",
+        "summary": "Translating historical material into classroom teaching, a public lecture event, written dispatches, and educational videos.",
+        "accent": "rust",
+        "materials": [
+            "Teaching",
+            "Talks",
+            "Video"
+        ],
+        "secondaryAction": {
+            "label": "Watch Historical Method Man",
+            "href": "https://www.youtube.com/channel/UCCRhHuIxYd3wyzYuaCNH3AA/"
+        }
+    },
+    "heroAsset": {
+        "src": "/assets/projects/fulbright-morocco/aui-archive-display-web.jpg",
+        "alt": "Historical Ifrane tourism brochure and map displayed at the Mohammed VI Library, Al Akhawayn University, Morocco.",
+        "caption": "Archival material at the Mohammed VI Library — part of the research context behind my public historical work."
+    },
+    "links": [
+        {
+            "label": "Historical Method Man",
+            "href": "https://www.youtube.com/channel/UCCRhHuIxYd3wyzYuaCNH3AA/"
+        },
+        {
+            "label": "Teaching Modern United States History — event reflection",
+            "href": "https://reesewhollister.substack.com/p/teaching-modern-united-states-history"
+        },
+        {
+            "label": "Writing and publications",
+            "href": "/writing"
+        }
+    ],
+    "seo": {
+        "title": "Public History and Audience Engagement",
+        "description": "Reese Hollister’s history teaching, public presentations, educational videos, and communication for audiences beyond specialist research."
+    },
+    "ytVideos": [
+        {
+            "ytId": "wiq-s7y4Jss",
+            "title": "Morocco & U.S. History: Through the Decades",
+            "caption": "Public presentation connecting U.S. and Moroccan history.",
+            "aspect": "landscape"
+        }
+    ],
+    "caseStudy": {
+        "objective": "Make historical questions meaningful to students and public audiences without losing the evidence and context behind them.",
+        "actions": [
+            "Taught history and facilitated BrainLyne student research and university-access writing at the American Language Center in Rabat.",
+            "Connected classroom material to a public lecture event and reflected on that process in a published teaching dispatch.",
+            "Produced educational videos and written public scholarship through Historical Method Man and Substack."
+        ],
+        "deliverables": [
+            "History instruction, student research support, and a public history presentation.",
+            "Educational videos, teaching reflections, and public essays."
+        ],
+        "result": "The work is available as a public presentation, written reflection, and educational media archive."
+    },
+    "sections": [
+        {
+            "heading": "Teaching history beyond the classroom",
+            "paragraphs": [
+                "At the American Language Center in Rabat, teaching modern U.S. history led into a live public history event. The accompanying written reflection connects course topics with the work of preparing material for a wider audience."
+            ]
+        },
+        {
+            "heading": "Public scholarship in several formats",
+            "paragraphs": [
+                "Historical Method Man, newsletter essays, and public presentations offer different ways into the same research. The task is to choose an explanation and a format that help an audience follow the argument."
+            ]
+        }
+    ]
+},
+  {
+    "slug": "applied-ai-workflows",
+    "title": "Digital Research and Process Design",
+    "summary": "Process designs for organizing sources, preparing educational materials, and documenting review and handoff steps.",
+    "categories": [
+        "Research",
+        "Public Scholarship"
+    ],
+    "tags": [
+        "Research",
+        "Digital History"
+    ],
+    "pillars": [
+        "Research",
+        "Teaching"
+    ],
+    "role": "Process designer",
+    "skills": [
+        "Source review",
+        "Process documentation",
+        "Research organization",
+        "Instructional planning"
+    ],
+    "featured": false,
+    "sortOrder": 9,
+    "heroAsset": {
+        "src": "/assets/projects/from-colonies-to-carriers/2026-06-09__from-colonies-to-carriers__artifact__v01__atlas-panel.jpg",
+        "alt": "African airlines atlas showing countries shaded by airline count.",
+        "caption": "The airline atlas provides a research context for thinking through source organization and review."
+    },
+    "card": {
+        "title": "Digital Research and Process Design",
+        "summary": "Four process examples for preparing, checking, and handing off research and educational work.",
+        "accent": "map",
+        "materials": [
+            "Documentation",
+            "Research",
+            "Process"
+        ]
+    },
+    "links": [
+        {
+            "label": "Research and data project",
+            "href": "/projects/from-colonies-to-carriers"
+        },
+        {
+            "label": "Teaching and writing support",
+            "href": "/projects/teaching-writing-support"
+        }
+    ],
+    "seo": {
+        "title": "Digital Research and Process Design",
+        "description": "Reese Hollister’s process designs for writing support, educational materials, research communication, and source review."
+    },
+    "caseStudy": {
+        "objective": "Make recurring knowledge work easier to explain, review, and hand off.",
+        "actions": [
+            "Outlined inputs, review responsibilities, and handoff steps for writing support, Arabic teaching, public history scripts, and historical data extraction.",
+            "Separated preparation tasks from decisions that require a teacher, writer, or researcher."
+        ],
+        "deliverables": [
+            "Four process descriptions covering preparation, review, and documentation."
+        ],
+        "result": "A set of process designs and review boundaries. These are examples of an approach, not evidence of deployed institutional systems or measured productivity gains."
+    },
+    "sections": [
+        {
+            "heading": "Writing support",
+            "paragraphs": [
+                "A proposed intake process would identify the revision problem, prepare questions, and organize reusable guidance. The tutor would make the judgment in conversation with the writer."
+            ]
+        },
+        {
+            "heading": "Arabic teaching materials",
+            "paragraphs": [
+                "A preparation process would organize practice sequences and lesson variations around the tactile tiles. Teachers would adapt and assess the materials for their learners."
+            ]
+        },
+        {
+            "heading": "Research to script",
+            "paragraphs": [
+                "Source notes would become an outline and draft, with checks for unclear claims and missing context before publication. Interpretation and final editorial decisions would stay with the researcher."
+            ]
+        },
+        {
+            "heading": "Historical data extraction",
+            "paragraphs": [
+                "An extraction plan would define fields, record source gaps, and flag ambiguous entries for review. Unknown information would remain unknown."
+            ]
+        },
+        {
+            "heading": "Tools and review",
+            "paragraphs": [
+                "AI-assisted drafting can sit alongside structured datasets, source notes, and manual checking. The process still needs clear inputs, review steps, and responsibility for the final work."
+            ]
+        }
+    ]
+}
 ];
 
 export const featuredProjects = projects

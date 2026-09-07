@@ -36,9 +36,9 @@ const secondaryAction = !project.deck ? card?.secondaryAction : undefined;
       </ul>
     )}
     <div class="project-card__actions">
-      <a href={withBase(href)}>View project</a>
+      <a href={withBase(href)} aria-label={`View case study: ${cardTitle}`}>View case study</a>
       {project.deck ? (
-        <a href={withBase(deckHref)}>Open deck</a>
+        <a href={withBase(deckHref)} aria-label={`Open deck: ${cardTitle}`}>Open deck</a>
       ) : (
         secondaryAction && (
           <a

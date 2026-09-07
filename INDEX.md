@@ -2,7 +2,13 @@
 
 ## Latest
 
-- Site source: `/Users/reesehollister/dev/reese-portfolio`
+- Professional portfolio revision (2026-09-07): [Home](src/pages/index.astro), [Experience](src/pages/experience.astro), [Selected Work](src/pages/projects/index.astro), [About](src/pages/about.astro), [Resume](src/pages/resume.astro), and [Coaching bridge](src/pages/coaching.astro).
+- Canonical professional copy and experience: [site data](src/data/site.ts); all nine case studies: [project data](src/data/projects.ts).
+- Verification and evidence report: [2026-09-07 portfolio QA](2026-09-07__reese-portfolio__qa__v01__professional-portfolio.md).
+- Outstanding public resume and experience evidence: [content checklist](TODO_CONTENT.md).
+- Existing `/projects/*`, `/research`, `/teaching`, `/writing`, `/works`, `/african-airlines/`, `/coaching`, and `/resume` routes retained. The older built `/youtube` destination redirects to the public-history case study; `/workflows` redirects to the preserved `/projects/applied-ai-workflows` route, now a secondary process-design case study. No source assets moved.
+
+- Site source for this revision: this opened repository (`/Users/reesehollister/Documents/reese-portfolio`). Prior migration notes describe a different checkout; it was not accessed or modified.
 - From Colonies to Carriers deck-first page assets: `public/assets/projects/from-colonies-to-carriers/2026-06-09__from-colonies-to-carriers__deck__v01__african-airlines.pdf` and `public/assets/projects/from-colonies-to-carriers/slides/`
 - From Colonies to Carriers published paper/dataset/artifacts: `public/assets/projects/from-colonies-to-carriers/2026-06-09__from-colonies-to-carriers__paper__v01__intro-conclusion.pdf`, `public/assets/projects/from-colonies-to-carriers/2026-06-09__from-colonies-to-carriers__dataset__v01__guttery-16-field.csv`, and `public/assets/projects/from-colonies-to-carriers/2026-06-09__from-colonies-to-carriers__artifact__v01__*.png`
 - From Colonies to Carriers current hero/source-image set: `public/assets/projects/from-colonies-to-carriers/2026-06-13__reese-portfolio__asset__v01__african-airlines-routes-from-europe.png` plus the copied 2026-06-13 African Airlines source images.

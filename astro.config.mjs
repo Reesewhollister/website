@@ -8,6 +8,10 @@ export default defineConfig({
   site,
   base,
   output: 'static',
+  redirects: {
+    '/youtube': '/projects/public-history-engagement/',
+    '/workflows': '/projects/applied-ai-workflows/'
+  },
   markdown: {
     syntaxHighlight: false
   },

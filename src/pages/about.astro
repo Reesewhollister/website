@@ -1,13 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
-import { aboutTimelineFull, partnerInstitutions } from '../data/site';
+import { aboutTimeline, partnerInstitutions } from '../data/site';
 import { withBase } from '../utils/paths';
 ---
 
 <BaseLayout
   title="About"
-  description="About Reese Hollister: a scholar-builder working across historical research, international studies, pedagogy, and learning design."
+  description="About Reese Hollister: a Fulbright researcher and educator working across student support, educational programs, international research, and public communication."
   image="/assets/fieldwork/og/og-about.jpg"
 >
   <section class="page-hero site-shell">
@@ -16,10 +16,10 @@ import { withBase } from '../utils/paths';
         <p class="section-kicker">About</p>
         <h1>About Reese Hollister</h1>
         <p class="page-lead">
-          Reese Hollister is a historian and educator focused on North Africa, postcolonial institutions, and writing support.
+          I’m Reese Hollister, a researcher, educator, and writing consultant based in Bucks County, Pennsylvania. I organize complex information, support students and programs, and develop work that people can read, watch, learn from, and use.
         </p>
         <p>
-          This site is organized around work samples: decks, datasets, maps, teaching, and public writing.
+          My experience includes university course support and writing consultation at NC State, history teaching in Rabat, and co-developing Huruf La’b. I completed my Master of International Studies at NC State in May 2026. North Africa, Arabic, and my Fulbright year in Morocco remain central to how I research, teach, and communicate across contexts.
         </p>
       </div>
       <div class="about-hero__media">
@@ -39,23 +39,24 @@ import { withBase } from '../utils/paths';
     <SectionHeading
       eyebrow="Background"
       title="Where the work comes from"
-      intro="Six stages that shaped the research, teaching, and building."
+      intro="Research, language learning, and teaching have developed together."
     />
     <ol class="timeline-list">
-      {aboutTimelineFull.map((item) => (
+      {aboutTimeline.map((item) => (
         <li>
           <span class="timeline-label">{item.period}</span>
-          {item.date && <span class="timeline-date">{item.date}</span>}
           <p>{item.summary}</p>
         </li>
       ))}
     </ol>
   </section>
 
+  <section class="site-shell"><p><a class="resource-link" href={withBase('/experience')}>See my professional experience →</a></p></section>
+
   <section class="site-shell about-partners-section">
     <SectionHeading
-      eyebrow="Affiliations"
-      title="Partner institutions"
+      eyebrow="Background"
+      title="Where I’ve worked and learned"
       intro="Programs, universities, and organizations I have worked with as a researcher, teacher, and scholar."
     />
     <ul class="partners-strip">

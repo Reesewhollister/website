@@ -11,23 +11,22 @@ const allTags = [...new Set(projects.flatMap((p) => p.tags ?? []))].sort();
 ---
 
 <BaseLayout
-  title="Projects"
+  title="Selected Work"
   description="Projects and selected work by Reese Hollister across research, teaching, product work, and public scholarship."
 >
   <section class="page-hero site-shell">
-    <p class="section-kicker">Projects</p>
-    <h1>Projects</h1>
+    <p class="section-kicker">Portfolio</p>
+    <h1>Selected Work</h1>
     <p class="page-lead">
-      The larger projects where research, teaching, and design meet — from a reconstructed African-aviation dataset to a tactile
-      Arabic learning system and a capstone on infrastructure and sovereignty.
+      Concrete examples of student support, educational product development, research organization, and public communication — followed by a broader archive of North Africa research, fieldwork, and Arabic study.
     </p>
   </section>
 
   <section class="site-shell">
     <SectionHeading
       eyebrow="Selected Work"
-      title="Main projects"
-      intro="A simple index of the larger projects featured on the site."
+      title="Case studies and supporting projects"
+      intro="Start with the four leading case studies, or filter the full collection by topic."
     />
     <ProjectFilters categories={allTags} />
     <div class="project-grid">

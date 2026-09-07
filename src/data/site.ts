@@ -1,112 +1,60 @@
 export const siteMeta = {
-  title: 'Reese Hollister',
-  description:
-    'Reese W. Hollister is a historian of North Africa who turns research into things you can see — decks, datasets, maps, and lessons — and coaches students to write with clarity.',
-  position:
-    'Historian · Educator · Research Builder'
+  title: 'Reese Hollister | Program, Research & Education Portfolio',
+  description: 'Portfolio of Reese Hollister, a Fulbright researcher and educator with experience in program support, writing consultation, public history, digital research, and cross-cultural communication.',
+  position: 'Program support · Research · Education · Public engagement'
 };
 
-// Core thesis — the prominent hero lead and the through-line for the whole site.
-export const heroThesis = 'Research you can see.';
-
-// Recurring brand thesis — secondary phrasing, still used on the About page.
+export const heroThesis = 'Complex work, made clear and useful.';
 export const brandThesis = 'Make difficult ideas clear without making them shallow.';
-
-// External booking page for writing/academic coaching (Square scheduling site).
-export const coachingBookingUrl = 'https://reesehollister.square.site';
+export const coachingBookingUrl = 'https://reesehollister.square.site/';
+export const resumeRequestUrl = 'mailto:reesewhollister@gmail.com?subject=Current%20resume%20request';
 
 export const navLinks = [
   { href: '/', label: 'Home' },
-  { href: '/projects', label: 'Projects' },
-  { href: '/research', label: 'Research' },
-  { href: '/african-airlines/', label: 'African Airlines' },
-  { href: '/coaching', label: 'Coaching' },
-  { href: '/resume', label: 'CV' },
-  { href: '/contact', label: 'Contact' }
+  { href: '/experience', label: 'Experience' },
+  { href: '/projects', label: 'Selected Work' },
+  { href: '/about', label: 'About' },
+  { href: '/resume', label: 'Resume' },
+  { href: '/contact', label: 'Contact' },
+  { href: coachingBookingUrl, label: 'College Essay Coaching ↗' }
 ];
 
 export const footerLinks = [
-  { href: '/about', label: 'About' },
-  { href: '/writing', label: 'Writing' },
+  { href: '/research', label: 'Research' },
+  { href: '/writing', label: 'Writing & publications' },
   { href: '/teaching', label: 'Teaching' },
-  { href: '/works', label: 'Works' }
+  { href: '/works', label: 'Papers & presentations' },
+  { href: '/african-airlines/', label: 'African Airlines' },
+  { href: coachingBookingUrl, label: 'Book Writing Coaching' }
 ];
 
-export const homeIntro =
-  'I am a historian, educator, and writing consultant, and a recent Master of International Studies graduate from NC State, based in Bucks County, Pennsylvania. My work connects research with people: students trying to write better papers, institutions trying to tell stronger stories, and audiences trying to understand the past.';
+export const homeIntro = 'I’m a Fulbright researcher and educator with experience supporting university courses, advising writers, developing educational programs, conducting international research, and producing public-facing projects. My work brings people, information, and deliverables together—from classrooms and public presentations to datasets, maps, and digital media.';
 
-// Homepage "What I do" section — a single paragraph tying the four threads into one through-line.
-export const whatIDo = [
-  'I help people move from complicated material to clear communication. As a historian I study how infrastructure, empire, tourism, and mobility shaped modern North Africa; as a writing consultant I help students sharpen their arguments without losing their own voice; and as a digital educator I turn that research into videos, maps, and lessons. Research, writing, teaching, and media are one through-line — making hard ideas usable without making them shallow.'
-];
-
-// Proof strip shown directly below the hero.
 export const proofStrip = [
-  {
-    label: 'Fulbright Morocco',
-    detail: 'Field research, Arabic study, and teaching.'
-  },
-  {
-    label: 'M.I.S. · NC State',
-    detail: 'North African studies and international politics.'
-  },
-  {
-    label: 'CRLA Level III',
-    detail: 'Writing support from blank page to revision.'
-  },
-  {
-    label: 'Published + Built',
-    detail: 'Articles, decks, datasets, maps, and learning tools.'
-  },
-  {
-    label: 'VenturePack Winner',
-    detail: "$4,000 venture prize for Huruf Lab (NC State, 2026)."
-  }
+  { label: 'Fulbright Morocco', detail: 'International research and teaching · 2023–24' },
+  { label: 'M.I.S. · NC State', detail: 'Master of International Studies · 2026' },
+  { label: 'CRLA Level III', detail: 'Certified writing consultation' },
+  { label: 'VenturePack award', detail: '$4,000 for Huruf La’b · 2026' }
 ];
 
-// Three audience/service cards for the homepage.
-export const serviceCards = [
-  {
-    title: 'Writing Coaching',
-    summary:
-      'I help students understand assignments, build arguments, organize evidence, and revise with purpose. The goal is not to take over the paper — it is to help the student become a clearer, more confident writer.',
-    cta: 'Book a consultation',
-    href: '/coaching'
-  },
-  {
-    title: 'Research & Public History',
-    summary:
-      'My historical work focuses on North Africa, colonial and postcolonial infrastructure, tourism, mobility, and state-building. I use archival research, digital mapping, and public-facing storytelling to connect evidence with broader audiences.',
-    cta: 'Read my research',
-    href: '/research'
-  },
-  {
-    title: 'Video & Educational Media',
-    summary:
-      'I create educational videos and digital projects that make serious historical questions watchable. My work combines archival thinking, clear explanation, and narrative structure.',
-    cta: 'Watch the channel',
-    href: 'https://www.youtube.com/@HistoricalMethodMan/featured'
-  }
+export const capabilities = [
+  { title: 'Program and Student Support', summary: 'Course support and grading in PS 331, individual writing consultations, and university-access writing with BrainLyne students in Rabat.', href: '/projects/teaching-writing-support', cta: 'See student support work' },
+  { title: 'Research and Communication', summary: 'Reconstructing airline records, checking incomplete sources, and turning findings into a searchable encyclopedia, maps, papers, and presentations.', href: '/projects/from-colonies-to-carriers', cta: 'Explore the research process' },
+  { title: 'Education and Public Engagement', summary: 'History teaching in Morocco, public presentations, and educational videos that make specialized material understandable to new audiences.', href: '/projects/public-history-engagement', cta: 'See public-facing work' },
+  { title: 'Project Development and Ownership', summary: 'Taking Huruf La’b from a classroom learning problem to a tactile prototype, educator outreach, product demonstrations, and a venture competition pitch.', href: '/projects/huruf-lab', cta: 'Follow the product development' }
 ];
 
-// Parent/student-facing, problem-led coaching CTA for the homepage.
 export const coachingCta = {
-  eyebrow: 'For parents and students',
-  title: 'Writing help when the draft needs structure.',
-  body:
-    'One-on-one support for college essays, research papers, personal statements, and academic revision.',
-  cta: 'Book a consultation',
-  href: '/coaching'
+  eyebrow: 'For students and families · Paid coaching',
+  title: 'College essays, in your own voice.',
+  body: 'One-on-one writing support. Visit my separate coaching site for services, testimonials, availability, and booking.',
+  cta: 'College Essay Coaching ↗', href: coachingBookingUrl
 };
-
-// Closing contact CTA for the homepage.
 export const contactCta = {
-  eyebrow: 'Get in touch',
-  title: 'Have a project, a question, or a paper to work on?',
-  body:
-    'For research, collaboration, media, or writing support, send the context and what you need it to do.',
-  cta: 'Start a conversation',
-  href: '/contact'
+  eyebrow: 'For employers and collaborators',
+  title: 'People, programs, and useful work.',
+  body: 'Get in touch about program support, education, research, communication, or a project that needs careful organization and follow-through.',
+  cta: 'Professional contact', href: '/contact'
 };
 
 export const homePillars = [
@@ -144,7 +92,7 @@ export const proofItems = [
     type: 'YouTube / public scholarship',
     description:
       'A digital history channel built to make historical method more accessible to a wider audience.',
-    href: 'https://www.youtube.com/@HistoricalMethodMan/featured',
+    href: 'https://www.youtube.com/channel/UCCRhHuIxYd3wyzYuaCNH3AA/',
     cta: 'Watch channel'
   },
   {
@@ -170,7 +118,7 @@ export const partnerInstitutions = [
     name: 'NC State University',
     shortName: 'NC State',
     role: 'M.I.S. · GTA · Writing Consultant',
-    period: '2022–2026',
+    period: '2024–2026',
     logo: '/assets/ui/partners/ncstate.svg',
     href: 'https://www.ncsu.edu/'
   },
@@ -188,7 +136,7 @@ export const partnerInstitutions = [
     role: 'History Teacher · BrainLyne',
     period: '2023–2024',
     logo: '/assets/ui/partners/alc.svg',
-    href: 'https://www.alc.org.ma/'
+    href: 'https://alcrabat.org/'
   },
   {
     name: 'H-Net: Humanities & Social Sciences',
@@ -226,10 +174,9 @@ export const aboutTimelineFull = [
       'B.A. in History and Political Science. Published in peer-reviewed history journals; won institutional research awards; developed the core interest in postcolonial Africa and French institutional history that drives the current work.'
   },
   {
-    period: 'SALAM School — Oman',
-    date: 'Summer 2022',
-    summary:
-      'Intensive Arabic language study and early teaching experience at the Sultan Qaboos Cultural Center language program in Muscat. First sustained engagement with the Arab world as a research and teaching context.'
+    period: 'Arabic study — Oman',
+    date: 'Summer 2023',
+    summary: 'Immersive Arabic study in Manah, with language learning carried into everyday encounters and field trips across Oman.'
   },
   {
     period: 'Fulbright Scholar — Morocco',
@@ -247,13 +194,13 @@ export const aboutTimelineFull = [
     period: "Huruf La'b",
     date: '2025–present',
     summary:
-      "Co-founder of a tactile Arabic learning startup. Designed and tested a puzzle-based system for early Arabic script literacy; led outreach to 100+ Arabic teachers globally; pitched successfully in NC State's campus-wide venture competition."
+      "Co-founder of a tactile Arabic learning startup. Designed and tested a puzzle-based system for early Arabic script literacy; conducted educator outreach and gathered early interest; pitched successfully in NC State's campus-wide venture competition."
   },
   {
     period: 'Current — Research, Teaching, Writing',
     date: '2026',
     summary:
-      'Working on postcolonial African airline history, Western Sahara infrastructure research, and writing coaching. Applying to PhD programs in History. Writing publicly on Substack and through the Historical Method Man channel.'
+      'Working on postcolonial African airline history, Western Sahara infrastructure research, and writing coaching. Writing publicly on Substack and through the Historical Method Man channel.'
   }
 ];
 
@@ -268,7 +215,7 @@ export const secondaryWork = [
     title: 'Historical Method Man',
     category: 'Public Scholarship',
     summary: 'Educational video work that translates historical method for a broader audience.',
-    href: 'https://www.youtube.com/@HistoricalMethodMan/featured',
+    href: 'https://www.youtube.com/channel/UCCRhHuIxYd3wyzYuaCNH3AA/',
     cta: 'Watch channel'
   },
   {
@@ -339,7 +286,7 @@ export const contactMethods = [
   {
     label: 'Historical Method Man',
     value: 'YouTube channel',
-    href: 'https://www.youtube.com/@HistoricalMethodMan/featured',
+    href: 'https://www.youtube.com/channel/UCCRhHuIxYd3wyzYuaCNH3AA/',
     available: true,
     note: 'Public-facing scholarship and educational video work.'
   },
@@ -558,5 +505,58 @@ export const coachingServices = [
     title: 'Academic Writing and Revision',
     description:
       'Session-based writing consultation for essays, papers, and academic assignments. We diagnose the problem, work through the draft, and build toward independent revision habits.'
+  }
+];
+
+// Functional experience, grounded in the existing teaching roles and project record.
+// Exact university employment dates remain in TODO_CONTENT.md pending confirmation.
+export const experienceGroups = [
+  {
+    title: 'University course and student support',
+    org: 'NC State University · PS 331: U.S. Foreign Policy',
+    context: 'Graduate Teaching Assistant · Multiple semesters',
+    summary: 'Supported instruction, grading, and student advising in an 80-student lecture course.',
+    bullets: ['Helped students work through course material and expectations.', 'Supported assessment and instruction across repeated course offerings.'],
+    href: '/projects/teaching-writing-support', cta: 'University support case study'
+  },
+  {
+    title: 'Individual writing consultation',
+    org: 'NC State Academic Success Center',
+    context: 'Graduate Writing Consultant · CRLA Level III',
+    summary: 'Worked one-on-one with writers across disciplines on research papers, graduate applications, and academic assignments.',
+    bullets: ['Helped writers interpret prompts, organize evidence, and develop arguments.', 'Adapted feedback to the assignment and writer, with independent revision as the goal.'],
+    href: '/teaching', cta: 'Teaching and consultation'
+  },
+  {
+    title: 'Teaching and educational programs',
+    org: 'American Language Center, Rabat',
+    context: 'History Teacher and BrainLyne Convenor · 2023–24',
+    summary: 'Taught history and facilitated student research and university-access writing during my Fulbright year in Morocco.',
+    bullets: ['Connected classroom history with a public lecture event and student research.', 'Supported students preparing writing for university access in a cross-cultural setting.'],
+    href: '/projects/public-history-engagement', cta: 'Public engagement case study'
+  },
+  {
+    title: 'International research and communication',
+    org: 'Fulbright Morocco · Al Akhawayn University research base',
+    context: 'Fulbright researcher · 2023–24',
+    summary: 'Combined archival research, Arabic and Darija study, and teaching across Moroccan institutional settings.',
+    bullets: ['Worked with historical material at the Mohammed VI Library in Ifrane.', 'Communicated fieldwork through written dispatches, photography, and presentations.'],
+    href: '/projects/fulbright-morocco', cta: 'Fulbright fieldwork'
+  },
+  {
+    title: 'Educational product development',
+    org: 'Huruf La’b',
+    context: 'Co-founder · Instructional design and educator outreach',
+    summary: 'Developed a tactile approach to Arabic script learning with co-founder and designer Bella Templeton.',
+    bullets: ['Connected a classroom learning problem to prototype development, demonstrations, and educator conversations.', 'Presented the product in NC State’s VenturePack Challenge; the team received a $4,000 award in 2026.'],
+    href: '/projects/huruf-lab', cta: 'Educational product case study'
+  },
+  {
+    title: 'Research projects and public scholarship',
+    org: 'From Colonies to Carriers · Historical Method Man · Published writing',
+    context: 'Independent research and public-facing projects',
+    summary: 'Organize complex historical evidence into formats readers and viewers can explore and use.',
+    bullets: ['Built an encyclopedia with 723 airline records and supporting maps; published a separate 59-row, 16-field CSV extract.', 'Produced research papers, presentation decks, newsletter essays, and educational videos.'],
+    href: '/projects/from-colonies-to-carriers', cta: 'Research project case study'
   }
 ];

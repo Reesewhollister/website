@@ -85,3 +85,90 @@ Pass 3 should be restrained:
 - project-card hover states should lift gently
 - route-line/map motifs should be background texture, not the main content
 - every animation must respect `prefers-reduced-motion`
+
+## Asset & Motion System integration (Hybrid)
+
+The "Asset & Motion System" handoff (`design_handoff_asset_system`) is being integrated
+in **Hybrid** mode: home + about keep the current Huruf-derived palette and Source Serif 4 /
+Work Sans type; the new system applies to the **research surfaces** (project pages, datasets,
+From Colonies to Carriers, covers, OG) and converges over time.
+
+**Scoping mechanism.** The new register lives behind a `.system` / `[data-system]` wrapper
+class. Its tokens are prefixed `--sys-*` (ink `#15130F`, terracotta `#B0512B`, brass `#C2913D`,
+zellige-green `#1E5E50`, parchment `#F1E9D9`) with **Spectral** (body) + **IBM Plex Mono**
+(labels) + Newsreader (display). Base pages are untouched. See `global.css` top + `:root`/`.system`
+blocks. New fonts added via `@fontsource/spectral` + `@fontsource/ibm-plex-mono`.
+
+**Assets.** The four new animated SVGs (compass, atlas-grid, zellige-strip, diamond-divider)
+are staged under `public/assets/ui/system/` so the home-register originals at
+`public/assets/ui/` stay intact. The signature route map is `system/maps/ram-network.svg`
+(to be made data-driven in Phase 2). Line icons live in `public/assets/ui/icons/`.
+
+### Phase 1 (done) — Foundation kit
+- Added Spectral + IBM Plex Mono (`@fontsource`); scoped `.system` token + type block in `global.css`.
+- Staged the 4 new animated ornaments + route map into `public/assets/ui/system/`.
+- Replaced home-page "What are you here to see?" **emoji with the line-icon set** (inline SVG,
+  `currentColor`, kept in the home register: olive default → rust on hover) in `ChoosePath.astro`.
+
+### Phase 2 (done) — RAM route map
+- `src/data/ramNetwork.ts` — the real early Royal Air Maroc network (24 destinations with
+  lon/lat, hub CMN, region, opening year) + equirectangular projection helpers and coastlines.
+  This is the map's data source; the Guttery 16-field CSV is airline-level and has no route coords.
+- `src/components/RouteMap.astro` — server-renders the projected SVG (graticule, coastlines,
+  24 draw-on arcs colored by region brass/ember/zellige, 24 traveling planes, destination
+  nodes + IATA labels, pulsing CMN hub, legend). Scoped `.system` (dark ink section).
+- Motion is **CSS-driven, not SMIL**: arcs draw via `@keyframes` on `stroke-dashoffset`,
+  planes travel via `offset-path` + `offset-distance`, hub pulses via transform scale — all
+  inside `@media (prefers-reduced-motion: no-preference)`. Resting state = fully drawn/static
+  (freeze-safe). `@supports not (offset-path)` hides planes where unsupported (older Safari).
+- Wired via a `routeMap?: boolean` flag on `Project` (set on `from-colonies-to-carriers`);
+  `ProjectLayout` renders it after the hero + adds a "Route map" subnav anchor.
+
+### Phase 3 (done) — Covers + chart language
+- `src/components/CoverFrame.astro` — the brass corner-brackets + zellige-diamond overlay
+  (literal colors, works in any register).
+- `src/components/ProjectCover.astro` — the reusable framed 16:10 cover: image + ink gradient
+  + CoverFrame + IBM Plex Mono ember eyebrow + Newsreader title. `showText` toggles the title
+  overlay. This is the one template for card thumbnails now and project headers / OG / PDF
+  covers later (OG raster generation deferred — that's an export step).
+- `ProjectCard` gained a `framed` prop → renders the media via `ProjectCover` (showText=false).
+  The `/projects` index passes `framed`, so every project card carries the cover frame; home
+  cards stay in the base register. Hover zoom + reduced-motion handled in `global.css`.
+- `src/components/Sparkline.astro` — reusable draw-on mini line chart (reduced-motion safe).
+- Route map now carries a **stat strip** (chart language): a sparkline of cumulative RAM
+  destinations 1957–1970 computed from `ramNetwork` data, plus stat cards (24 destinations,
+  723 airlines [zellige], 1956 independence [terracotta]).
+
+### Home page reinvention (done)
+The front page hero was rebuilt in the new system register (a deliberate step beyond the
+original Hybrid line, which kept home in the base register). `src/pages/index.astro` hero is
+now `.system home-hero`: the Hassan II mosque video darkened behind an animated route-fan
+backdrop (`src/components/HeroMap.astro`) + the rotating system compass; an IBM Plex Mono
+brass coordinate eyebrow; a Newsreader title with the final word in ember italic; Spectral
+lead; mono pill tags; terracotta CTA; and a lat/long footer. Page ornaments (zellige strip,
+diamond divider, atlas/compass deco) now point at the `system/` animated SVGs. `home-hero`
+was added to the reveal-exemption list in `BaseLayout.astro` so the hero paints solid on first
+load (handoff rule: resting state visible). `HeroMap` motion is CSS-driven + reduced-motion safe.
+The sections below the hero (proof strip, ChoosePath, featured, projects, CTA) keep their
+structure and the existing scroll-reveal; converging them into `.system` can come later.
+
+### Phase 4 (planned)
+4. Cinematic scroll-reveal motion (freeze-safe, `prefers-reduced-motion`-gated): section
+   fade-rise, hero parallax behind the Hassan II video. Plus, when ready: OG raster export
+   from `ProjectCover`, and rolling `.system` chrome deeper into project bodies.
+
+## Professional portfolio hierarchy — 2026-09-07
+
+This pass preserves Newsreader, Source Serif 4, Work Sans, the warm paper/ink palette, rust and map-blue accents, geographic motifs, and existing project materials. New capability, experience, and contact sections use the existing editorial language.
+
+- Homepage: existing high-resolution Chefchaouen fieldwork photo (`public/assets/fieldwork/heroes/chefchaouen-blue-plaza-hero-16x9.webp`) with a dark text scrim. A still image keeps the longer professional introduction readable and avoids automatic motion; original video files remain intact.
+- University support: existing real classroom photo (`public/assets/projects/teaching-writing-support/teaching-presentation.jpg`). The generic teaching diagram is retained on disk but not presented as a real work artifact.
+- Huruf La’b: existing tile hero, product photographs, demonstrations, and VenturePack award photo. No new product or people imagery.
+- Airlines: existing historical route-map hero and all decks, maps, data, and paper assets retained.
+- Public history: existing Mohammed VI Library archive display (`public/assets/projects/fulbright-morocco/aui-archive-display-web.jpg`), explicitly captioned as research context; no museum employment implied. The local presentation-poster file is invalid image data and was rejected.
+- About: AUI portrait and Morocco fieldwork grid retained. Homepage social image already contains only fieldwork photography, so no obsolete identity text needs replacing.
+- Case-study objective/actions/deliverables/result now appear before long decks. Role and skills remain in the opening overview.
+- Primary navigation has six portfolio destinations and a distinct rust College Essay Coaching button. Square is the single booking destination. Mobile navigation wraps with full-size tap targets and does not occupy a sticky block while scrolling.
+- Existing uncommitted design-system additions, ChoosePath changes, new icon/system assets, and dependency edits have been preserved.
+
+- A secondary Digital Research and Process Design case study preserves the live website’s workflow URLs and four proposed process examples. It uses the existing airline atlas screenshot as research context and is not featured.

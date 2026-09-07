@@ -42,3 +42,15 @@ These items should be resolved before a final public launch. They are tracked he
 - Migrate more material from the old Google Sites pages into MDX case studies.
 - Add fuller public-method notes for From Colonies to Carriers if publishing a methods appendix beyond the current deck, paper excerpt, and dataset.
 - Add approved teaching statement excerpts, workshop materials, or anonymized handouts when cleared for publication.
+
+## Professional portfolio pass — 2026-09-07
+
+- Current public resume and academic CV PDFs are absent. `/resume` offers a real email request action; add approved files before enabling downloads.
+- Museum employment, tours, visitor services, LMS/Moodle duties, consultation documentation, and referral responsibilities were requested but not supported by this checkout. Confirm role, organization, dates, and actual duties before adding claims. The public-history case study currently uses documented Rabat teaching, BrainLyne, presentations, and media.
+- This checkout originally lacked the Applied AI Workflows project present on the live website. The live process descriptions were read and retained as a secondary Digital Research and Process Design case study at the original project slug; `/workflows` redirects there. Its examples are explicitly described as process designs rather than deployed systems. The AI skills phrase in the teaching project was removed.
+- Airline scope checked locally: `public/african-airlines/data/airlines.json` has 723 records; the downloadable Guttery CSV has 59 rows and 16 columns. They must not be described as the same complete dataset.
+- Huruf La’b source distinction: project record says more than 100 interested people, including at least two dozen teachers; the prior About timeline incorrectly said 100+ teachers. Timeline copy now avoids that claim. NC State’s May 5, 2026 article verifies the $4,000 award and co-founder contributions.
+- Oman timeline conflicted internally (2022 vs 2023). The dated 2023 dispatches and project record support summer 2023 in Manah; the unused full-timeline data has been aligned.
+- Existing `public/assets/projects/fulbright-morocco/video/yt-wiq-s7y4Jss-poster.jpg` is text, not an image. Not used for the new public-history case study. Existing archive photography is used instead.
+
+- Link repairs: old ALC domain did not resolve; replaced with verified `https://alcrabat.org/`. The Historical Method Man handle URL returned 404; YouTube identified the existing channel-ID URL as Historical Method Man, so shared links now use that stable destination.

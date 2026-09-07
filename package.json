@@ -14,8 +14,10 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
+    "@fontsource/ibm-plex-mono": "^5.2.7",
     "@fontsource/newsreader": "^5.2.6",
     "@fontsource/source-serif-4": "^5.2.6",
+    "@fontsource/spectral": "^5.2.8",
     "@fontsource/work-sans": "^5.2.6",
     "astro": "5.6.1"
   },

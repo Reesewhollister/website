@@ -5,6 +5,13 @@
 @import '@fontsource/source-serif-4/600.css';
 @import '@fontsource/work-sans/500.css';
 @import '@fontsource/work-sans/600.css';
+/* Asset & Motion System type — scoped to .system surfaces (see [data-system] block) */
+@import '@fontsource/spectral/300.css';
+@import '@fontsource/spectral/400.css';
+@import '@fontsource/spectral/400-italic.css';
+@import '@fontsource/spectral/500.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
 
 :root {
   /* Palette derived from Reese's own Huruf La'b brand system */
@@ -30,6 +37,59 @@
   --space-4: 1.75rem;
   --space-5: 2.5rem;
   --space-6: 3.25rem;
+}
+
+/* ── Asset & Motion System (scoped) ───────────────────────────────────────────
+   The "research system" register from the design handoff. Applied via the
+   `.system` class (or `[data-system]`) on project / dataset / cover surfaces,
+   so home + about keep the Huruf-derived palette above. Tokens are prefixed
+   --sys-* to avoid colliding with the base scheme. */
+.system,
+[data-system] {
+  --sys-ink: #15130f;
+  --sys-ink-map: #13110d;
+  --sys-terracotta: #b0512b;
+  --sys-ember: #d88c5a;
+  --sys-brass: #c2913d;
+  --sys-zellige: #1e5e50;
+  --sys-sand: #d9c49c;
+  --sys-parchment: #f1e9d9;
+  --sys-parchment-2: #eae0cb;
+  --sys-card: #f4eee2;
+  --sys-cream: #efe6d4;
+  --sys-hairline: rgba(33, 30, 24, 0.12);
+  --sys-hairline-strong: rgba(33, 30, 24, 0.16);
+  --sys-hairline-dark: rgba(239, 230, 212, 0.18);
+  --sys-display: 'Newsreader', Georgia, serif;
+  --sys-body: 'Spectral', Georgia, serif;
+  --sys-mono: 'IBM Plex Mono', ui-monospace, monospace;
+}
+
+/* Type defaults on scoped surfaces */
+.system,
+[data-system] {
+  font-family: var(--sys-body);
+  font-weight: 300;
+  line-height: 1.55;
+}
+.system h1,
+.system h2,
+.system h3,
+[data-system] h1,
+[data-system] h2,
+[data-system] h3 {
+  font-family: var(--sys-display);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+/* Mono eyebrow / label utility for scoped surfaces */
+.system .sys-eyebrow,
+[data-system] .sys-eyebrow {
+  font-family: var(--sys-mono);
+  font-weight: 500;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
 }
 
 *,
@@ -2706,8 +2766,20 @@ html.reveal-ready .reveal.is-visible {
 }
 
 .choose-path__icon {
-  font-size: 1.4rem;
-  line-height: 1;
+  display: inline-flex;
+  line-height: 0;
+  color: var(--accent-olive);
+  transition: color 0.15s, transform 0.15s;
+}
+
+.choose-path__icon svg {
+  display: block;
+}
+
+.choose-path__card:hover .choose-path__icon,
+.choose-path__card:focus-visible .choose-path__icon {
+  color: var(--accent-rust);
+  transform: translateY(-1px);
 }
 
 .choose-path__label {
@@ -3868,4 +3940,71 @@ html::before {
     transform: none;
     box-shadow: none;
   }
+}
+
+/* Professional portfolio hierarchy — retain the existing paper, ink, and map palette. */
+.header-inner { align-items: center; }
+.site-header nav { min-width: 0; }
+.site-nav { align-items: center; gap: .25rem .85rem; }
+.site-nav__link { display: inline-flex; align-items: center; min-height: 44px; }
+.site-nav__link--coaching { background: var(--accent-rust); color: var(--paper); padding: .45rem .75rem; border-radius: 2px; }
+.site-nav__link--coaching:hover, .site-nav__link--coaching:focus-visible { color: #fff; background: #7e1719; }
+.professional-hero { min-height: 34rem; }
+.professional-hero::after { background: linear-gradient(90deg, rgba(25,19,14,.91), rgba(25,19,14,.70) 65%, rgba(25,19,14,.48)); }
+.professional-hero .cinematic-hero__inner { padding-block: 3.5rem; }
+.professional-hero .cinematic-hero__title { max-width: 17ch; font-size: clamp(2.7rem, 5vw, 4.6rem); }
+.professional-hero .cinematic-hero__lead { max-width: 67ch; color: #fff7ec; }
+.professional-hero .cinematic-hero__kicker { color: #ffd3a0; }
+.professional-hero .cinematic-hero__actions a:focus-visible { outline-color: #fff; }
+.professional-hero .cinematic-hero__actions li:first-child a:hover { color: #fff; background: #7e1719; }
+.proof-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.proof-strip__item:nth-child(3) .proof-strip__label { color: #80500b; }
+.capability-grid, .case-study-grid, .contact-split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 2rem; }
+.capability-item { padding: 1.35rem 0; border-top: 1px solid var(--line); }
+.capability-item h3, .experience-preview h3, .experience-entry h3 { font: 500 1.6rem/1.15 'Newsreader', Georgia, serif; margin: .4rem 0 .7rem; }
+.capability-item p { margin-block: .7rem 1rem; }
+.experience-preview { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
+.experience-preview article { border-top: 2px solid var(--accent-map); padding-top: 1rem; }
+.experience-list { display: grid; gap: 1.8rem; }
+.experience-entry { display: grid; grid-template-columns: 1fr 1.4fr; gap: 2rem; padding-block: 1.5rem; border-top: 1px solid var(--line); }
+.experience-entry p:first-child { margin-top: 0; }
+.experience-context { color: var(--ink-soft); font: 500 .85rem/1.6 'Work Sans', sans-serif; }
+.contact-panel, .resume-request { padding: clamp(1.2rem, 3vw, 2rem); border: 1px solid var(--line); border-top: 3px solid var(--accent-map); background: rgba(255,250,243,.72); }
+.contact-split .contact-panel:last-child { border-top-color: var(--accent-rust); }
+.contact-panel h2, .resume-request h2, .case-study h2 { font: 500 1.85rem/1.15 'Newsreader', Georgia, serif; margin: 0 0 .8rem; }
+.resume-request { margin-top: 1.6rem; }
+.case-study-grid article { border-top: 1px solid var(--line); padding-top: 1.2rem; }
+.case-study ul { padding-left: 1.2rem; }
+.case-study li + li { margin-top: .45rem; }
+.project-evidence .project-hero__media { margin-top: 0; }
+.project-card[hidden] { display: none; }
+.filter-chip { min-height: 44px; }
+.resource-link { overflow-wrap: anywhere; }
+@media (max-width: 900px) {
+  .header-inner { align-items: flex-start; }
+  .site-header nav { width: 100%; }
+  .site-nav { gap: .1rem .9rem; }
+}
+@media (max-width: 720px) {
+  .site-header { position: relative; }
+  .brand-mark__tag { font-size: .7rem; }
+  .site-nav__link { font-size: .8rem; }
+  .professional-hero { min-height: auto; }
+  .professional-hero .cinematic-hero__inner { padding-block: 2.5rem 3rem; }
+  .professional-hero .cinematic-hero__kicker { font-size: .72rem; }
+  .professional-hero .cinematic-hero__lead { font-size: 1rem; }
+  .professional-hero .cinematic-hero__actions { gap: .65rem; }
+  .professional-hero .cinematic-hero__actions a { padding: .65rem .8rem; font-size: .82rem; }
+  .capability-grid, .case-study-grid, .contact-split, .experience-preview, .experience-entry { grid-template-columns: 1fr; }
+  .experience-entry { gap: .6rem; }
+  .proof-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .professional-hero *, .site-nav__link { animation: none !important; transition: none !important; }
+}
+.project-hero h1 { font-size: clamp(2.4rem, 4.5vw, 3.6rem); }
+[id] { scroll-margin-top: 10rem; }
+@media (max-width: 720px) {
+  [id] { scroll-margin-top: 1rem; }
 }

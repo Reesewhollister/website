@@ -31,6 +31,7 @@ const materialLinks = [
 
 const subnavLinks = [
   { label: 'Overview', href: '#overview' },
+  ...(project.caseStudy ? [{ label: 'Case study', href: '#case-study' }] : []),
   ...(deck ? [{ label: 'Deck', href: '#deck' }] : []),
   ...(project.paper ? [{ label: 'Paper', href: '#paper' }] : []),
   ...(videos.length > 0 ? [{ label: 'Videos', href: '#video' }] : []),
@@ -62,9 +63,9 @@ const subnavLinks = [
         <>
           <video
             class="video-backdrop"
-            autoplay
+            poster={withBase(project.heroAsset.src)}
+            aria-hidden="true"
             muted
-            loop
             playsinline
             preload="none"
             src={withBase(project.heroVideo)}
@@ -75,15 +76,6 @@ const subnavLinks = [
       <p class="section-kicker">Project</p>
       <h1>{project.title}</h1>
       <p class="project-hero__summary">{project.summary}</p>
-      <figure class="project-hero__media">
-        <img
-          src={withBase(project.heroAsset.src)}
-          alt={project.heroAsset.alt}
-          width={getImageDims(project.heroAsset.src)?.width}
-          height={getImageDims(project.heroAsset.src)?.height}
-        />
-        {project.heroAsset.caption && <figcaption>{project.heroAsset.caption}</figcaption>}
-      </figure>
       <ul class="project-hero__meta">
         <li>
           <span class="project-meta-label">Role</span>
@@ -117,6 +109,27 @@ const subnavLinks = [
           </ul>
         </nav>
       )}
+    </section>
+    {project.caseStudy && (
+      <section class="site-shell case-study" id="case-study" aria-label="Case study at a glance">
+        <div class="case-study-grid">
+          <article><h2>The objective</h2><p>{project.caseStudy.objective}</p></article>
+          <article><h2>What I did</h2><ul>{project.caseStudy.actions.map(item => <li>{item}</li>)}</ul></article>
+          <article><h2>Deliverables</h2><ul>{project.caseStudy.deliverables.map(item => <li>{item}</li>)}</ul></article>
+          <article><h2>Result</h2><p>{project.caseStudy.result}</p></article>
+        </div>
+      </section>
+    )}
+    <section class="site-shell project-evidence" aria-label="Project imagery">
+      <figure class="project-hero__media">
+        <img
+          src={withBase(project.heroAsset.src)}
+          alt={project.heroAsset.alt}
+          width={getImageDims(project.heroAsset.src)?.width}
+          height={getImageDims(project.heroAsset.src)?.height}
+        />
+        {project.heroAsset.caption && <figcaption>{project.heroAsset.caption}</figcaption>}
+      </figure>
     </section>
     {deck && (
       <section class="project-deck site-shell" id="deck">
@@ -184,13 +197,12 @@ const subnavLinks = [
                         poster={withBase(video.poster)}
                         width={dims?.width}
                         height={dims?.height}
-                        autoplay
+                        controls
                         muted
-                        loop
                         playsinline
                         preload="metadata"
                       ></video>
-                      <span class="project-video__badge" aria-hidden="true">Loop</span>
+
                     </>
                   )}
                 </div>
