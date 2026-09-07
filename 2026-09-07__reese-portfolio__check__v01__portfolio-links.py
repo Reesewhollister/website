@@ -33,7 +33,7 @@ def buildfile(path):
     return p/'index.html'
 
 projects=json.loads(subprocess.check_output(['node','--experimental-strip-types','--input-type=module','-e',"import {projects} from './src/data/projects.ts'; console.log(JSON.stringify(projects.map(p=>p.slug)))"],cwd=ROOT,text=True))
-routes=['/','/experience/','/about/','/resume/','/contact/','/coaching/','/research/','/teaching/','/writing/','/works/','/projects/']+['/projects/'+slug+'/' for slug in projects]
+routes=['/','/experience/','/about/','/resume/','/contact/','/coaching/','/research/','/teaching/','/writing/','/works/','/youtube/','/projects/']+['/projects/'+slug+'/' for slug in projects]
 failures=[]; external=set(); checks=0; square_count=0; pages={}
 for route in routes:
     f=buildfile(route)
@@ -59,7 +59,7 @@ for route in routes:
         if href in page.assets and target.suffix.lower() in ['.jpg','.jpeg','.png','.webp']:
             magic=target.read_bytes()[:12]
             if not (magic.startswith(b'\xff\xd8') or magic.startswith(b'\x89PNG') or magic.startswith(b'RIFF')): failures.append(f'{route}: invalid image {href}')
-for old,new in [('/youtube/','/projects/public-history-engagement/'),('/workflows/','/projects/applied-ai-workflows/')]:
+for old,new in [('/workflows/','/projects/applied-ai-workflows/')]:
     redirect=buildfile(old)
     if not redirect.exists() or new not in redirect.read_text(): failures.append(f'Legacy {old} redirect missing')
 if square_count<6: failures.append('Square CTA coverage unexpectedly low')

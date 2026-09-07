@@ -1,12 +1,15 @@
 ---
 import type { Project } from '../data/projects';
 import { withBase, isExternal } from '../utils/paths';
+import ProjectCover from './ProjectCover.astro';
 
 interface Props {
   project: Project;
+  /** Use the Asset & Motion System cover frame (brass corners + zellige diamond). */
+  framed?: boolean;
 }
 
-const { project } = Astro.props;
+const { project, framed = false } = Astro.props;
 const href = `/projects/${project.slug}`;
 const heroSrc = withBase(project.heroAsset.src);
 const card = project.card;
@@ -18,10 +21,20 @@ const deckHref = `${href}#deck`;
 const secondaryAction = !project.deck ? card?.secondaryAction : undefined;
 ---
 
-<article class="project-card" data-categories={[...project.categories, ...(project.tags ?? [])].join('|')} data-accent={accent}>
-  <a class="project-card__media" href={withBase(href)}>
-    <img src={heroSrc} alt={project.heroAsset.alt} loading="lazy" />
-  </a>
+<article class={`project-card${framed ? ' project-card--framed' : ''}`} data-categories={[...project.categories, ...(project.tags ?? [])].join('|')} data-accent={accent}>
+  {framed ? (
+    <ProjectCover
+      src={project.heroAsset.src}
+      alt={project.heroAsset.alt}
+      href={href}
+      showText={false}
+      aspect="16 / 10"
+    />
+  ) : (
+    <a class="project-card__media" href={withBase(href)}>
+      <img src={heroSrc} alt={project.heroAsset.alt} loading="lazy" />
+    </a>
+  )}
   <div class="project-card__body">
     <h3>
       <a href={withBase(href)}>{cardTitle}</a>

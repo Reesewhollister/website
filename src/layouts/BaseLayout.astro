@@ -36,6 +36,8 @@ const faviconHref = withBase('/assets/ui/favicon.svg');
       gtag('js', new Date());
       gtag('config', 'G-V4RR8JGB9W');
     </script>
+    <!-- Google AdSense -->
+    <script is:inline async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6836886591845444" crossorigin="anonymous"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
@@ -81,7 +83,8 @@ const faviconHref = withBase('/assets/ui/favicon.svg');
         'https://ncsu.academia.edu/ReeseHollister',
         'https://www.youtube.com/channel/UCCRhHuIxYd3wyzYuaCNH3AA/',
         'https://github.com/Reesewhollister',
-        'https://www.linkedin.com/in/reese-h-13b09519a/'
+        'https://www.linkedin.com/in/reese-h-13b09519a/',
+        'https://reesewhollister.substack.com'
       ]
     })} />
     <slot name="head" />
@@ -150,6 +153,84 @@ const faviconHref = withBase('/assets/ui/favicon.svg');
         });
       }
       document.addEventListener('astro:page-load', setupReveals);
+    </script>
+    <script>
+      // Motion library (Asset & Motion System). Freeze-safe: resting states are
+      // already final in the HTML/CSS; we only layer motion on once JS confirms
+      // motion is allowed (html.motion-ready) and elements enter view.
+      function setupMotion() {
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduce || !('IntersectionObserver' in window)) return;
+        document.documentElement.classList.add('motion-ready');
+
+        // Kinetic headlines: drive each line with an inline keyframe (staggered).
+        // Freeze-safe: the entrance is one-shot and cleared on end (or via a
+        // wall-clock fallback), so a frozen animation frame still settles VISIBLE
+        // at the resting state rather than stuck on the hidden `from` keyframe.
+        const playKinetic = (el: Element) => {
+          el.querySelectorAll('.kinetic__line').forEach((node, i) => {
+            const line = node as HTMLElement;
+            const delay = i * 120;
+            line.style.animation = 'none';
+            void line.offsetWidth; // reflow so a replay restarts cleanly
+            line.style.animation = 'rdClipUp 0.8s cubic-bezier(0.22,0.61,0.36,1) ' + delay + 'ms both';
+            const clear = () => { line.style.animation = 'none'; };
+            line.addEventListener('animationend', clear, { once: true });
+            setTimeout(clear, delay + 1100); // fallback: settle visible if the clock stalls
+          });
+        };
+
+        // Image wipe: arm hidden, reveal on view. Freeze-safe — a fallback forces
+        // the photo fully visible if the transition clock stalls.
+        const revealWipe = (el: Element) => {
+          el.classList.add('play');
+          const done = () => { el.classList.remove('is-armed'); (el as HTMLElement).style.clipPath = 'inset(0 0 0 0)'; };
+          el.addEventListener('transitionend', done, { once: true });
+          setTimeout(done, 1600);
+        };
+        document.querySelectorAll('.wipe').forEach((el) => el.classList.add('is-armed'));
+
+        const countUp = (el: Element) => {
+          const target = parseInt(el.getAttribute('data-count') || '', 10);
+          if (isNaN(target)) return;
+          const comma = el.hasAttribute('data-count-comma');
+          const dur = 1400;
+          const start = performance.now();
+          const fmt = (v: number) => (comma ? v.toLocaleString('en-US') : String(v));
+          const tick = (now: number) => {
+            const t = Math.min(1, (now - start) / dur);
+            const eased = 1 - Math.pow(1 - t, 3);
+            el.textContent = fmt(Math.round(target * eased));
+            if (t < 1) requestAnimationFrame(tick);
+            else el.textContent = fmt(target);
+          };
+          requestAnimationFrame(tick);
+        };
+
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              const t = entry.target;
+              if (t.classList.contains('kinetic')) playKinetic(t);
+              if (t.classList.contains('wipe')) revealWipe(t);
+              if (t.hasAttribute('data-count')) countUp(t);
+              io.unobserve(t);
+            });
+          },
+          { rootMargin: '0px 0px -10% 0px', threshold: 0.2 }
+        );
+        // Above-the-fold hero headlines play immediately; everything else on view.
+        const heroKinetics = new Set(
+          document.querySelectorAll('.home-hero .kinetic, .project-hero .kinetic, .page-hero .kinetic')
+        );
+        document.querySelectorAll('.kinetic, .wipe, [data-count]').forEach((el) => {
+          if (heroKinetics.has(el)) return;
+          io.observe(el);
+        });
+        heroKinetics.forEach((el) => playKinetic(el));
+      }
+      document.addEventListener('astro:page-load', setupMotion);
     </script>
   </body>
 </html>

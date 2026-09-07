@@ -97,6 +97,7 @@ export interface Project {
     deliverables: string[];
     result: string;
   };
+  routeMap?: boolean;
   sections: ProjectSection[];
 }
 
@@ -431,6 +432,7 @@ export const projects: Project[] = [
       ],
       "result": "The project makes a dispersed body of evidence browseable through country, time, and institutional views. The downloadable CSV is an extract, not the full encyclopedia; incomplete historical records remain a limitation."
 },
+    routeMap: true,
     sections: [
       {
         heading: 'Overview',

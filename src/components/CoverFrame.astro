@@ -1,0 +1,33 @@
+---
+// Brass corner brackets + a small zellige diamond — the Asset & Motion System
+// cover motif. Pure decorative overlay; absolutely positioned by its parent.
+// Colors are literal so it works in any register (base or .system).
+const BRASS = '#c2913d';
+---
+<svg
+  class="cover-frame"
+  viewBox="0 0 400 250"
+  preserveAspectRatio="none"
+  fill="none"
+  aria-hidden="true"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path d="M16 16 L46 16 M16 16 L16 46" stroke={BRASS} stroke-width="1.5" />
+  <path d="M384 16 L354 16 M384 16 L384 46" stroke={BRASS} stroke-width="1.5" />
+  <path d="M16 234 L46 234 M16 234 L16 204" stroke={BRASS} stroke-width="1.5" />
+  <path d="M384 234 L354 234 M384 234 L384 204" stroke={BRASS} stroke-width="1.5" />
+  <rect x="24" y="40" width="10" height="10" transform="rotate(45 29 45)" stroke={BRASS} stroke-width="1" fill="none" />
+  <!-- Full frame trace — draws itself on card hover (see .cover-frame__trace) -->
+  <rect class="cover-frame__trace" x="2" y="2" width="396" height="246" rx="7" stroke={BRASS} stroke-width="1.5" fill="none" />
+</svg>
+
+<style>
+  .cover-frame {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+  }
+</style>

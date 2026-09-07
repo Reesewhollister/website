@@ -1,0 +1,95 @@
+---
+// Reusable framed project cover (Asset & Motion System, section 06).
+// A photo fills a 16:10 frame; an ink gradient anchors the bottom; brass corner
+// brackets + a zellige diamond lock in; an ember eyebrow sits over a Newsreader
+// title. Powers project-card thumbnails now and project headers / OG / PDF
+// covers later. `showText={false}` gives a clean framed thumbnail.
+import CoverFrame from './CoverFrame.astro';
+import { withBase } from '../utils/paths';
+
+interface Props {
+  src: string;
+  alt: string;
+  eyebrow?: string;
+  title?: string;
+  href?: string;
+  showText?: boolean;
+  /** CSS aspect-ratio value, e.g. "16 / 10". */
+  aspect?: string;
+}
+const { src, alt, eyebrow, title, href, showText = true, aspect = '16 / 10' } = Astro.props;
+const Tag = href ? 'a' : 'div';
+---
+<Tag
+  class:list={['project-cover', { 'project-cover--plain': !showText }]}
+  style={`aspect-ratio:${aspect}`}
+  {...href ? { href: withBase(href) } : {}}
+>
+  <img class="project-cover__img" src={withBase(src)} alt={alt} loading="lazy" />
+  {showText && <div class="project-cover__scrim" aria-hidden="true"></div>}
+  <CoverFrame />
+  {showText && (title || eyebrow) && (
+    <div class="project-cover__caption">
+      {eyebrow && <p class="project-cover__eyebrow">{eyebrow}</p>}
+      {title && <p class="project-cover__title">{title}</p>}
+    </div>
+  )}
+</Tag>
+
+<style>
+  .project-cover {
+    position: relative;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid rgba(33, 30, 24, 0.16);
+    background: #13110d;
+    text-decoration: none;
+  }
+  .project-cover__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .project-cover__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      180deg,
+      rgba(19, 17, 13, 0.1) 0%,
+      rgba(19, 17, 13, 0.05) 45%,
+      rgba(19, 17, 13, 0.85) 100%
+    );
+    pointer-events: none;
+  }
+  .project-cover__caption {
+    position: absolute;
+    left: 1.4rem;
+    right: 1.4rem;
+    bottom: 1.25rem;
+    z-index: 3;
+    pointer-events: none;
+  }
+  .project-cover__eyebrow {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-weight: 500;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #d88c5a;
+    margin: 0 0 0.5rem;
+  }
+  .project-cover__title {
+    font-family: 'Newsreader', Georgia, serif;
+    font-weight: 500;
+    font-size: clamp(1.25rem, 2.4vw, 1.9rem);
+    line-height: 1.02;
+    color: #f4eee2;
+    margin: 0;
+  }
+</style>

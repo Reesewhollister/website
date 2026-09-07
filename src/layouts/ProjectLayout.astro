@@ -1,6 +1,7 @@
 ---
 import type { Project } from '../data/projects';
 import BaseLayout from './BaseLayout.astro';
+import RouteMap from '../components/RouteMap.astro';
 import PDFEmbed from '../components/PDFEmbed.astro';
 import ProjectSubnav from '../components/ProjectSubnav.astro';
 import { withBase, isExternal } from '../utils/paths';
@@ -32,6 +33,7 @@ const materialLinks = [
 const subnavLinks = [
   { label: 'Overview', href: '#overview' },
   ...(project.caseStudy ? [{ label: 'Case study', href: '#case-study' }] : []),
+  ...(project.routeMap ? [{ label: 'Route map', href: '#route-map' }] : []),
   ...(deck ? [{ label: 'Deck', href: '#deck' }] : []),
   ...(project.paper ? [{ label: 'Paper', href: '#paper' }] : []),
   ...(videos.length > 0 ? [{ label: 'Videos', href: '#video' }] : []),
@@ -131,6 +133,7 @@ const subnavLinks = [
         {project.heroAsset.caption && <figcaption>{project.heroAsset.caption}</figcaption>}
       </figure>
     </section>
+    {project.routeMap && <div id="route-map"><RouteMap /></div>}
     {deck && (
       <section class="project-deck site-shell" id="deck">
         <div class="project-deck__head">

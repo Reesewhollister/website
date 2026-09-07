@@ -30,7 +30,7 @@ const allTags = [...new Set(projects.flatMap((p) => p.tags ?? []))].sort();
     />
     <ProjectFilters categories={allTags} />
     <div class="project-grid">
-      {projects.map((project) => <ProjectCard project={project} />)}
+      {projects.map((project) => <ProjectCard project={project} framed />)}
     </div>
   </section>
 

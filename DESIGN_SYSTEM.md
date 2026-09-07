@@ -159,6 +159,8 @@ structure and the existing scroll-reveal; converging them into `.system` can com
 
 ## Professional portfolio hierarchy — 2026-09-07
 
+This revision supersedes the homepage composition described above. The route map, cover-frame system, and YouTube companion hub remain available. The map is labeled as an illustrative reconstruction with approximate years.
+
 This pass preserves Newsreader, Source Serif 4, Work Sans, the warm paper/ink palette, rust and map-blue accents, geographic motifs, and existing project materials. New capability, experience, and contact sections use the existing editorial language.
 
 - Homepage: existing high-resolution Chefchaouen fieldwork photo (`public/assets/fieldwork/heroes/chefchaouen-blue-plaza-hero-16x9.webp`) with a dark text scrim. A still image keeps the longer professional introduction readable and avoids automatic motion; original video files remain intact.

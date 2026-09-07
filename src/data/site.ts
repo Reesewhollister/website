@@ -24,6 +24,7 @@ export const footerLinks = [
   { href: '/writing', label: 'Writing & publications' },
   { href: '/teaching', label: 'Teaching' },
   { href: '/works', label: 'Papers & presentations' },
+  { href: '/youtube', label: 'Videos & context' },
   { href: '/african-airlines/', label: 'African Airlines' },
   { href: coachingBookingUrl, label: 'Book Writing Coaching' }
 ];

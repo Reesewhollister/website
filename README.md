@@ -4,8 +4,7 @@ Static portfolio site for Reese Hollister. The site is designed to feel editoria
 
 ## Stack
 
-- Lightweight static build script in `src/build-static.cjs`
-- Astro source files retained for future framework work
+- Astro 5 static build; routes and layouts in `src/pages/` and `src/layouts/`
 - Canonical project/content data in `src/data/`
 - Self-hosted typography via `@fontsource`
 - No backend, database, or client framework
@@ -17,7 +16,7 @@ Use Node 22. This repo includes `.nvmrc` and `.node-version` so version managers
 1. Install dependencies:
 
    ```bash
-   npm install
+   npm ci --ignore-scripts
    ```
 
 2. Start the local dev server:
@@ -47,11 +46,11 @@ Use Node 22. This repo includes `.nvmrc` and `.node-version` so version managers
 ## Content and Asset Structure
 
 - `src/data/projects.ts`
-  - Canonical data for the five current project pages.
+  - Canonical data for the nine current project pages.
 - `src/data/site.ts`
   - Shared site metadata, public profile links, homepage proof blocks, and resume / CV resource slots.
 - `src/content/projects/`
-  - MDX reference copies retained from the Astro pass; the working static build currently uses `src/data/projects.ts`.
+  - MDX reference copies retained from the Astro pass; the Astro pages render from `src/data/projects.ts`.
 - `CLAUDE.md`
   - Claude Code standing instructions and local asset access rules.
 - `INDEX.md`
@@ -75,9 +74,9 @@ Use Node 22. This repo includes `.nvmrc` and `.node-version` so version managers
 
 ## Updating Content
 
-- Edit homepage, about, resume, contact, and shared site copy in `src/data/site.ts` and `src/build-static.cjs`.
+- Edit homepage, about, resume, contact, and shared site copy in `src/data/site.ts` and `src/pages/`.
 - Edit project case-study data in `src/data/projects.ts`.
-- Keep MDX reference copies in `src/content/projects/*.mdx` synchronized only if returning to the Astro pipeline.
+- MDX files in `src/content/projects/*.mdx` are reference copies; `src/data/projects.ts` is canonical.
 - Update public links, contact routes, and proof-section content in `src/data/site.ts`.
 - Replace temporary art with approved public files by copying them into `public/assets/projects/<project>/` or `public/assets/ui/` and updating `src/data/projects.ts`.
 - Copy for several sections is informed by connected Google Drive source documents, but raw Drive documents are not published by default.

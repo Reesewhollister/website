@@ -1,0 +1,17 @@
+---
+// Ambient archive-reel ticker (Asset & Motion System, motion #07). Two rows of
+// place-names / coordinates drift in opposite directions behind a soft mask.
+// Decorative (aria-hidden); pauses entirely under prefers-reduced-motion.
+const places =
+  '  CASABLANCA 33.6°N  ·  LAAYOUNE 27.2°N  ·  DAKAR 14.7°N  ·  TANGIER 35.8°N  ·  NOUAKCHOTT 18.1°N  ·  MARRAKECH 31.6°N  ·  ';
+const dates =
+  '  1956 INDEPENDENCE  ·  1957 RAM FOUNDED  ·  1975 GREEN MARCH  ·  1987 THE BERM  ·  723 AIRLINES  ·  N1 CORRIDOR  ·  ';
+---
+<aside class="coord-ticker" aria-hidden="true">
+  <div class="coord-ticker__row">
+    <span class="coord-ticker__track">{places}{places}</span>
+  </div>
+  <div class="coord-ticker__row coord-ticker__row--alt">
+    <span class="coord-ticker__track">{dates}{dates}</span>
+  </div>
+</aside>

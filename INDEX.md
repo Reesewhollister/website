@@ -6,7 +6,7 @@
 - Canonical professional copy and experience: [site data](src/data/site.ts); all nine case studies: [project data](src/data/projects.ts).
 - Verification and evidence report: [2026-09-07 portfolio QA](2026-09-07__reese-portfolio__qa__v01__professional-portfolio.md).
 - Outstanding public resume and experience evidence: [content checklist](TODO_CONTENT.md).
-- Existing `/projects/*`, `/research`, `/teaching`, `/writing`, `/works`, `/african-airlines/`, `/coaching`, and `/resume` routes retained. The older built `/youtube` destination redirects to the public-history case study; `/workflows` redirects to the preserved `/projects/applied-ai-workflows` route, now a secondary process-design case study. No source assets moved.
+- Existing `/projects/*`, `/research`, `/teaching`, `/writing`, `/works`, `/african-airlines/`, `/coaching`, and `/resume` routes retained. The production `/youtube` companion hub and Royal Air Maroc route map are retained; `/workflows` redirects to the preserved `/projects/applied-ai-workflows` route, now a secondary process-design case study. No source assets moved.
 
 - Site source for this revision: this opened repository (`/Users/reesehollister/Documents/reese-portfolio`). Prior migration notes describe a different checkout; it was not accessed or modified.
 - From Colonies to Carriers deck-first page assets: `public/assets/projects/from-colonies-to-carriers/2026-06-09__from-colonies-to-carriers__deck__v01__african-airlines.pdf` and `public/assets/projects/from-colonies-to-carriers/slides/`
