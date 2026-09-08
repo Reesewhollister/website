@@ -11,6 +11,7 @@ import { geoEqualEarth, geoPath, geoGraticule } from 'd3-geo';
 import { feature, merge, mesh } from 'topojson-client';
 import worldAtlas from 'world-atlas/countries-110m.json';
 import { PLACES, ALL_PLACES, JOURNEY, MAP } from '../data/places';
+import { PAPERS, MAPPED_PAPERS, RESEARCH_REGIONS } from '../data/papers';
 import { getProjectBySlug } from '../data/projects';
 import { siteMeta, heroThesis } from '../data/site';
 import { withBase } from '../utils/paths';
@@ -22,6 +23,10 @@ const iso = (g: any) => String(g.id).padStart(3, '0');
 /** Morocco is drawn once, as a single silhouette (504 + 732 merged, shared border omitted). */
 const MOROCCO_IDS = new Set(['504', '732']);
 const isMorocco = (g: any) => MOROCCO_IDS.has(iso(g));
+
+/** Antarctica is never marked and only intrudes on the frame's lower edge. */
+const ANTARCTICA = '010';
+const isDrawn = (g: any) => iso(g) !== ANTARCTICA;
 
 const AFRICA_IDS = new Set([
   '012','024','072','108','120','132','140','148','174','178','180','204','226','231','232','262','266','270',
@@ -36,19 +41,49 @@ const projection = geoEqualEarth()
 const path = geoPath(projection);
 
 const land = path(
-  feature(world, { type: 'GeometryCollection', geometries: geometries.filter((g) => !isMorocco(g)) } as any) as any
+  feature(world, {
+    type: 'GeometryCollection',
+    geometries: geometries.filter((g) => !isMorocco(g) && isDrawn(g))
+  } as any) as any
 );
 const morocco = path(merge(world, geometries.filter(isMorocco)) as any);
 const borders = path(
-  mesh(world, world.objects.countries, (a: any, b: any) => a !== b && !(isMorocco(a) && isMorocco(b)))
+  mesh(
+    world,
+    world.objects.countries,
+    (a: any, b: any) => a !== b && !(isMorocco(a) && isMorocco(b)) && isDrawn(a) && isDrawn(b)
+  )
 );
 const graticule = path(geoGraticule().step([20, 20])());
 
-const studyRegions = [
-  { region: 'africa', d: path(merge(world, geometries.filter((g) => AFRICA_IDS.has(iso(g)))) as any) },
-  { region: 'western-sahara', d: path(merge(world, geometries.filter((g) => iso(g) === '732')) as any) },
-  { region: 'morocco', d: path(merge(world, geometries.filter((g) => iso(g) === '504')) as any) }
-];
+/**
+ * Regions drawn as hatch. Country regions are merged out of the same topology as
+ * the base map; a region that is not a country (the American West) is a rectangle.
+ */
+const rect = ([[lon0, lat0], [lon1, lat1]]: [[number, number], [number, number]]) => ({
+  type: 'Polygon' as const,
+  coordinates: [[[lon0, lat0], [lon0, lat1], [lon1, lat1], [lon1, lat0], [lon0, lat0]]]
+});
+
+const regionPath = (id: string) => {
+  if (id === 'africa') return path(merge(world, geometries.filter((g) => AFRICA_IDS.has(iso(g)))) as any);
+  if (id === 'western-sahara') return path(merge(world, geometries.filter((g) => iso(g) === '732')) as any);
+  if (id === 'morocco') return path(merge(world, geometries.filter((g) => iso(g) === '504')) as any);
+  const region = RESEARCH_REGIONS.find((r) => r.id === id);
+  if (region?.iso) return path(merge(world, geometries.filter((g) => region.iso!.includes(iso(g)))) as any);
+  if (region?.bbox) return path(rect(region.bbox) as any);
+  return '';
+};
+
+const studyRegions = RESEARCH_REGIONS.map((region) => ({ region: region.id, d: regionPath(region.id) }));
+
+/** Regions a published paper is set in stay lit; project regions still appear on demand. */
+const paperRegions = new Set(MAPPED_PAPERS.map((paper) => paper.region));
+
+const paperNodes = MAPPED_PAPERS.map((paper) => {
+  const [x, y] = projection(paper.coords!)!;
+  return { paper, left: (x / W) * 100, top: (y / H) * 100 };
+});
 
 const journey = path({
   type: 'LineString',
@@ -152,11 +187,30 @@ const placeCount = ALL_PLACES.filter((p) => p.kind !== 'cluster').length;
       </ol>
     </nav>
 
+    <nav class="place-index place-index--papers" aria-label="Places the published work is set in">
+      <div class="place-index__head">
+        <h2>Where the work is set</h2>
+        <span class="place-index__count">{MAPPED_PAPERS.length} papers</span>
+      </div>
+      <ol class="place-index__list">
+        {MAPPED_PAPERS.map((paper) => (
+          <li>
+            <button type="button" class="place-index__item" data-place={`paper-${paper.id}`}>
+              <span class="place-index__place">{paper.place}</span>
+              <span class="place-index__meta">{paper.venue.split(':')[0]}, {paper.year}</span>
+            </button>
+          </li>
+        ))}
+      </ol>
+    </nav>
+
     <div class="map-legend">
-      <span class="map-legend__item"><i class="map-swatch map-swatch--worked" aria-hidden="true"></i>Worked or studied here</span>
+      <span class="map-legend__item"><i class="map-swatch map-swatch--worked" aria-hidden="true"></i>Lived or worked</span>
+      <span class="map-legend__item"><i class="map-swatch map-swatch--travelled" aria-hidden="true"></i>Travelled</span>
+      <span class="map-legend__item"><i class="map-swatch map-swatch--studies" aria-hidden="true"></i>Wrote about</span>
       <label class="map-legend__item map-legend__toggle">
         <input type="checkbox" id="map-studies-toggle" />
-        <i class="map-swatch map-swatch--studies" aria-hidden="true"></i>Show what the work studies
+        Also show project subjects
       </label>
     </div>
 
@@ -186,10 +240,14 @@ const placeCount = ALL_PLACES.filter((p) => p.kind !== 'cluster').length;
               <figcaption>{place.media.caption}</figcaption>
             </figure>
           ) : (
-            <figure class="dossier__media dossier__media--needed" aria-label={`Image needed: ${place.imageNeeded}`}>
-              <span>Image needed</span>
-              <span>{place.imageNeeded}</span>
-            </figure>
+            /* A place with no photograph shows no frame at all in production; the
+               designed placeholder is a working note, not something to publish. */
+            import.meta.env.DEV && (
+              <figure class="dossier__media dossier__media--needed" aria-label={`Image needed: ${place.imageNeeded}`}>
+                <span>Image needed</span>
+                <span>{place.imageNeeded}</span>
+              </figure>
+            )
           )}
           <p class="section-kicker">
             {place.kind === 'cluster' ? 'Country cluster' : 'Worked or studied here'}
@@ -233,6 +291,22 @@ const placeCount = ALL_PLACES.filter((p) => p.kind !== 'cluster').length;
           </div>
         </article>
       ))}
+
+      {PAPERS.filter((paper) => paper.region && paper.coords).map((paper) => (
+        <article class="dossier__panel dossier__panel--paper" data-dossier={`paper-${paper.id}`} hidden>
+          <p class="section-kicker">Published paper · {paper.place}</p>
+          <h3 tabindex="-1">{paper.title}</h3>
+          <p class="dossier__meta">
+            <span class="dossier__period">{paper.venue}</span>
+            <span class="dossier__coords">{[paper.volume, paper.pages, paper.year].filter(Boolean).join(' · ')}</span>
+          </p>
+          <p>{paper.summary}</p>
+          {paper.citations && <p class="dossier__hint">Cited {paper.citations} times on Google Scholar.</p>}
+          <p class="dossier__read">
+            <a href={paper.url} target="_blank" rel="noreferrer">{paper.linkLabel} →</a>
+          </p>
+        </article>
+      ))}
     </div>
 
     <div class="map-hero__actions">
@@ -262,11 +336,31 @@ const placeCount = ALL_PLACES.filter((p) => p.kind !== 'cluster').length;
         <path class="map-land" d={morocco} />
         <path class="map-borders" d={borders} />
         {studyRegions.map((region) => (
-          <path class="map-study" data-region={region.region} d={region.d} />
+          <path
+            class:list={['map-study', { 'map-study--paper': paperRegions.has(region.region) }]}
+            data-region={region.region}
+            d={region.d}
+          />
         ))}
         <path class="map-journey" d={journey} />
       </svg>
       <div class="map-nodes" id="map-nodes" role="group" aria-label="Map locations. Arrow keys move between places, Enter opens one, Escape returns to the full map.">
+        {paperNodes.map(({ paper, left, top }) => (
+          <button
+            type="button"
+            class="map-node map-node--paper"
+            data-place={`paper-${paper.id}`}
+            data-label={paper.labelPos ?? 'right'}
+            style={`left:${left}%;top:${top}%;--dx:0%;--dy:0%`}
+            aria-pressed="false"
+            aria-label={`${paper.place} — published paper: ${paper.title}`}
+          >
+            <span class="map-node__pin">
+              <span class="map-node__sheet" aria-hidden="true"></span>
+              <span class="map-node__label">{paper.place}</span>
+            </span>
+          </button>
+        ))}
         {nodes.map(({ place, parentId, left, top, zoom }) => (
           <button
             type="button"
@@ -416,7 +510,9 @@ const placeCount = ALL_PLACES.filter((p) => p.kind !== 'cluster').length;
       if (focusNode) node.focus({ preventScroll: true });
       const heading = panels.find((p) => p.dataset.dossier === id)?.querySelector('h3');
       if (!focusNode) heading?.focus?.({ preventScroll: true });
-      if (isMobile()) dossier.scrollIntoView({ block: 'nearest', behavior: smooth });
+      // The rail scrolls, so a selection made low in the index could otherwise
+      // update a dossier the visitor cannot see. Bring it into view on every width.
+      dossier.scrollIntoView({ block: 'nearest', behavior: smooth });
     };
 
     const clear = () => {
@@ -500,16 +596,7 @@ const placeCount = ALL_PLACES.filter((p) => p.kind !== 'cluster').length;
 
     sync();
 
-    // First look: the plate introduces itself with one place already pinned, so
-    // the page opens on a photograph rather than a paragraph. Manah is chosen
-    // because it is a standalone pin — selecting a cluster would zoom in and
-    // throw away the world view before anyone has read it. Desktop only (a phone
-    // shows media in the dossier), and it steps aside the moment someone
-    // chooses for themselves.
-    if (!isMobile()) {
-      const opener = window.setTimeout(() => { if (!selected) select('manah', false, false); }, 700);
-      hero.addEventListener('pointerdown', () => window.clearTimeout(opener), { once: true });
-      hero.addEventListener('keydown', () => window.clearTimeout(opener), { once: true });
-    }
+    // No auto-opened card here: at world scale the plate already opens on eleven
+    // marks in three vocabularies, and a floating card would cover Asia.
   }
 </script>

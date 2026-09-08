@@ -226,3 +226,37 @@ variant is opt-in, so nothing else changed.
 
 **Prose moved.** `homeIntro` now runs as the Capabilities section intro rather than sitting under
 the hero, which keeps the first screen to a map, a name, and four words.
+
+## The research atlas
+
+The plate is now a **world** map (`MAP.frame` in `src/data/places.ts`, Equal Earth,
+rotate 14°, cropped to lat −50…76 with Antarctica excluded). It has to be: the published
+work is set in Vietnam, Japan, South Africa and the American West, none of which fit the
+old Atlantic frame.
+
+Three vocabularies, and keeping them distinct is the whole point of the map:
+
+| Meaning | Mark |
+|---|---|
+| Lived or worked there | Solid rust dot |
+| Travelled through | Hollow rust ring |
+| Wrote about it | Blue paper-sheet marker + a permanently hatched region |
+
+A **sheet** rather than a pin, because it is a different kind of claim: it says a paper
+exists about this place, not that Reese stood there. Paper regions are always lit;
+project subject regions (Africa, Western Sahara, Morocco) stay on-demand behind the
+legend toggle, so the two never compete.
+
+`src/data/papers.ts` is the single source for the five published articles — used by the
+map, `/research` and `/writing`. Links go to the open-access journal, never to a
+re-hosted PDF. Two journals publish per issue rather than per article, so those cite page
+numbers against the issue page. Every `summary` paraphrases a thesis sentence from the
+author's own manuscript.
+
+The rail puts the **record above the lists** on desktop (`order` in the `min-width: 901px`
+block): with two indexes, a dossier underneath them sits far enough down that selecting a
+place would update something off-screen.
+
+Places with no photograph render **no frame at all** in production. The designed
+"Image needed" placeholder is dev-only (`import.meta.env.DEV`), though the broken-image
+fallback still swaps to it at runtime — a placeholder beats a broken image icon.

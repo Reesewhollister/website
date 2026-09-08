@@ -2,14 +2,17 @@
  * Geography for the home map hero.
  *
  * Two kinds of geography live here and must never be mixed:
- *   - Place.kind 'worked' | 'area' | 'cluster'  → where Reese physically was (solid marks)
- *   - Place.projects[].relation 'about'         → what a project studies (hatched region)
+ *   - Place.kind 'worked'    → lived, studied or was employed there (solid mark)
+ *   - Place.kind 'travelled' → passed through (hollow ring)
+ *   - a hatched region       → wrote about it; see src/data/papers.ts
+ *
+ * The three must stay visually distinct: that distinction is the point of the map.
  *
  * Every fact below is drawn from src/data/site.ts and src/data/projects.ts.
  * Nothing here is invented; places with no photograph render a designed placeholder.
  */
 
-export type PlaceKind = 'worked' | 'area' | 'cluster';
+export type PlaceKind = 'worked' | 'travelled' | 'area' | 'cluster';
 export type Relation = 'made' | 'about';
 export type StudyRegion = 'africa' | 'western-sahara' | 'morocco';
 
@@ -66,15 +69,20 @@ export interface Place {
 }
 
 export const MAP = {
-  /** Framing: the Atlantic hemisphere, tight enough that every mark is legible. */
+  /**
+   * Framing: the whole world. The research regions reach from the American West
+   * to Japan, so an Atlantic-only frame cannot hold them. Antarctica and the high
+   * Arctic are cropped away — nothing is marked there.
+   */
   frame: {
     type: 'Polygon' as const,
-    coordinates: [[[-90, 8], [-90, 58], [68, 58], [68, 8], [-90, 8]]]
+    coordinates: [[[-179, -50], [-179, 76], [179, 76], [179, -50], [-179, -50]]]
   },
   width: 1000,
-  height: 700,
-  pad: 10,
-  maxZoom: 7
+  height: 495,
+  pad: 8,
+  /** World scale means clusters need far more magnification than the old Atlantic frame. */
+  maxZoom: 12
 };
 
 /** Chronological. Drawn once, dashed, no travelling dots. */
@@ -87,7 +95,7 @@ export const PLACES: Place[] = [
     name: 'The Mid-Atlantic',
     short: 'Mid-Atlantic',
     coords: [-74.5, 40.6],
-    labelPos: 'left',
+    labelPos: 'top',
     bbox: [[-77.6, 38.7], [-71.8, 42.4]],
     period: null,
     institutions: [],
@@ -205,7 +213,7 @@ export const PLACES: Place[] = [
     short: 'Morocco',
     coords: [-6.0, 32.2],
     labelPos: 'left',
-    bbox: [[-13.5, 27.5], [-1, 36.2]],
+    bbox: [[-13.5, 27.5], [-1, 36.4]],
     period: '2023–2024',
     institutions: [
       'Fulbright U.S. Student Program',
@@ -274,6 +282,46 @@ export const PLACES: Place[] = [
         },
         imageNeeded: 'Mohammed VI Library, Ifrane',
         projects: [{ slug: 'fulbright-morocco', relation: 'made' }]
+      },
+      {
+        id: 'chefchaouen',
+        kind: 'travelled',
+        name: 'Chefchaouen, Morocco',
+        short: 'Chefchaouen',
+        coords: [-5.26, 35.17],
+        labelPos: 'top',
+        period: null,
+        institutions: [],
+        roles: [],
+        context: 'The blue city in the Rif, visited during the Fulbright year.',
+        media: {
+          kind: 'photo',
+          src: '/assets/fieldwork/heroes/chefchaouen-blue-plaza-hero-16x9.webp',
+          alt: 'Blue-washed plaza in Chefchaouen, Morocco',
+          caption: 'Chefchaouen'
+        },
+        imageNeeded: 'Chefchaouen',
+        projects: []
+      },
+      {
+        id: 'merzouga',
+        kind: 'travelled',
+        name: 'Merzouga, Morocco',
+        short: 'Merzouga',
+        coords: [-4.01, 31.1],
+        labelPos: 'bottom',
+        period: null,
+        institutions: [],
+        roles: [],
+        context: 'The dunes of Erg Chebbi on the Saharan edge of the country.',
+        media: {
+          kind: 'photo',
+          src: '/assets/fieldwork/heroes/merzouga-dunes-camels-hero-16x9.webp',
+          alt: 'Camels crossing the dunes at Merzouga, Morocco',
+          caption: 'Merzouga · Erg Chebbi'
+        },
+        imageNeeded: 'Merzouga',
+        projects: []
       },
       {
         id: 'fez',

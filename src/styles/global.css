@@ -4546,7 +4546,7 @@ html.motion-ready .wipe.play { clip-path: inset(0 0 0 0); transition: clip-path 
 .map-graticule { fill: none; stroke: rgba(255, 244, 234, 0.09); stroke-width: 1; vector-effect: non-scaling-stroke; }
 .map-land { fill: var(--plate-land); }
 .map-borders { fill: none; stroke: var(--plate-border); stroke-width: 0.6; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-.map-hatch__line { stroke: var(--accent-map); stroke-width: 1.2; }
+.map-hatch__line { stroke: var(--accent-map); stroke-width: 1.8; }
 .map-study {
   fill: url(#map-hatch);
   fill-opacity: 0.85;
@@ -4985,3 +4985,138 @@ html.motion-ready .wipe.play { clip-path: inset(0 0 0 0); transition: clip-path 
   .project-card--wide, .project-card--wide .project-card__media img { transition: none; }
   .project-card--wide:hover { transform: none; }
 }
+
+/* ── Three geographies ────────────────────────────────────────────────────────
+   The map now says three different things, and they must be distinguishable at
+   a glance, not by reading a label:
+     solid rust dot   — lived or worked there
+     hollow rust ring — travelled through
+     blue sheet + hatch — wrote about it (see src/data/papers.ts)               */
+
+/* Travelled: hollow, so it reads as lighter than a worked place. */
+.map-node--travelled .map-node__dot {
+  width: 0.62rem;
+  height: 0.62rem;
+  background: transparent;
+  border: 2px solid var(--accent-rust);
+  box-shadow: 0 0 0 2px var(--plate-water);
+}
+.map-node--travelled[aria-pressed='true'] .map-node__dot {
+  background: var(--accent-gold);
+  border-color: var(--accent-gold);
+}
+
+/* Wrote about: a sheet of paper, not a pin — a different shape for a different claim. */
+.map-node--paper .map-node__sheet {
+  width: 0.72rem;
+  height: 0.9rem;
+  background: var(--accent-sky);
+  border: 1.5px solid var(--accent-map);
+  box-shadow: 0 0 0 2px var(--plate-water);
+  transform: rotate(-6deg);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.map-node--paper:hover .map-node__sheet,
+.map-node--paper:focus-visible .map-node__sheet { transform: rotate(-6deg) scale(1.18); }
+.map-node--paper[aria-pressed='true'] .map-node__sheet {
+  background: var(--paper);
+  border-color: var(--accent-gold);
+  transform: rotate(-6deg) scale(1.22);
+}
+.map-node--paper .map-node__label { color: var(--accent-sky); }
+
+/* A region a paper is set in is permanent content, not a hover reveal. At world
+   scale these areas are small, so they carry a heavier outline than the
+   on-demand project regions. */
+.map-study--paper {
+  opacity: 1;
+  stroke: var(--accent-sky);
+  stroke-width: 1.75;
+  paint-order: stroke;
+}
+
+.map-swatch--travelled { background: transparent; border: 2px solid var(--accent-rust); }
+
+/* Second index group: the research regions */
+.place-index--papers .place-index__head { border-top-color: var(--accent-map); }
+.place-index--papers .place-index__item[aria-current] { background: var(--accent-map-wash); }
+.place-index--papers .place-index__item[aria-current] .place-index__place { color: var(--accent-map); }
+
+.dossier__panel--paper .section-kicker { color: var(--accent-map); }
+.dossier__panel--paper .dossier__period { color: var(--ink-soft); font-style: italic; }
+.dossier__read { margin-top: 0.9rem !important; padding-top: 0.7rem; border-top: 1px solid var(--line); }
+.dossier__read a { font-family: 'Work Sans', system-ui, sans-serif; font-size: 0.88rem; font-weight: 500; }
+
+/* ── Paper list ───────────────────────────────────────────────────────────────
+   Published articles on /research and /writing. A citation is a credential, so
+   it is set as one — venue and volume carry the same weight as the title. */
+.paper-list { list-style: none; margin: 0; padding: 0; counter-reset: paper; }
+.paper {
+  display: grid;
+  grid-template-columns: 2.2rem 1fr;
+  gap: 0 0.5rem;
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--line);
+}
+.paper::before {
+  counter-increment: paper;
+  content: counter(paper, decimal-leading-zero);
+  font-family: 'Work Sans', system-ui, sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--accent-map);
+  padding-top: 0.5em;
+}
+.paper > * { grid-column: 2; }
+.paper h3 { margin: 0; font-size: clamp(1.15rem, 1.9vw, 1.45rem); line-height: 1.24; }
+.paper h3 a { color: var(--ink); text-decoration: none; }
+.paper h3 a:hover { color: var(--accent-rust); text-decoration: underline; }
+.paper__cite {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 0.7rem;
+  margin: 0.35rem 0 0;
+  font-family: 'Work Sans', system-ui, sans-serif;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+.paper__cite cite { font-style: italic; }
+.paper__summary { margin: 0.5rem 0 0; max-width: 62ch; color: var(--ink-soft); }
+.paper__links { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 1rem; margin: 0.6rem 0 0; }
+.paper__cited {
+  font-family: 'Work Sans', system-ui, sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-map);
+  background: var(--accent-map-wash);
+  padding: 0.25em 0.5em;
+  border-radius: 2px;
+}
+@media (max-width: 560px) {
+  .paper { grid-template-columns: 1fr; }
+  .paper::before { display: none; }
+  .paper > * { grid-column: 1; }
+}
+
+/* ── Rail order ───────────────────────────────────────────────────────────────
+   The record goes on top and the lists below it, the way a catalogue works.
+   With two indexes in the rail, a dossier underneath them would sit far enough
+   down that selecting a place updated something off-screen. */
+@media (min-width: 901px) {
+  .map-hero__masthead { order: 1; }
+  .dossier { order: 2; }
+  .map-legend { order: 3; }
+  .place-index { order: 4; }
+  .place-index--papers { order: 5; }
+  .map-hero__actions { order: 6; }
+}
+@media (max-width: 900px) {
+  .place-index--papers { order: 2; }
+  .dossier { order: 3; }
+  .map-legend { order: 4; }
+}
+
+/* Paper titles run long; they need a tighter setting than a place name. */
+.dossier__panel--paper > h3 { font-size: 1.18rem; line-height: 1.26; letter-spacing: 0; }
+.dossier__panel--paper .dossier__meta { flex-direction: column; gap: 0.15rem; }

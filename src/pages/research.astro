@@ -3,7 +3,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import ResearchProcess from '../components/ResearchProcess.astro';
-import { publications, presentations } from '../data/site';
+import { presentations } from '../data/site';
+import { PAPERS } from '../data/papers';
 import { getProjectBySlug, type Project } from '../data/projects';
 import { withBase } from '../utils/paths';
 
@@ -206,16 +207,26 @@ const researchProjects = [
   <section class="site-shell">
     <SectionHeading
       eyebrow="Publications"
-      title="Published writing & research archive"
-      intro="Earlier undergraduate research and public-facing history writing, kept as a compact archive behind the current project work."
+      title="Peer-reviewed publications"
+      intro="Five open-access articles in academic history journals — on Vietnam, Japan, the American West, South Africa, and medieval historiography."
     />
-    <ul class="action-list action-list--stacked">
-      {publications.map((pub) => (
-        <li>
-          <a class="resource-link" href={pub.href} target="_blank" rel="noreferrer">{pub.venue} — {pub.year}</a>
-          <span class="action-note">{pub.title}</span>
+    <ol class="paper-list">
+      {PAPERS.map((pub) => (
+        <li class="paper">
+          <h3><a href={pub.url} target="_blank" rel="noreferrer">{pub.title}</a></h3>
+          <p class="paper__cite">
+            <cite>{pub.venue}</cite>
+            <span>{[pub.volume, pub.pages, pub.year].filter(Boolean).join(' · ')}</span>
+          </p>
+          <p class="paper__summary">{pub.summary}</p>
+          <p class="paper__links">
+            <a class="resource-link" href={pub.url} target="_blank" rel="noreferrer">{pub.linkLabel} →</a>
+            {pub.citations && <span class="paper__cited">Cited {pub.citations}×</span>}
+          </p>
         </li>
       ))}
+    </ol>
+    <ul class="action-list action-list--stacked">
       <li>
         <a class="resource-link" href="https://sites.google.com/ncsu.edu/reese/history-research?authuser=0" target="_blank" rel="noreferrer">
           Undergraduate research archive

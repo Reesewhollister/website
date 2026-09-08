@@ -12,16 +12,18 @@ export const resumeRequestUrl = 'mailto:reesewhollister@gmail.com?subject=Curren
 
 export const navLinks = [
   { href: '/', label: 'Home' },
-  { href: '/experience', label: 'Experience' },
+  // Research leads: the published scholarship is the credential, and it used to
+  // be reachable only from the footer.
+  { href: '/research', label: 'Research' },
   { href: '/projects', label: 'Selected Work' },
+  { href: '/experience', label: 'Experience' },
   { href: '/about', label: 'About' },
-  { href: '/resume', label: 'Resume' },
   { href: '/contact', label: 'Contact' },
   { href: '/coaching', label: 'College Essay Coaching' }
 ];
 
 export const footerLinks = [
-  { href: '/research', label: 'Research' },
+  { href: '/resume', label: 'Resume' },
   { href: '/writing', label: 'Writing & publications' },
   { href: '/teaching', label: 'Teaching' },
   { href: '/works', label: 'Papers & presentations' },
@@ -417,29 +419,7 @@ export const researchAreas = [
   }
 ];
 
-export const publications = [
-  {
-    title: 'Photography, Identity, Power: William Henry Jackson and the American Colonial Gaze',
-    venue: 'History Matters',
-    year: '2023',
-    href: 'https://sites.google.com/ncsu.edu/reese/history-research',
-    note: 'Citation and abstract are available on the public research archive.'
-  },
-  {
-    title: 'Lenses, Focus, Fluidity: Lessons From Medieval Queer History',
-    venue: 'Gettysburg Historical Journal',
-    year: '2022',
-    href: 'https://cupola.gettysburg.edu/ghj/vol21/iss1/6/',
-    note: 'Open-access journal page.'
-  },
-  {
-    title: 'The Sharpeville Massacre, Violence, and the Struggles of the African National Congress, 1960-1990',
-    venue: 'Armstrong Undergraduate Journal of History',
-    year: '2023',
-    href: 'https://digitalcommons.georgiasouthern.edu/aujh/vol13/iss1/5/',
-    note: 'Open-access journal page.'
-  }
-];
+// Publications moved to src/data/papers.ts — one source for the map and /writing.
 
 export const presentations = [
   {

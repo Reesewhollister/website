@@ -282,9 +282,9 @@ export const projects: Project[] = [
       description: "Project profile for Reese Hollister's Western Sahara capstone on roads, sovereignty, and process tracing."
     },
     paper: {
-      title: 'Roads-over-time methodology one-pager',
-      pdfPath: '/assets/projects/western-sahara/2026-03-31__reese-portfolio__artifact__v01__roads-timeseries-one-pager.pdf',
-      description: 'Methodology summary for the OSM and ohsome workflow tracking Western Sahara road stock from 2008 to 2025.'
+      title: "How Highways Decided Morocco's Victory in the Western Sahara Conflict",
+      pdfPath: '/assets/projects/western-sahara/2026__western-sahara__paper__v01__highways-sovereignty.pdf',
+      description: 'The full capstone paper on transport-infrastructure build-out and the normalisation of Moroccan sovereignty claims.'
     },
     deck: {
       title: 'Capstone presentation — NC State Graduate History Conference, April 2026',
@@ -368,7 +368,7 @@ export const projects: Project[] = [
       {
         label: 'Working paper excerpt',
         shortLabel: 'Paper',
-        href: '/assets/projects/from-colonies-to-carriers/2026-06-09__from-colonies-to-carriers__paper__v01__intro-conclusion.pdf',
+        href: '/assets/projects/from-colonies-to-carriers/2026__from-colonies-to-carriers__paper__v02__full-research-paper.pdf',
         kind: 'download',
         available: true,
         note: 'Intro and conclusion from the African airlines research paper.'
@@ -409,9 +409,9 @@ export const projects: Project[] = [
       description: 'Digital history project on postcolonial African airline development by Reese Hollister.'
     },
     paper: {
-      title: 'From Colonies to Carriers — working paper (intro & conclusion)',
-      pdfPath: '/assets/projects/from-colonies-to-carriers/2026-06-09__from-colonies-to-carriers__paper__v01__intro-conclusion.pdf',
-      description: 'Intro and conclusion from the research paper on postcolonial African civil aviation and Royal Air Maroc.'
+      title: 'From Colonies to Carriers — full research paper',
+      pdfPath: '/assets/projects/from-colonies-to-carriers/2026__from-colonies-to-carriers__paper__v02__full-research-paper.pdf',
+      description: 'The complete research paper on postcolonial African civil aviation and Royal Air Maroc.'
     },
     deck: {
       title: 'African Airlines presentation',

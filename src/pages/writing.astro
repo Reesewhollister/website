@@ -3,7 +3,8 @@ import { coachingInquiryUrl } from '../data/site';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import PDFCard from '../components/PDFCard.astro';
-import { publications, presentations, secondaryWork, substackPosts } from '../data/site';
+import { presentations, secondaryWork, substackPosts } from '../data/site';
+import { PAPERS } from '../data/papers';
 import { featuredWorks } from '../data/works';
 import { withBase } from '../utils/paths';
 ---
@@ -27,12 +28,12 @@ import { withBase } from '../utils/paths';
     description: 'Published historical essays, peer-reviewed articles, conference presentations, and public-facing scholarship.',
     url: 'https://reesehollister.com/writing',
     author: { '@type': 'Person', name: 'Reese W. Hollister', url: 'https://reesehollister.com' },
-    hasPart: publications.map(pub => ({
+    hasPart: PAPERS.map(pub => ({
       '@type': 'ScholarlyArticle',
       name: pub.title,
       isPartOf: { '@type': 'Periodical', name: pub.venue },
       datePublished: pub.year,
-      url: pub.href,
+      url: pub.url,
       author: { '@type': 'Person', name: 'Reese W. Hollister' }
     }))
   })} slot="head" />
@@ -53,16 +54,24 @@ import { withBase } from '../utils/paths';
     <SectionHeading
       eyebrow="Publications"
       title="Peer-reviewed and published work"
-      intro="Articles published in academic history journals. Full archive on Academia.edu."
+      intro="Five articles in peer-reviewed history journals, each open access."
     />
-    <ul class="action-list action-list--stacked">
-      {publications.map((pub) => (
-        <li>
-          <a class="resource-link" href={pub.href} target="_blank" rel="noreferrer">{pub.venue}</a>
-          <span class="action-note">{pub.title} ({pub.year})</span>
+    <ol class="paper-list">
+      {PAPERS.map((pub) => (
+        <li class="paper">
+          <h3><a href={pub.url} target="_blank" rel="noreferrer">{pub.title}</a></h3>
+          <p class="paper__cite">
+            <cite>{pub.venue}</cite>
+            <span>{[pub.volume, pub.pages, pub.year].filter(Boolean).join(' · ')}</span>
+          </p>
+          <p class="paper__summary">{pub.summary}</p>
+          <p class="paper__links">
+            <a class="resource-link" href={pub.url} target="_blank" rel="noreferrer">{pub.linkLabel} →</a>
+            {pub.citations && <span class="paper__cited">Cited {pub.citations}×</span>}
+          </p>
         </li>
       ))}
-    </ul>
+    </ol>
   </section>
 
   <section class="site-shell">

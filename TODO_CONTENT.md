@@ -77,3 +77,20 @@ These items should be resolved before a final public launch. They are tracked he
   Coaching is a topic in the single inquiry form; `/coaching` links to `/contact?topic=essay`.
 - **Pre-existing**: `src/data/site.ts` links to `/projects/public-history-engagement`, which is
   not a slug in `src/data/projects.ts`.
+
+## Research atlas — open items
+
+- **Jackson volume number.** Google Scholar lists *Photography, Identity, Power* as
+  History Matters vol. 19; App State's own archive lists vol. 20 as the 2023 issue.
+  `src/data/papers.ts` currently says vol. 20 and carries a `verify` note. Confirm.
+- **Travelled places.** Chefchaouen and Merzouga are marked as travelled because the repo
+  already holds photographs of both. Fez stayed a *worked* place: `src/data/site.ts`
+  records "Field-based research in Ifrane, Rabat, Fez", so it is fieldwork, not a visit.
+  Send the rest of the travel list and it goes straight into `src/data/places.ts`.
+- **LinkedIn assets** — still unavailable. The Claude-in-Chrome extension is not connected
+  to this account, so LinkedIn is behind its sign-in wall. Either connect the extension or
+  send the files.
+- **Drive "Field Trip #2"** — ~30 HEIC photos from March 2022, location unidentified.
+  Needs a name before any of it is used, and HEIC→WebP conversion.
+- **Photographs still missing** for The Bronx / Manhattan College and Fez. These now render
+  no image frame at all rather than a placeholder.
