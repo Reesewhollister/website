@@ -1,17 +1,32 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
-import { contactMethods, coachingBookingUrl } from '../data/site';
+import InquiryForm from '../components/InquiryForm.astro';
+import { contactMethods } from '../data/site';
 import { withBase, isExternal } from '../utils/paths';
 ---
 
 <BaseLayout title="Contact" description="Contact Reese Hollister for program support, education, research, and public communication roles and projects.">
   <section class="page-hero site-shell">
     <p class="section-kicker">Contact</p>
-    <h1>Contact</h1>
+    <h1>Start a conversation</h1>
     <p class="page-lead">
-      For employment, program support, research, educational work, or collaboration, email me with the role or project you have in mind.
+      For any reason: a job or professional opportunity, research or museum collaboration, university or
+      teaching work, a speaking invitation, a project, or college essay coaching. Choose the closest topic
+      and I will take it from there.
     </p>
+  </section>
+
+  <section class="site-shell">
+    <div class="contact-layout">
+      <div>
+        <p class="section-kicker">Contact</p>
+        <h2>Send a message</h2>
+        <p>Prefer email? <a href="mailto:reesewhollister@gmail.com">reesewhollister@gmail.com</a></p>
+        <p>Students and families: choose <strong>College essay coaching</strong> as the topic. Details about coaching are on the <a href={withBase('/coaching')}>coaching page</a>.</p>
+      </div>
+      <InquiryForm />
+    </div>
   </section>
 
   <section class="site-shell">
@@ -54,5 +69,4 @@ import { withBase, isExternal } from '../utils/paths';
       ))}
     </div>
   </section>
-  <section class="site-shell"><article class="contact-panel"><p class="section-kicker">Students and families</p><h2>Looking for paid writing coaching?</h2><p>Services, testimonials, availability, and booking are on my separate coaching site.</p><a class="resource-link" href={coachingBookingUrl}>College Essay Coaching ↗</a></article></section>
 </BaseLayout>

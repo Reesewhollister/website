@@ -7,9 +7,11 @@ interface Props {
   project: Project;
   /** Use the Asset & Motion System cover frame (brass corners + zellige diamond). */
   framed?: boolean;
+  /** Horizontal split — a large plate on the left, the writing on the right. */
+  wide?: boolean;
 }
 
-const { project, framed = false } = Astro.props;
+const { project, framed = false, wide = false } = Astro.props;
 const href = `/projects/${project.slug}`;
 const heroSrc = withBase(project.heroAsset.src);
 const card = project.card;
@@ -21,7 +23,7 @@ const deckHref = `${href}#deck`;
 const secondaryAction = !project.deck ? card?.secondaryAction : undefined;
 ---
 
-<article class={`project-card${framed ? ' project-card--framed' : ''}`} data-categories={[...project.categories, ...(project.tags ?? [])].join('|')} data-accent={accent}>
+<article class={`project-card${framed ? ' project-card--framed' : ''}${wide ? ' project-card--wide' : ''}`} data-categories={[...project.categories, ...(project.tags ?? [])].join('|')} data-accent={accent}>
   {framed ? (
     <ProjectCover
       src={project.heroAsset.src}
@@ -33,6 +35,14 @@ const secondaryAction = !project.deck ? card?.secondaryAction : undefined;
   ) : (
     <a class="project-card__media" href={withBase(href)}>
       <img src={heroSrc} alt={project.heroAsset.alt} loading="lazy" />
+      {wide && (
+        <svg class="project-card__brackets" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0,13 L0,0 L13,0" />
+          <path d="M87,0 L100,0 L100,13" />
+          <path d="M100,87 L100,100 L87,100" />
+          <path d="M13,100 L0,100 L0,87" />
+        </svg>
+      )}
     </a>
   )}
   <div class="project-card__body">

@@ -54,3 +54,26 @@ These items should be resolved before a final public launch. They are tracked he
 - Existing `public/assets/projects/fulbright-morocco/video/yt-wiq-s7y4Jss-poster.jpg` is text, not an image. Not used for the new public-history case study. Existing archive photography is used instead.
 
 - Link repairs: old ALC domain did not resolve; replaced with verified `https://alcrabat.org/`. The Historical Method Man handle URL returned 404; YouTube identified the existing channel-ID URL as Historical Method Man, so shared links now use that stable destination.
+
+## Map hero (home) — open items
+
+- **Formspree**: confirmed working (form `xppzyndl`, in `src/components/InquiryForm.astro`).
+  Optional hardening: restrict submissions to reesehollister.com in the Formspree settings.
+- **Photographs**: the dossier shows a designed "Image needed" placeholder for The Bronx /
+  Manhattan College and Fez. Add files and fill in the `media` field in
+  `src/data/places.ts` when they exist. Morocco uses the Chefchaouen hero, Ifrane the Mohammed VI
+  Library hero, Raleigh the VenturePack cheque photograph, and Doylestown / Rabat / Manah use
+  video posters.
+- **Doylestown dates**: the Mercer Museum & Fonthill Castle role is now on the map (confirmed by
+  the front-desk video) but `period` is still null. Add the dates. It is also left out of the
+  dashed journey line, which only connects places with confirmed dates.
+- **Video posters**: the Rabat and Oman stills are YouTube's 320×180 `mqdefault` frames — the
+  only size those two uploads expose — so they are slightly soft on retina. Replacing
+  `public/assets/fieldwork/video-posters/{rabat-alc,oman-manah}.jpg` with real 1280×720 stills
+  would sharpen both cards. The Mercer poster is already 1280×720.
+- **Unlisted videos**: the three films are unlisted on YouTube, and embedding them on the public
+  home page makes them viewable by anyone who visits. That is the intent, but worth knowing.
+- **Coaching**: Square (reesehollister.square.site) is removed sitewide and stays removed.
+  Coaching is a topic in the single inquiry form; `/coaching` links to `/contact?topic=essay`.
+- **Pre-existing**: `src/data/site.ts` links to `/projects/public-history-engagement`, which is
+  not a slug in `src/data/projects.ts`.

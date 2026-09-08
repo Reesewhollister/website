@@ -831,8 +831,8 @@ export const projects: Project[] = [
       accent: 'gold',
       materials: ['Teaching', 'Writing', 'Pedagogy'],
       secondaryAction: {
-        label: 'College Essay Coaching ↗',
-        href: 'https://reesehollister.square.site/'
+        label: 'College essay coaching',
+        href: '/coaching'
       }
     },
     heroAsset: {

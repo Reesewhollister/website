@@ -1,5 +1,5 @@
 ---
-import { navLinks, coachingBookingUrl } from '../data/site';
+import { navLinks } from '../data/site';
 import { withBase, isExternal } from '../utils/paths';
 const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
@@ -15,7 +15,7 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
           const href = withBase(link.href);
           const route = href.replace(/\/$/, '') || '/';
           const isActive = !isExternal(href) && (pathname === route || (link.href !== '/' && pathname.startsWith(route + '/')));
-          return <li><a class:list={['site-nav__link', {'is-active': isActive, 'site-nav__link--coaching': link.href === coachingBookingUrl}]} href={href} aria-current={isActive ? 'page' : undefined}>{link.label}</a></li>;
+          return <li><a class:list={['site-nav__link', {'is-active': isActive, 'site-nav__link--coaching': link.href === '/coaching'}]} href={href} aria-current={isActive ? 'page' : undefined}>{link.label}</a></li>;
         })}
       </ul>
     </nav>

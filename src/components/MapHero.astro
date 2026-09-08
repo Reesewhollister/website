@@ -1,0 +1,515 @@
+---
+/**
+ * Home hero: an atlas plate with a catalogue rail.
+ *
+ * The plate is projected at BUILD time with d3-geo — no map library, no tiles and
+ * no runtime fetch ship to the browser. Only the small interaction script below
+ * runs on the client. The place index is the canonical text alternative: every
+ * fact reachable from the map is reachable from the list.
+ */
+import { geoEqualEarth, geoPath, geoGraticule } from 'd3-geo';
+import { feature, merge, mesh } from 'topojson-client';
+import worldAtlas from 'world-atlas/countries-110m.json';
+import { PLACES, ALL_PLACES, JOURNEY, MAP } from '../data/places';
+import { getProjectBySlug } from '../data/projects';
+import { siteMeta, heroThesis } from '../data/site';
+import { withBase } from '../utils/paths';
+
+const world = worldAtlas as any;
+const geometries = world.objects.countries.geometries as any[];
+const iso = (g: any) => String(g.id).padStart(3, '0');
+
+/** Morocco is drawn once, as a single silhouette (504 + 732 merged, shared border omitted). */
+const MOROCCO_IDS = new Set(['504', '732']);
+const isMorocco = (g: any) => MOROCCO_IDS.has(iso(g));
+
+const AFRICA_IDS = new Set([
+  '012','024','072','108','120','132','140','148','174','178','180','204','226','231','232','262','266','270',
+  '288','324','384','404','426','430','434','450','454','466','478','480','504','508','516','562','566','624',
+  '646','678','686','690','694','706','710','716','728','729','732','748','768','788','800','818','834','854','894'
+]);
+
+const { width: W, height: H, pad } = MAP;
+const projection = geoEqualEarth()
+  .rotate([14, 0])
+  .fitExtent([[pad, pad], [W - pad, H - pad]], MAP.frame as any);
+const path = geoPath(projection);
+
+const land = path(
+  feature(world, { type: 'GeometryCollection', geometries: geometries.filter((g) => !isMorocco(g)) } as any) as any
+);
+const morocco = path(merge(world, geometries.filter(isMorocco)) as any);
+const borders = path(
+  mesh(world, world.objects.countries, (a: any, b: any) => a !== b && !(isMorocco(a) && isMorocco(b)))
+);
+const graticule = path(geoGraticule().step([20, 20])());
+
+const studyRegions = [
+  { region: 'africa', d: path(merge(world, geometries.filter((g) => AFRICA_IDS.has(iso(g)))) as any) },
+  { region: 'western-sahara', d: path(merge(world, geometries.filter((g) => iso(g) === '732')) as any) },
+  { region: 'morocco', d: path(merge(world, geometries.filter((g) => iso(g) === '504')) as any) }
+];
+
+const journey = path({
+  type: 'LineString',
+  coordinates: JOURNEY.map((id) => ALL_PLACES.find((p) => p.id === id)!.coords)
+} as any);
+
+/** Cluster zoom targets, precomputed in viewBox units. */
+const zoomFor = (place: (typeof PLACES)[number]) => {
+  if (!place.bbox) return null;
+  const [[lon0, lat0], [lon1, lat1]] = place.bbox;
+  const [[x0, y0], [x1, y1]] = path.bounds({
+    type: 'Polygon',
+    coordinates: [[[lon0, lat0], [lon0, lat1], [lon1, lat1], [lon1, lat0], [lon0, lat0]]]
+  } as any);
+  const k = Math.min(MAP.maxZoom, 0.8 * Math.min(W / (x1 - x0), H / (y1 - y0)));
+  return { k, x: W / 2 - (k * (x0 + x1)) / 2, y: H / 2 - (k * (y0 + y1)) / 2 };
+};
+
+const nodes = ALL_PLACES.map((place) => {
+  const [x, y] = projection(place.coords)!;
+  const parent = PLACES.find((p) => p.children?.some((c) => c.id === place.id));
+  const left = (x / W) * 100;
+  return {
+    place,
+    parentId: parent?.id ?? null,
+    left,
+    top: (y / H) * 100,
+    // A card centred on a pin near the plate edge would be clipped, so pins in
+    // the outer thirds hang their card inward from one corner instead.
+    cardSide: place.cardSide ?? (left > 68 ? 'right' : left < 26 ? 'left' : 'center'),
+    zoom: zoomFor(place as any)
+  };
+});
+
+/** 35.78° N · 78.64° W — the field-record readout under a selected place. */
+const readCoords = ([lon, lat]: [number, number]) =>
+  `${Math.abs(lat).toFixed(2)}° ${lat >= 0 ? 'N' : 'S'} · ${Math.abs(lon).toFixed(2)}° ${lon >= 0 ? 'E' : 'W'}`;
+
+/** Dossier order: clusters and standalone places, then children. Matches the index. */
+const navOrder = ALL_PLACES.map((p) => p.id);
+
+const dossiers = ALL_PLACES.map((place) => {
+  const i = navOrder.indexOf(place.id);
+  const prev = ALL_PLACES[(i - 1 + navOrder.length) % navOrder.length];
+  const next = ALL_PLACES[(i + 1) % navOrder.length];
+  const projects = place.projects
+    .map((link) => {
+      const project = getProjectBySlug(link.slug);
+      return project ? { ...link, title: project.title, href: `/projects/${project.slug}` } : null;
+    })
+    .filter((entry): entry is NonNullable<typeof entry> => entry !== null);
+  return { place, prev, next, projects, coords: readCoords(place.coords) };
+});
+
+const placeCount = ALL_PLACES.filter((p) => p.kind !== 'cluster').length;
+---
+
+<section class="map-hero" aria-labelledby="map-hero-title">
+  <div class="map-hero__rail">
+    <div class="map-hero__masthead">
+      <p class="section-kicker">Portfolio · Field record</p>
+      <h1 id="map-hero-title">Reese Hollister</h1>
+      <p class="map-hero__positioning">{siteMeta.position}</p>
+      <p class="map-hero__tagline">{heroThesis}</p>
+    </div>
+
+    <nav class="place-index" aria-label="Places of work and study">
+      <div class="place-index__head">
+        <h2>Where the work happened</h2>
+        <span class="place-index__count">{placeCount} places</span>
+      </div>
+      <ol class="place-index__list">
+        {PLACES.map((place) => (
+          <li>
+            <button type="button" class="place-index__item" data-place={place.id}>
+              <span class="place-index__place">
+                {place.name}
+                {place.media?.kind === 'video' && <i class="place-index__film" aria-label="has video">▶</i>}
+              </span>
+              <span class="place-index__meta">
+                {place.period ?? place.institutions[0] ?? place.roles[0] ?? ''}
+              </span>
+            </button>
+            {place.children && (
+              <ol>
+                {place.children.map((child) => (
+                  <li>
+                    <button type="button" class="place-index__item" data-place={child.id}>
+                      <span class="place-index__place">
+                        {child.short}
+                        {child.media?.kind === 'video' && <i class="place-index__film" aria-label="has video">▶</i>}
+                      </span>
+                      <span class="place-index__meta">{child.institutions[0] ?? child.roles[0] ?? ''}</span>
+                    </button>
+                  </li>
+                ))}
+              </ol>
+            )}
+          </li>
+        ))}
+      </ol>
+    </nav>
+
+    <div class="map-legend">
+      <span class="map-legend__item"><i class="map-swatch map-swatch--worked" aria-hidden="true"></i>Worked or studied here</span>
+      <label class="map-legend__item map-legend__toggle">
+        <input type="checkbox" id="map-studies-toggle" />
+        <i class="map-swatch map-swatch--studies" aria-hidden="true"></i>Show what the work studies
+      </label>
+    </div>
+
+    <div class="dossier" id="map-dossier" aria-live="polite" aria-atomic="true">
+      <article class="dossier__panel" data-dossier="default">
+        <p class="section-kicker">Field record</p>
+        <h3>Places, not pins</h3>
+        <p>
+          Solid marks are places I have studied, taught, or researched. Select one on the map or in the
+          index to see the institution, the role, and the work it produced. Hatched regions show what a
+          project studies — not where I went.
+        </p>
+        <p class="dossier__hint">{placeCount} places · {PLACES.length - 1} standalone · 1 country cluster</p>
+      </article>
+
+      {dossiers.map(({ place, prev, next, projects, coords }) => (
+        <article class="dossier__panel" data-dossier={place.id} hidden>
+          {place.media ? (
+            <figure class="dossier__media">
+              <img src={withBase(place.media.src)} alt={place.media.alt} loading="lazy" decoding="async" width="640" height="440" />
+              {place.media.kind === 'video' && (
+                <button type="button" class="play" data-video={place.media.youtubeId} data-title={place.media.caption}>
+                  <span class="play__glyph" aria-hidden="true"></span>
+                  <span class="play__label">Play video</span>
+                </button>
+              )}
+              <figcaption>{place.media.caption}</figcaption>
+            </figure>
+          ) : (
+            <figure class="dossier__media dossier__media--needed" aria-label={`Image needed: ${place.imageNeeded}`}>
+              <span>Image needed</span>
+              <span>{place.imageNeeded}</span>
+            </figure>
+          )}
+          <p class="section-kicker">
+            {place.kind === 'cluster' ? 'Country cluster' : 'Worked or studied here'}
+            {place.institutions[0] ? ` · ${place.institutions[0]}` : ''}
+          </p>
+          <h3 tabindex="-1">{place.name}</h3>
+          <p class="dossier__meta">
+            {place.period && <span class="dossier__period">{place.period}</span>}
+            <span class="dossier__coords">{coords}</span>
+          </p>
+          {place.roles.length > 0 && (
+            <ul class="dossier__roles">{place.roles.map((role) => <li>{role}</li>)}</ul>
+          )}
+          <p>{place.context}</p>
+          {place.children && (
+            <div class="dossier__sub">
+              <h4>Inside {place.short}</h4>
+              {place.children.map((child) => (
+                <button type="button" class="dossier__chip" data-place={child.id}>{child.short}</button>
+              ))}
+            </div>
+          )}
+          {projects.length > 0 && (
+            <div class="dossier__projects">
+              <h4>Related work</h4>
+              <ul>
+                {projects.map((project) => (
+                  <li>
+                    <a href={withBase(project.href)} data-region={project.region}>{project.title}</a>
+                    <span class:list={['tag', `tag--${project.relation}`]}>
+                      {project.relation === 'made' ? 'Made here' : 'Studies this place'}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          <div class="dossier__nav">
+            <button type="button" class="dossier__step" data-place={prev.id}>‹ {prev.short}</button>
+            <button type="button" class="dossier__step" data-place={next.id}>{next.short} ›</button>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="map-hero__actions">
+      <a class="button-primary" href={withBase('/contact')}>Start a conversation</a>
+      <a class="resource-link" href="#selected-work">Selected work ↓</a>
+    </div>
+  </div>
+
+  <div class="map-plate" id="map-plate" data-studies="off">
+    <div class="map-plate__stage" id="map-stage" style={`--vb-w:${W};--vb-h:${H}`}>
+      <svg
+        class="map-plate__svg"
+        viewBox={`0 0 ${W} ${H}`}
+        preserveAspectRatio="xMidYMid meet"
+        xmlns="http://www.w3.org/2000/svg"
+        role="img"
+        aria-label="Map of the Atlantic hemisphere marking places where Reese Hollister has studied, taught, or researched. The same places are listed in the index beside this map."
+      >
+        <defs>
+          <pattern id="map-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="7" class="map-hatch__line" />
+          </pattern>
+        </defs>
+        <rect class="map-water" width={W} height={H} />
+        <path class="map-graticule" d={graticule} />
+        <path class="map-land" d={land} />
+        <path class="map-land" d={morocco} />
+        <path class="map-borders" d={borders} />
+        {studyRegions.map((region) => (
+          <path class="map-study" data-region={region.region} d={region.d} />
+        ))}
+        <path class="map-journey" d={journey} />
+      </svg>
+      <div class="map-nodes" id="map-nodes" role="group" aria-label="Map locations. Arrow keys move between places, Enter opens one, Escape returns to the full map.">
+        {nodes.map(({ place, parentId, left, top, zoom }) => (
+          <button
+            type="button"
+            class:list={['map-node', `map-node--${place.kind}`, { 'map-node--child': parentId }]}
+            data-place={place.id}
+            data-parent={parentId}
+            data-label={place.labelPos}
+            data-zoom={zoom ? `${zoom.k},${zoom.x},${zoom.y}` : undefined}
+            style={`left:${left}%;top:${top}%;--dx:${(place.offset?.[0] ?? 0) / W * 100}%;--dy:${(place.offset?.[1] ?? 0) / H * 100}%`}
+            aria-pressed="false"
+            aria-label={
+              place.kind === 'cluster'
+                ? `${place.name} — ${place.children!.length} places. Opens a closer view.`
+                : `${place.name}${place.institutions[0] ? ` — ${place.institutions[0]}` : ''}`
+            }
+            hidden={parentId ? true : undefined}
+          >
+            <span class="map-node__pin">
+              <span class="map-node__dot"></span>
+              <span class="map-node__label">
+                {place.short}
+                {place.kind === 'cluster' && <small> · {place.children!.length}</small>}
+              </span>
+            </span>
+          </button>
+        ))}
+      </div>
+
+      <!--
+        Pinned evidence. Selecting a place lifts its photograph or film out of the
+        pin on a hairline leader, then lets it breathe. Desktop only: on a phone
+        the same media sits in the dossier, where there is room for it.
+      -->
+      <div class="pin-cards" id="pin-cards" aria-hidden="true">
+        {nodes
+          .filter(({ place }) => place.media)
+          .map(({ place, left, top, cardSide }) => (
+            <div
+              class:list={['pin-card', `pin-card--${cardSide}`]}
+              data-card={place.id}
+              style={`left:${left}%;top:${top}%`}
+              hidden
+            >
+              <span class="pin-card__leader" aria-hidden="true"></span>
+              <figure class="pin-card__body">
+                <div class="pin-card__frame">
+                  <img src={withBase(place.media!.src)} alt={place.media!.alt} loading="lazy" decoding="async" />
+                  {place.media!.kind === 'video' && (
+                    <button type="button" class="play play--pin" data-video={place.media!.youtubeId} data-title={place.media!.caption}>
+                      <span class="play__glyph" aria-hidden="true"></span>
+                      <span class="play__label">Play</span>
+                    </button>
+                  )}
+                </div>
+                <figcaption>
+                  <span class="pin-card__place">{place.short}</span>
+                  <span class="pin-card__caption">{place.media!.caption}</span>
+                </figcaption>
+              </figure>
+            </div>
+          ))}
+      </div>
+    </div>
+    <p class="map-plate__caption" aria-hidden="true">Plate I · Places of work and study · Equal Earth projection</p>
+    <button type="button" class="map-plate__reset" id="map-reset" hidden>← Full map</button>
+  </div>
+</section>
+
+<script>
+  const plate = document.getElementById('map-plate');
+  const stage = document.getElementById('map-stage');
+  const nodeLayer = document.getElementById('map-nodes');
+  const dossier = document.getElementById('map-dossier');
+  const reset = document.getElementById('map-reset');
+  const toggle = document.getElementById('map-studies-toggle') as HTMLInputElement | null;
+  const cardLayer = document.getElementById('pin-cards');
+  const hero = document.querySelector('.map-hero');
+
+  if (plate && stage && nodeLayer && dossier && reset && hero) {
+    const nodes = Array.from(nodeLayer.querySelectorAll<HTMLButtonElement>('.map-node'));
+    const indexItems = Array.from(document.querySelectorAll<HTMLButtonElement>('.place-index__item'));
+    const panels = Array.from(dossier.querySelectorAll<HTMLElement>('.dossier__panel'));
+    const cards = Array.from(cardLayer?.querySelectorAll<HTMLElement>('.pin-card') ?? []);
+
+    /** Tear down any playing embed so a hidden card can never keep making sound. */
+    const stopMedia = (scope: HTMLElement) => {
+      for (const frame of scope.querySelectorAll('iframe')) frame.remove();
+      for (const el of scope.querySelectorAll('.is-playing')) el.classList.remove('is-playing');
+    };
+    const isMobile = () => window.matchMedia('(max-width: 900px)').matches;
+    const smooth = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+
+    let selected: string | null = null;
+    let expanded: string | null = null;
+
+    const applyZoom = () => {
+      const cluster = expanded ? nodes.find((n) => n.dataset.place === expanded) : null;
+      const zoom = cluster?.dataset.zoom;
+      if (zoom) {
+        const [k, x, y] = zoom.split(',').map(Number);
+        stage.style.setProperty('--k', String(k));
+        stage.style.transform = `translate(${(x / Number(stage.style.getPropertyValue('--vb-w'))) * 100}%, ${(y / Number(stage.style.getPropertyValue('--vb-h'))) * 100}%) scale(${k})`;
+      } else {
+        stage.style.setProperty('--k', '1');
+        stage.style.transform = '';
+      }
+      reset.hidden = !expanded;
+    };
+
+    const sync = () => {
+      for (const node of nodes) {
+        const id = node.dataset.place!;
+        const parent = node.dataset.parent;
+        const isCluster = node.classList.contains('map-node--cluster');
+        // While a cluster is open the plate is zoomed into it, so anything outside
+        // that cluster is off-screen — hide it rather than leave it in the tab order.
+        node.hidden = isCluster ? expanded === id : parent ? expanded !== parent : Boolean(expanded);
+        node.setAttribute('aria-pressed', String(selected === id));
+      }
+      for (const item of indexItems) {
+        const on = item.dataset.place === selected;
+        item.toggleAttribute('aria-current', on);
+        if (on && isMobile()) item.scrollIntoView({ inline: 'center', block: 'nearest', behavior: smooth });
+      }
+      for (const panel of panels) {
+        const on = panel.dataset.dossier === (selected ?? 'default');
+        if (!on) stopMedia(panel);
+        panel.hidden = !on;
+      }
+      // The pinned card is hidden with [hidden], so display:none → block restarts
+      // its rise animation each time a place is selected. No manual reset needed.
+      for (const card of cards) {
+        const on = card.dataset.card === selected;
+        if (!on) stopMedia(card);
+        card.hidden = !on;
+      }
+      applyZoom();
+    };
+
+    const select = (id: string, focusNode = false, announce = true) => {
+      const node = nodes.find((n) => n.dataset.place === id);
+      if (!node) return;
+      selected = id;
+      expanded = node.classList.contains('map-node--cluster') ? id : node.dataset.parent || null;
+      sync();
+      if (!announce) return;
+      if (focusNode) node.focus({ preventScroll: true });
+      const heading = panels.find((p) => p.dataset.dossier === id)?.querySelector('h3');
+      if (!focusNode) heading?.focus?.({ preventScroll: true });
+      if (isMobile()) dossier.scrollIntoView({ block: 'nearest', behavior: smooth });
+    };
+
+    const clear = () => {
+      selected = null;
+      expanded = null;
+      sync();
+    };
+
+    hero.addEventListener('click', (event) => {
+      const play = (event.target as HTMLElement).closest<HTMLButtonElement>('.play');
+      if (play) {
+        event.preventDefault();
+        const frame = play.parentElement!;
+        const embed = document.createElement('iframe');
+        embed.src = `https://www.youtube-nocookie.com/embed/${play.dataset.video}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
+        embed.title = play.dataset.title ?? 'Video';
+        embed.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        embed.allowFullscreen = true;
+        frame.classList.add('is-playing');
+        frame.append(embed);
+        return;
+      }
+      const target = (event.target as HTMLElement).closest<HTMLElement>('[data-place]');
+      if (!target) return;
+      select(target.dataset.place!, target.classList.contains('map-node'));
+    });
+
+    reset.addEventListener('click', () => {
+      const previous = expanded;
+      clear();
+      if (previous) nodes.find((n) => n.dataset.place === previous)?.focus();
+    });
+
+    toggle?.addEventListener('change', () => {
+      plate.dataset.studies = toggle.checked ? 'on' : 'off';
+    });
+
+    // A related-work link reveals the region that project studies.
+    const setRegion = (region?: string) => {
+      if (region) plate.dataset.regionActive = region;
+      else delete plate.dataset.regionActive;
+    };
+    for (const [on, off] of [['mouseover', 'mouseout'], ['focusin', 'focusout']] as const) {
+      dossier.addEventListener(on, (event) => {
+        setRegion((event.target as HTMLElement).closest<HTMLElement>('[data-region]')?.dataset.region);
+      });
+      dossier.addEventListener(off, () => setRegion());
+    }
+
+    nodeLayer.addEventListener('keydown', (event) => {
+      const visible = nodes.filter((n) => !n.hidden);
+      const index = visible.indexOf(document.activeElement as HTMLButtonElement);
+      const go = (next: number) => visible[(next + visible.length) % visible.length]?.focus();
+      if (event.key === 'ArrowRight' || event.key === 'ArrowDown') { event.preventDefault(); go(index + 1); }
+      else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') { event.preventDefault(); go(index - 1); }
+      else if (event.key === 'Home') { event.preventDefault(); go(0); }
+      else if (event.key === 'End') { event.preventDefault(); go(visible.length - 1); }
+    });
+
+    hero.addEventListener('keydown', (event) => {
+      if ((event as KeyboardEvent).key !== 'Escape' || (!expanded && !selected)) return;
+      const previous = expanded;
+      clear();
+      if (previous) nodes.find((n) => n.dataset.place === previous)?.focus();
+    });
+
+    // A missing photograph degrades into the designed placeholder rather than a broken image.
+    dossier.addEventListener(
+      'error',
+      (event) => {
+        const image = event.target as HTMLElement;
+        if (image.tagName !== 'IMG') return;
+        const figure = image.closest('figure');
+        if (!figure) return;
+        const label = figure.querySelector('figcaption')?.textContent || (image as HTMLImageElement).alt;
+        figure.className = 'dossier__media dossier__media--needed';
+        figure.innerHTML = `<span>Image needed</span><span>${label}</span>`;
+      },
+      true
+    );
+
+    sync();
+
+    // First look: the plate introduces itself with one place already pinned, so
+    // the page opens on a photograph rather than a paragraph. Manah is chosen
+    // because it is a standalone pin — selecting a cluster would zoom in and
+    // throw away the world view before anyone has read it. Desktop only (a phone
+    // shows media in the dossier), and it steps aside the moment someone
+    // chooses for themselves.
+    if (!isMobile()) {
+      const opener = window.setTimeout(() => { if (!selected) select('manah', false, false); }, 700);
+      hero.addEventListener('pointerdown', () => window.clearTimeout(opener), { once: true });
+      hero.addEventListener('keydown', () => window.clearTimeout(opener), { once: true });
+    }
+  }
+</script>

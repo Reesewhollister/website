@@ -1,0 +1,150 @@
+---
+/**
+ * The site's single inquiry form. Every "Start a conversation" CTA lands here.
+ *
+ * Backend: Formspree (endpoint below). Confirm in the Formspree dashboard that the
+ * form is activated and delivers to reesewhollister@gmail.com. Formspree form IDs
+ * are public by design — no secret ships in the client.
+ * Deep link: /contact?topic=essay preselects a topic.
+ */
+const endpoint = 'https://formspree.io/f/xppzyndl';
+const topics = [
+  { value: 'job', label: 'Job or professional opportunity' },
+  { value: 'research', label: 'Research or collaboration' },
+  { value: 'education', label: 'Education or teaching' },
+  { value: 'essay', label: 'College essay coaching' },
+  { value: 'speaking', label: 'Speaking or presentation' },
+  { value: 'project', label: 'Project inquiry' },
+  { value: 'other', label: 'Other' }
+];
+---
+
+<form id="inquiry-form" class="inquiry" action={endpoint} method="POST" novalidate>
+  <div class="inquiry__field">
+    <label for="inquiry-name">Name <span aria-hidden="true">*</span></label>
+    <input id="inquiry-name" name="name" type="text" required autocomplete="name" aria-describedby="inquiry-name-error" />
+    <p class="inquiry__error" id="inquiry-name-error"></p>
+  </div>
+  <div class="inquiry__field">
+    <label for="inquiry-email">Email <span aria-hidden="true">*</span></label>
+    <input id="inquiry-email" name="email" type="email" required autocomplete="email" inputmode="email" aria-describedby="inquiry-email-error" />
+    <p class="inquiry__error" id="inquiry-email-error"></p>
+  </div>
+  <div class="inquiry__field">
+    <label for="inquiry-topic">What would you like to talk about?</label>
+    <select id="inquiry-topic" name="topic" required aria-describedby="inquiry-topic-error">
+      <option value="">Choose a topic</option>
+      {topics.map((topic) => <option value={topic.value}>{topic.label}</option>)}
+    </select>
+    <p class="inquiry__error" id="inquiry-topic-error"></p>
+  </div>
+  <div class="inquiry__field">
+    <label for="inquiry-message">Message <span aria-hidden="true">*</span></label>
+    <textarea id="inquiry-message" name="message" rows="6" required aria-describedby="inquiry-message-error"></textarea>
+    <p class="inquiry__error" id="inquiry-message-error"></p>
+  </div>
+
+  <div class="inquiry__honeypot" aria-hidden="true">
+    <label for="inquiry-gotcha">Leave this empty</label>
+    <input id="inquiry-gotcha" name="_gotcha" type="text" tabindex="-1" autocomplete="off" />
+  </div>
+  <input type="hidden" name="_subject" value="Inquiry from reesehollister.com" />
+
+  <div class="inquiry__foot">
+    <button type="submit" class="button-primary">Send inquiry</button>
+    <p class="inquiry__status" id="inquiry-status" role="status"></p>
+  </div>
+</form>
+
+<script>
+  const form = document.getElementById('inquiry-form') as HTMLFormElement | null;
+  const status = document.getElementById('inquiry-status');
+
+  if (form && status) {
+    const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    const topic = form.elements.namedItem('topic') as HTMLSelectElement;
+    const labels = new Map(Array.from(topic.options).map((option) => [option.value, option.textContent ?? '']));
+
+    const rules: Record<string, (value: string) => string> = {
+      name: (value) => (value.trim() ? '' : 'Please add your name.'),
+      email: (value) =>
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim()) ? '' : 'Please enter an email address I can reply to.',
+      topic: (value) => (value ? '' : 'Please choose a topic.'),
+      message: (value) =>
+        value.trim().length >= 10 ? '' : 'Please add a short message — a sentence or two is fine.'
+    };
+
+    const fieldOf = (name: string) => form.elements.namedItem(name) as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+
+    const setError = (name: string, message: string) => {
+      const field = fieldOf(name);
+      document.getElementById(`inquiry-${name}-error`)!.textContent = message;
+      field.setAttribute('aria-invalid', message ? 'true' : 'false');
+      field.closest('.inquiry__field')?.classList.toggle('inquiry__field--invalid', Boolean(message));
+    };
+
+    for (const name of Object.keys(rules)) {
+      const field = fieldOf(name);
+      field.addEventListener('blur', () => setError(name, rules[name](field.value)));
+      field.addEventListener('input', () => {
+        if (field.getAttribute('aria-invalid') === 'true') setError(name, rules[name](field.value));
+      });
+    }
+
+    // Deep link and CTA routing: /contact?topic=essay (or #contact?topic=essay).
+    const requested =
+      new URLSearchParams(window.location.search).get('topic') ??
+      new URLSearchParams(window.location.hash.split('?')[1] ?? '').get('topic');
+    if (requested && labels.has(requested)) topic.value = requested;
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      let firstInvalid: HTMLElement | null = null;
+      for (const name of Object.keys(rules)) {
+        const message = rules[name](fieldOf(name).value);
+        setError(name, message);
+        if (message && !firstInvalid) firstInvalid = fieldOf(name);
+      }
+      if (firstInvalid) {
+        firstInvalid.focus();
+        status.textContent = 'Please fix the highlighted fields.';
+        return;
+      }
+
+      (form.elements.namedItem('_subject') as HTMLInputElement).value =
+        `Inquiry — ${labels.get(topic.value)} — ${(fieldOf('name') as HTMLInputElement).value.trim()}`;
+      submit.disabled = true;
+      submit.textContent = 'Sending…';
+      status.textContent = 'Sending your message…';
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' }
+        });
+        if (!response.ok) {
+          const data = await response.json().catch(() => ({}) as any);
+          throw new Error(
+            data?.errors?.map((error: { message: string }) => error.message).join(' ') ||
+              `the server returned ${response.status}`
+          );
+        }
+        const chosen = labels.get(topic.value);
+        form.innerHTML = `
+          <div class="inquiry__success" tabindex="-1">
+            <p class="section-kicker">Sent</p>
+            <h3>Thanks — your message has been sent. I'll follow up by email.</h3>
+            <p>Selected topic: ${chosen}.</p>
+          </div>`;
+        form.querySelector<HTMLElement>('.inquiry__success')?.focus();
+      } catch (error) {
+        submit.disabled = false;
+        submit.textContent = 'Send inquiry';
+        status.innerHTML = `Something went wrong and the message wasn't sent (${
+          error instanceof Error ? error.message : 'unknown error'
+        }). You can try again, or email <a href="mailto:reesewhollister@gmail.com">reesewhollister@gmail.com</a> directly.`;
+      }
+    });
+  }
+</script>

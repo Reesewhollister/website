@@ -174,3 +174,55 @@ This pass preserves Newsreader, Source Serif 4, Work Sans, the warm paper/ink pa
 - Existing uncommitted design-system additions, ChoosePath changes, new icon/system assets, and dependency edits have been preserved.
 
 - A secondary Digital Research and Process Design case study preserves the live website’s workflow URLs and four proposed process examples. It uses the existing airline atlas screenshot as research context and is not featured.
+
+## Map hero (home)
+
+`src/components/MapHero.astro` renders an atlas plate beside a catalogue rail. The plate is
+projected at **build time** with `d3-geo` + `topojson-client` over `world-atlas` 110m — no map
+library, tiles, or runtime fetch reach the browser; only a small interaction script does.
+
+- Geography, roles, and project links live in `src/data/places.ts` — the only file to edit when
+  places change. The index, nodes, dossier, prev/next order, and counts all derive from it.
+- Two vocabularies, never mixed: solid rust marks are **places worked or studied**; a pale blue
+  diagonal hatch is **what a project studies** (Africa, Western Sahara, Morocco), shown on a
+  related-work hover/focus or via the legend toggle.
+- Morocco is drawn once, as a merged 504 + 732 silhouette with the shared border omitted.
+- The place index is the canonical text alternative; map nodes are real buttons with arrow-key
+  roving and Escape to collapse a cluster zoom.
+- Images: Morocco uses `chefchaouen-blue-plaza-hero-16x9.webp`, Ifrane uses
+  `mohammed-vi-library-aui-hero-16x9.webp`. Everything else renders a designed "Image needed"
+  placeholder, and a broken path degrades into the same placeholder rather than a broken image.
+
+### Pinned evidence
+
+Selecting a place lifts its photograph or film **out of the pin** on a hairline leader: a 0.52s
+rise that overshoots slightly, then a 5.5s float of ±6px while it stays selected. The card reads
+as a physical thing pulled up from the map rather than a panel that faded in.
+
+- Cards hang from the side that keeps them on the plate (`cardSide`, derived from the pin's
+  position, overridable per place where the automatic side would cover a neighbouring pin).
+- They counter-scale with a cluster zoom, so a card is the same size at world scale and at 7×.
+- Video is a **facade**: the poster is a local JPEG and nothing is requested from YouTube until
+  someone presses play, at which point a `youtube-nocookie` embed replaces the poster. Changing
+  place tears the embed down, so a hidden card can never keep playing audio.
+- Below 900px the cards are suppressed — there is no room to float one over a 46vh plate — and
+  the same media, play button included, appears in the dossier.
+- On desktop the plate opens with Manah already pinned after 700ms, so the first look is a map
+  and a film still rather than a paragraph. It is cancelled by the first pointer or key input,
+  and Manah is used because selecting a cluster would zoom away the world view.
+
+## Home page, below the plate
+
+**Credential band.** The proof strip is now four facts on ink (`.credential-band`), full-bleed,
+directly under the map. Each carries a small drawn pin whose outline strokes on when the section
+reveals. It breaks the page's rhythm exactly where the eye leaves the plate, and it reads in one
+pass rather than as a paragraph. Four columns on desktop, two below 900px, one below 560px.
+
+**Wide work cards.** Featured work on the home page uses `<ProjectCard wide />`: a half-width
+photographic plate on the left, the writing on the right, gold corner brackets inset over the
+image, and a 4px lift with a 1.055 image scale on hover. One card per row, so each case study gets
+a photograph at a size worth looking at. `/projects` and `/research` keep the existing grid — the
+variant is opt-in, so nothing else changed.
+
+**Prose moved.** `homeIntro` now runs as the Capabilities section intro rather than sitting under
+the hero, which keeps the first screen to a map, a name, and four words.

@@ -4301,3 +4301,687 @@ html.motion-ready .wipe.play { clip-path: inset(0 0 0 0); transition: clip-path 
   [id] { scroll-margin-top: 1rem; }
 }
 
+
+/* ── Map hero ────────────────────────────────────────────────────────────────
+   Atlas plate + catalogue rail on the home page. The plate is projected at
+   build time (see MapHero.astro); only the interaction script runs client-side.
+   Palette uses the base Huruf-derived tokens, with a dark plate ground. */
+.map-hero {
+  --plate-water: #14343f;
+  --plate-land: var(--paper-deep);
+  --plate-border: rgba(40, 29, 21, 0.35);
+  display: grid;
+  grid-template-columns: minmax(19rem, 25rem) 1fr;
+  height: clamp(38rem, calc(100vh - 6.5rem), 54rem);
+  padding: 0;
+  border-bottom: 1px solid var(--line);
+}
+.map-hero__rail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--gutter) var(--space-3);
+  border-right: 1px solid var(--line);
+  overflow-y: auto;
+}
+.map-hero__masthead h1 { margin: 0.2rem 0 0; font-size: clamp(2.2rem, 3.4vw, 3.1rem); }
+.map-hero__positioning {
+  margin: 0.7rem 0 0.5rem;
+  font-family: 'Work Sans', system-ui, sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.map-hero__tagline { margin: 0; max-width: 34ch; color: var(--ink-soft); }
+.map-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+  /* The rail scrolls; the primary call to action stays put at its foot. */
+  position: sticky;
+  bottom: 0;
+  margin-top: auto;
+  padding: var(--space-2) 0;
+  background: linear-gradient(to top, var(--paper) 78%, transparent);
+}
+.button-primary {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0.7rem 1.15rem;
+  background: var(--accent-rust);
+  color: var(--paper);
+  font-family: 'Work Sans', system-ui, sans-serif;
+  font-size: 0.9rem;
+  text-decoration: none;
+  border-radius: 2px;
+}
+.button-primary:hover { background: #7f1618; }
+
+/* Place index — the canonical text alternative to the map */
+.place-index__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+  border-top: 1px solid var(--ink);
+  padding-top: 0.6rem;
+}
+.place-index__head h2 {
+  margin: 0;
+  font-family: 'Work Sans', system-ui, sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.place-index__count { font-size: 0.75rem; color: var(--ink-soft); }
+.place-index__list, .place-index__list ol { list-style: none; margin: 0; padding: 0; counter-reset: place; }
+.place-index__list ol { margin-left: 0.5rem; padding-left: 1rem; border-left: 1px solid var(--line); }
+.place-index__item {
+  display: grid;
+  grid-template-columns: 1.4rem 1fr;
+  column-gap: 0.3rem;
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.45rem 0.3rem;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+}
+.place-index__item::before {
+  counter-increment: place;
+  content: counter(place);
+  padding-top: 0.35em;
+  font-family: 'Work Sans', system-ui, sans-serif;
+  font-size: 0.7rem;
+  color: var(--ink-soft);
+}
+.place-index__list ol .place-index__item::before { content: counter(place, lower-alpha); }
+.place-index__meta {
+  grid-column: 2;
+  font-family: 'Work Sans', system-ui, sans-serif;
+  font-size: 0.74rem;
+  color: var(--ink-soft);
+}
+.place-index__item:hover { background: var(--accent-rust-wash); }
+.place-index__item[aria-current] { background: var(--accent-rust-wash); }
+.place-index__item[aria-current] .place-index__place { color: var(--accent-rust); }
+
+.map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.1rem;
+  font-family: 'Work Sans', system-ui, sans-serif;
+  font-size: 0.76rem;
+  color: var(--ink-soft);
+}
+.map-legend__item { display: inline-flex; align-items: center; gap: 0.4rem; min-height: 2rem; }
+.map-legend__toggle { cursor: pointer; }
+.map-legend__toggle input { width: 1rem; height: 1rem; margin: 0; accent-color: var(--accent-rust); }
+.map-swatch { width: 0.75rem; height: 0.75rem; border-radius: 50%; background: var(--accent-rust); }
+.map-swatch--studies {
+  border-radius: 2px;
+  border: 1px solid var(--accent-map);
+  background: repeating-linear-gradient(45deg, var(--accent-map) 0 1px, var(--accent-sky) 1px 4px);
+}
+
+/* Dossier — one card, never a floating stack */
+.dossier { border: 1px solid var(--line); background: rgba(255, 255, 255, 0.4); padding: var(--space-3); }
+.dossier__panel > h3 { margin: 0.1rem 0 0.2rem; font-size: 1.5rem; }
+.dossier__panel > h3:focus { outline: none; }
+.dossier__panel p { margin: 0.35rem 0 0; }
+.dossier__media { margin: 0 0 0.8rem; position: relative; aspect-ratio: 16 / 11; overflow: hidden; background: var(--paper-deep); }
+.dossier__media img { width: 100%; height: 100%; object-fit: cover; }
+.dossier__media figcaption {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 0.3rem 0.5rem;
+  background: rgba(40, 29, 21, 0.72);
+  color: var(--paper);
+  font-family: 'Work Sans', system-ui, sans-serif;
+  font-size: 0.7rem;
+}
+.dossier__media--needed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  text-align: center;
+  border: 1px dashed var(--ink-soft);
+  background: repeating-linear-gradient(-45deg, transparent 0 10px, rgba(40, 29, 21, 0.05) 10px 11px), var(--paper-deep);
+}
+.dossier__media--needed span:first-child {
+  font-family: 'Work Sans', system-ui, sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-rust);
+}
+.dossier__media--needed span:last-child { font-style: italic; padding: 0 1rem; color: var(--ink-soft); }
+.dossier__period { font-family: 'Work Sans', system-ui, sans-serif; font-size: 0.78rem; color: var(--accent-gold); }
+.dossier__roles { margin: 0.4rem 0 0.6rem; padding-left: 1rem; font-size: 0.92rem; color: var(--ink-soft); }
+.dossier__hint { font-family: 'Work Sans', system-ui, sans-serif; font-size: 0.74rem; color: var(--ink-soft); }
+.dossier__sub { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-top: 0.8rem; }
+.dossier__sub h4, .dossier__projects h4 {
+  width: 100%;
+  margin: 0 0 0.2rem;
+  font-family: 'Work Sans', system-ui, sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.dossier__chip {
+  min-height: 2.25rem;
+  padding: 0.4rem 0.7rem;
+  font-family: 'Work Sans', system-ui, sans-serif;
+  font-size: 0.8rem;
+  color: inherit;
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.dossier__chip:hover { border-color: var(--accent-rust); color: var(--accent-rust); }
+.dossier__projects { margin-top: 0.8rem; }
+.dossier__projects ul { list-style: none; margin: 0; padding: 0; }
+.dossier__projects li { padding: 0.35rem 0; border-top: 1px solid var(--line); font-size: 0.95rem; }
+.dossier__nav { display: flex; justify-content: space-between; gap: var(--space-2); margin-top: 0.8rem; border-top: 1px solid var(--line); }
+.dossier__step {
+  min-height: 2.75rem;
+  padding: 0.4rem 0;
+  font-family: 'Work Sans', system-ui, sans-serif;
+  font-size: 0.82rem;
+  color: var(--accent-rust);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.tag {
+  display: inline-block;
+  margin-left: 0.4em;
+  padding: 0.35em 0.55em;
+  font-family: 'Work Sans', system-ui, sans-serif;
+  font-size: 0.66rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  border-radius: 2px;
+}
+.tag--made { background: var(--accent-rust-wash); color: var(--accent-rust); }
+.tag--about { background: var(--accent-map-wash); color: var(--accent-map); }
+
+/* The plate */
+.map-plate {
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  min-height: 22rem;
+  background: var(--plate-water);
+}
+.map-plate::after {
+  content: '';
+  position: absolute;
+  inset: 0.7rem;
+  border: 1px solid rgba(255, 244, 234, 0.18);
+  pointer-events: none;
+}
+.map-plate__stage {
+  --k: 1;
+  position: relative;
+  width: 100%;
+  aspect-ratio: var(--vb-w) / var(--vb-h);
+  transform-origin: 0 0;
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.map-plate__svg { display: block; width: 100%; height: 100%; }
+.map-water { fill: var(--plate-water); }
+.map-graticule { fill: none; stroke: rgba(255, 244, 234, 0.09); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.map-land { fill: var(--plate-land); }
+.map-borders { fill: none; stroke: var(--plate-border); stroke-width: 0.6; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.map-hatch__line { stroke: var(--accent-map); stroke-width: 1.2; }
+.map-study {
+  fill: url(#map-hatch);
+  fill-opacity: 0.85;
+  stroke: var(--accent-map);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.map-plate[data-studies='on'] .map-study,
+.map-plate[data-region-active='africa'] .map-study[data-region='africa'],
+.map-plate[data-region-active='western-sahara'] .map-study[data-region='western-sahara'],
+.map-plate[data-region-active='morocco'] .map-study[data-region='morocco'] { opacity: 1; }
+.map-journey {
+  fill: none;
+  stroke: var(--accent-gold);
+  stroke-width: 1.2;
+  stroke-dasharray: 3 6;
+  opacity: 0.55;
+  vector-effect: non-scaling-stroke;
+}
+.map-plate__caption {
+  position: absolute;
+  left: var(--gutter);
+  bottom: 1rem;
+  margin: 0;
+  font-family: 'Work Sans', system-ui, sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 244, 234, 0.6);
+  pointer-events: none;
+}
+.map-plate__reset {
+  position: absolute;
+  top: 1.1rem;
+  right: var(--gutter);
+  min-height: 2.5rem;
+  padding: 0.6rem 0.9rem;
+  font-family: 'Work Sans', system-ui, sans-serif;
+  font-size: 0.8rem;
+  color: var(--ink);
+  background: rgba(255, 244, 234, 0.95);
+  border: 0;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+/* Nodes are real buttons, counter-scaled so marks stay constant size while zoomed */
+.map-nodes { position: absolute; inset: 0; }
+.map-node {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  transform: scale(calc(1 / var(--k, 1)));
+  transform-origin: 0 0;
+}
+.map-node[hidden] { display: none; }
+.map-node__pin {
+  position: absolute;
+  left: var(--dx, 0);
+  top: var(--dy, 0);
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+.map-node__dot {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: var(--accent-rust);
+  box-shadow: 0 0 0 2.5px var(--plate-water), 0 0 0 4px rgba(255, 244, 234, 0.85);
+  transition: transform 0.2s, background 0.2s;
+}
+.map-node--cluster .map-node__dot {
+  width: 1.1rem;
+  height: 1.1rem;
+  background: var(--accent-gold);
+  box-shadow: 0 0 0 2.5px var(--plate-water), 0 0 0 4px rgba(255, 244, 234, 0.85), 0 0 0 9px rgba(247, 148, 29, 0.18);
+}
+.map-node--area .map-node__dot { background: transparent; border: 2px solid var(--accent-rust); }
+.map-node__label {
+  position: absolute;
+  white-space: nowrap;
+  font-family: 'Work Sans', system-ui, sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--paper);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+}
+.map-node[data-label='right'] .map-node__label { left: calc(100% - 0.5rem); top: 50%; transform: translateY(-50%); }
+.map-node[data-label='left'] .map-node__label { right: calc(100% - 0.5rem); top: 50%; transform: translateY(-50%); }
+.map-node[data-label='top'] .map-node__label { bottom: calc(100% - 0.6rem); left: 50%; transform: translateX(-50%); }
+.map-node[data-label='bottom'] .map-node__label { top: calc(100% - 0.6rem); left: 50%; transform: translateX(-50%); }
+.map-node:hover .map-node__dot, .map-node:focus-visible .map-node__dot { transform: scale(1.25); }
+.map-node[aria-pressed='true'] .map-node__dot { background: var(--accent-gold); transform: scale(1.35); }
+.map-node:focus-visible { outline: none; }
+.map-node:focus-visible .map-node__pin { box-shadow: 0 0 0 2px var(--plate-water), 0 0 0 4px var(--accent-gold); }
+
+@media (max-width: 900px) {
+  .map-hero { display: flex; flex-direction: column; height: auto; }
+  .map-plate { order: -1; width: 100%; }
+  .map-hero__rail { border-right: 0; }
+  .map-hero__masthead { order: 4; }
+  .place-index { order: 1; }
+  .dossier { order: 2; }
+  .map-legend { order: 3; }
+  .map-hero__actions { order: 5; }
+  .place-index__head { border-top: 0; padding-top: 0; }
+  .place-index__list {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 0.5rem;
+  }
+  .place-index__list li, .place-index__list ol { display: contents; }
+  .place-index__item {
+    flex: 0 0 auto;
+    width: auto;
+    min-width: 9.5rem;
+    grid-template-columns: auto;
+    scroll-snap-align: start;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 0.5rem 0.75rem;
+  }
+  .place-index__item::before { display: none; }
+  .place-index__meta { grid-column: 1; }
+  .place-index__item[aria-current] { border-color: var(--accent-rust); }
+  .map-node__label { display: none; }
+  .map-node[aria-pressed='true'] .map-node__label { display: block; }
+  .map-plate__caption { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .map-plate__stage, .map-node__dot, .map-study { transition: none; }
+}
+
+/* ── Universal inquiry form ─────────────────────────────────────────────── */
+.inquiry {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid var(--line);
+}
+.inquiry__field { display: grid; gap: 0.3rem; }
+.inquiry__field label {
+  font-family: 'Work Sans', system-ui, sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+}
+.inquiry__field label span { color: var(--accent-rust); }
+.inquiry__field input,
+.inquiry__field select,
+.inquiry__field textarea {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.7rem 0.8rem;
+  font: inherit;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--ink-soft);
+  border-radius: 2px;
+}
+.inquiry__field textarea { min-height: 9rem; resize: vertical; }
+.inquiry__field--invalid input,
+.inquiry__field--invalid select,
+.inquiry__field--invalid textarea { border-color: var(--accent-rust); }
+.inquiry__error {
+  margin: 0;
+  min-height: 1.1em;
+  font-family: 'Work Sans', system-ui, sans-serif;
+  font-size: 0.8rem;
+  color: var(--accent-rust);
+}
+.inquiry__honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.inquiry__foot { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+.inquiry__status { margin: 0; font-family: 'Work Sans', system-ui, sans-serif; font-size: 0.88rem; color: var(--ink-soft); }
+.inquiry__success:focus { outline: none; }
+.inquiry__success h3 { margin: 0.3rem 0 0.5rem; }
+.contact-layout { display: grid; grid-template-columns: 1fr 1.25fr; gap: var(--space-5); align-items: start; }
+@media (max-width: 900px) {
+  .contact-layout { grid-template-columns: 1fr; }
+}
+
+/* ── Pinned evidence ──────────────────────────────────────────────────────────
+   Selecting a place lifts its photograph or film out of the pin on a hairline
+   leader, then lets it breathe. The rise overshoots slightly so the card reads
+   as a physical thing being pulled up, not a panel fading in. */
+@keyframes pinCardRise {
+  0% { opacity: 0; transform: translate(var(--tx), 22px) scale(0.88); }
+  55% { opacity: 1; transform: translate(var(--tx), -7px) scale(1.015); }
+  100% { opacity: 1; transform: translate(var(--tx), 0) scale(1); }
+}
+@keyframes pinCardFloat {
+  0%, 100% { transform: translate(var(--tx), 0); }
+  50% { transform: translate(var(--tx), -6px); }
+}
+@keyframes pinLeaderDraw { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+
+.pin-cards { position: absolute; inset: 0; pointer-events: none; }
+.pin-card {
+  --tx: -50%;
+  position: absolute;
+  width: 17rem;
+  /* Counter-scales with a cluster zoom so the card keeps its real size. */
+  transform: scale(calc(1 / var(--k, 1)));
+  transform-origin: 0 0;
+  pointer-events: none;
+}
+.pin-card[hidden] { display: none; }
+.pin-card--left { --tx: -1.5rem; }
+.pin-card--right { --tx: calc(-100% + 1.5rem); }
+.pin-card__leader {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 1px;
+  height: 1.15rem;
+  background: linear-gradient(to top, var(--accent-gold), rgba(247, 148, 29, 0.25));
+  transform-origin: bottom center;
+  animation: pinLeaderDraw 0.3s ease both;
+}
+.pin-card__body {
+  position: absolute;
+  left: 0;
+  bottom: 1.15rem;
+  width: 100%;
+  margin: 0;
+  padding: 0.4rem;
+  background: var(--paper);
+  border: 1px solid rgba(40, 29, 21, 0.28);
+  box-shadow: 0 18px 34px -18px rgba(0, 0, 0, 0.65);
+  pointer-events: auto;
+  animation:
+    pinCardRise 0.52s cubic-bezier(0.2, 0.9, 0.28, 1.08) both,
+    pinCardFloat 5.5s ease-in-out 0.6s infinite;
+}
+.pin-card__frame { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: var(--paper-deep); }
+.pin-card__frame img { width: 100%; height: 100%; object-fit: cover; }
+.pin-card__frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.pin-card figcaption {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.4rem 0.1rem 0.1rem;
+  font-family: 'Work Sans', system-ui, sans-serif;
+}
+.pin-card__place { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-rust); }
+.pin-card__caption { font-size: 0.68rem; color: var(--ink-soft); text-align: right; }
+
+/* Play affordance — shared by the pinned card and the dossier. The YouTube
+   player is only requested when someone presses it. */
+.play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  width: 100%;
+  color: var(--paper);
+  background: linear-gradient(to top, rgba(20, 16, 12, 0.55), rgba(20, 16, 12, 0.1));
+  border: 0;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+.play:hover { background: linear-gradient(to top, rgba(20, 16, 12, 0.65), rgba(20, 16, 12, 0.2)); }
+.play__glyph {
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  background: var(--accent-rust);
+  box-shadow: 0 0 0 3px rgba(255, 244, 234, 0.9);
+  transition: transform 0.25s ease;
+  position: relative;
+}
+.play__glyph::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  width: 0;
+  height: 0;
+  border-left: 0.65rem solid var(--paper);
+  border-top: 0.42rem solid transparent;
+  border-bottom: 0.42rem solid transparent;
+  transform: translate(-50%, -50%);
+}
+.play:hover .play__glyph { transform: scale(1.08); }
+.play__label {
+  font-family: 'Work Sans', system-ui, sans-serif;
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+.play--pin .play__glyph { width: 2.1rem; height: 2.1rem; }
+.is-playing .play { display: none; }
+
+.dossier__media .play { position: absolute; }
+.dossier__meta { display: flex; flex-wrap: wrap; gap: 0.3rem 0.9rem; align-items: baseline; }
+.dossier__coords {
+  font-family: 'Work Sans', system-ui, sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--ink-soft);
+}
+.place-index__film { margin-left: 0.4rem; font-size: 0.6rem; font-style: normal; color: var(--accent-rust); }
+
+@media (max-width: 900px) {
+  /* No room to float a card over a 46vh plate — the media lives in the dossier. */
+  .pin-cards { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pin-card__body { animation: pinCardRise 0.01s both; }
+  .pin-card__leader { animation: none; }
+}
+
+/* ── Credential band ──────────────────────────────────────────────────────────
+   Four facts on ink, directly under the plate. Reads in one pass; breaks the
+   page's rhythm where the eye leaves the map. */
+.credential-band { background: var(--ink); color: var(--paper); }
+.credential-band__list {
+  list-style: none;
+  margin: 0;
+  padding: 0 var(--gutter);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.credential {
+  display: grid;
+  align-content: start;
+  gap: 0.4rem;
+  padding: var(--space-4) var(--space-3) var(--space-4) 0;
+  border-right: 1px solid rgba(255, 244, 234, 0.16);
+}
+.credential:last-child { border-right: 0; }
+.credential__pin { width: 0.85rem; height: 1.15rem; fill: none; stroke: var(--accent-gold); stroke-width: 1.5; stroke-linejoin: round; }
+.credential__pin circle { fill: var(--accent-gold); stroke: none; }
+.credential__pin path { stroke-dasharray: 60; stroke-dashoffset: 0; }
+.credential__label { font-family: 'Newsreader', Georgia, serif; font-size: 1.32rem; line-height: 1.16; }
+.credential__detail {
+  font-family: 'Work Sans', system-ui, sans-serif;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: rgba(255, 244, 234, 0.72);
+}
+@media (prefers-reduced-motion: no-preference) {
+  html.reveal-ready .reveal.is-visible .credential__pin path { animation: credentialPin 1.2s ease 0.2s both; }
+  @keyframes credentialPin { from { stroke-dashoffset: 60; } to { stroke-dashoffset: 0; } }
+}
+@media (max-width: 900px) {
+  .credential-band__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .credential { padding: var(--space-3) var(--space-3) var(--space-3) 0; }
+  .credential:nth-child(2n) { border-right: 0; }
+  .credential:nth-child(-n + 2) { border-bottom: 1px solid rgba(255, 244, 234, 0.16); }
+}
+@media (max-width: 560px) {
+  .credential-band__list { grid-template-columns: 1fr; }
+  .credential { border-right: 0; border-bottom: 1px solid rgba(255, 244, 234, 0.16); }
+  .credential:last-child { border-bottom: 0; }
+}
+
+/* ── Wide work cards ──────────────────────────────────────────────────────────
+   A large plate on the left, the writing on the right. One per row, so each
+   case study gets a photograph at a size worth looking at. */
+.work-stack { display: flex; flex-direction: column; gap: var(--space-4); }
+.project-card--wide {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+.project-card--wide:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 44px -26px rgba(40, 29, 21, 0.5);
+  border-color: rgba(158, 28, 31, 0.45);
+}
+.project-card--wide .project-card__media {
+  position: relative;
+  display: block;
+  min-height: 17rem;
+  height: 100%;
+  overflow: hidden;
+  background: var(--paper-deep);
+}
+.project-card--wide .project-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.project-card--wide:hover .project-card__media img { transform: scale(1.055); }
+.project-card__brackets {
+  position: absolute;
+  inset: 0.75rem;
+  width: calc(100% - 1.5rem);
+  height: calc(100% - 1.5rem);
+  fill: none;
+  stroke: var(--accent-gold);
+  stroke-width: 1.4;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}
+.project-card--wide .project-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: var(--space-4);
+}
+.project-card--wide .project-card__body h3 { font-size: clamp(1.5rem, 2.4vw, 2.1rem); line-height: 1.12; }
+.project-card--wide .project-card__actions { margin-top: auto; padding-top: var(--space-3); }
+@media (max-width: 900px) {
+  .project-card--wide { grid-template-columns: 1fr; }
+  .project-card--wide .project-card__media { min-height: 13rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-card--wide, .project-card--wide .project-card__media img { transition: none; }
+  .project-card--wide:hover { transform: none; }
+}

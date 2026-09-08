@@ -6,7 +6,8 @@ export const siteMeta = {
 
 export const heroThesis = 'Complex work, made clear and useful.';
 export const brandThesis = 'Make difficult ideas clear without making them shallow.';
-export const coachingBookingUrl = 'https://reesehollister.square.site/';
+/** Coaching is now one topic in the single site-wide inquiry form. */
+export const coachingInquiryUrl = '/contact?topic=essay';
 export const resumeRequestUrl = 'mailto:reesewhollister@gmail.com?subject=Current%20resume%20request';
 
 export const navLinks = [
@@ -16,7 +17,7 @@ export const navLinks = [
   { href: '/about', label: 'About' },
   { href: '/resume', label: 'Resume' },
   { href: '/contact', label: 'Contact' },
-  { href: coachingBookingUrl, label: 'College Essay Coaching ↗' }
+  { href: '/coaching', label: 'College Essay Coaching' }
 ];
 
 export const footerLinks = [
@@ -26,7 +27,7 @@ export const footerLinks = [
   { href: '/works', label: 'Papers & presentations' },
   { href: '/youtube', label: 'Videos & context' },
   { href: '/african-airlines/', label: 'African Airlines' },
-  { href: coachingBookingUrl, label: 'Book Writing Coaching' }
+  { href: '/coaching', label: 'Writing coaching' }
 ];
 
 export const homeIntro = 'I’m a Fulbright researcher and educator with experience supporting university courses, advising writers, developing educational programs, conducting international research, and producing public-facing projects. My work brings people, information, and deliverables together—from classrooms and public presentations to datasets, maps, and digital media.';
@@ -48,14 +49,14 @@ export const capabilities = [
 export const coachingCta = {
   eyebrow: 'For students and families · Paid coaching',
   title: 'College essays, in your own voice.',
-  body: 'One-on-one writing support. Visit my separate coaching site for services, testimonials, availability, and booking.',
-  cta: 'College Essay Coaching ↗', href: coachingBookingUrl
+  body: 'One-on-one writing support for college essays, research papers, and personal statements. Start a conversation and choose the coaching topic.',
+  cta: 'Start a conversation', href: coachingInquiryUrl
 };
 export const contactCta = {
   eyebrow: 'For employers and collaborators',
   title: 'People, programs, and useful work.',
   body: 'Get in touch about program support, education, research, communication, or a project that needs careful organization and follow-through.',
-  cta: 'Professional contact', href: '/contact'
+  cta: 'Start a conversation', href: '/contact'
 };
 
 export const homePillars = [
