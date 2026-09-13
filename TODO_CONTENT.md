@@ -135,3 +135,20 @@ has been guessed at, and no placeholders are shown to visitors.
 - To migrate it: send the course/section titles, lesson topics, activity descriptions,
   materials, assessment approach, student-facing handouts, and any images from the
   Teaching Arabic tab. Then the Google Site becomes an archive link rather than the source.
+
+## Huruf La'b origin story — added 2026-09-13, needs source check
+
+The project page now opens with the makerspace origin: Arabic 101 and alphabet anxiety,
+the microteaching frustration with explaining how letters connect, and cutting the first
+prototype at the NC State Libraries makerspace.
+
+- **This came from a summary of the source documents, not the documents.** It should be
+  checked against the Huruf La'b Press Kit (makerspace prototype, "visible and learnable
+  through construction") and the VenturePack Application (Arabic 101 as a language
+  requirement, alphabet anxiety, nearly dropping the course). If any detail is off, it is
+  on a public page and should be corrected.
+- **Unknown and deliberately not stated:** which course or program the microteaching was
+  part of, what year the first prototype was cut, and whether "laser cutter" is accurate
+  for that first prototype specifically rather than for the later tiles.
+- The page is written in first person to match the rest of the site. The `caseStudy` block
+  above it is still third-person/neutral and reads slightly apart from it.

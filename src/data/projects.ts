@@ -108,7 +108,7 @@ export const projects: Project[] = [
     slug: 'huruf-lab',
     title: "Huruf La’b: Teaching the Arabic Script by Building It",
     summary:
-      "Huruf La'b teaches the Arabic script as a system of construction rather than memorization — learners assemble letter forms by hand instead of drilling them from a page.",
+      "Huruf La'b teaches the Arabic script as a system of construction rather than memorization — learners assemble letter forms by hand instead of drilling them from a page. It began with a whiteboard that would not explain how letters connect, and a laser cutter that could.",
     categories: ['Teaching & Learning', 'Product / Design'],
     tags: ['Teaching', 'Arabic', 'Pedagogy', 'Product / Design', 'Video'],
     pillars: ['Teaching', 'Building'],
@@ -201,6 +201,22 @@ export const projects: Project[] = [
 },
     sections: [
       {
+        heading: 'It started at the alphabet',
+        paragraphs: [
+          'I took Arabic 101 to satisfy a language requirement. It changed the direction of everything I have done since — but I very nearly did not get through it. I had a bad case of alphabet anxiety and came close to dropping the course in the first weeks, at exactly the threshold where the script still looks like decoration rather than a system.',
+          'Years later I was on the other side of the table, teaching the same material. Explaining how Arabic letters connect — how a form changes depending on where it sits in a word — kept failing on a whiteboard. The letters are a system of construction, and I was drawing them as pictures.',
+          'So I went to the NC State Libraries makerspace and cut the first rough prototype. The idea was simple enough to state and hard to do on paper: make the script visible and learnable through construction. Let a learner hold a letter form, take it apart, put it back together, and find the rule themselves instead of being told it.'
+        ],
+        artifacts: [
+          {
+            src: '/assets/projects/huruf-lab/huruf-tile-closeup.jpg',
+            alt: "Close view of a single Huruf La'b wooden tile showing the cut edges of an Arabic letter form.",
+            eyebrow: 'From the makerspace',
+            caption: 'The tile system started as rough laser-cut pieces — a way to make a letter something you take apart rather than copy.'
+          }
+        ]
+      },
+      {
         heading: 'The problem in the room',
         paragraphs: [
           'Beginning Arabic learners are asked to internalize a great deal at once: a new script, positional letter forms, sound distinctions, and the logic of roots and patterns. Much of that instruction remains abstract. Students are expected to "get it" by repeated exposure even when the system itself still feels invisible.',
@@ -252,10 +268,10 @@ export const projects: Project[] = [
         ]
       },
       {
-        heading: 'Origins',
+        heading: 'Where it stands',
         paragraphs: [
-          'The project began as a classroom lesson and a tactile learning concept, developed with co-founder and designer Bella Templeton, and was carried through prototyping, educator outreach, product demonstrations, and a venture pitch. It remains in development.',
-          "The through-line is a habit that runs across the rest of this portfolio: when understanding stalls, redesign the conditions of understanding."
+          'The prototype was refined with co-founder and designer Bella Templeton and carried through educator outreach, classroom demonstrations, and a venture pitch. It remains in development.',
+          'The through-line is a habit that runs across the rest of my work: when understanding stalls, redesign the conditions of understanding. I built this for the student I was in the first month of Arabic 101 — the one who could not yet see that the script was a system, and almost quit before anyone showed him.'
         ]
       }
     ]
