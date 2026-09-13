@@ -13,6 +13,11 @@ import worldAtlas from 'world-atlas/countries-110m.json';
 import { PLACES, ALL_PLACES, JOURNEY, MAP } from '../data/places';
 import { PAPERS, MAPPED_PAPERS, RESEARCH_REGIONS } from '../data/papers';
 import { getProjectBySlug } from '../data/projects';
+import { aboutTimelineFull } from '../data/site';
+
+// Newest first: the chronology reads from now backwards, and each stop flies the
+// plate to the place that chapter happened in.
+const chapters = [...aboutTimelineFull].reverse();
 
 import { withBase } from '../utils/paths';
 
@@ -151,6 +156,33 @@ const placeCount = ALL_PLACES.filter((p) => p.kind !== 'cluster').length;
     <button type="button" data-layer="work" aria-pressed="false"><i class="map-swatch map-swatch--worked" aria-hidden="true"></i>Lived / worked / studied in <span>{workCount}</span></button>
     <button type="button" data-layer="travel" aria-pressed="false"><i class="map-swatch map-swatch--travelled" aria-hidden="true"></i>Traveled to <span>{travelCount}</span></button>
     <button type="button" data-layer="paper" aria-pressed="false"><i class="map-swatch map-swatch--studies" aria-hidden="true"></i>Studied / wrote about <span>{MAPPED_PAPERS.length}</span></button>
+  </div>
+
+  <div class="chrono" id="atlas-chrono">
+    <div class="chrono__rail-wrap">
+      <ol class="chrono__rail" id="chrono-rail" style={`--count:${chapters.length}`}>
+        {chapters.map((chapter, i) => (
+          <li class="chrono__stop">
+            <button
+              type="button"
+              class="chrono__stop-btn"
+              data-step={i}
+              data-chrono-place={chapter.place}
+              aria-pressed="false"
+            >
+              <span class="chrono__dot" aria-hidden="true"></span>
+              <span class="chrono__year">{chapter.year}</span>
+              <span class="chrono__short">{chapter.short}</span>
+            </button>
+          </li>
+        ))}
+      </ol>
+    </div>
+    <div class="chrono__controls">
+      <button type="button" class="chrono__step" data-dir="-1">‹ Later</button>
+      <p class="chrono__position">Follow the work backwards through time</p>
+      <button type="button" class="chrono__step" data-dir="1">Earlier ›</button>
+    </div>
   </div>
   <div class="map-hero__rail">
     <nav class="place-index" aria-label="Places lived, worked, studied in, or traveled to">
@@ -419,6 +451,67 @@ const placeCount = ALL_PLACES.filter((p) => p.kind !== 'cluster').length;
     let selected: string | null = null;
     let expanded: string | null = null;
 
+    // ── Chronology rail ──────────────────────────────────────────────────────
+    // The rail is a second way into the same map: each stop is a chapter, and
+    // choosing one flies the plate to the place that chapter happened in. It
+    // reads newest-first, so stepping "Earlier" walks backwards through time.
+    const chronoRail = document.getElementById('chrono-rail');
+    const chronoStops = Array.from(
+      hero.querySelectorAll<HTMLButtonElement>('.chrono__stop-btn')
+    );
+    const chronoSteppers = Array.from(hero.querySelectorAll<HTMLButtonElement>('.chrono__step'));
+    const lastStop = chronoStops.length - 1;
+    let step = -1;
+
+    const syncChrono = () => {
+      // A place can belong to several chapters (three of them are Raleigh), so
+      // the active stop is whichever one the visitor last moved to — fall back to
+      // the first stop matching the selection when the map was driven directly.
+      if (step < 0 || chronoStops[step]?.dataset.chronoPlace !== selected) {
+        step = selected
+          ? chronoStops.findIndex((s) => s.dataset.chronoPlace === selected)
+          : -1;
+      }
+      chronoStops.forEach((stop, i) => {
+        const on = i === step;
+        stop.setAttribute('aria-pressed', String(on));
+        stop.classList.toggle('is-active', on);
+      });
+      chronoRail?.style.setProperty('--fill', String(step > 0 && lastStop > 0 ? step / lastStop : 0));
+      chronoRail?.toggleAttribute('data-none', step < 0);
+      for (const stepper of chronoSteppers) {
+        const dir = Number(stepper.dataset.dir);
+        stepper.disabled = step < 0 ? false : dir < 0 ? step === 0 : step === lastStop;
+      }
+    };
+
+    const goToStop = (next: number) => {
+      const target = Math.min(lastStop, Math.max(0, next));
+      const place = chronoStops[target]?.dataset.chronoPlace;
+      if (!place) return;
+      step = target;
+      select(place);
+      chronoStops[target].scrollIntoView({ inline: 'center', block: 'nearest', behavior: smooth });
+    };
+
+    chronoStops.forEach((stop, i) => stop.addEventListener('click', () => goToStop(i)));
+    for (const stepper of chronoSteppers) {
+      stepper.addEventListener('click', () =>
+        goToStop(step < 0 ? (Number(stepper.dataset.dir) < 0 ? lastStop : 0) : step + Number(stepper.dataset.dir))
+      );
+    }
+    chronoRail?.addEventListener('keydown', (event) => {
+      const key = (event as KeyboardEvent).key;
+      if (!['ArrowRight', 'ArrowDown', 'ArrowLeft', 'ArrowUp', 'Home', 'End'].includes(key)) return;
+      event.preventDefault();
+      const target =
+        key === 'Home' ? 0
+        : key === 'End' ? lastStop
+        : Math.max(0, step) + (key === 'ArrowRight' || key === 'ArrowDown' ? 1 : -1);
+      goToStop(target);
+      chronoStops[Math.min(lastStop, Math.max(0, target))]?.focus({ preventScroll: true });
+    });
+
     const applyZoom = () => {
       const cluster = expanded ? nodes.find((n) => n.dataset.place === expanded) : null;
       const zoom = cluster?.dataset.zoom;
@@ -457,6 +550,7 @@ const placeCount = ALL_PLACES.filter((p) => p.kind !== 'cluster').length;
         if (!on) stopMedia(panel);
         panel.hidden = !on;
       }
+      syncChrono();
       // The pinned card is hidden with [hidden], so display:none → block restarts
       // its rise animation each time a place is selected. No manual reset needed.
       for (const card of cards) {

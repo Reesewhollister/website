@@ -184,6 +184,7 @@ export const aboutTimeline = [
 export const aboutTimelineFull = [
   {
     id: 'manhattan',
+    place: 'bronx',
     short: 'Manhattan College',
     year: '2019',
     period: 'Manhattan College',
@@ -195,6 +196,7 @@ export const aboutTimelineFull = [
   },
   {
     id: 'oman',
+    place: 'manah',
     short: 'Oman',
     year: '2023',
     period: 'Arabic study — Oman',
@@ -205,6 +207,7 @@ export const aboutTimelineFull = [
   },
   {
     id: 'fulbright',
+    place: 'morocco',
     short: 'Fulbright',
     year: '2023',
     period: 'Fulbright Scholar — Morocco',
@@ -216,6 +219,7 @@ export const aboutTimelineFull = [
   },
   {
     id: 'ncstate',
+    place: 'raleigh',
     short: 'NC State',
     year: '2024',
     period: 'NC State — M.I.S.',
@@ -227,6 +231,7 @@ export const aboutTimelineFull = [
   },
   {
     id: 'huruf',
+    place: 'raleigh',
     short: "Huruf La'b",
     year: '2025',
     period: "Huruf La'b",
@@ -238,6 +243,7 @@ export const aboutTimelineFull = [
   },
   {
     id: 'now',
+    place: 'raleigh',
     short: 'Now',
     year: '2026',
     period: 'Current — Research, Teaching, Writing',

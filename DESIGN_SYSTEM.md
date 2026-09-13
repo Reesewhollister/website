@@ -261,22 +261,28 @@ Places with no photograph render **no frame at all** in production. The designed
 "Image needed" placeholder is dev-only (`import.meta.env.DEV`), though the broken-image
 fallback still swaps to it at runtime — a placeholder beats a broken image icon.
 
-## Home chronology + partner wordmarks — 2026-09-13
+## Atlas hero + chronology rail — 2026-09-13
 
-**The banner is a line, not a map.** The home page opens with the `editorial-intro`
-masthead followed by `TimelineHero.astro` (`.chrono`): a single rule running left to right
-with one stop per career chapter, newest first, reading backwards into the past. Rust fills
-the line up to the active stop. Stops are clickable, steppable (`‹ Later` / `Earlier ›`),
-and arrow-key navigable. Controls sit *above* the panel so a taller chapter never shifts
-them mid-click. Source data is `aboutTimelineFull` in `src/data/site.ts`, authored
-oldest-first and reversed for display.
+**The map is the hero, and the timeline drives it.** `MapHero.astro` opens the home page.
+Inside it, above the plate, sits a chronology rail (`.chrono`): one stop per chapter of
+`aboutTimelineFull`, newest first, so stepping "Earlier" walks backwards through time.
+Choosing a stop calls the atlas's own `select()` — the plate flies to the place that
+chapter happened in and the dossier fills with that place's record. It is a second way
+into the same map, not a second component: there is one selection state, and it syncs
+both directions. Driving the map directly lights the matching stop; selecting a place
+that belongs to no chapter (Doylestown, the paper markers) clears the rail rather than
+leaving a stale one lit.
 
-**The atlas moved below the fold.** `MapHero.astro` now sits after Selected Work as a
-normal section rather than a viewport-height hero. Its interaction is unchanged. Two
-constraints matter: the plate is capped at `max-width:52rem` on `.map-plate__stage` (an
-Equal Earth world at full width is mostly empty ocean), and the section must never be
-given a `max-height` — the rail overflows underneath the next section and silently
-swallows clicks on the place index.
+Each chapter carries a `place` id in `src/data/site.ts`. Three chapters point at Raleigh,
+which is accurate — the rail tracks which stop the visitor last moved to rather than
+guessing from the place alone.
+
+Two constraints worth keeping: the plate is capped at `max-width:52rem` on
+`.map-plate__stage` (an Equal Earth world at full width is mostly empty ocean), and the
+hero grid is row-ordered heading / layer controls / chronology / rail+plate — the rail and
+plate are pinned to `grid-row:4`, so inserting anything above them means moving that row.
+Never give `.map-hero` a `max-height`: the catalogue rail overflows underneath the next
+section and silently swallows clicks on the place index.
 
 **Institutions are set as type, not logos.** The five hand-drawn logo approximations in
 `public/assets/ui/partners/` were deleted. `partnerInstitutions` now carries `wordmark` and

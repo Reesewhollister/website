@@ -5141,13 +5141,13 @@ h1,h2,h3 { text-wrap:balance; }
 .atlas-controls button { display:flex; gap:.55rem; align-items:center; min-height:44px; padding:.6rem .8rem; border:1px solid var(--line); background:transparent; color:var(--ink); font:500 .75rem/1.4 'Work Sans',sans-serif; }
 .atlas-controls button[aria-pressed='true'] { background:var(--ink); color:var(--paper); }
 .atlas-controls button span { opacity:.7; font-size:.7rem; }
-.map-hero__rail { grid-column:1; grid-row:3; height:36rem; padding:1.3rem; gap:1.2rem; background:rgba(255,255,255,.35); }
+.map-hero__rail { grid-column:1; grid-row:4; height:36rem; padding:1.3rem; gap:1.2rem; background:rgba(255,255,255,.35); }
 .map-hero__rail .dossier { order:0; }
 .map-hero__rail .place-index { order:1; }
 .map-hero__rail .place-index--papers { order:2; }
 .map-hero__rail .map-legend { order:3; }
 .map-hero__actions { order:4; position:static; padding:0; margin:0; background:none; }
-.map-plate { grid-column:2; grid-row:3; height:36rem; min-height:0; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+.map-plate { grid-column:2; grid-row:4; height:36rem; min-height:0; display:flex; align-items:center; justify-content:center; overflow:hidden; }
 /* Cap the plate so it stops scaling with the viewport on large displays — an
    Equal Earth world at full width is mostly empty ocean. */
 .map-plate__stage { flex-shrink:0; max-width:52rem; margin-inline:auto; }
@@ -5313,17 +5313,14 @@ summary { cursor:pointer; padding:.7rem 0; font:500 .88rem/1.5 'Work Sans',sans-
  .resume-card,.experience-entry { break-inside:avoid; }
 }
 
-/* ── Chronology hero ─────────────────────────────────────────────────────────
-   A single line running through the career, newest stop first. Every panel is
-   rendered server-side and hidden with [hidden]; the script only toggles which
-   one shows, so the whole history stays readable without JS and to crawlers. */
-.chrono { padding-block:clamp(2rem,4vw,3.25rem); }
-.chrono__head { margin-bottom:clamp(1.5rem,3vw,2.25rem); }
-.chrono__head h2 { font-size:clamp(1.8rem,3.2vw,2.6rem); margin:.4rem 0 0; }
-
-.chrono__rail-wrap { overflow-x:auto; overscroll-behavior-x:contain; padding-bottom:.35rem; }
+/* ── Chronology rail (inside the atlas hero) ─────────────────────────────────
+   A second way into the same map: each stop is a chapter of the work, and
+   choosing one flies the plate to the place that chapter happened in. Reads
+   newest-first, so stepping "Earlier" walks backwards through time. */
+.map-hero .chrono { grid-column:1/-1; grid-row:3; padding:0 1.8rem 1.4rem; }
+.chrono__rail-wrap { overflow-x:auto; overscroll-behavior-x:contain; padding-bottom:.3rem; }
 .chrono__rail {
-  --dot-y:.625rem;
+  --dot-y:.5rem;
   --fill:0;
   position:relative;
   list-style:none;
@@ -5332,7 +5329,7 @@ summary { cursor:pointer; padding:.7rem 0; font:500 .88rem/1.5 'Work Sans',sans-
   display:grid;
   grid-template-columns:repeat(var(--count),minmax(0,1fr));
 }
-/* The line: a full-width track, plus a rust fill scaled to the active stop.
+/* The line: a full-width track plus a rust fill scaled to the active stop.
    Both are inset by half a column so the line starts and ends on a dot. */
 .chrono__rail::before,
 .chrono__rail::after {
@@ -5350,15 +5347,16 @@ summary { cursor:pointer; padding:.7rem 0; font:500 .88rem/1.5 'Work Sans',sans-
   transform-origin:left center;
   transition:transform .45s cubic-bezier(.22,.61,.36,1);
 }
+.chrono__rail[data-none]::after { transform:scaleX(0); }
 .chrono__stop { margin:0; padding:0; }
 .chrono__stop-btn {
   display:grid;
-  grid-template-rows:1.25rem auto auto;
+  grid-template-rows:1rem auto auto;
   justify-items:center;
-  gap:.35rem;
+  gap:.3rem;
   width:100%;
   min-height:44px;
-  padding:0 .25rem .5rem;
+  padding:0 .25rem .35rem;
   border:0;
   background:none;
   text-align:center;
@@ -5366,54 +5364,37 @@ summary { cursor:pointer; padding:.7rem 0; font:500 .88rem/1.5 'Work Sans',sans-
 }
 .chrono__dot {
   align-self:center;
-  width:11px;
-  height:11px;
+  width:10px;
+  height:10px;
   border:2px solid var(--line);
   border-radius:50%;
   background:var(--paper);
   transition:transform .25s ease,background-color .25s ease,border-color .25s ease;
 }
-.chrono__year { font:600 .74rem/1 'Work Sans',sans-serif; letter-spacing:.08em; color:var(--accent-map); }
-.chrono__short { font:500 .8rem/1.25 'Work Sans',sans-serif; }
+.chrono__year { font:600 .68rem/1 'Work Sans',sans-serif; letter-spacing:.08em; color:var(--accent-map); }
+.chrono__short { font:500 .74rem/1.2 'Work Sans',sans-serif; }
 .chrono__stop-btn:hover .chrono__dot { border-color:var(--accent-rust); }
 .chrono__stop-btn.is-active { color:var(--ink); }
-.chrono__stop-btn.is-active .chrono__dot {
-  background:var(--accent-rust);
-  border-color:var(--accent-rust);
-  transform:scale(1.45);
-}
+.chrono__stop-btn.is-active .chrono__dot { background:var(--accent-rust); border-color:var(--accent-rust); transform:scale(1.4); }
 .chrono__stop-btn.is-active .chrono__short { font-weight:600; }
 
-.chrono__panels { margin-top:clamp(1.25rem,2.5vw,1.75rem); min-height:16rem; }
-.chrono__panel { max-width:62ch; }
-.chrono__panel h3 { font-size:clamp(1.4rem,2.4vw,1.9rem); margin:.35rem 0 .6rem; }
-.chrono__panel h3:focus-visible { outline:3px solid var(--accent-map); outline-offset:4px; }
-.chrono__date {
-  margin:0;
-  font:600 .72rem/1 'Work Sans',sans-serif;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  color:var(--accent-rust);
-}
-.chrono__summary { margin:0 0 1rem; }
-
-/* Sits above the panel so a taller chapter never shifts the controls mid-click. */
-.chrono__controls { display:flex; align-items:center; gap:1rem; margin-top:1.5rem; }
+.chrono__controls { display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-top:.9rem; }
 .chrono__step {
-  min-height:44px;
-  padding:.6rem 1rem;
+  min-height:40px;
+  padding:.5rem .9rem;
   border:1px solid var(--line);
   background:transparent;
   color:var(--ink);
-  font:500 .82rem/1.4 'Work Sans',sans-serif;
+  font:500 .78rem/1.4 'Work Sans',sans-serif;
   border-radius:2px;
 }
 .chrono__step:not(:disabled):hover { border-color:var(--accent-rust); color:var(--accent-rust); }
-.chrono__position { margin:0; font:500 .78rem/1 'Work Sans',sans-serif; color:var(--ink-soft); }
+.chrono__position { margin:0; font:500 .73rem/1 'Work Sans',sans-serif; color:var(--ink-soft); }
 
-@media (max-width:720px) {
-  .chrono__rail { grid-template-columns:none; grid-auto-flow:column; grid-auto-columns:7.5rem; min-width:max-content; }
-  .chrono__panels { min-height:20rem; }
+@media (max-width:900px) {
+  .map-hero .chrono { padding:0 1.1rem 1.1rem; }
+  .chrono__rail { grid-template-columns:none; grid-auto-flow:column; grid-auto-columns:7rem; min-width:max-content; }
+  .chrono__position { display:none; }
   .chrono__controls { justify-content:space-between; gap:.5rem; }
 }
 

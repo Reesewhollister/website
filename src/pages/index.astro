@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import MapHero from '../components/MapHero.astro';
-import TimelineHero from '../components/TimelineHero.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import ReadingPaths from '../components/ReadingPaths.astro';
@@ -12,10 +11,9 @@ const selected = ['from-colonies-to-carriers','huruf-lab','western-sahara-capsto
 ---
 <BaseLayout title={siteMeta.title} description={siteMeta.description}>
 <section class="editorial-intro site-shell"><div><p class="section-kicker">Reese W. Hollister</p><h1>History, made<br />clear and tangible.</h1><p class="editorial-intro__identity">Historian. Educator. Public scholarship creator.</p></div><div class="editorial-intro__aside"><p>I study how infrastructures, images, and institutions shape life after empire—and turn that research into writing, maps, teaching, and things people can use.</p><div class="action-list"><a class="button-primary" href={withBase('/research')}>Explore research</a><a class="button-secondary" href={withBase('/experience')}>View experience</a></div><a class="resource-link" href={withBase('/resume')}>CV / Resume →</a></div></section>
-<TimelineHero />
+<MapHero />
 <section class="credential-band" aria-label="Selected credentials"><ul class="credential-band__list site-shell">{proofStrip.map(item => <li class="credential"><span class="credential__label">{item.label}</span><span class="credential__detail">{item.detail}</span></li>)}</ul></section>
 <section class="site-shell" id="selected-work"><SectionHeading eyebrow="Selected work" title="An argument. A tool. A way to learn." intro="Three projects that connect research to something you can read, explore, or use." /><div class="work-stack">{selected.map(project => project && <ProjectCard project={project} wide />)}</div><a class="resource-link" href={withBase('/projects')}>Browse all projects →</a></section>
-<MapHero />
 <section class="site-shell"><SectionHeading eyebrow="Follow a question" title="Three ways into the work" intro="Curated paths across projects and publications." /><ReadingPaths /></section>
 <section class="site-shell"><SectionHeading eyebrow="Experience" title="Research, education, and the people behind both." /><div class="experience-preview">{experienceGroups.slice(0,3).map(item => <article><p class="section-kicker">{item.org}</p><h3>{item.title}</h3><p>{item.summary}</p><a class="resource-link" href={withBase(item.href)}>{item.cta} →</a></article>)}</div><p><a class="resource-link" href={withBase('/experience')}>Full experience →</a></p></section>
 <section class="site-shell home-media-callout"><img src={withBase('/assets/fieldwork/heroes/chefchaouen-blue-plaza-hero-16x9.webp')} alt="Blue plaza in Chefchaouen, Morocco" loading="lazy" /><div><p class="section-kicker">Travel · Chefchaouen</p><h2>Places have their own stories.</h2><p>Photographs, diagrams, and project materials, with the context that connects them.</p><a class="resource-link" href={withBase('/works#media')}>Explore the media collection →</a></div></section>
