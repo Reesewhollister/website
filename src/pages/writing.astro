@@ -2,10 +2,10 @@
 import { coachingInquiryUrl } from '../data/site';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
-import PDFCard from '../components/PDFCard.astro';
+import PublicationList from '../components/PublicationList.astro';
+import ProjectFilters from '../components/ProjectFilters.astro';
 import { presentations, secondaryWork, substackPosts } from '../data/site';
 import { PAPERS } from '../data/papers';
-import { featuredWorks } from '../data/works';
 import { withBase } from '../utils/paths';
 ---
 
@@ -39,7 +39,7 @@ import { withBase } from '../utils/paths';
   })} slot="head" />
   <section class="page-hero site-shell">
     <p class="section-kicker">Writing</p>
-    <h1>Writing</h1>
+    <h1>Ideas worth following.</h1>
     <p class="page-lead">
       Published work spanning historical method, colonial institutions, postcolonial Africa, and public-facing scholarship.
     </p>
@@ -53,25 +53,10 @@ import { withBase } from '../utils/paths';
   <section class="site-shell">
     <SectionHeading
       eyebrow="Publications"
-      title="Peer-reviewed and published work"
+      title="Published papers"
       intro="Five articles in peer-reviewed history journals, each open access."
     />
-    <ol class="paper-list">
-      {PAPERS.map((pub) => (
-        <li class="paper">
-          <h3><a href={pub.url} target="_blank" rel="noreferrer">{pub.title}</a></h3>
-          <p class="paper__cite">
-            <cite>{pub.venue}</cite>
-            <span>{[pub.volume, pub.pages, pub.year].filter(Boolean).join(' · ')}</span>
-          </p>
-          <p class="paper__summary">{pub.summary}</p>
-          <p class="paper__links">
-            <a class="resource-link" href={pub.url} target="_blank" rel="noreferrer">{pub.linkLabel} →</a>
-            {pub.citations && <span class="paper__cited">Cited {pub.citations}×</span>}
-          </p>
-        </li>
-      ))}
-    </ol>
+    <div data-catalog><ProjectFilters categories={PAPERS.map(p => p.place ?? 'Historical method')} noun="papers" categoryLabel="Place / subject" /><PublicationList /></div>
   </section>
 
   <section class="site-shell">
@@ -100,9 +85,6 @@ import { withBase } from '../utils/paths';
       title="Research papers and slide decks"
       intro="Downloadable PDFs from the active research projects. Full list on the Works page."
     />
-    <div class="pdf-card-grid">
-      {featuredWorks.map((work) => <PDFCard work={work} />)}
-    </div>
     <p class="works-see-all">
       <a href={withBase('/works')}>See all papers, decks, and research artifacts →</a>
     </p>
@@ -129,7 +111,7 @@ import { withBase } from '../utils/paths';
   <section class="site-shell">
     <SectionHeading
       eyebrow="Newsletter"
-      title="Fieldwork & scholarship dispatches"
+      title="Travel, teaching & scholarship dispatches"
       intro="Public writing from the field, the classroom, and the research desk — on Substack since 2023."
     />
     <ul class="action-list action-list--stacked">

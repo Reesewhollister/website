@@ -7,7 +7,8 @@ import { secondaryWork } from '../../data/site';
 import { sortedProjects as projects } from '../../data/projects';
 import { withBase, isExternal } from '../../utils/paths';
 
-const allTags = [...new Set(projects.flatMap((p) => p.tags ?? []))].sort();
+const allTags = ['Arabic', 'North Africa', 'Digital History', 'Teaching', 'Public Scholarship'];
+const formats = ['Paper', 'Slides', 'Video', 'Product'];
 ---
 
 <BaseLayout
@@ -18,7 +19,7 @@ const allTags = [...new Set(projects.flatMap((p) => p.tags ?? []))].sort();
     <p class="section-kicker">Portfolio</p>
     <h1>Selected Work</h1>
     <p class="page-lead">
-      Concrete examples of student support, educational product development, research organization, and public communication — followed by a broader archive of North Africa research, fieldwork, and Arabic study.
+      Research, teaching, and public scholarship, made into things you can read, explore, and use.
     </p>
   </section>
 
@@ -26,9 +27,9 @@ const allTags = [...new Set(projects.flatMap((p) => p.tags ?? []))].sort();
     <SectionHeading
       eyebrow="Selected Work"
       title="Case studies and supporting projects"
-      intro="Start with the four leading case studies, or filter the full collection by topic."
+      intro="Explore a question, a contribution, and a concrete output. Search or combine a topic with a format."
     />
-    <ProjectFilters categories={allTags} />
+    <ProjectFilters categories={allTags} formats={formats} />
     <div class="project-grid">
       {projects.map((project) => <ProjectCard project={project} framed />)}
     </div>

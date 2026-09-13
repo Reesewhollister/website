@@ -1,41 +1,50 @@
 ---
-interface Props {
-  categories: string[];
-}
-
-const { categories } = Astro.props;
+interface Props { categories: string[]; formats?: string[]; noun?: string; categoryLabel?: string }
+const { categories, formats = [], noun = 'projects', categoryLabel = 'Topic' } = Astro.props;
 ---
-
-<div class="filter-bar" data-project-filters>
-  <button class="filter-chip is-active" type="button" data-filter="all" aria-pressed="true">
-    All
-  </button>
-  {categories.map((category) => (
-    <button class="filter-chip" type="button" data-filter={category} aria-pressed="false">
-      {category}
-    </button>
-  ))}
+<div class="catalog-controls" data-project-filters data-noun={noun}>
+<label class="catalog-search">Search {noun}<input type="search" data-search placeholder={`Search ${noun}…`} /></label>
+<fieldset><legend>{categoryLabel}</legend><div class="filter-bar"><button class="filter-chip" type="button" data-filter="all" aria-pressed="true">All</button>{categories.map(category => <button class="filter-chip" type="button" data-filter={category} aria-pressed="false">{category}</button>)}</div></fieldset>
+{formats.length > 0 && <fieldset><legend>Format</legend><div class="filter-bar"><button class="filter-chip" type="button" data-format="all" aria-pressed="true">All formats</button>{formats.map(format => <button class="filter-chip" type="button" data-format={format} aria-pressed="false">{format}</button>)}</div></fieldset>}
+<p class="catalog-count" data-count role="status"></p><button class="resource-link catalog-clear" type="button" data-clear>Reset filters</button>
 </div>
-
 <script>
-  function setupProjectFilters() {
-    document.querySelectorAll<HTMLElement>('[data-project-filters]').forEach(bar => {
-      if (bar.dataset.wired === 'true') return;
-      bar.dataset.wired = 'true';
-      const cards = document.querySelectorAll<HTMLElement>('[data-categories]');
-      const buttons = bar.querySelectorAll<HTMLButtonElement>('[data-filter]');
-      buttons.forEach(button => button.addEventListener('click', () => {
-        const filter = button.dataset.filter;
-        buttons.forEach(item => {
-          item.classList.toggle('is-active', item === button);
-          item.setAttribute('aria-pressed', String(item === button));
-        });
-        cards.forEach(card => {
-          const categories = (card.dataset.categories || '').split('|');
-          card.hidden = !(filter === 'all' || categories.includes(filter ?? ''));
-        });
-      }));
-    });
-  }
-  document.addEventListener('astro:page-load', setupProjectFilters);
+function setupCatalogs() {
+ document.querySelectorAll<HTMLElement>('[data-project-filters]').forEach(bar => {
+  if (bar.dataset.wired) return;
+  bar.dataset.wired = 'true';
+  const root = bar.closest('[data-catalog]') ?? bar.parentElement!;
+  const cards = Array.from(root.querySelectorAll<HTMLElement>('[data-categories]'));
+  const search = bar.querySelector<HTMLInputElement>('[data-search]')!;
+  const topics = Array.from(bar.querySelectorAll<HTMLButtonElement>('[data-filter]'));
+  const formats = Array.from(bar.querySelectorAll<HTMLButtonElement>('[data-format]'));
+  let topic = 'all', format = 'all';
+  const read = () => {
+   const params = new URLSearchParams(location.search);
+   topic = topics.some(b => b.dataset.filter === params.get('topic')) ? params.get('topic')! : 'all';
+   format = formats.some(b => b.dataset.format === params.get('format')) ? params.get('format')! : 'all';
+   search.value = params.get('q') ?? '';
+  };
+  const update = (write = false) => {
+   const query = search.value.trim().toLocaleLowerCase(); let count = 0;
+   cards.forEach(card => {
+    card.hidden = !(topic === 'all' || (card.dataset.categories ?? '').split('|').includes(topic)) || !(format === 'all' || (card.dataset.formats ?? '').split('|').includes(format)) || !(card.dataset.search ?? card.textContent ?? '').toLocaleLowerCase().includes(query);
+    if (!card.hidden) count++;
+   });
+   topics.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.filter === topic)));
+   formats.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.format === format)));
+   bar.querySelector('[data-count]')!.textContent = count ? `${count} of ${cards.length} ${bar.dataset.noun}` : 'No matches. Try another topic or reset the filters.';
+   if (write) { const url = new URL(location.href); for (const [key,value] of [['topic',topic],['format',format],['q',search.value.trim()]]) { if (!value || value === 'all') url.searchParams.delete(key); else url.searchParams.set(key,value); } history.replaceState(history.state,'',url); }
+  };
+  topics.forEach(b => b.addEventListener('click', () => { topic = b.dataset.filter!; update(true); }));
+  formats.forEach(b => b.addEventListener('click', () => { format = b.dataset.format!; update(true); }));
+  search.addEventListener('input', () => update(true));
+  bar.querySelector('[data-clear]')!.addEventListener('click', () => { topic = format = 'all'; search.value = ''; update(true); });
+  const controller = new AbortController();
+  window.addEventListener('popstate', () => { read(); update(); }, { signal: controller.signal });
+  document.addEventListener('astro:before-swap', () => controller.abort(), {once:true});
+  read(); update();
+ });
+}
+document.addEventListener('astro:page-load', setupCatalogs); setupCatalogs();
 </script>

@@ -1,0 +1,38 @@
+<dialog class="media-inspector" aria-labelledby="inspector-title" data-inspector>
+<div class="inspector-toolbar"><h2 id="inspector-title">Image detail</h2><button type="button" data-close autofocus>Close ×</button></div>
+<img data-inspector-image alt="" /><p data-inspector-caption></p>
+<div class="inspector-toolbar"><button type="button" data-prev>← Previous</button><span data-inspector-count role="status"></span><button type="button" data-next>Next →</button><a data-original target="_blank" rel="noreferrer">Open original ↗</a></div>
+</dialog>
+<script>
+function setupInspector() {
+ const dialog = document.querySelector<HTMLDialogElement>('[data-inspector]');
+ if (!dialog || dialog.dataset.wired) return; dialog.dataset.wired = 'true';
+ const controller = new AbortController();
+ let items: HTMLAnchorElement[] = [], index = 0, opener: HTMLElement | null = null;
+ const image = dialog.querySelector<HTMLImageElement>('[data-inspector-image]')!;
+ const previous = dialog.querySelector<HTMLButtonElement>('[data-prev]')!;
+ const next = dialog.querySelector<HTMLButtonElement>('[data-next]')!;
+ const show = () => {
+  const item = items[index]; const source = item.querySelector('img');
+  image.src = item.href; image.alt = source?.alt ?? 'Image detail';
+  dialog.querySelector('[data-inspector-caption]')!.textContent = item.dataset.caption || image.alt;
+  dialog.querySelector('[data-inspector-count]')!.textContent = `${index+1} / ${items.length}`;
+  dialog.querySelector<HTMLAnchorElement>('[data-original]')!.href = item.href;
+  previous.disabled = index === 0; next.disabled = index === items.length-1;
+ };
+ document.addEventListener('click', event => {
+  if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+  const link = (event.target as HTMLElement).closest<HTMLAnchorElement>('a[data-inspect]');
+  if (!link) return; event.preventDefault(); opener = link;
+  items = Array.from(document.querySelectorAll<HTMLAnchorElement>('a[data-inspect]')).filter(a => a.dataset.gallery === link.dataset.gallery);
+  index = items.indexOf(link); show(); dialog.showModal();
+ }, { signal: controller.signal });
+ dialog.querySelector('[data-close]')!.addEventListener('click', () => dialog.close());
+ dialog.addEventListener('close', () => { image.removeAttribute('src'); opener?.focus({preventScroll:true}); });
+ previous.addEventListener('click', () => { if(index>0){index--;show();} });
+ next.addEventListener('click', () => { if(index<items.length-1){index++;show();} });
+ dialog.addEventListener('keydown',event=>{if(event.key==='ArrowLeft'){event.preventDefault();previous.click();}if(event.key==='ArrowRight'){event.preventDefault();next.click();}});
+ document.addEventListener('astro:before-swap', () => { controller.abort(); if(dialog.open)dialog.close(); }, {once:true});
+}
+document.addEventListener('astro:page-load',setupInspector);setupInspector();
+</script>

@@ -1,15 +1,15 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
-import { experienceGroups, resumeRequestUrl } from '../data/site';
+import { experienceGroups } from '../data/site';
 import { withBase } from '../utils/paths';
 ---
 <BaseLayout title="Experience" description="Reese Hollister’s experience in university course support, writing consultation, educational programs, international research, and public communication.">
   <section class="page-hero site-shell">
     <p class="section-kicker">Experience</p>
-    <h1>People, information, and follow-through.</h1>
+    <h1>Research. Teaching.<br />Work with people.</h1>
     <p class="page-lead">My work spans university courses, writing consultation, educational programs, international research, and public scholarship. Across those settings, I help people understand what comes next and make complex material usable.</p>
-    <ul class="action-list"><li><a class="resource-link" href={resumeRequestUrl}>Request my current resume</a></li><li><a class="resource-link" href={withBase('/contact')}>Professional contact</a></li></ul>
+    <ul class="action-list"><li><a class="resource-link" href={withBase('/resume')}>CV / Resume overview</a></li><li><a class="resource-link" href={withBase('/contact')}>Professional contact</a></li></ul>
   </section>
   <section class="site-shell">
     <SectionHeading eyebrow="Selected experience" title="What I’ve done" intro="Organized by the work involved, with links to concrete examples." />

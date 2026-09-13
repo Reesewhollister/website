@@ -7,9 +7,9 @@ const linkedIn = contactMethods.find(item => item.label === 'LinkedIn')!;
 ---
 <BaseLayout title="Resume" description="Reese Hollister’s professional summary, selected experience, credentials, and current resume request.">
   <section class="page-hero site-shell">
-    <p class="section-kicker">Resume</p><h1>Experience that connects people and information.</h1>
+    <p class="section-kicker">CV / Resume</p><h1>Reese W. Hollister</h1>
     <p class="page-lead">Fulbright researcher and educator with experience in university course support, writing consultation, educational programs, international research, and public-facing projects. I bring careful organization, clear communication, and attention to the person using the work.</p>
-    <div class="resume-request"><h2>Request my current resume</h2><p>For a current resume tailored to the role or project you have in mind, email me with a little context.</p><a class="resource-link" href={resumeRequestUrl}>Request current resume by email →</a></div>
+    <button type="button" class="button-secondary" data-print-cv>Print / save this overview</button><div class="resume-request"><h2>Request my current resume</h2><p>For a current resume tailored to the role or project you have in mind, email me with a little context.</p><a class="resource-link" href={resumeRequestUrl}>Request current resume by email →</a></div>
     <ul class="action-list"><li><a class="resource-link" href={linkedIn.href}>LinkedIn ↗</a></li><li><a class="resource-link" href={withBase('/contact')}>Professional contact</a></li></ul>
   </section>
   <section class="site-shell">
@@ -19,3 +19,8 @@ const linkedIn = contactMethods.find(item => item.label === 'LinkedIn')!;
   </section>
   <section class="site-shell"><SectionHeading eyebrow="Education and credentials" title="Selected credentials" /><ul><li>Master of International Studies, NC State University, 2026.</li><li>B.A. in History and Political Science, Manhattan College, 2023.</li><li>Fulbright Morocco, 2023–24.</li><li>CRLA Level III writing consultation certification.</li><li>Huruf La’b: $4,000 VenturePack award, NC State, 2026.</li></ul><p><a class="resource-link" href={withBase('/research')}>Research and academic work →</a></p></section>
 </BaseLayout>
+
+<script>
+function setupPrint() { document.querySelectorAll<HTMLButtonElement>('[data-print-cv]').forEach(button => { if(button.dataset.wired)return; button.dataset.wired='true'; button.addEventListener('click',()=>window.print()); }); }
+document.addEventListener('astro:page-load',setupPrint); setupPrint();
+</script>

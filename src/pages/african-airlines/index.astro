@@ -1,0 +1,197 @@
+---
+import AfricanAirlinesLayout from '../../layouts/AfricanAirlinesLayout.astro';
+import {
+  africanAirlineCountries,
+  africanAirlinesDatasetCitation,
+  africanAirlinesStats,
+  africanAirlinesSourceCitation,
+  africanAirlinesYearRange,
+  getFeaturedAirlines,
+  topCountries,
+  sourceSummary
+} from '../../data/africanAirlines';
+import { withBase } from '../../utils/paths';
+
+const featuredAirlines = getFeaturedAirlines();
+const countryCount = africanAirlineCountries.length;
+const featuredCountries = topCountries(6);
+const description = `African Airlines Atlas is a searchable, citable digital history database of ${africanAirlinesStats.total} African airline records across ${countryCount} countries and territories, built from Ben Guttery's Encyclopedia of African Airlines and the From Colonies to Carriers project.`;
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'African Airlines Atlas',
+  description,
+  url: 'https://reesehollister.com/african-airlines',
+  creator: {
+    '@type': 'Person',
+    name: 'Reese W. Hollister'
+  },
+  temporalCoverage: africanAirlinesYearRange,
+  keywords: [
+    'African airlines',
+    'postcolonial aviation',
+    'digital history',
+    'decolonization',
+    'Royal Air Maroc'
+  ],
+  isBasedOn: africanAirlinesSourceCitation
+};
+---
+
+<AfricanAirlinesLayout
+  title="African Airlines Atlas"
+  description={description}
+  image="/assets/fieldwork/og/og-african-airlines.jpg"
+  schema={schema}
+>
+  <section class="aa-hero">
+    <div class="aa-shell aa-hero__grid">
+      <div class="aa-hero__copy">
+        <p class="aa-kicker">Digital history atlas / searchable encyclopedia</p>
+        <h1>African Airlines Atlas</h1>
+        <p class="aa-lead">
+          A standalone public research product for African airline history: a searchable database,
+          interactive atlas, country index, airline pages, and source transparency layer for the
+          <em>From Colonies to Carriers</em> project.
+        </p>
+        <div class="aa-actions">
+          <a class="aa-button aa-button--primary" href={withBase('/african-airlines/browse')}>Browse the database</a>
+          <a class="aa-button" href={withBase('/african-airlines/atlas')}>Open the atlas</a>
+          <a class="aa-button aa-button--ghost" href={withBase('/african-airlines/sources')}>Read the method</a>
+        </div>
+      </div>
+      <figure class="aa-hero__media">
+        <img
+          src={withBase('/assets/projects/from-colonies-to-carriers/2026-06-13__reese-portfolio__asset__v01__african-airlines-routes-from-europe.png')}
+          alt="Historic route map showing airline connections across Africa."
+          loading="eager"
+        />
+        <figcaption>Route-map source image from the African Airlines project files.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="aa-shell aa-stat-band" aria-label="Dataset summary">
+    <div>
+      <strong>{africanAirlinesStats.total.toLocaleString('en-US')}</strong>
+      <span>airline records</span>
+    </div>
+    <div>
+      <strong>{countryCount.toLocaleString('en-US')}</strong>
+      <span>countries and territories in the local dataset</span>
+    </div>
+    <div>
+      <strong>{africanAirlinesStats.total_routes.toLocaleString('en-US')}</strong>
+      <span>destination records</span>
+    </div>
+    <div>
+      <strong>{africanAirlinesYearRange}</strong>
+      <span>working time span</span>
+    </div>
+  </section>
+
+  <section class="aa-shell aa-section">
+    <div class="aa-section__head">
+      <p class="aa-kicker">Use the atlas</p>
+      <h2>Start with a map, a country, or a carrier.</h2>
+      <p>
+        The microsite keeps the scholarly project and the public database connected but distinct.
+        The research page explains the argument; this atlas makes the evidence searchable, linkable,
+        and easier to cite.
+      </p>
+    </div>
+    <div class="aa-tool-grid">
+      <a class="aa-tool-card" href={withBase('/african-airlines/browse')}>
+        <span>Browse</span>
+        <strong>Search all airline records</strong>
+        <p>Filter by country, service scope, ownership model, decolonization category, decade, and source confidence.</p>
+      </a>
+      <a class="aa-tool-card" href={withBase('/african-airlines/atlas')}>
+        <span>Atlas</span>
+        <strong>Move through time</strong>
+        <p>Explore active airline records from 1920 to 1998 with country shading, city points, events, and route arcs.</p>
+      </a>
+      <a class="aa-tool-card" href={withBase('/african-airlines/variables')}>
+        <span>Variables</span>
+        <strong>Compare ownership, state links, and GDP</strong>
+        <p>Use a year slider to compare active airline records with ownership categories, state-link status, and World Bank GDP series.</p>
+      </a>
+      <a class="aa-tool-card" href={withBase('/african-airlines/countries')}>
+        <span>Countries</span>
+        <strong>Compare national trajectories</strong>
+        <p>Open static country pages with local airline counts, first records, service mix, and canonical links.</p>
+      </a>
+      <a class="aa-tool-card" href={withBase('/african-airlines/sources')}>
+        <span>Sources</span>
+        <strong>Audit the evidence</strong>
+        <p>See how blanks, stubs, provenance labels, copyright limits, and interpretive classifications are handled.</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="aa-shell aa-section aa-split">
+    <div>
+      <p class="aa-kicker">Sample country density</p>
+      <h2>Where the records cluster</h2>
+      <p>
+        The distribution is not a neutral map of aviation importance. It reflects airline formation,
+        survival, source coverage, and Guttery's survey horizon. Country pages keep those records
+        browsable without hiding uncertainty.
+      </p>
+      <a class="aa-text-link" href={withBase('/african-airlines/countries')}>View all country pages</a>
+    </div>
+    <ol class="aa-rank-list">
+      {featuredCountries.map((country) => (
+        <li>
+          <a href={withBase(country.url)}>{country.country}</a>
+          <span>{country.count.toLocaleString('en-US')} records</span>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="aa-shell aa-section">
+    <div class="aa-section__head">
+      <p class="aa-kicker">Featured records</p>
+      <h2>Flag carriers, regional systems, and private operators</h2>
+      <p>
+        Individual pages use structured facts and citation blocks. They avoid reproducing encyclopedia prose
+        and point readers back to the interactive record when they need the full provenance panel.
+      </p>
+    </div>
+    <div class="aa-record-grid">
+      {featuredAirlines.map((airline) => (
+        <a class="aa-record-card" href={withBase(airline.url)}>
+          <span>{airline.country}</span>
+          <strong>{airline.name}</strong>
+          <p>{airline.year_founded ?? 'Unknown'} to {airline.year_ceased ?? (airline.active ? '1998 survey horizon' : 'unknown')}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="aa-shell aa-section aa-split aa-source-callout">
+    <div>
+      <p class="aa-kicker">Source transparency</p>
+      <h2>The gaps are part of the project.</h2>
+      <p>
+        The atlas marks {sourceSummary.stubs.toLocaleString('en-US')} stub records and {sourceSummary.reviewFlagged.toLocaleString('en-US')}
+        review-flagged records. Empty fields are recorded as missing, not estimated.
+      </p>
+    </div>
+    <div class="aa-mini-stats">
+      <div><strong>{sourceSummary.missingFounded.toLocaleString('en-US')}</strong><span>missing founding year</span></div>
+      <div><strong>{sourceSummary.missingBaseCity.toLocaleString('en-US')}</strong><span>missing base city</span></div>
+      <div><strong>{sourceSummary.missingDestinations.toLocaleString('en-US')}</strong><span>no destination list</span></div>
+    </div>
+  </section>
+
+  <section class="aa-shell aa-section aa-citation-box">
+    <h2>How to cite the atlas</h2>
+    <p>{africanAirlinesDatasetCitation}</p>
+    <p>
+      GDP comparison data in the Variables view comes from World Bank World Development Indicators
+      series NY.GDP.MKTP.CD, NY.GDP.MKTP.KD, and NY.GDP.PCAP.KD under the World Bank Open Data license.
+    </p>
+  </section>
+</AfricanAirlinesLayout>

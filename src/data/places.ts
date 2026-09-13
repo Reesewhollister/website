@@ -63,6 +63,8 @@ export interface Place {
   /** Shown inside the designed placeholder when media is null. */
   imageNeeded: string;
   projects: PlaceProject[];
+  /** A source for the relationship, where separately documented. */
+  source?: { label: string; href: string };
   /** Cluster only: [[lon0, lat0], [lon1, lat1]] zoom target. */
   bbox?: [[number, number], [number, number]];
   children?: Place[];
@@ -226,7 +228,7 @@ export const PLACES: Place[] = [
       'Arabic and Darija study'
     ],
     context:
-      'A Fulbright year of field research in Ifrane, Rabat, and Fez, archival work at the Mohammed VI Library, and history teaching in Rabat. It grounded the North Africa focus that runs through everything since.',
+      'A Fulbright year of research in Ifrane, archival work at the Mohammed VI Library, history teaching in Rabat, and travel around Morocco. It grounded the North Africa focus that runs through everything since.',
     media: {
       kind: 'photo',
       src: '/assets/fieldwork/heroes/chefchaouen-blue-plaza-hero-16x9.webp',
@@ -325,7 +327,7 @@ export const PLACES: Place[] = [
       },
       {
         id: 'fez',
-        kind: 'worked',
+        kind: 'travelled',
         name: 'Fez, Morocco',
         short: 'Fez',
         coords: [-5.0, 34.04],
@@ -333,10 +335,11 @@ export const PLACES: Place[] = [
         offset: [26, -34],
         period: '2023–2024',
         institutions: [],
-        roles: ['Fulbright field research'],
-        context: 'Fieldwork in the medina, documented in the Morocco research dispatches.',
+        roles: ['Travel'],
+        context: 'A visit to Fez during the Fulbright year, documented in the Fez and Ifrane weekend dispatch.',
         media: null,
         imageNeeded: 'Fez',
+        source: { label: 'Read the Fez and Ifrane dispatch', href: 'https://reesewhollister.substack.com/p/fes-and-ifrane-weekend' },
         projects: []
       }
     ]

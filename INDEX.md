@@ -2,6 +2,8 @@
 
 ## Latest
 
+- UI/UX audit and editorial atlas redesign brief (2026-09-09): [Visual audit, verified findings, asset shortlist, papers, and release plan](2026-09-09__reese-portfolio__audit__v01__ui-ux-redesign.html). Review artifact only; production site unchanged by this audit. Refreshed against source commit `d51bd41`.
+
 - Professional portfolio revision (2026-09-07): [Home](src/pages/index.astro), [Experience](src/pages/experience.astro), [Selected Work](src/pages/projects/index.astro), [About](src/pages/about.astro), [Resume](src/pages/resume.astro), and [Coaching bridge](src/pages/coaching.astro).
 - Canonical professional copy and experience: [site data](src/data/site.ts); all nine case studies: [project data](src/data/projects.ts).
 - Verification and evidence report: [2026-09-07 portfolio QA](2026-09-07__reese-portfolio__qa__v01__professional-portfolio.md).

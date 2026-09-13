@@ -23,7 +23,7 @@ const deckHref = `${href}#deck`;
 const secondaryAction = !project.deck ? card?.secondaryAction : undefined;
 ---
 
-<article class={`project-card${framed ? ' project-card--framed' : ''}${wide ? ' project-card--wide' : ''}`} data-categories={[...project.categories, ...(project.tags ?? [])].join('|')} data-accent={accent}>
+<article class={`project-card${framed ? ' project-card--framed' : ''}${wide ? ' project-card--wide' : ''}`} data-categories={[...project.categories, ...(project.tags ?? [])].join('|')} data-formats={[...(project.paper ? ['Paper'] : []), ...(project.deck ? ['Slides'] : []), ...((project.videos?.length || project.ytVideos?.length || project.tags?.includes('Video')) ? ['Video'] : []), ...(project.categories.includes('Product / Design') ? ['Product'] : [])].join('|')} data-accent={accent}>
   {framed ? (
     <ProjectCover
       src={project.heroAsset.src}

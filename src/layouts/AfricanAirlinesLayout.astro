@@ -1,0 +1,110 @@
+---
+import '../styles/global.css';
+import { withBase } from '../utils/paths';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  schema?: Record<string, unknown>;
+}
+
+const {
+  title,
+  description,
+  image = '/assets/fieldwork/og/og-african-airlines.jpg',
+  schema
+} = Astro.props;
+
+const siteUrl = Astro.site ?? new URL('https://reesehollister.com');
+const pageTitle = `${title} | Reese Hollister`;
+const canonical = new URL(Astro.url.pathname, siteUrl).toString();
+const ogImage = new URL(withBase(image), siteUrl).toString();
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+const navItems = [
+  { href: '/african-airlines', label: 'Overview' },
+  { href: '/african-airlines/browse', label: 'Browse' },
+  { href: '/african-airlines/atlas', label: 'Atlas' },
+  { href: '/african-airlines/countries', label: 'Countries' },
+  { href: '/african-airlines/airlines', label: 'Airlines' },
+  { href: '/african-airlines/networks', label: 'Networks' },
+  { href: '/african-airlines/variables', label: 'Variables' },
+  { href: '/african-airlines/sources', label: 'Sources' },
+  { href: '/projects/from-colonies-to-carriers', label: 'Research project' }
+];
+
+function isActive(href: string): boolean {
+  const normalized = href.replace(/\/$/, '') || '/';
+  if (normalized === '/african-airlines/variables' && pathname.startsWith('/african-airlines/institutions')) {
+    return true;
+  }
+  return pathname === normalized || (normalized !== '/african-airlines' && pathname.startsWith(normalized));
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Reese W. Hollister" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={withBase('/assets/ui/favicon.svg')} />
+    <link rel="apple-touch-icon" sizes="180x180" href={withBase('/assets/ui/apple-touch-icon.png')} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    {schema && <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />}
+    <slot name="head" />
+  </head>
+  <body class="aa-body">
+    <a class="skip-link" href="#content">Skip to content</a>
+    <header class="aa-header">
+      <div class="aa-shell aa-header__inner">
+        <a class="aa-brand" href={withBase('/african-airlines')}>
+          <span class="aa-brand__mark" aria-hidden="true">AA</span>
+          <span>
+            <span class="aa-brand__name">African Airlines Atlas</span>
+            <span class="aa-brand__tag">From Colonies to Carriers</span>
+          </span>
+        </a>
+        <nav class="aa-nav" aria-label="African Airlines">
+          {navItems.map((item) => (
+            <a
+              href={withBase(item.href)}
+              class:list={['aa-nav__link', { 'is-active': isActive(item.href) }]}
+              aria-current={isActive(item.href) ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </header>
+    <main id="content" class="aa-main">
+      <slot />
+    </main>
+    <footer class="aa-footer">
+      <div class="aa-shell aa-footer__inner">
+        <p>
+          African Airlines Atlas is edited by Reese Hollister as part of
+          <a href={withBase('/projects/from-colonies-to-carriers')}>From Colonies to Carriers</a>.
+        </p>
+        <p>
+          Source base: Ben Guttery, <em>Encyclopedia of African Airlines</em> (McFarland, 1998).
+          Dataset fields, maps, summaries, and interpretive framing are original project work.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

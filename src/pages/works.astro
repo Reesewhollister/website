@@ -1,61 +1,16 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PDFCard from '../components/PDFCard.astro';
+import ProjectFilters from '../components/ProjectFilters.astro';
 import PDFEmbed from '../components/PDFEmbed.astro';
-import SectionHeading from '../components/SectionHeading.astro';
+import ArtifactFigure from '../components/ArtifactFigure.astro';
 import { works, workTypeLabels } from '../data/works';
+import { mediaRecords } from '../data/editorial';
 import { withBase } from '../utils/paths';
-import type { WorkType } from '../data/works';
-
-const typeOrder: WorkType[] = ['paper', 'deck', 'public-scholarship', 'writing-sample', 'teaching', 'dataset'];
-const groupedWorks = typeOrder
-  .map((type) => ({ type, label: workTypeLabels[type], items: works.filter((w) => w.type === type) }))
-  .filter((group) => group.items.length > 0);
-
-// Featured papers get an inline reader at the top — read without leaving the page.
-const featuredPapers = works.filter((w) => w.featured && w.type === 'paper').slice(0, 3);
+const formats = [...new Set(works.map(w => workTypeLabels[w.type]))];
 ---
-
-<BaseLayout
-  title="Works — Papers, Decks & Research Artifacts"
-  description="Papers, slide decks, and research artifacts by Reese Hollister — downloadable PDFs from postcolonial African history, Western Sahara, Morocco, and Arabic language teaching."
->
-  <section class="page-hero site-shell">
-    <p class="section-kicker">Works</p>
-    <h1>Papers, Decks & Research Artifacts</h1>
-    <p class="page-lead">
-      Downloadable PDFs organized by type — research papers, presentation decks, and public scholarship artifacts.
-    </p>
-  </section>
-
-  {featuredPapers.length > 0 && (
-    <section class="site-shell works-featured">
-      <SectionHeading
-        eyebrow="Read here"
-        title="Featured papers"
-        intro="Read the papers in full below, or open and download any work from the index that follows."
-      />
-      <div class="works-featured__stack">
-        {featuredPapers.map((work) => (
-          <PDFEmbed pdfPath={work.pdfPath} title={work.title} description={work.description} />
-        ))}
-      </div>
-    </section>
-  )}
-
-  <div class="site-shell works-section-geo" aria-hidden="true">
-    <img src={withBase('/assets/ui/ornament/diamond-divider.svg')} alt="" width="220" height="16" />
-  </div>
-
-  {groupedWorks.map((group) => (
-    <section class="site-shell works-section" aria-labelledby={`works-${group.type}-heading`}>
-      <SectionHeading
-        eyebrow={group.label}
-        title={group.label}
-      />
-      <div class="pdf-card-grid">
-        {group.items.map((work) => <PDFCard work={work} />)}
-      </div>
-    </section>
-  ))}
+<BaseLayout title="Works & Media" description="Browse Reese Hollister’s papers, slides, datasets, photographs, and project artifacts, with context and links to the work behind them.">
+<section class="page-hero site-shell"><p class="section-kicker">The collection</p><h1>Read. Look closer. Explore.</h1><p class="page-lead">Papers, presentations, photographs, and research artifacts—with the context that connects them.</p><div class="action-list"><a class="button-secondary" href="#documents">Documents & data</a><a class="button-secondary" href="#media">Photos & artifacts</a><a class="resource-link" href={withBase('/writing')}>Published journal articles →</a><a class="resource-link" href={withBase('/youtube')}>Video library →</a></div></section>
+<section class="site-shell" id="documents" data-catalog><p class="section-kicker">Documents & data</p><h2>The artifact index</h2><ProjectFilters categories={formats} noun="artifacts" categoryLabel="Type" />
+<div class="artifact-index">{works.map(work => <article class="artifact-record" id={work.id} data-categories={workTypeLabels[work.type]} data-search={`${work.title} ${work.description} ${work.tags.join(' ')}`}><div><p class="section-kicker">{workTypeLabels[work.type]} · {work.year}</p><h3>{work.title}</h3><p>{work.description}</p><div class="action-list"><a class="resource-link" href={withBase(work.pdfPath)}>Open {work.type === 'dataset' ? 'data' : 'document'} ↗</a>{work.projectSlug && <a class="resource-link" href={withBase(`/projects/${work.projectSlug}`)}>Project & context →</a>}</div>{work.pdfPath.endsWith('.pdf') && <details class="artifact-reader"><summary>Read on this page</summary><PDFEmbed pdfPath={work.pdfPath} title={work.title} /></details>}</div></article>)}</div></section>
+<section class="site-shell" id="media"><p class="section-kicker">Photos & artifacts</p><h2>A closer look at the work and the places.</h2><div class="media-collection">{mediaRecords.map(item => <article id={item.id}><ArtifactFigure src={item.image} alt={item.alt} caption={item.caption} eyebrow={item.type} /><h3>{item.title}</h3><div class="action-list">{'place' in item && item.place && <a class="resource-link" href={withBase(`/?place=${item.place}#atlas`)}>Place on the atlas →</a>}{'project' in item && item.project && <a class="resource-link" href={withBase(`/projects/${item.project}`)}>Project & context →</a>}</div></article>)}</div></section>
 </BaseLayout>

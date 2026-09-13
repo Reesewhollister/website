@@ -1,0 +1,22 @@
+---
+import { PAPERS } from '../data/papers';
+import { withBase } from '../utils/paths';
+interface Props { ids?: string[] }
+const { ids } = Astro.props;
+const papers = ids ? PAPERS.filter(p => ids.includes(p.id)) : PAPERS;
+---
+<ol class="paper-list">{papers.map(pub => <li class="paper" id={pub.id} data-categories={pub.place ?? 'Historical method'} data-search={`${pub.title} ${pub.summary} ${pub.venue} ${pub.place ?? ''}`}>
+<div class="paper__place"><span class="section-kicker">{pub.place ?? 'Historical method'}</span><span>{pub.year}</span></div>
+<div class="paper__body"><h3><a href={pub.url}>{pub.title}</a></h3><p class="paper__summary">{pub.summary}</p><p class="paper__cite"><cite>{pub.venue}</cite><span>{[pub.volume,pub.pages,pub.year].filter(Boolean).join(' · ')}</span></p>
+<div class="paper__links"><a class="resource-link" href={pub.url}>{pub.linkLabel} ↗</a>{pub.region && <a class="resource-link" href={withBase(`/?place=paper-${pub.id}#atlas`)}>See on atlas</a>}<button type="button" class="citation-copy" data-copy={`Hollister, Reese W. “${pub.title}.” ${pub.venue}, ${pub.volume ?? ''} (${pub.year}), ${pub.pages ?? ''}. ${pub.url}`}>Copy citation</button></div><p class="citation-status" role="status"></p><textarea class="citation-fallback" aria-label="Citation to copy" readonly hidden></textarea></div>
+</li>)}</ol>
+<script>
+function setupCitations() { document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach(button => {
+ if(button.dataset.wired) return; button.dataset.wired = 'true';
+ button.addEventListener('click', async () => { const item = button.closest('.paper')!; const status = item.querySelector('.citation-status')!;
+ try { await navigator.clipboard.writeText(button.dataset.copy!); status.textContent = 'Citation copied.'; }
+ catch { const field = item.querySelector<HTMLTextAreaElement>('textarea')!; field.hidden = false; field.value = button.dataset.copy!; field.focus(); field.select(); status.textContent = 'Select and copy the citation below.'; }
+ });
+}); }
+document.addEventListener('astro:page-load',setupCitations); setupCitations();
+</script>

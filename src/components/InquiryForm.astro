@@ -57,10 +57,12 @@ const topics = [
 </form>
 
 <script>
+ function setupInquiry() {
   const form = document.getElementById('inquiry-form') as HTMLFormElement | null;
   const status = document.getElementById('inquiry-status');
 
-  if (form && status) {
+  if (form && status && form.dataset.wired !== 'true') {
+    form.dataset.wired = 'true';
     const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
     const topic = form.elements.namedItem('topic') as HTMLSelectElement;
     const labels = new Map(Array.from(topic.options).map((option) => [option.value, option.textContent ?? '']));
@@ -99,6 +101,7 @@ const topics = [
 
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
+      if (submit.disabled) return;
       let firstInvalid: HTMLElement | null = null;
       for (const name of Object.keys(rules)) {
         const message = rules[name](fieldOf(name).value);
@@ -141,10 +144,12 @@ const topics = [
       } catch (error) {
         submit.disabled = false;
         submit.textContent = 'Send inquiry';
-        status.innerHTML = `Something went wrong and the message wasn't sent (${
-          error instanceof Error ? error.message : 'unknown error'
-        }). You can try again, or email <a href="mailto:reesewhollister@gmail.com">reesewhollister@gmail.com</a> directly.`;
+        status.textContent = "Your message could not be sent. Please try again, or email reesewhollister@gmail.com directly.";
+
       }
     });
   }
+ }
+ document.addEventListener('astro:page-load', setupInquiry);
+ setupInquiry();
 </script>

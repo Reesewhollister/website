@@ -1,0 +1,586 @@
+---
+import AfricanAirlinesLayout from '../../layouts/AfricanAirlinesLayout.astro';
+import {
+  africanAirlineCountries,
+  africanAirlines,
+  africanAirlinesDatasetCitation,
+  africanAirlinesStats,
+  africanAirlinesSourceCitation,
+  appRoutePath,
+  confidenceLabel,
+  countryCitation,
+  countryForAirline,
+  entryCitation,
+  formatField,
+  formatNumber,
+  formatScopeList,
+  formatYears,
+  relatedAirlines,
+  sourceSummary,
+  type AirlineDestination,
+  type AirlinePageRecord,
+  type CountrySummary
+} from '../../data/africanAirlines';
+import { withBase } from '../../utils/paths';
+
+type AppRoute = {
+  kind: 'app';
+  slug: string;
+  title: string;
+  description: string;
+  appRoute: string;
+};
+
+type CountriesIndexRoute = {
+  kind: 'countriesIndex';
+  slug: 'countries';
+  title: string;
+  description: string;
+};
+
+type AirlinesIndexRoute = {
+  kind: 'airlinesIndex';
+  slug: 'airlines';
+  title: string;
+  description: string;
+};
+
+type SourcesRoute = {
+  kind: 'sources';
+  slug: 'sources';
+  title: string;
+  description: string;
+};
+
+type CountryRoute = {
+  kind: 'country';
+  slug: string;
+  title: string;
+  description: string;
+  country: CountrySummary;
+};
+
+type AirlineRoute = {
+  kind: 'airline';
+  slug: string;
+  title: string;
+  description: string;
+  airline: AirlinePageRecord;
+  country?: CountrySummary;
+  related: AirlinePageRecord[];
+};
+
+type PageRoute = AppRoute | CountriesIndexRoute | AirlinesIndexRoute | SourcesRoute | CountryRoute | AirlineRoute;
+
+const appPages: AppRoute[] = [
+  {
+    kind: 'app',
+    slug: 'browse',
+    title: 'Browse African Airlines',
+    description: 'Search and filter the African Airlines Atlas database by airline, country, service scope, ownership, year, and source status.',
+    appRoute: '/'
+  },
+  {
+    kind: 'app',
+    slug: 'atlas',
+    title: 'African Airlines Interactive Atlas',
+    description: 'Move through the African Airlines Atlas from 1920 to 1998 with country shading, city points, route arcs, and founding or cessation events.',
+    appRoute: '/atlas'
+  },
+  {
+    kind: 'app',
+    slug: 'networks',
+    title: 'African Airline Networks and Hubs',
+    description: 'Explore documented African airline city networks, hubs, and service scopes from the African Airlines Atlas.',
+    appRoute: '/networks'
+  },
+  {
+    kind: 'app',
+    slug: 'variables',
+    title: 'African Airline Variables Over Time',
+    description: 'Track ownership, state-link status, colonial-power context, decolonization pathways, and World Bank GDP comparisons in the African Airlines Atlas.',
+    appRoute: '/variables'
+  },
+  {
+    kind: 'app',
+    slug: 'source-gaps',
+    title: 'African Airlines Source Gap Dashboard',
+    description: 'Inspect stubs, missing fields, review flags, and source confidence across the African Airlines Atlas.',
+    appRoute: '/sources'
+  }
+];
+
+export function getStaticPaths() {
+  const appPagesForPaths: AppRoute[] = [
+    {
+      kind: 'app',
+      slug: 'browse',
+      title: 'Browse African Airlines',
+      description: 'Search and filter the African Airlines Atlas database by airline, country, service scope, ownership, year, and source status.',
+      appRoute: '/'
+    },
+    {
+      kind: 'app',
+      slug: 'atlas',
+      title: 'African Airlines Interactive Atlas',
+      description: 'Move through the African Airlines Atlas from 1920 to 1998 with country shading, city points, route arcs, and founding or cessation events.',
+      appRoute: '/atlas'
+    },
+    {
+      kind: 'app',
+      slug: 'networks',
+      title: 'African Airline Networks and Hubs',
+      description: 'Explore documented African airline city networks, hubs, and service scopes from the African Airlines Atlas.',
+      appRoute: '/networks'
+    },
+    {
+      kind: 'app',
+      slug: 'variables',
+      title: 'African Airline Variables Over Time',
+      description: 'Track ownership, state-link status, colonial-power context, decolonization pathways, and World Bank GDP comparisons in the African Airlines Atlas.',
+      appRoute: '/variables'
+    },
+    {
+      kind: 'app',
+      slug: 'source-gaps',
+      title: 'African Airlines Source Gap Dashboard',
+      description: 'Inspect stubs, missing fields, review flags, and source confidence across the African Airlines Atlas.',
+      appRoute: '/sources'
+    },
+    {
+      kind: 'app',
+      slug: 'institutions',
+      title: 'African Airline Variables Over Time',
+      description: 'Track ownership, state-link status, colonial-power context, decolonization pathways, and World Bank GDP comparisons in the African Airlines Atlas.',
+      appRoute: '/variables'
+    }
+  ];
+  const countryRoutes: CountryRoute[] = africanAirlineCountries.map((country) => ({
+    kind: 'country',
+    slug: `countries/${country.slug}`,
+    title: `${country.country} Airlines`,
+    description: `${country.country} airline records in the African Airlines Atlas: ${country.count} records, ${country.active1998} operating at the 1998 survey horizon, and ${country.routes} destination records.`,
+    country
+  }));
+  const airlinePagesForPaths: AirlineRoute[] = africanAirlines.map((airline) => ({
+    kind: 'airline',
+    slug: `airlines/${airline.slug}`,
+    title: airline.name,
+    description: `${airline.name} in the African Airlines Atlas: a structured ${airline.country} airline record covering years, ownership, service scope, and source provenance.`,
+    airline,
+    country: countryForAirline(airline),
+    related: relatedAirlines(airline)
+  }));
+  const pages: PageRoute[] = [
+    ...appPagesForPaths,
+    {
+      kind: 'countriesIndex',
+      slug: 'countries',
+      title: 'African Airline Country Pages',
+      description: `Browse country pages for ${africanAirlineCountries.length} countries and territories in the African Airlines Atlas.`
+    },
+    {
+      kind: 'airlinesIndex',
+      slug: 'airlines',
+      title: 'African Airline Records',
+      description: `Browse all ${africanAirlinesStats.total} airline records in the African Airlines Atlas.`
+    },
+    {
+      kind: 'sources',
+      slug: 'sources',
+      title: 'African Airlines Sources and Method',
+      description: 'Methodology, source provenance, citation rules, uncertainty policy, and copyright notes for the African Airlines Atlas.'
+    },
+    ...countryRoutes,
+    ...airlinePagesForPaths
+  ];
+
+  return pages.map((page) => ({
+    params: { slug: page.slug },
+    props: { page }
+  }));
+}
+
+const { page } = Astro.props as { page: PageRoute };
+const appBase = withBase('/african-airlines/');
+const siteBase = import.meta.env.BASE_URL;
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@type': page.kind === 'airline' ? 'ItemPage' : 'WebPage',
+  name: page.title,
+  description: page.description,
+  url: new URL(Astro.url.pathname, Astro.site ?? 'https://reesehollister.com').toString()
+};
+
+function countBy<T>(items: T[], getValue: (item: T) => string | string[] | null | undefined): [string, number][] {
+  const counts = new Map<string, number>();
+  for (const item of items) {
+    const raw = getValue(item);
+    const values = Array.isArray(raw) ? raw : [raw];
+    for (const value of values) {
+      if (!value) continue;
+      counts.set(value, (counts.get(value) ?? 0) + 1);
+    }
+  }
+  return Array.from(counts.entries()).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+}
+
+function fieldRows(airline: AirlinePageRecord): [string, string][] {
+  return [
+    ['Country', airline.country],
+    ['Years', formatYears(airline)],
+    ['Ownership', formatField(airline.ownership)],
+    ['Government involvement', formatField(airline.government)],
+    ['Service scope', formatScopeList(airline.scopes)],
+    ['Fleet size', formatNumber(airline.fleet_size)],
+    ['Employees', formatNumber(airline.employees)],
+    ['Former colonial power', formatField(airline.colonial_power)],
+    ['Settler classification', formatField(airline.settler)],
+    ['Decolonization category', formatField(airline.decolonization)],
+    ['Source confidence', confidenceLabel(airline)]
+  ];
+}
+
+function uniqueDestinations(destinations?: AirlineDestination[]): AirlineDestination[] {
+  const seen = new Set<string>();
+  const out: AirlineDestination[] = [];
+  for (const destination of destinations ?? []) {
+    const key = [destination.city, destination.city_country, destination.scope].join('|');
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(destination);
+  }
+  return out;
+}
+
+function routeLabel(pageRoute: AppRoute): string {
+  if (pageRoute.appRoute === '/') return 'Browse';
+  if (pageRoute.appRoute === '/atlas') return 'Atlas';
+  if (pageRoute.appRoute === '/networks') return 'Networks';
+  if (pageRoute.appRoute === '/variables' || pageRoute.appRoute === '/institution') return 'Variables';
+  if (pageRoute.appRoute === '/sources') return 'Source gaps';
+  return pageRoute.title;
+}
+---
+
+{page.kind === 'app' ? (
+  <AfricanAirlinesLayout title={page.title} description={page.description} schema={pageSchema}>
+    <Fragment slot="head">
+      <link rel="stylesheet" href={withBase('/african-airlines/assets/styles.css')} />
+    </Fragment>
+    <section class="aa-app-intro">
+      <div class="wrap">
+        <p class="eyebrow">Interactive atlas</p>
+        <h1>{page.title}</h1>
+        <p>{page.description}</p>
+        <nav class="aa-app-tabs" aria-label="Interactive views">
+          {appPages.map((route) => (
+            <a class:list={{ active: route.slug === page.slug || route.appRoute === page.appRoute }} href={withBase(appRoutePath(route.slug as 'browse' | 'atlas' | 'networks' | 'variables' | 'source-gaps'))}>
+              {routeLabel(route)}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </section>
+    <div id="view" class="wrap" aria-live="polite"></div>
+    <section class="aa-shell aa-section aa-citation-box">
+      <h2>Sources for this view</h2>
+      <p>{africanAirlinesDatasetCitation}</p>
+      {page.appRoute === '/variables' && (
+        <p>
+          GDP metrics use World Bank World Development Indicators series NY.GDP.MKTP.CD,
+          NY.GDP.MKTP.KD, and NY.GDP.PCAP.KD for 1960-1998 where country/economy series are available.
+        </p>
+      )}
+    </section>
+    <div class="site-footer aa-app-footer">
+      <div class="wrap">
+        <p>
+          Source: Ben Guttery, <em>Encyclopedia of African Airlines</em> (McFarland, 1998).
+          Dataset and site by Reese Hollister. <span id="footer-stats"></span>
+        </p>
+        <p class="muted">Blanks are never estimated. A field shown as "Not stated" was absent from the source or still needs review.</p>
+      </div>
+    </div>
+    <script is:inline define:vars={{ appBase, siteBase, appRoute: page.appRoute }}>
+      window.AFRICAN_AIRLINES_BASE = appBase;
+      window.AFRICAN_AIRLINES_SITE_BASE = siteBase;
+      window.AFRICAN_AIRLINES_ROUTE = appRoute;
+    </script>
+    <script src={withBase('/african-airlines/assets/fuse.min.js')}></script>
+    <script src={withBase('/african-airlines/assets/echarts.min.js')}></script>
+    <script src={withBase('/african-airlines/assets/filters.js')}></script>
+    <script src={withBase('/african-airlines/assets/search.js')}></script>
+    <script src={withBase('/african-airlines/assets/stats.js')}></script>
+    <script src={withBase('/african-airlines/assets/viz.js')}></script>
+    <script src={withBase('/african-airlines/assets/explore.js')}></script>
+    <script src={withBase('/african-airlines/assets/app.js')}></script>
+  </AfricanAirlinesLayout>
+) : (
+  <AfricanAirlinesLayout title={page.title} description={page.description} schema={pageSchema}>
+    {page.kind === 'countriesIndex' && (
+      <>
+        <section class="aa-page-hero">
+          <div class="aa-shell">
+            <p class="aa-kicker">Country index</p>
+            <h1>Country Pages</h1>
+            <p class="aa-lead">
+              Static country pages make the African Airlines Atlas easier to search, cite, and browse.
+              Each page summarizes local airline records and links back into the interactive atlas.
+            </p>
+          </div>
+        </section>
+        <section class="aa-shell aa-section">
+          <div class="aa-directory aa-directory--countries">
+            {africanAirlineCountries.map((country) => (
+              <a class="aa-directory-card" href={withBase(country.url)}>
+                <strong>{country.country}</strong>
+                <span>{country.count.toLocaleString('en-US')} records</span>
+                <small>{country.firstAirline ? `First listed: ${country.firstAirline.name} (${country.firstAirline.year_founded ?? 'year not stated'})` : 'First listed record not stated'}</small>
+              </a>
+            ))}
+          </div>
+        </section>
+      </>
+    )}
+
+    {page.kind === 'airlinesIndex' && (
+      <>
+        <section class="aa-page-hero">
+          <div class="aa-shell">
+            <p class="aa-kicker">Airline index</p>
+            <h1>Airline Records</h1>
+            <p class="aa-lead">
+              Browse all {africanAirlinesStats.total.toLocaleString('en-US')} airline records as static,
+              citable pages. Use the interactive database for filtering and the static index for direct links.
+            </p>
+            <div class="aa-actions">
+              <a class="aa-button aa-button--primary" href={withBase('/african-airlines/browse')}>Open searchable database</a>
+              <a class="aa-button" href={withBase('/african-airlines/countries')}>Browse by country</a>
+            </div>
+          </div>
+        </section>
+        <section class="aa-shell aa-section">
+          <ol class="aa-airline-list">
+            {africanAirlines.map((airline) => (
+              <li>
+                <a href={withBase(airline.url)}>{airline.name}</a>
+                <span>{airline.country}</span>
+                <small>{airline.year_founded ?? 'Unknown'} to {airline.year_ceased ?? (airline.active ? '1998 horizon' : 'unknown')}</small>
+              </li>
+            ))}
+          </ol>
+        </section>
+      </>
+    )}
+
+    {page.kind === 'sources' && (
+      <>
+        <section class="aa-page-hero">
+          <div class="aa-shell">
+            <p class="aa-kicker">Sources / methodology / citation policy</p>
+            <h1>Sources and Method</h1>
+            <p class="aa-lead">
+              The atlas is built from structured facts, source provenance, and original analysis.
+              It does not republish encyclopedia entries as prose.
+            </p>
+          </div>
+        </section>
+        <section class="aa-shell aa-section aa-method-grid">
+          <article>
+            <h2>Source base</h2>
+            <p>
+              The underlying reference is {africanAirlinesSourceCitation} The project turns reference facts into structured
+              records for public history, mapping, and comparative analysis.
+            </p>
+          </article>
+          <article>
+            <h2>What the dataset adds</h2>
+            <p>
+              Reese Hollister's project adds field structure, derived classifications, source labels,
+              citation blocks, country pages, interactive visualizations, and postcolonial-history framing.
+            </p>
+          </article>
+          <article>
+            <h2>Uncertainty rule</h2>
+            <p>
+              Blanks are not estimated. Missing fields mean the source did not state the value or the
+              field still needs review. Review flags remain visible rather than hidden.
+            </p>
+          </article>
+          <article>
+            <h2>Copyright rule</h2>
+            <p>
+              The public pages use structured facts, original summaries, tables, maps, and analysis.
+              They avoid copying full entries or reproducing long passages from the reference work.
+            </p>
+          </article>
+        </section>
+        <section class="aa-shell aa-section aa-source-callout">
+          <div class="aa-section__head">
+            <p class="aa-kicker">Current source status</p>
+            <h2>Known gaps remain visible.</h2>
+          </div>
+          <div class="aa-mini-stats">
+            <div><strong>{sourceSummary.stubs.toLocaleString('en-US')}</strong><span>stub records</span></div>
+            <div><strong>{sourceSummary.reviewFlagged.toLocaleString('en-US')}</strong><span>review flagged</span></div>
+            <div><strong>{sourceSummary.missingFounded.toLocaleString('en-US')}</strong><span>missing founding year</span></div>
+            <div><strong>{sourceSummary.missingBaseCity.toLocaleString('en-US')}</strong><span>missing base city</span></div>
+            <div><strong>{sourceSummary.missingDestinations.toLocaleString('en-US')}</strong><span>no destination list</span></div>
+          </div>
+          <div class="aa-actions">
+            <a class="aa-button aa-button--primary" href={withBase('/african-airlines/source-gaps')}>Open source gap dashboard</a>
+            <a class="aa-button" href={withBase('/projects/from-colonies-to-carriers')}>Read the research project</a>
+          </div>
+        </section>
+        <section class="aa-shell aa-section aa-citation-box">
+          <h2>Recommended dataset citation</h2>
+          <p>{africanAirlinesDatasetCitation}</p>
+          <p>
+            GDP comparison data in the Variables view comes from World Bank World Development Indicators
+            series NY.GDP.MKTP.CD, NY.GDP.MKTP.KD, and NY.GDP.PCAP.KD.
+          </p>
+        </section>
+      </>
+    )}
+
+    {page.kind === 'country' && (
+      <>
+        <section class="aa-page-hero">
+          <div class="aa-shell">
+            <p class="aa-kicker">Country page</p>
+            <h1>{page.country.country}</h1>
+            <p class="aa-lead">
+              {page.country.count.toLocaleString('en-US')} airline records in the African Airlines Atlas,
+              with {page.country.active1998.toLocaleString('en-US')} marked as operating at the 1998 survey horizon.
+            </p>
+            <div class="aa-actions">
+              <a class="aa-button aa-button--primary" href={withBase(`/african-airlines/atlas#/countries/${encodeURIComponent(page.country.country)}`)}>Open in interactive atlas</a>
+              <a class="aa-button" href={withBase('/african-airlines/countries')}>All countries</a>
+            </div>
+          </div>
+        </section>
+        <section class="aa-shell aa-section aa-country-grid">
+          <article class="aa-fact-panel">
+            <h2>Country facts</h2>
+            <dl class="aa-fact-list">
+              <div><dt>Total records</dt><dd>{page.country.count.toLocaleString('en-US')}</dd></div>
+              <div><dt>Active at 1998 horizon</dt><dd>{page.country.active1998.toLocaleString('en-US')}</dd></div>
+              <div><dt>Ceased by survey horizon</dt><dd>{page.country.ceased.toLocaleString('en-US')}</dd></div>
+              <div><dt>State-linked records</dt><dd>{page.country.stateLinked.toLocaleString('en-US')}</dd></div>
+              <div><dt>Destination records</dt><dd>{page.country.routes.toLocaleString('en-US')}</dd></div>
+              <div><dt>Service scopes</dt><dd>{formatScopeList(page.country.scopes)}</dd></div>
+              <div><dt>First listed airline</dt><dd>{page.country.firstAirline ? `${page.country.firstAirline.name} (${page.country.firstAirline.year_founded ?? 'year not stated'})` : 'Not stated'}</dd></div>
+            </dl>
+          </article>
+          <article class="aa-fact-panel">
+            <h2>Ownership mix</h2>
+            <ol class="aa-rank-list aa-rank-list--compact">
+              {countBy(page.country.airlines, (airline) => airline.ownership || 'Not stated').slice(0, 6).map(([label, value]) => (
+                <li><span>{label}</span><strong>{value.toLocaleString('en-US')}</strong></li>
+              ))}
+            </ol>
+          </article>
+        </section>
+        <section class="aa-shell aa-section">
+          <div class="aa-section__head">
+            <p class="aa-kicker">Records</p>
+            <h2>{page.country.country} airline records</h2>
+            <p>These are structured record pages, not copied encyclopedia entries.</p>
+          </div>
+          <ol class="aa-airline-list">
+            {page.country.airlines.map((airline) => (
+              <li>
+                <a href={withBase(airline.url)}>{airline.name}</a>
+                <span>{formatScopeList(airline.scopes)}</span>
+                <small>{airline.year_founded ?? 'Unknown'} to {airline.year_ceased ?? (airline.active ? '1998 horizon' : 'unknown')}</small>
+              </li>
+            ))}
+          </ol>
+        </section>
+        <section class="aa-shell aa-section aa-citation-box">
+          <h2>Cite this country page</h2>
+          <p>{countryCitation(page.country)}</p>
+        </section>
+      </>
+    )}
+
+    {page.kind === 'airline' && (
+      <>
+        <section class="aa-page-hero">
+          <div class="aa-shell">
+            <p class="aa-kicker">Airline record</p>
+            <h1>{page.airline.name}</h1>
+            <p class="aa-lead">
+              A structured {page.airline.country} airline record in the African Airlines Atlas.
+              Public text here is generated from fields, not copied encyclopedia prose.
+            </p>
+            <div class="aa-actions">
+              <a class="aa-button aa-button--primary" href={withBase(`/african-airlines/browse#/a/${page.airline.entry}`)}>Open interactive record</a>
+              {page.country && <a class="aa-button" href={withBase(page.country.url)}>View {page.country.country}</a>}
+            </div>
+          </div>
+        </section>
+        <section class="aa-shell aa-section aa-country-grid">
+          <article class="aa-fact-panel">
+            <h2>Core record</h2>
+            <dl class="aa-fact-list">
+              {fieldRows(page.airline).map(([label, value]) => (
+                <div><dt>{label}</dt><dd>{value}</dd></div>
+              ))}
+            </dl>
+          </article>
+          <article class="aa-fact-panel">
+            <h2>Provenance</h2>
+            <dl class="aa-fact-list">
+              <div><dt>Entry number</dt><dd>{page.airline.entry}</dd></div>
+              <div><dt>Source file</dt><dd>{formatField(page.airline.provenance?.source)}</dd></div>
+              <div><dt>Book page</dt><dd>{formatNumber(page.airline.provenance?.book_page && page.airline.provenance.book_page > 0 ? page.airline.provenance.book_page : null)}</dd></div>
+              <div><dt>Confidence</dt><dd>{confidenceLabel(page.airline)}</dd></div>
+              <div><dt>Review flags</dt><dd>{page.airline.review_flags?.length ? page.airline.review_flags.join(', ') : 'None recorded'}</dd></div>
+            </dl>
+          </article>
+        </section>
+        {uniqueDestinations(page.airline.destinations).length > 0 && (
+          <section class="aa-shell aa-section">
+            <div class="aa-section__head">
+              <p class="aa-kicker">Destinations</p>
+              <h2>Documented destination records</h2>
+              <p>The dataset can contain duplicate destination rows from source extraction; this page lists unique city/scope combinations.</p>
+            </div>
+            <ul class="aa-destination-list">
+              {uniqueDestinations(page.airline.destinations).map((destination) => (
+                <li>
+                  <strong>{formatField(destination.city)}</strong>
+                  <span>{formatField(destination.city_country)}</span>
+                  <small>{formatField(destination.scope)}</small>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+        {page.related.length > 0 && (
+          <section class="aa-shell aa-section">
+            <div class="aa-section__head">
+              <p class="aa-kicker">Related records</p>
+              <h2>More from {page.airline.country}</h2>
+            </div>
+            <div class="aa-record-grid">
+              {page.related.map((airline) => (
+                <a class="aa-record-card" href={withBase(airline.url)}>
+                  <span>{airline.country}</span>
+                  <strong>{airline.name}</strong>
+                  <p>{airline.year_founded ?? 'Unknown'} to {airline.year_ceased ?? (airline.active ? '1998 survey horizon' : 'unknown')}</p>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+        <section class="aa-shell aa-section aa-citation-box">
+          <h2>Cite this entry</h2>
+          <p>{entryCitation(page.airline)}</p>
+        </section>
+      </>
+    )}
+  </AfricanAirlinesLayout>
+)}

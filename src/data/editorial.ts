@@ -1,0 +1,15 @@
+/** Curated routes through existing, verified work. IDs resolve to canonical records. */
+export const readingPaths = [
+  { id: 'infrastructure', title: 'Infrastructure & power', question: 'How do roads and airlines turn political claims into everyday systems?', image: '/assets/projects/from-colonies-to-carriers/2026-06-13__reese-portfolio__asset__v01__african-airlines-routes-from-europe.png', alt: 'Route map from the African airlines research', projects: ['from-colonies-to-carriers', 'western-sahara-capstone'], papers: ['sharpeville'] },
+  { id: 'images', title: 'Images & national identity', question: 'How do photographs, museums, and world’s fairs shape the way a nation is seen?', image: '/assets/fieldwork/heroes/mohammed-vi-library-aui-hero-16x9.webp', alt: 'Mohammed VI Library at Al Akhawayn University, Ifrane', projects: [], papers: ['jackson', 'vietnam', 'japan'] },
+  { id: 'learning', title: 'Teaching through making', question: 'What happens when historical knowledge and language learning become things people can use?', image: '/assets/projects/huruf-lab/huruf-tiles-in-play.jpg', alt: 'Arabic learning tiles in use', projects: ['huruf-lab', 'teaching-writing-support', 'public-history-engagement'], papers: [] }
+];
+export const mediaRecords = [
+  { id: 'ifrane-library', title: 'An archival base in Ifrane', type: 'Photograph', image: '/assets/fieldwork/heroes/mohammed-vi-library-aui-hero-16x9.webp', alt: 'Mohammed VI Library at Al Akhawayn University', caption: 'Research · Mohammed VI Library, Al Akhawayn University, Ifrane, Morocco.', place: 'ifrane', project: 'fulbright-morocco' },
+  { id: 'chefchaouen', title: 'A visit to Chefchaouen', type: 'Photograph', image: '/assets/fieldwork/heroes/chefchaouen-blue-plaza-hero-16x9.webp', alt: 'Blue plaza in Chefchaouen, Morocco', caption: 'Travel · Chefchaouen, Morocco.', place: 'chefchaouen' },
+  { id: 'merzouga', title: 'At the edge of Erg Chebbi', type: 'Photograph', image: '/assets/fieldwork/heroes/merzouga-dunes-camels-hero-16x9.webp', alt: 'Camels on the dunes at Merzouga', caption: 'Travel · Merzouga, Morocco.', place: 'merzouga' },
+  { id: 'huruf-tiles', title: 'Arabic letters, made tangible', type: 'Project', image: '/assets/projects/huruf-lab/huruf-tiles-in-play.jpg', alt: 'Huruf La’b Arabic tiles arranged in play', caption: 'Product development · Huruf La’b learning materials.', project: 'huruf-lab' },
+  { id: 'western-sahara-timeline', title: 'Two tracks of evidence', type: 'Diagram', image: '/assets/projects/western-sahara/dual-track-timeline.png', alt: 'Dual-track timeline from the Western Sahara highways research', caption: 'Research artifact · Western Sahara highways project. Open the case study for the argument and sources.', project: 'western-sahara-capstone' },
+  { id: 'teaching', title: 'Explaining the work', type: 'Project', image: '/assets/projects/teaching-writing-support/teaching-presentation.jpg', alt: 'Teaching presentation', caption: 'Teaching and writing support · presentation material.', project: 'teaching-writing-support' }
+];
+

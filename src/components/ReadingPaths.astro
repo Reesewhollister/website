@@ -1,0 +1,10 @@
+---
+import { readingPaths } from '../data/editorial';
+import { PAPERS } from '../data/papers';
+import { getProjectBySlug } from '../data/projects';
+import { withBase } from '../utils/paths';
+---
+<div class="reading-paths">{readingPaths.map((path,i) => <article class="reading-path" id={`path-${path.id}`}><p class="section-kicker">Reading path / 0{i+1}</p><h3>{path.title}</h3><p>{path.question}</p><ol>
+{path.projects.map(id => { const project = getProjectBySlug(id); return project && <li><a href={withBase(`/projects/${id}`)}>{project.card?.title ?? project.title}</a><span>Project</span></li>; })}
+{path.papers.map(id => { const paper = PAPERS.find(p => p.id === id); return paper && <li><a href={withBase(`/writing#${id}`)}>{paper.title}</a><span>{paper.year} · Paper</span></li>; })}
+</ol></article>)}</div>

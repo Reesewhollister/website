@@ -14,7 +14,7 @@ const dims = getImageDims(src);
 ---
 
 <figure class="artifact-figure">
-  <img src={withBase(src)} alt={alt} loading="lazy" width={dims?.width} height={dims?.height} />
+  <a href={withBase(src)} data-inspect data-gallery="artifacts" data-caption={caption ?? alt} aria-label={`Enlarge: ${alt}`}><img src={withBase(src)} alt={alt} loading="lazy" width={dims?.width} height={dims?.height} /><span class="inspect-hint">View detail ↗</span></a>
   {(caption || eyebrow) && (
     <figcaption>
       {eyebrow && <span class="artifact-figure__eyebrow">{eyebrow}</span>}
