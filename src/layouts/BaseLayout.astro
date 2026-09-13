@@ -1,9 +1,10 @@
 ---
 import { ClientRouter } from 'astro:transitions';
 import SiteFooter from '../components/SiteFooter.astro';
+import MediaInspector from '../components/MediaInspector.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import '../styles/global.css';
-import { siteMeta } from '../data/site';
+import { siteMeta, partnerInstitutions } from '../data/site';
 import { withBase } from '../utils/paths';
 
 interface Props {
@@ -77,6 +78,11 @@ const faviconHref = withBase('/assets/ui/favicon.svg');
         { '@type': 'EducationalOccupationalCredential', name: 'Fulbright Scholar, U.S. Department of State' },
         { '@type': 'EducationalOccupationalCredential', name: 'Master of International Studies, NC State University' }
       ],
+      affiliation: partnerInstitutions.map((inst) => ({
+        '@type': 'Organization',
+        name: inst.name,
+        url: inst.href
+      })),
       knowsLanguage: ['English', 'Arabic', 'French'],
       knowsAbout: ['North African history', 'Morocco', 'Western Sahara', 'Postcolonial institutions', 'Arabic language education', 'Academic writing', 'Fulbright Program', 'Digital history', 'Public history'],
       sameAs: [
@@ -97,6 +103,7 @@ const faviconHref = withBase('/assets/ui/favicon.svg');
       <slot />
     </main>
     <SiteFooter />
+    <MediaInspector />
     <script>
       // Global delegated analytics handler. Picks up data-track / data-track-label
       // on any element and fires gtag safely. Re-wired on each Astro page transition.
@@ -142,7 +149,6 @@ const faviconHref = withBase('/assets/ui/favicon.svg');
           // Never hide hero sections — they have their own entrance animations.
           if (
             section.classList.contains('cinematic-hero') ||
-            section.classList.contains('map-hero') ||
             section.classList.contains('page-hero') ||
             section.classList.contains('project-hero')
           ) {

@@ -94,3 +94,44 @@ These items should be resolved before a final public launch. They are tracked he
   Needs a name before any of it is used, and HEIC→WebP conversion.
 - **Photographs still missing** for The Bronx / Manhattan College and Fez. These now render
   no image frame at all rather than a placeholder.
+
+## Huruf La'b pedagogy rebuild — 2026-09-13
+
+The project page is now framed as documented teaching practice rather than a venture
+story. Everything below needs source files before it can go on the public page; none of it
+has been guessed at, and no placeholders are shown to visitors.
+
+- **The six application PDFs are not in the repo.** `_source/albustan/` does not exist and
+  there is no Huruf La'b PDF anywhere under `public/`. Needed: Play Test Event
+  Presentation, Bayt al-Hikma Role Playing Activity, Huruf La'b University Article,
+  VenturePack Application, Intro to the Arab World Presentation Slides, VenturePack
+  Challenge Slides.
+- **"In the room" section** is not written. It needs the play-test date, venue, participant
+  count, age range, what was being tested, what failed, and what changed as a result —
+  every one of which lives only in the Play Test deck.
+- **Sample curriculum** (Bayt al-Hikma; Intro to the Arab World) is not built. Each needs a
+  spec block: grade band, duration, objectives, materials, assessment. A `LessonCard`
+  component should be added when there are real lessons to put in it, not before.
+- **Materials/downloads shelf** is not built. Note `src/data/works.ts` already has a
+  commented-out `huruf-lab-deck` stub waiting on
+  `public/assets/projects/huruf-lab/huruf-lab-pitch-deck.pdf` — wire that up rather than
+  inventing a second pattern.
+- **University-article pull-quote** not added; the NC State CHASS piece is currently linked
+  but not quoted.
+- **Pedagogical lineage.** The framing discussed — grapho-phonemic decomposition, and a
+  Montessori sandpaper-letter / Cuisenaire-rod lineage for constructivist manipulative
+  pedagogy — is *not* asserted on the page. It is a scholarly claim that needs Reese to
+  own it (and ideally a citation). Say the word and it goes into "The method".
+- **Timeline overlap.** `aboutTimelineFull` has both "Huruf La'b · 2025–present" and
+  "Current — Research, Teaching, Writing · 2026". On the homepage chronology these read as
+  two separate "now" stops. Merge them, or give Huruf La'b a closed date range.
+
+## Teaching portfolio migration — 2026-09-13
+
+- **The Google Site is still a load-bearing dependency.** `src/pages/teaching.astro` links
+  out to `sites.google.com/ncsu.edu/reese/teaching-arabic` at lines 88 and 115, and its
+  "Teaching materials" block is entirely placeholder. WL 507, "Fall 2024", and the course
+  content appear nowhere in `src/`.
+- To migrate it: send the course/section titles, lesson topics, activity descriptions,
+  materials, assessment approach, student-facing handouts, and any images from the
+  Teaching Arabic tab. Then the Google Site becomes an archive link rather than the source.

@@ -1,49 +1,23 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import MapHero from '../components/MapHero.astro';
+import TimelineHero from '../components/TimelineHero.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import SectionHeading from '../components/SectionHeading.astro';
-import { homeIntro, proofStrip, capabilities, experienceGroups, contactCta, siteMeta } from '../data/site';
-import { featuredProjects } from '../data/projects';
+import ReadingPaths from '../components/ReadingPaths.astro';
+import { proofStrip, experienceGroups, contactCta, siteMeta } from '../data/site';
+import { getProjectBySlug } from '../data/projects';
 import { withBase } from '../utils/paths';
+const selected = ['from-colonies-to-carriers','huruf-lab','western-sahara-capstone'].map(getProjectBySlug).filter(Boolean);
 ---
 <BaseLayout title={siteMeta.title} description={siteMeta.description}>
-  <MapHero />
-  <section class="credential-band" aria-label="Selected credentials">
-    <ul class="credential-band__list site-shell">
-      {proofStrip.map((item) => (
-        <li class="credential">
-          <svg class="credential__pin" viewBox="0 0 20 28" aria-hidden="true">
-            <path d="M10,2 C5.6,2 2,5.6 2,10 C2,16.5 10,26 10,26 C10,26 18,16.5 18,10 C18,5.6 14.4,2 10,2 Z" />
-            <circle cx="10" cy="10" r="3" />
-          </svg>
-          <span class="credential__label">{item.label}</span>
-          <span class="credential__detail">{item.detail}</span>
-        </li>
-      ))}
-    </ul>
-  </section>
-  <section class="site-shell">
-    <SectionHeading eyebrow="Capabilities" title="What I Bring" intro={homeIntro} />
-    <div class="capability-grid">
-      {capabilities.map((item, i) => <article class="capability-item"><span class="section-kicker" aria-hidden="true">0{i + 1}</span><h3>{item.title}</h3><p>{item.summary}</p><a class="resource-link" href={withBase(item.href)}>{item.cta} →</a></article>)}
-    </div>
-  </section>
-  <section class="site-shell" id="selected-work">
-    <SectionHeading eyebrow="Selected Work" title="Four ways the work takes shape" intro="Course support, an educational product, a research dataset, and public history. Each case study connects the work to its purpose and deliverables." />
-    <div class="work-stack">{featuredProjects.map(project => <ProjectCard project={project} wide />)}</div>
-    <p><a class="resource-link" href={withBase('/projects')}>Browse all projects and research →</a></p>
-  </section>
-  <section class="site-shell">
-    <SectionHeading eyebrow="Experience" title="Supporting people, carrying work forward" />
-    <div class="experience-preview">
-      {experienceGroups.slice(0, 3).map(item => <article><p class="section-kicker">{item.org}</p><h3>{item.title}</h3><p>{item.summary}</p></article>)}
-    </div>
-    <p><a class="resource-link" href={withBase('/experience')}>See my experience →</a> <span aria-hidden="true"> · </span> <a class="resource-link" href={withBase('/resume')}>Resume and contact options →</a></p>
-  </section>
-  <section class="site-shell" aria-label="Contact and coaching">
-    <div class="contact-split">
-      {[contactCta].map(item => <article class="contact-panel"><p class="section-kicker">{item.eyebrow}</p><h2>{item.title}</h2><p>{item.body}</p><a class="resource-link" href={withBase(item.href)}>{item.cta}</a></article>)}
-    </div>
-  </section>
+<section class="editorial-intro site-shell"><div><p class="section-kicker">Reese W. Hollister</p><h1>History, made<br />clear and tangible.</h1><p class="editorial-intro__identity">Historian. Educator. Public scholarship creator.</p></div><div class="editorial-intro__aside"><p>I study how infrastructures, images, and institutions shape life after empire—and turn that research into writing, maps, teaching, and things people can use.</p><div class="action-list"><a class="button-primary" href={withBase('/research')}>Explore research</a><a class="button-secondary" href={withBase('/experience')}>View experience</a></div><a class="resource-link" href={withBase('/resume')}>CV / Resume →</a></div></section>
+<TimelineHero />
+<section class="credential-band" aria-label="Selected credentials"><ul class="credential-band__list site-shell">{proofStrip.map(item => <li class="credential"><span class="credential__label">{item.label}</span><span class="credential__detail">{item.detail}</span></li>)}</ul></section>
+<section class="site-shell" id="selected-work"><SectionHeading eyebrow="Selected work" title="An argument. A tool. A way to learn." intro="Three projects that connect research to something you can read, explore, or use." /><div class="work-stack">{selected.map(project => project && <ProjectCard project={project} wide />)}</div><a class="resource-link" href={withBase('/projects')}>Browse all projects →</a></section>
+<MapHero />
+<section class="site-shell"><SectionHeading eyebrow="Follow a question" title="Three ways into the work" intro="Curated paths across projects and publications." /><ReadingPaths /></section>
+<section class="site-shell"><SectionHeading eyebrow="Experience" title="Research, education, and the people behind both." /><div class="experience-preview">{experienceGroups.slice(0,3).map(item => <article><p class="section-kicker">{item.org}</p><h3>{item.title}</h3><p>{item.summary}</p><a class="resource-link" href={withBase(item.href)}>{item.cta} →</a></article>)}</div><p><a class="resource-link" href={withBase('/experience')}>Full experience →</a></p></section>
+<section class="site-shell home-media-callout"><img src={withBase('/assets/fieldwork/heroes/chefchaouen-blue-plaza-hero-16x9.webp')} alt="Blue plaza in Chefchaouen, Morocco" loading="lazy" /><div><p class="section-kicker">Travel · Chefchaouen</p><h2>Places have their own stories.</h2><p>Photographs, diagrams, and project materials, with the context that connects them.</p><a class="resource-link" href={withBase('/works#media')}>Explore the media collection →</a></div></section>
+<section class="site-shell"><article class="contact-panel"><p class="section-kicker">{contactCta.eyebrow}</p><h2>Let’s make something useful.</h2><p>{contactCta.body}</p><a class="resource-link" href={withBase(contactCta.href)}>{contactCta.cta} →</a><p class="contact-service"><a href={withBase('/coaching')}>Looking for college essay coaching?</a></p></article></section>
 </BaseLayout>

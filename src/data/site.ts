@@ -11,15 +11,13 @@ export const coachingInquiryUrl = '/contact?topic=essay';
 export const resumeRequestUrl = 'mailto:reesewhollister@gmail.com?subject=Current%20resume%20request';
 
 export const navLinks = [
-  { href: '/', label: 'Home' },
-  // Research leads: the published scholarship is the credential, and it used to
-  // be reachable only from the footer.
   { href: '/research', label: 'Research' },
-  { href: '/projects', label: 'Selected Work' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/writing', label: 'Writing' },
   { href: '/experience', label: 'Experience' },
   { href: '/about', label: 'About' },
-  { href: '/contact', label: 'Contact' },
-  { href: '/coaching', label: 'College Essay Coaching' }
+  { href: '/resume', label: 'CV / Resume' },
+  { href: '/contact', label: 'Contact' }
 ];
 
 export const footerLinks = [
@@ -109,45 +107,54 @@ export const proofItems = [
   }
 ];
 
+/**
+ * Set as typographic wordmarks in the site's own type, not institutional logo files.
+ * `wordmark` is the display name; `wordmarkSub` the qualifying line beneath it.
+ */
 export const partnerInstitutions = [
   {
     name: 'Fulbright Program',
     shortName: 'Fulbright',
+    wordmark: 'Fulbright',
+    wordmarkSub: 'U.S. Exchange Program',
     role: 'Fulbright Scholar · Morocco',
     period: '2023–2024',
-    logo: '/assets/ui/partners/fulbright.svg',
     href: 'https://us.fulbrightonline.org/'
   },
   {
     name: 'NC State University',
     shortName: 'NC State',
+    wordmark: 'NC State',
+    wordmarkSub: 'University',
     role: 'M.I.S. · GTA · Writing Consultant',
     period: '2024–2026',
-    logo: '/assets/ui/partners/ncstate.svg',
     href: 'https://www.ncsu.edu/'
   },
   {
     name: 'Al Akhawayn University in Ifrane',
     shortName: 'AUI',
+    wordmark: 'Al Akhawayn',
+    wordmarkSub: 'University in Ifrane, Morocco',
     role: 'Research & Fieldwork Base',
     period: '2023–2024',
-    logo: '/assets/ui/partners/aui.svg',
     href: 'https://www.aui.ma/'
   },
   {
     name: 'American Language Center, Rabat',
     shortName: 'ALC Rabat',
+    wordmark: 'American Language Center',
+    wordmarkSub: 'Rabat, Morocco',
     role: 'History Teacher · BrainLyne',
     period: '2023–2024',
-    logo: '/assets/ui/partners/alc.svg',
     href: 'https://alcrabat.org/'
   },
   {
     name: 'H-Net: Humanities & Social Sciences',
     shortName: 'H-Net',
+    wordmark: 'H-Net',
+    wordmarkSub: 'Humanities & Social Sciences',
     role: 'Conference Presenter · H-Grad',
     period: '2023',
-    logo: '/assets/ui/partners/hnet.svg',
     href: 'https://www.h-net.org/'
   }
 ];
@@ -170,41 +177,75 @@ export const aboutTimeline = [
   }
 ];
 
+/**
+ * Authored oldest-first. The homepage chronology reverses it so the most recent
+ * chapter reads first; keep this order for any prose use.
+ */
 export const aboutTimelineFull = [
   {
+    id: 'manhattan',
+    short: 'Manhattan College',
+    year: '2019',
     period: 'Manhattan College',
     date: '2019–2023',
     summary:
-      'B.A. in History and Political Science. Published in peer-reviewed history journals; won institutional research awards; developed the core interest in postcolonial Africa and French institutional history that drives the current work.'
+      'B.A. in History and Political Science. Published in peer-reviewed history journals; won institutional research awards; developed the core interest in postcolonial Africa and French institutional history that drives the current work.',
+    href: '/writing',
+    cta: 'Publications'
   },
   {
+    id: 'oman',
+    short: 'Oman',
+    year: '2023',
     period: 'Arabic study — Oman',
     date: 'Summer 2023',
-    summary: 'Immersive Arabic study in Manah, with language learning carried into everyday encounters and field trips across Oman.'
+    summary: 'Immersive Arabic study in Manah, with language learning carried into everyday encounters and field trips across Oman.',
+    href: '/projects/oman-arabic',
+    cta: 'Arabic study in Oman'
   },
   {
+    id: 'fulbright',
+    short: 'Fulbright',
+    year: '2023',
     period: 'Fulbright Scholar — Morocco',
     date: '2023–2024',
     summary:
-      "Field-based research in Ifrane, Rabat, Fez, and across Morocco. Archival work at Mohammed VI Library, AUI. Arabic and Darija study; teaching history at the American Language Center, Rabat. The year grounded the North Africa focus and produced the fieldwork that runs through everything since."
+      "Field-based research in Ifrane, Rabat, Fez, and across Morocco. Archival work at Mohammed VI Library, AUI. Arabic and Darija study; teaching history at the American Language Center, Rabat. The year grounded the North Africa focus and produced the fieldwork that runs through everything since.",
+    href: '/projects/fulbright-morocco',
+    cta: 'The Fulbright year'
   },
   {
+    id: 'ncstate',
+    short: 'NC State',
+    year: '2024',
     period: 'NC State — M.I.S.',
     date: '2024–2026',
     summary:
-      "Master of International Studies with a focus on North Africa, postcolonial institutions, and digital history. Graduate Teaching Assistant in Political Science; writing consultant at the Academic Success Center; Huruf La'b co-founder and VenturePack winner ($4,000, April 2026)."
+      "Master of International Studies with a focus on North Africa, postcolonial institutions, and digital history. Graduate Teaching Assistant in Political Science; writing consultant at the Academic Success Center; Huruf La'b co-founder and VenturePack winner ($4,000, April 2026).",
+    href: '/projects/teaching-writing-support',
+    cta: 'Teaching & writing support'
   },
   {
+    id: 'huruf',
+    short: "Huruf La'b",
+    year: '2025',
     period: "Huruf La'b",
     date: '2025–present',
     summary:
-      "Co-founder of a tactile Arabic learning startup. Designed and tested a puzzle-based system for early Arabic script literacy; conducted educator outreach and gathered early interest; pitched successfully in NC State's campus-wide venture competition."
+      "Co-founder of a tactile Arabic learning startup. Designed and tested a puzzle-based system for early Arabic script literacy; conducted educator outreach and gathered early interest; pitched successfully in NC State's campus-wide venture competition.",
+    href: '/projects/huruf-lab',
+    cta: "Inside Huruf La'b"
   },
   {
+    id: 'now',
+    short: 'Now',
+    year: '2026',
     period: 'Current — Research, Teaching, Writing',
     date: '2026',
     summary:
-      'Working on postcolonial African airline history, Western Sahara infrastructure research, and writing coaching. Writing publicly on Substack and through the Historical Method Man channel.'
+      'Working on postcolonial African airline history, Western Sahara infrastructure research, and writing coaching. Writing publicly on Substack and through the Historical Method Man channel.',
+    href: '/research',
+    cta: 'Current research'
   }
 ];
 

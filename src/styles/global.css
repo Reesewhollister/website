@@ -6,12 +6,6 @@
 @import '@fontsource/work-sans/500.css';
 @import '@fontsource/work-sans/600.css';
 /* Asset & Motion System type — scoped to .system surfaces (see [data-system] block) */
-@import '@fontsource/spectral/300.css';
-@import '@fontsource/spectral/400.css';
-@import '@fontsource/spectral/400-italic.css';
-@import '@fontsource/spectral/500.css';
-@import '@fontsource/ibm-plex-mono/400.css';
-@import '@fontsource/ibm-plex-mono/500.css';
 
 :root {
   /* Palette derived from Reese's own Huruf La'b brand system */
@@ -61,8 +55,8 @@
   --sys-hairline-strong: rgba(33, 30, 24, 0.16);
   --sys-hairline-dark: rgba(239, 230, 212, 0.18);
   --sys-display: 'Newsreader', Georgia, serif;
-  --sys-body: 'Spectral', Georgia, serif;
-  --sys-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --sys-body: 'Source Serif 4', Georgia, serif;
+  --sys-mono: 'Work Sans', ui-monospace, monospace;
 }
 
 /* Type defaults on scoped surfaces */
@@ -4214,7 +4208,7 @@ html::before {
 }
 .coord-ticker__track {
   display: inline-block;
-  font-family: var(--sys-mono, 'IBM Plex Mono', monospace);
+  font-family: var(--sys-mono, 'Work Sans', monospace);
   font-size: 0.82rem;
   letter-spacing: 0.18em;
   color: var(--sys-brass, #c2913d);
@@ -4302,19 +4296,21 @@ html.motion-ready .wipe.play { clip-path: inset(0 0 0 0); transition: clip-path 
 }
 
 
-/* ── Map hero ────────────────────────────────────────────────────────────────
-   Atlas plate + catalogue rail on the home page. The plate is projected at
-   build time (see MapHero.astro); only the interaction script runs client-side.
-   Palette uses the base Huruf-derived tokens, with a dark plate ground. */
+/* ── Atlas section ───────────────────────────────────────────────────────────
+   Atlas plate + catalogue rail. The plate is projected at build time (see
+   MapHero.astro); only the interaction script runs client-side. Palette uses
+   the base Huruf-derived tokens, with a dark plate ground.
+   Sits below the fold beneath Selected Work, so it sizes to its content
+   instead of claiming viewport height. */
 .map-hero {
   --plate-water: #14343f;
   --plate-land: var(--paper-deep);
   --plate-border: rgba(40, 29, 21, 0.35);
   display: grid;
-  grid-template-columns: minmax(19rem, 25rem) 1fr;
-  height: clamp(38rem, calc(100vh - 6.5rem), 54rem);
+  grid-template-columns: minmax(18rem, 22rem) minmax(0, 1fr);
+  gap: var(--space-3);
   padding: 0;
-  border-bottom: 1px solid var(--line);
+  border-block: 1px solid var(--line);
 }
 .map-hero__rail {
   display: flex;
@@ -4324,16 +4320,6 @@ html.motion-ready .wipe.play { clip-path: inset(0 0 0 0); transition: clip-path 
   border-right: 1px solid var(--line);
   overflow-y: auto;
 }
-.map-hero__masthead h1 { margin: 0.2rem 0 0; font-size: clamp(2.2rem, 3.4vw, 3.1rem); }
-.map-hero__positioning {
-  margin: 0.7rem 0 0.5rem;
-  font-family: 'Work Sans', system-ui, sans-serif;
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-}
-.map-hero__tagline { margin: 0; max-width: 34ch; color: var(--ink-soft); }
 .map-hero__actions {
   display: flex;
   flex-wrap: wrap;
@@ -4369,7 +4355,7 @@ html.motion-ready .wipe.play { clip-path: inset(0 0 0 0); transition: clip-path 
   border-top: 1px solid var(--ink);
   padding-top: 0.6rem;
 }
-.place-index__head h2 {
+.place-index__head h3 {
   margin: 0;
   font-family: 'Work Sans', system-ui, sans-serif;
   font-size: 0.72rem;
@@ -5104,7 +5090,6 @@ html.motion-ready .wipe.play { clip-path: inset(0 0 0 0); transition: clip-path 
    With two indexes in the rail, a dossier underneath them would sit far enough
    down that selecting a place updated something off-screen. */
 @media (min-width: 901px) {
-  .map-hero__masthead { order: 1; }
   .dossier { order: 2; }
   .map-legend { order: 3; }
   .place-index { order: 4; }
@@ -5120,3 +5105,337 @@ html.motion-ready .wipe.play { clip-path: inset(0 0 0 0); transition: clip-path 
 /* Paper titles run long; they need a tighter setting than a place name. */
 .dossier__panel--paper > h3 { font-size: 1.18rem; line-height: 1.26; letter-spacing: 0; }
 .dossier__panel--paper .dossier__meta { flex-direction: column; gap: 0.15rem; }
+
+/* Editorial atlas release — shared hierarchy, browsing and evidence surfaces. */
+:root { --paper:#f5f1e7; --paper-deep:#e9e2d3; --ink:#192f3b; --ink-soft:#50616a; --line:rgba(25,47,59,.18); --accent-rust:#9b432c; --accent-map:#246581; --accent-gold:#bc8136; --accent-rust-wash:rgba(155,67,44,.08); --accent-map-wash:rgba(36,101,129,.09); --site-max:72rem; }
+body { line-height:1.65; }
+[hidden] { display:none !important; }
+:focus-visible { outline:3px solid var(--accent-map); outline-offset:4px; }
+button,input,select,textarea { font:inherit; }
+button { cursor:pointer; }
+button:disabled { opacity:.45; cursor:default; }
+h1,h2,h3 { text-wrap:balance; }
+.site-shell { min-width:0; }
+.header-inner { gap:1.2rem; }
+.brand-mark__tag { letter-spacing:0; font-size:.67rem; }
+.site-nav { gap:.3rem 1rem; }
+.site-nav__link { font-size:.78rem; padding:.6rem 0; }
+.site-nav__link[href$='/resume'] { border-left:1px solid var(--line); padding-left:1rem; }
+.site-nav__link[href$='/contact'] { color:var(--accent-rust); }
+.page-hero { padding-block:clamp(2.5rem,6vw,5rem); }
+.page-hero h1 { max-width:18ch; font-size:clamp(2.6rem,5.5vw,4.8rem); line-height:1.04; }
+.page-hero > p:not(.section-kicker), .prose-shell { max-width:72ch; }
+.button-secondary { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:.65rem 1rem; border:1px solid var(--ink); background:transparent; color:var(--ink); font:500 .88rem/1.4 'Work Sans',sans-serif; text-decoration:none; border-radius:2px; }
+.button-primary:hover { background:#77301f; }
+.editorial-intro { display:grid; grid-template-columns:1.2fr 1fr; gap:4rem; align-items:end; padding-block:3.5rem; }
+.editorial-intro h1 { font:500 clamp(3rem,5.6vw,5.4rem)/.99 'Newsreader',Georgia,serif; letter-spacing:-.04em; margin:.6rem 0 1.3rem; }
+.editorial-intro__identity { font:500 .95rem/1.5 'Work Sans',sans-serif; margin:0; }
+.editorial-intro__aside { max-width:44ch; }
+.editorial-intro__aside > p { font-size:1.1rem; }
+.editorial-intro .action-list { gap:.75rem; margin:1.4rem 0 1rem; }
+.map-hero.site-shell { display:grid; grid-template-columns:minmax(17rem,22rem) minmax(0,1fr); height:auto; padding:0; border:1px solid var(--line); margin-bottom:2rem; }
+.atlas-heading { grid-column:1/-1; display:flex; align-items:end; justify-content:space-between; gap:2rem; padding:1.7rem 1.8rem 1rem; }
+.atlas-heading h2 { font-size:clamp(1.8rem,3.2vw,2.6rem); margin:.4rem 0 0; }
+.atlas-heading > p { max-width:35ch; font-size:.88rem; margin:0; }
+.atlas-controls { grid-column:1/-1; display:flex; flex-wrap:wrap; gap:.5rem; padding:0 1.8rem 1.5rem; }
+.atlas-controls button { display:flex; gap:.55rem; align-items:center; min-height:44px; padding:.6rem .8rem; border:1px solid var(--line); background:transparent; color:var(--ink); font:500 .75rem/1.4 'Work Sans',sans-serif; }
+.atlas-controls button[aria-pressed='true'] { background:var(--ink); color:var(--paper); }
+.atlas-controls button span { opacity:.7; font-size:.7rem; }
+.map-hero__rail { grid-column:1; grid-row:3; height:36rem; padding:1.3rem; gap:1.2rem; background:rgba(255,255,255,.35); }
+.map-hero__rail .dossier { order:0; }
+.map-hero__rail .place-index { order:1; }
+.map-hero__rail .place-index--papers { order:2; }
+.map-hero__rail .map-legend { order:3; }
+.map-hero__actions { order:4; position:static; padding:0; margin:0; background:none; }
+.map-plate { grid-column:2; grid-row:3; height:36rem; min-height:0; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+/* Cap the plate so it stops scaling with the viewport on large displays — an
+   Equal Earth world at full width is mostly empty ocean. */
+.map-plate__stage { flex-shrink:0; max-width:52rem; margin-inline:auto; }
+.map-hero .pin-cards { display:none; }
+.map-node__label { background:rgba(16,40,51,.94); padding:.18rem .3rem; border-radius:2px; font-size:.61rem; letter-spacing:.02em; color:#fff9ee; text-shadow:none; }
+.map-node--paper .map-node__label { color:#fff9ee; }
+.map-node--paper .map-node__sheet { background-color:#246581; }
+.map-hero[data-layer='work'] .map-study--paper,.map-hero[data-layer='travel'] .map-study--paper { opacity:0; }
+.map-hero[data-layer='paper'] .map-journey,.map-hero[data-layer='travel'] .map-journey { opacity:0; }
+.dossier__panel > h3 { font-size:1.6rem; line-height:1.15; }
+.dossier__panel p { font-size:.88rem; line-height:1.6; }
+.dossier__panel--paper > h3 { font-size:1.35rem; }
+.dossier__media { margin:0 0 1rem; }
+.dossier__media img { height:180px; object-fit:cover; }
+.place-index__head h3 { font-size:1.15rem; }
+.place-index__item { padding:.6rem .4rem; }
+.place-index__meta { font-size:.68rem; }
+.place-index__list li { min-width:0; }
+.credential-band { background:transparent; }
+.credential-band__list { padding-block:1.4rem; }
+.credential { display:flex; flex-direction:column; gap:.3rem; }
+.credential__label { font-size:.8rem; }
+.credential__detail { font-size:.7rem; }
+.work-stack { gap:2rem; }
+.project-card { border:1px solid var(--line); box-shadow:none; background:rgba(255,255,255,.4); }
+.project-card--wide { grid-template-columns:1fr 1fr; }
+.project-card--wide .project-card__media { min-height:320px; }
+.project-card--wide .project-card__body { padding:clamp(1.4rem,3vw,2.8rem); }
+.project-card__body h3 { font-size:1.85rem; }
+.project-card__chips { gap:.4rem; }
+.project-card__chips li { background:transparent; border:1px solid var(--line); font-size:.67rem; }
+.reading-paths { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:2rem; }
+.reading-path { border-top:2px solid var(--accent-map); padding-top:1.3rem; }
+.reading-path h3 { font-size:1.8rem; }
+.reading-path > p:not(.section-kicker) { font-size:.95rem; }
+.reading-path ol { padding-left:1.2rem; }
+.reading-path li { padding:.7rem 0; border-bottom:1px solid var(--line); font-size:.9rem; }
+.reading-path li span { display:block; font:500 .65rem/1.6 'Work Sans',sans-serif; color:var(--ink-soft); margin-top:.35rem; }
+.home-media-callout { display:grid; grid-template-columns:1.2fr 1fr; gap:2.5rem; align-items:center; }
+.home-media-callout img { width:100%; aspect-ratio:4/3; object-fit:cover; }
+.home-media-callout h2 { font-size:2.4rem; }
+.contact-service { font-size:.85rem; padding-top:1rem; border-top:1px solid var(--line); margin-top:1.4rem; }
+.catalog-controls { border-block:1px solid var(--line); padding:1.2rem 0; margin-bottom:2rem; }
+.catalog-search { display:block; font:500 .8rem/1.5 'Work Sans',sans-serif; max-width:34rem; }
+.catalog-search input { width:100%; display:block; margin:.45rem 0 1.2rem; padding:.7rem .9rem; min-height:44px; border:1px solid var(--line); background:#fffdf6; color:var(--ink); border-radius:2px; }
+.catalog-controls fieldset { padding:0; border:0; margin:0 0 1rem; }
+.catalog-controls legend { font:600 .7rem/1.5 'Work Sans',sans-serif; text-transform:uppercase; letter-spacing:.06em; margin-bottom:.4rem; }
+.filter-bar { display:flex; flex-wrap:wrap; gap:.45rem; }
+.filter-chip { border:1px solid var(--line); padding:.55rem .9rem; background:transparent; color:var(--ink); font:500 .8rem/1.4 'Work Sans',sans-serif; border-radius:2px; }
+.filter-chip[aria-pressed='true'] { background:var(--ink); color:var(--paper); border-color:var(--ink); }
+.filter-chip:hover { border-color:var(--accent-map); }
+.catalog-count { display:inline-block; font-size:.8rem; margin:0 1rem 0 0; }
+.catalog-clear,.citation-copy { background:none; border:0; padding:.5rem 0; color:var(--accent-map); text-decoration:underline; text-underline-offset:3px; min-height:44px; font:500 .8rem/1.4 'Work Sans',sans-serif; }
+.paper-list > .paper { display:grid; grid-template-columns:9rem minmax(0,1fr); gap:2rem; padding:2rem 0; }
+.paper__place { display:flex; flex-direction:column; gap:.5rem; font-size:.9rem; }
+.paper__body h3 { margin-top:0; font-size:1.8rem; }
+.paper__summary { max-width:68ch; }
+.paper__links { display:flex; flex-wrap:wrap; align-items:center; gap:.6rem 1.2rem; }
+.paper__cite span { display:block; }
+.citation-status:empty { display:none; }
+.citation-status { font-size:.8rem; }
+.citation-fallback { width:100%; min-height:7rem; }
+.artifact-index { border-top:1px solid var(--line); }
+.artifact-record { padding:1.7rem 0; border-bottom:1px solid var(--line); }
+.artifact-record h3 { max-width:40ch; font-size:1.8rem; margin:.3rem 0; }
+.artifact-record p { max-width:75ch; }
+.artifact-reader { margin-top:1rem; }
+summary { cursor:pointer; padding:.7rem 0; font:500 .88rem/1.5 'Work Sans',sans-serif; }
+.media-collection { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:3rem 2rem; }
+.media-collection .artifact-figure img { width:100%; aspect-ratio:4/3; object-fit:cover; }
+.media-collection #western-sahara-timeline img { object-fit:contain; background:var(--paper-deep); }
+.media-collection h3 { font-size:1.7rem; }
+.artifact-figure a { position:relative; display:block; }
+.inspect-hint { display:inline-block; background:var(--ink); color:var(--paper); font:500 .72rem/1.5 'Work Sans',sans-serif; padding:.4rem .7rem; position:absolute; right:.6rem; bottom:.6rem; }
+.artifact-figure figcaption { color:var(--ink-soft); font-size:.8rem; }
+.project-opening { display:grid; grid-template-columns:1.1fr 1fr; gap:3rem; align-items:start; }
+.project-opening__copy h1 { font-size:clamp(2.3rem,3.8vw,3.7rem); }
+.project-opening__image .artifact-figure { margin:0; }
+.project-opening__image img { width:100%; max-height:32rem; object-fit:contain; background:var(--paper-deep); }
+.project-hero { padding-top:2.5rem; }
+.project-details { border-top:1px solid var(--line); margin-top:2rem; }
+.project-hero__meta { margin-top:1rem; }
+.materials-rail { margin-top:1.5rem; }
+.case-study-grid { gap:2rem; }
+.deck-controls { display:flex; align-items:center; justify-content:space-between; margin:1rem 0; gap:1rem; }
+.deck-controls button,.inspector-toolbar button { border:1px solid var(--line); padding:.6rem 1rem; min-height:44px; color:var(--ink); background:transparent; font:500 .8rem/1.5 'Work Sans',sans-serif; }
+[data-deck][data-wired] .deck-strip { display:block; overflow:visible; }
+[data-deck][data-wired] .deck-slide { width:100%; max-width:none; margin:0; }
+.deck-slide a { display:block; position:relative; }
+.deck-slide img { width:100%; max-height:72vh; object-fit:contain; }
+.deck-text { border-block:1px solid var(--line); }
+.deck-text section { padding:1rem 0; border-top:1px solid var(--line); }
+.slide-transcript { white-space:pre-wrap; overflow-wrap:anywhere; font-size:.9rem; }
+.pdf-load { margin:1rem; }
+.media-inspector { width:min(94vw,1400px); max-height:94vh; padding:1rem 1.5rem; border:1px solid var(--line); background:var(--paper); color:var(--ink); }
+.media-inspector::backdrop { background:rgba(10,25,32,.88); }
+.media-inspector > img { display:block; width:100%; height:65vh; object-fit:contain; }
+.inspector-toolbar { display:flex; gap:1rem; justify-content:space-between; align-items:center; flex-wrap:wrap; }
+.inspector-toolbar h2 { font-size:1.4rem; margin:0; }
+.media-inspector > p { font-size:.85rem; margin:.7rem 0; }
+[data-inspector-count] { font-size:.8rem; }
+.experience-preview article { padding-top:1.1rem; border-top:1px solid var(--line); }
+.experience-entry { padding-block:2rem; }
+.experience-entry h3 { font-size:1.8rem; }
+.resume-highlight-grid { gap:1.3rem; }
+.research-evidence-card img { aspect-ratio:4/3; object-fit:cover; }
+@media(max-width:1000px) {
+ .header-inner { flex-direction:column; align-items:flex-start; }
+ .site-header nav { width:100%; }
+ .site-nav { flex-wrap:wrap; }
+ .editorial-intro { gap:2rem; }
+ .reading-paths { gap:1.2rem; }
+ .project-opening { gap:1.5rem; }
+}
+@media(max-width:900px) {
+ .map-hero.site-shell { display:flex; flex-direction:column; }
+ .atlas-heading { order:0; padding:1.3rem; align-items:start; }
+ .atlas-controls { order:1; padding:0 1.3rem 1.3rem; }
+ .map-plate { order:2; width:100%; height:auto; min-height:0; aspect-ratio:1000/495; }
+ .map-hero__rail { order:3; width:100%; height:auto; overflow:visible; border-right:0; padding:1.3rem; }
+ .map-hero__rail .dossier { order:0; }
+ .place-index__list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.5rem; overflow:visible; }
+ .place-index__list li { display:block; }
+ .place-index__item { width:100%; min-width:0; height:100%; }
+ .dossier__media img { height:auto; max-height:300px; width:100%; }
+ .map-node__label { display:none; }
+ .map-node:hover .map-node__label,.map-node:focus-visible .map-node__label { display:block; }
+ .map-plate__reset { bottom:.7rem; }
+ .reading-paths { grid-template-columns:1fr; }
+ .reading-path ol { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1.5rem; }
+ .paper-list > .paper { grid-template-columns:7rem minmax(0,1fr); gap:1rem; }
+}
+@media(max-width:640px) {
+ .editorial-intro,.home-media-callout,.project-opening { grid-template-columns:1fr; gap:1.6rem; }
+ .editorial-intro { padding-block:2.5rem; }
+ .editorial-intro h1 { font-size:3.3rem; }
+ .editorial-intro__aside { max-width:none; }
+ .atlas-heading { flex-direction:column; gap:.6rem; }
+ .atlas-controls { gap:.4rem; }
+ .atlas-controls button { flex:1 1 44%; font-size:.7rem; }
+ .map-plate { min-height:210px; }
+ .map-node { min-width:28px; min-height:28px; }
+ .paper-list > .paper { grid-template-columns:1fr; gap:.7rem; }
+ .paper__place { flex-direction:row; align-items:baseline; }
+ .media-collection { grid-template-columns:1fr; }
+ .reading-path ol { display:block; }
+ .project-card--wide { grid-template-columns:1fr; }
+ .project-card--wide .project-card__media { min-height:0; height:250px; }
+ .project-opening__image img { max-height:22rem; }
+ .deck-controls { font-size:.75rem; }
+ .media-inspector { padding:.7rem; }
+ .media-inspector > img { height:55vh; }
+ .site-nav__link { font-size:.72rem; }
+ .site-nav__link[href$='/resume'] { border-left:0; padding-left:0; }
+}
+@media(prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; animation:none!important; transition:none!important; } }
+@media print {
+ .site-header,.site-footer,.project-subnav,[data-print-cv],.resume-request,.media-inspector { display:none!important; }
+ html.reveal-ready main section { opacity:1!important; transform:none!important; }
+ body { background:white; color:black; font-size:11pt; }
+ .site-shell { max-width:none; padding:0; }
+ section { padding-block:1rem!important; }
+ .resume-card,.experience-entry { break-inside:avoid; }
+}
+
+/* ── Chronology hero ─────────────────────────────────────────────────────────
+   A single line running through the career, newest stop first. Every panel is
+   rendered server-side and hidden with [hidden]; the script only toggles which
+   one shows, so the whole history stays readable without JS and to crawlers. */
+.chrono { padding-block:clamp(2rem,4vw,3.25rem); }
+.chrono__head { margin-bottom:clamp(1.5rem,3vw,2.25rem); }
+.chrono__head h2 { font-size:clamp(1.8rem,3.2vw,2.6rem); margin:.4rem 0 0; }
+
+.chrono__rail-wrap { overflow-x:auto; overscroll-behavior-x:contain; padding-bottom:.35rem; }
+.chrono__rail {
+  --dot-y:.625rem;
+  --fill:0;
+  position:relative;
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:grid;
+  grid-template-columns:repeat(var(--count),minmax(0,1fr));
+}
+/* The line: a full-width track, plus a rust fill scaled to the active stop.
+   Both are inset by half a column so the line starts and ends on a dot. */
+.chrono__rail::before,
+.chrono__rail::after {
+  content:'';
+  position:absolute;
+  top:var(--dot-y);
+  left:calc(50% / var(--count));
+  width:calc(100% - 100% / var(--count));
+  height:2px;
+}
+.chrono__rail::before { background:var(--line); }
+.chrono__rail::after {
+  background:var(--accent-rust);
+  transform:scaleX(var(--fill));
+  transform-origin:left center;
+  transition:transform .45s cubic-bezier(.22,.61,.36,1);
+}
+.chrono__stop { margin:0; padding:0; }
+.chrono__stop-btn {
+  display:grid;
+  grid-template-rows:1.25rem auto auto;
+  justify-items:center;
+  gap:.35rem;
+  width:100%;
+  min-height:44px;
+  padding:0 .25rem .5rem;
+  border:0;
+  background:none;
+  text-align:center;
+  color:var(--ink-soft);
+}
+.chrono__dot {
+  align-self:center;
+  width:11px;
+  height:11px;
+  border:2px solid var(--line);
+  border-radius:50%;
+  background:var(--paper);
+  transition:transform .25s ease,background-color .25s ease,border-color .25s ease;
+}
+.chrono__year { font:600 .74rem/1 'Work Sans',sans-serif; letter-spacing:.08em; color:var(--accent-map); }
+.chrono__short { font:500 .8rem/1.25 'Work Sans',sans-serif; }
+.chrono__stop-btn:hover .chrono__dot { border-color:var(--accent-rust); }
+.chrono__stop-btn.is-active { color:var(--ink); }
+.chrono__stop-btn.is-active .chrono__dot {
+  background:var(--accent-rust);
+  border-color:var(--accent-rust);
+  transform:scale(1.45);
+}
+.chrono__stop-btn.is-active .chrono__short { font-weight:600; }
+
+.chrono__panels { margin-top:clamp(1.25rem,2.5vw,1.75rem); min-height:16rem; }
+.chrono__panel { max-width:62ch; }
+.chrono__panel h3 { font-size:clamp(1.4rem,2.4vw,1.9rem); margin:.35rem 0 .6rem; }
+.chrono__panel h3:focus-visible { outline:3px solid var(--accent-map); outline-offset:4px; }
+.chrono__date {
+  margin:0;
+  font:600 .72rem/1 'Work Sans',sans-serif;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--accent-rust);
+}
+.chrono__summary { margin:0 0 1rem; }
+
+/* Sits above the panel so a taller chapter never shifts the controls mid-click. */
+.chrono__controls { display:flex; align-items:center; gap:1rem; margin-top:1.5rem; }
+.chrono__step {
+  min-height:44px;
+  padding:.6rem 1rem;
+  border:1px solid var(--line);
+  background:transparent;
+  color:var(--ink);
+  font:500 .82rem/1.4 'Work Sans',sans-serif;
+  border-radius:2px;
+}
+.chrono__step:not(:disabled):hover { border-color:var(--accent-rust); color:var(--accent-rust); }
+.chrono__position { margin:0; font:500 .78rem/1 'Work Sans',sans-serif; color:var(--ink-soft); }
+
+@media (max-width:720px) {
+  .chrono__rail { grid-template-columns:none; grid-auto-flow:column; grid-auto-columns:7.5rem; min-width:max-content; }
+  .chrono__panels { min-height:20rem; }
+  .chrono__controls { justify-content:space-between; gap:.5rem; }
+}
+
+/* ── Partner wordmarks ───────────────────────────────────────────────────────
+   Institutions are set in the site's own type rather than as logo files. */
+.partner-wordmark {
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:.2rem;
+  height:52px;
+}
+.partner-wordmark__name {
+  font:500 1.05rem/1.15 'Newsreader',Georgia,serif;
+  letter-spacing:-.01em;
+  color:var(--ink);
+  text-wrap:balance;
+}
+.partner-wordmark__sub {
+  font:500 .64rem/1.2 'Work Sans',sans-serif;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+}
+.partner-link:hover .partner-wordmark__name { color:var(--accent-map); }

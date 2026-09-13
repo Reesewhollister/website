@@ -84,6 +84,8 @@ export interface Project {
     title?: string;
     description?: string;
   };
+  /** schema.org @type for the page. Defaults to CreativeWork. */
+  schemaType?: string;
   card?: ProjectCardMeta;
   deck?: ProjectDeck;
   /** Embeds a written paper PDF on the project page — distinct from the slide deck. */
@@ -104,18 +106,20 @@ export interface Project {
 export const projects: Project[] = [
   {
     slug: 'huruf-lab',
-    title: "Huruf La’b: Building an Educational Product",
-    summary: 'A tactile Arabic learning system designed to turn early Arabic literacy into a classroom routine instead of a wall.',
+    title: "Huruf La’b: Teaching the Arabic Script by Building It",
+    summary:
+      "Huruf La'b teaches the Arabic script as a system of construction rather than memorization — learners assemble letter forms by hand instead of drilling them from a page.",
     categories: ['Teaching & Learning', 'Product / Design'],
-    tags: ['Teaching', 'Arabic', 'Product / Design', 'Video'],
+    tags: ['Teaching', 'Arabic', 'Pedagogy', 'Product / Design', 'Video'],
     pillars: ['Teaching', 'Building'],
-    role: 'Co-founder, instructional design lead, user-research lead, and product framer',
-    skills: ['Pedagogy', 'Product development', 'User research', 'Entrepreneurship', 'Language learning'],
+    role: 'Instructional design lead, co-founder, and user-research lead',
+    skills: ['Pedagogy', 'Instructional design', 'User research', 'Product development', 'Language learning'],
     featured: true,
     sortOrder: 2,
+    schemaType: 'LearningResource',
     card: {
-      title: "Huruf La’b: Building an Educational Product",
-      summary: 'A learning problem taken through prototype development, educator outreach, demonstrations, and a successful venture pitch.',
+      title: "Huruf La’b: Teaching the Arabic Script by Building It",
+      summary: 'A tactile method for early Arabic literacy — built from classroom friction, tested with teachers, and refined around what they asked for.',
       accent: 'gold',
       materials: ['Award', 'Product', 'Arabic', 'Teaching'],
       secondaryAction: {
@@ -179,8 +183,9 @@ export const projects: Project[] = [
       }
     ],
     seo: {
-      title: "Huruf La’b: Building an Educational Product",
-      description: "Project profile for Huruf La'b, a tactile Arabic learning system by Reese Hollister."
+      title: "Huruf La’b: Tactile Arabic Script Pedagogy",
+      description:
+        "A tactile method for teaching the Arabic script as a system of construction rather than memorization — the instructional logic, what Arabic teachers asked for, and where the method stands."
     },
     caseStudy: {
       "objective": "Help beginning Arabic learners understand how letter forms connect by making the script something they can handle and assemble.",
@@ -196,43 +201,61 @@ export const projects: Project[] = [
 },
     sections: [
       {
-        heading: 'Overview',
+        heading: 'The problem in the room',
         paragraphs: [
-          'Beginning Arabic learners are often asked to internalize a great deal at once: a new script, positional letter forms, sound distinctions, and the logic of roots and patterns. Much of that instruction remains abstract.',
-          "Huruf La'b starts from a different premise. If the structure is hard to see, it should become something a learner can handle, rearrange, and test physically."
+          'Beginning Arabic learners are asked to internalize a great deal at once: a new script, positional letter forms, sound distinctions, and the logic of roots and patterns. Much of that instruction remains abstract. Students are expected to "get it" by repeated exposure even when the system itself still feels invisible.',
+          "There is a teacher-side problem too. Many Arabic manipulatives are difficult to fit into classroom routines, so they end up admired in theory and ignored in practice."
         ]
       },
       {
-        heading: 'What to notice',
+        heading: 'The method',
         paragraphs: [
-          'The design move was diagnostic: identify where early Arabic instruction stays opaque, then make that structure physical.',
-          "Teacher outreach produced an early email list of more than 100 interested people, including at least two dozen Arabic teachers across the United States, the United Kingdom, and the Arab world. In April 2026, Huruf Lab won a $4,000 prize in NC State's VenturePack Challenge."
+          "Huruf La'b starts from a different premise: if the structure is hard to see, it should become something a learner can handle, rearrange, and test physically.",
+          'The first design move was diagnostic — identify which parts of early Arabic instruction stay stubbornly opaque. That meant focusing not only on the alphabet, but on the transition from isolated recognition to compositional understanding: the point where a learner stops identifying letters one at a time and starts seeing how forms combine.',
+          'From there the system was built as tactile and modular. Rather than presenting letters as inert symbols on a page, the kit makes them manipulable, so learners can externalize the relationships between forms, practice recombination, and build an embodied sense of how written Arabic behaves.',
+          'The constraint throughout was that it must not become a novelty. Each interaction has to help a learner see structure, not just enjoy the materials.'
+        ],
+        artifacts: [
+          {
+            src: '/assets/projects/huruf-lab/huruf-puzzle-detail.jpg',
+            alt: "Close detail of a Huruf La'b laser-cut wooden puzzle spelling an Arabic word on its stand against a dark background.",
+            eyebrow: 'The method, in the hand',
+            caption: 'A finished puzzle — interlocking laser-cut tiles that turn a letter form into something a learner assembles rather than copies.'
+          },
+          {
+            src: '/assets/projects/huruf-lab/huruf-tiles-in-play.jpg',
+            alt: "Hands reaching across a table covered in scattered Huruf La'b wooden letter tiles during a game.",
+            eyebrow: 'In use',
+            caption: "Huruf La'b in play at a launch event — learners building Arabic letters and words from the tactile tiles."
+          }
+        ]
+      },
+      {
+        heading: 'What teachers asked for',
+        paragraphs: [
+          'Customer discovery sharpened the design. Teacher outreach produced an early email list of more than 100 interested people, including at least two dozen Arabic teachers across the United States, the United Kingdom, and the Arab world.',
+          'Those conversations pushed the project beyond the puzzle itself. Teachers repeatedly asked for scaffolding, short repeatable routines, clear instructions, and a fuller ecosystem — workbooks, video guides, and a phonics layer — rather than a loose manipulative set. That feedback is what moved the work from an object toward a teaching system.'
+        ]
+      },
+      {
+        heading: 'Recognition',
+        paragraphs: [
+          "In April 2026 the project won a $4,000 prize in NC State's VenturePack Challenge, the university's campus-wide venture competition, and was covered by the NC State College of Humanities and Social Sciences."
         ],
         artifacts: [
           {
             src: '/assets/projects/huruf-lab/venturepack-check.jpg',
             alt: 'Reese Hollister and his co-founder holding an oversized $4,000 check made out to Huruf Lab, winners of the NC State VenturePack Challenge.',
             eyebrow: 'Award',
-            caption: "Huruf Lab won $4,000 in NC State's VenturePack Challenge (April 2026) — the university's campus-wide venture competition."
-          },
-          {
-            src: '/assets/projects/huruf-lab/huruf-tiles-in-play.jpg',
-            alt: "Hands reaching across a table covered in scattered Huruf La'b wooden letter tiles during a game.",
-            eyebrow: 'Product in use',
-            caption: "Huruf La'b in play at a launch event — learners building Arabic letters and words from the tactile tiles."
-          },
-          {
-            src: '/assets/projects/huruf-lab/huruf-puzzle-detail.jpg',
-            alt: "Close detail of a Huruf La'b laser-cut wooden puzzle spelling an Arabic word on its stand against a dark background.",
-            eyebrow: 'Visual / artifact',
-            caption: "A finished puzzle — the interlocking laser-cut tiles that make early Arabic literacy something a learner can handle and test."
+            caption: "Huruf La'b won $4,000 in NC State's VenturePack Challenge, April 2026."
           }
         ]
       },
       {
-        heading: 'Why it matters',
+        heading: 'Origins',
         paragraphs: [
-          "The project shows a product-development habit that carries across Reese's work: when understanding stalls, redesign the conditions of understanding."
+          'The project began as a classroom lesson and a tactile learning concept, developed with co-founder and designer Bella Templeton, and was carried through prototyping, educator outreach, product demonstrations, and a venture pitch. It remains in development.',
+          "The through-line is a habit that runs across the rest of this portfolio: when understanding stalls, redesign the conditions of understanding."
         ]
       }
     ]

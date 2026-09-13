@@ -63,14 +63,10 @@ import { withBase } from '../utils/paths';
       {partnerInstitutions.map((inst) => (
         <li class="partner-item">
           <a href={inst.href} target="_blank" rel="noreferrer" class="partner-link" aria-label={inst.name}>
-            <img
-              src={withBase(inst.logo)}
-              alt={inst.name}
-              class="partner-logo"
-              width="180"
-              height="52"
-              loading="lazy"
-            />
+            <span class="partner-wordmark">
+              <span class="partner-wordmark__name">{inst.wordmark}</span>
+              <span class="partner-wordmark__sub">{inst.wordmarkSub}</span>
+            </span>
           </a>
           <p class="partner-role">{inst.role}</p>
           <p class="partner-period">{inst.period}</p>
@@ -81,9 +77,9 @@ import { withBase } from '../utils/paths';
 
   <section class="site-shell about-fieldwork-section">
     <SectionHeading
-      eyebrow="Fieldwork"
+      eyebrow="Places & perspectives"
       title="Morocco, 2023–24"
-      intro="Fieldwork images from the Fulbright year — North Africa as a research site, not just a destination."
+      intro="Research and travel during the Fulbright year, with each place’s relationship made explicit."
     />
     <div class="about-fieldwork-grid">
       <figure>
@@ -92,7 +88,7 @@ import { withBase } from '../utils/paths';
           alt="The blue medina of Chefchaouen, Morocco — narrow streets and blue-washed buildings."
           loading="lazy"
         />
-        <figcaption>Chefchaouen — fieldwork site and visual language study.</figcaption>
+        <figcaption>Travel · Chefchaouen.</figcaption>
       </figure>
       <figure>
         <img
@@ -100,7 +96,7 @@ import { withBase } from '../utils/paths';
           alt="Mohammed VI Library at Al Akhawayn University, Ifrane, Morocco — the archival research base."
           loading="lazy"
         />
-        <figcaption>Mohammed VI Library, AUI — primary archival research site.</figcaption>
+        <figcaption>Research · Mohammed VI Library, Al Akhawayn University, Ifrane.</figcaption>
       </figure>
       <figure>
         <img
@@ -108,7 +104,7 @@ import { withBase } from '../utils/paths';
           alt="The Sahara dunes near Merzouga, Morocco, with camels and desert landscape."
           loading="lazy"
         />
-        <figcaption>Merzouga, Sahara — reading mobility and landscape in the research frame.</figcaption>
+        <figcaption>Travel · Merzouga and the Erg Chebbi dunes.</figcaption>
       </figure>
     </div>
   </section>

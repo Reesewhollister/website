@@ -13,7 +13,7 @@ import worldAtlas from 'world-atlas/countries-110m.json';
 import { PLACES, ALL_PLACES, JOURNEY, MAP } from '../data/places';
 import { PAPERS, MAPPED_PAPERS, RESEARCH_REGIONS } from '../data/papers';
 import { getProjectBySlug } from '../data/projects';
-import { siteMeta, heroThesis } from '../data/site';
+
 import { withBase } from '../utils/paths';
 
 const world = worldAtlas as any;
@@ -138,58 +138,34 @@ const dossiers = ALL_PLACES.map((place) => {
   return { place, prev, next, projects, coords: readCoords(place.coords) };
 });
 
+const layerFor = (kind: string) => kind === 'travelled' ? 'travel' : 'work';
+const workCount = ALL_PLACES.filter(p => p.kind !== 'cluster' && p.kind !== 'travelled').length;
+const travelCount = ALL_PLACES.filter(p => p.kind === 'travelled').length;
 const placeCount = ALL_PLACES.filter((p) => p.kind !== 'cluster').length;
 ---
 
-<section class="map-hero" aria-labelledby="map-hero-title">
+<section class="map-hero site-shell" id="atlas" aria-labelledby="map-hero-title">
+  <div class="atlas-heading"><div><p class="section-kicker">An atlas of places & perspectives</p><h2 id="map-hero-title">Follow a place into the work.</h2></div><p>Where I’ve lived and worked, where I’ve traveled, and the places I’ve written about.</p></div>
+  <div class="atlas-controls" aria-label="Atlas layers">
+    <button type="button" data-layer="all" aria-pressed="true">All places</button>
+    <button type="button" data-layer="work" aria-pressed="false"><i class="map-swatch map-swatch--worked" aria-hidden="true"></i>Lived / worked / studied in <span>{workCount}</span></button>
+    <button type="button" data-layer="travel" aria-pressed="false"><i class="map-swatch map-swatch--travelled" aria-hidden="true"></i>Traveled to <span>{travelCount}</span></button>
+    <button type="button" data-layer="paper" aria-pressed="false"><i class="map-swatch map-swatch--studies" aria-hidden="true"></i>Studied / wrote about <span>{MAPPED_PAPERS.length}</span></button>
+  </div>
   <div class="map-hero__rail">
-    <div class="map-hero__masthead">
-      <p class="section-kicker">Portfolio · Field record</p>
-      <h1 id="map-hero-title">Reese Hollister</h1>
-      <p class="map-hero__positioning">{siteMeta.position}</p>
-      <p class="map-hero__tagline">{heroThesis}</p>
-    </div>
-
-    <nav class="place-index" aria-label="Places of work and study">
+    <nav class="place-index" aria-label="Places lived, worked, studied in, or traveled to">
       <div class="place-index__head">
-        <h2>Where the work happened</h2>
+        <h3>Places in my life</h3>
         <span class="place-index__count">{placeCount} places</span>
       </div>
       <ol class="place-index__list">
-        {PLACES.map((place) => (
-          <li>
-            <button type="button" class="place-index__item" data-place={place.id}>
-              <span class="place-index__place">
-                {place.name}
-                {place.media?.kind === 'video' && <i class="place-index__film" aria-label="has video">▶</i>}
-              </span>
-              <span class="place-index__meta">
-                {place.period ?? place.institutions[0] ?? place.roles[0] ?? ''}
-              </span>
-            </button>
-            {place.children && (
-              <ol>
-                {place.children.map((child) => (
-                  <li>
-                    <button type="button" class="place-index__item" data-place={child.id}>
-                      <span class="place-index__place">
-                        {child.short}
-                        {child.media?.kind === 'video' && <i class="place-index__film" aria-label="has video">▶</i>}
-                      </span>
-                      <span class="place-index__meta">{child.institutions[0] ?? child.roles[0] ?? ''}</span>
-                    </button>
-                  </li>
-                ))}
-              </ol>
-            )}
-          </li>
-        ))}
+        {ALL_PLACES.filter(place => place.kind !== 'cluster').map(place => <li data-index-layer={layerFor(place.kind)}><button type="button" class="place-index__item" data-place={place.id} aria-pressed="false"><span class="place-index__place">{place.short}</span><span class="place-index__meta">{place.kind === 'travelled' ? 'Travel' : 'Lived / worked / studied in'}{place.period ? ` · ${place.period}` : ''}</span></button></li>)}
       </ol>
     </nav>
 
-    <nav class="place-index place-index--papers" aria-label="Places the published work is set in">
+    <nav data-index-layer="paper" class="place-index place-index--papers" aria-label="Places the published work is set in">
       <div class="place-index__head">
-        <h2>Where the work is set</h2>
+        <h3>Places in my writing</h3>
         <span class="place-index__count">{MAPPED_PAPERS.length} papers</span>
       </div>
       <ol class="place-index__list">
@@ -204,27 +180,9 @@ const placeCount = ALL_PLACES.filter((p) => p.kind !== 'cluster').length;
       </ol>
     </nav>
 
-    <div class="map-legend">
-      <span class="map-legend__item"><i class="map-swatch map-swatch--worked" aria-hidden="true"></i>Lived or worked</span>
-      <span class="map-legend__item"><i class="map-swatch map-swatch--travelled" aria-hidden="true"></i>Travelled</span>
-      <span class="map-legend__item"><i class="map-swatch map-swatch--studies" aria-hidden="true"></i>Wrote about</span>
-      <label class="map-legend__item map-legend__toggle">
-        <input type="checkbox" id="map-studies-toggle" />
-        Also show project subjects
-      </label>
-    </div>
-
+    <div class="map-legend"><label class="map-legend__item map-legend__toggle"><input type="checkbox" id="map-studies-toggle" /> Also show project subjects</label></div>
     <div class="dossier" id="map-dossier" aria-live="polite" aria-atomic="true">
-      <article class="dossier__panel" data-dossier="default">
-        <p class="section-kicker">Field record</p>
-        <h3>Places, not pins</h3>
-        <p>
-          Solid marks are places I have studied, taught, or researched. Select one on the map or in the
-          index to see the institution, the role, and the work it produced. Hatched regions show what a
-          project studies — not where I went.
-        </p>
-        <p class="dossier__hint">{placeCount} places · {PLACES.length - 1} standalone · 1 country cluster</p>
-      </article>
+      <article class="dossier__panel" data-dossier="default"><p class="section-kicker">Choose a place</p><h3>Life, travel, and scholarship.</h3><p>Select a place to see its story and related work. A paper marker means I wrote about a place; it does not imply I visited.</p><p class="dossier__hint">{placeCount} lived/worked and travel records · {MAPPED_PAPERS.length} geographic papers</p><a class="resource-link" href={withBase('/writing')}>Browse all five papers →</a></article>
 
       {dossiers.map(({ place, prev, next, projects, coords }) => (
         <article class="dossier__panel" data-dossier={place.id} hidden>
@@ -239,18 +197,9 @@ const placeCount = ALL_PLACES.filter((p) => p.kind !== 'cluster').length;
               )}
               <figcaption>{place.media.caption}</figcaption>
             </figure>
-          ) : (
-            /* A place with no photograph shows no frame at all in production; the
-               designed placeholder is a working note, not something to publish. */
-            import.meta.env.DEV && (
-              <figure class="dossier__media dossier__media--needed" aria-label={`Image needed: ${place.imageNeeded}`}>
-                <span>Image needed</span>
-                <span>{place.imageNeeded}</span>
-              </figure>
-            )
-          )}
+          ) : null}
           <p class="section-kicker">
-            {place.kind === 'cluster' ? 'Country cluster' : 'Worked or studied here'}
+            {place.kind === 'cluster' ? 'Place group' : place.kind === 'travelled' ? 'Traveled to' : 'Lived / worked / studied in'}
             {place.institutions[0] ? ` · ${place.institutions[0]}` : ''}
           </p>
           <h3 tabindex="-1">{place.name}</h3>
@@ -262,6 +211,7 @@ const placeCount = ALL_PLACES.filter((p) => p.kind !== 'cluster').length;
             <ul class="dossier__roles">{place.roles.map((role) => <li>{role}</li>)}</ul>
           )}
           <p>{place.context}</p>
+          {place.source && <p><a class="resource-link" href={place.source.href}>{place.source.label} ↗</a></p>}
           {place.children && (
             <div class="dossier__sub">
               <h4>Inside {place.short}</h4>
@@ -300,8 +250,9 @@ const placeCount = ALL_PLACES.filter((p) => p.kind !== 'cluster').length;
             <span class="dossier__period">{paper.venue}</span>
             <span class="dossier__coords">{[paper.volume, paper.pages, paper.year].filter(Boolean).join(' · ')}</span>
           </p>
-          <p>{paper.summary}</p>
-          {paper.citations && <p class="dossier__hint">Cited {paper.citations} times on Google Scholar.</p>}
+          <p>{paper.summary}</p>{paper.region === 'us-west' && <p class="dossier__hint">The shaded American West is a schematic research area, not a precise survey boundary.</p>}
+          <p><a class="resource-link" href={withBase(`/writing#${paper.id}`)}>Publication details & citation →</a></p>
+
           <p class="dossier__read">
             <a href={paper.url} target="_blank" rel="noreferrer">{paper.linkLabel} →</a>
           </p>
@@ -310,7 +261,7 @@ const placeCount = ALL_PLACES.filter((p) => p.kind !== 'cluster').length;
     </div>
 
     <div class="map-hero__actions">
-      <a class="button-primary" href={withBase('/contact')}>Start a conversation</a>
+      <a class="resource-link" href={withBase('/works#media')}>Photos & artifacts →</a>
       <a class="resource-link" href="#selected-work">Selected work ↓</a>
     </div>
   </div>
@@ -323,7 +274,7 @@ const placeCount = ALL_PLACES.filter((p) => p.kind !== 'cluster').length;
         preserveAspectRatio="xMidYMid meet"
         xmlns="http://www.w3.org/2000/svg"
         role="img"
-        aria-label="Map of the Atlantic hemisphere marking places where Reese Hollister has studied, taught, or researched. The same places are listed in the index beside this map."
+        aria-label="World map with distinct lived/worked, travel, and scholarly-subject markers. Every record is also available in the adjacent place lists."
       >
         <defs>
           <pattern id="map-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
@@ -349,6 +300,7 @@ const placeCount = ALL_PLACES.filter((p) => p.kind !== 'cluster').length;
           <button
             type="button"
             class="map-node map-node--paper"
+            data-layer-kind="paper"
             data-place={`paper-${paper.id}`}
             data-label={paper.labelPos ?? 'right'}
             style={`left:${left}%;top:${top}%;--dx:0%;--dy:0%`}
@@ -367,6 +319,7 @@ const placeCount = ALL_PLACES.filter((p) => p.kind !== 'cluster').length;
             class:list={['map-node', `map-node--${place.kind}`, { 'map-node--child': parentId }]}
             data-place={place.id}
             data-parent={parentId}
+            data-layer-kind={layerFor(place.kind)}
             data-label={place.labelPos}
             data-zoom={zoom ? `${zoom.k},${zoom.x},${zoom.y}` : undefined}
             style={`left:${left}%;top:${top}%;--dx:${(place.offset?.[0] ?? 0) / W * 100}%;--dy:${(place.offset?.[1] ?? 0) / H * 100}%`}
@@ -424,12 +377,13 @@ const placeCount = ALL_PLACES.filter((p) => p.kind !== 'cluster').length;
           ))}
       </div>
     </div>
-    <p class="map-plate__caption" aria-hidden="true">Plate I · Places of work and study · Equal Earth projection</p>
+    <p class="map-plate__caption" aria-hidden="true">Plate I · Life, travel & scholarship · Equal Earth projection</p>
     <button type="button" class="map-plate__reset" id="map-reset" hidden>← Full map</button>
   </div>
 </section>
 
 <script>
+ function setupAtlas() {
   const plate = document.getElementById('map-plate');
   const stage = document.getElementById('map-stage');
   const nodeLayer = document.getElementById('map-nodes');
@@ -437,9 +391,18 @@ const placeCount = ALL_PLACES.filter((p) => p.kind !== 'cluster').length;
   const reset = document.getElementById('map-reset');
   const toggle = document.getElementById('map-studies-toggle') as HTMLInputElement | null;
   const cardLayer = document.getElementById('pin-cards');
-  const hero = document.querySelector('.map-hero');
+  const hero = document.querySelector<HTMLElement>('.map-hero');
 
-  if (plate && stage && nodeLayer && dossier && reset && hero) {
+  if (plate && stage && nodeLayer && dossier && reset && hero && !hero.dataset.wired) {
+    hero.dataset.wired = 'true';
+    const layerButtons = Array.from(hero.querySelectorAll<HTMLButtonElement>('[data-layer]'));
+    let layer = 'all';
+    const writeState = () => {
+      const url = new URL(location.href);
+      if (selected) url.searchParams.set('place', selected); else url.searchParams.delete('place');
+      if (layer !== 'all') url.searchParams.set('layer', layer); else url.searchParams.delete('layer');
+      history.replaceState(history.state, '', url);
+    };
     const nodes = Array.from(nodeLayer.querySelectorAll<HTMLButtonElement>('.map-node'));
     const indexItems = Array.from(document.querySelectorAll<HTMLButtonElement>('.place-index__item'));
     const panels = Array.from(dossier.querySelectorAll<HTMLElement>('.dossier__panel'));
@@ -471,18 +434,22 @@ const placeCount = ALL_PLACES.filter((p) => p.kind !== 'cluster').length;
     };
 
     const sync = () => {
+      hero.dataset.layer = layer;
+      layerButtons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.layer === layer)));
+      hero.querySelectorAll<HTMLElement>('[data-index-layer]').forEach(item => { item.hidden = layer !== 'all' && item.dataset.indexLayer !== layer; });
       for (const node of nodes) {
         const id = node.dataset.place!;
         const parent = node.dataset.parent;
         const isCluster = node.classList.contains('map-node--cluster');
         // While a cluster is open the plate is zoomed into it, so anything outside
         // that cluster is off-screen — hide it rather than leave it in the tab order.
-        node.hidden = isCluster ? expanded === id : parent ? expanded !== parent : Boolean(expanded);
+        node.hidden = (isCluster ? expanded === id || layer === 'paper' : parent ? expanded !== parent : Boolean(expanded)) || (!isCluster && layer !== 'all' && node.dataset.layerKind !== layer);
         node.setAttribute('aria-pressed', String(selected === id));
       }
       for (const item of indexItems) {
         const on = item.dataset.place === selected;
         item.toggleAttribute('aria-current', on);
+        item.setAttribute('aria-pressed', String(on));
         if (on && isMobile()) item.scrollIntoView({ inline: 'center', block: 'nearest', behavior: smooth });
       }
       for (const panel of panels) {
@@ -503,9 +470,11 @@ const placeCount = ALL_PLACES.filter((p) => p.kind !== 'cluster').length;
     const select = (id: string, focusNode = false, announce = true) => {
       const node = nodes.find((n) => n.dataset.place === id);
       if (!node) return;
+      if (layer !== 'all' && node.dataset.layerKind !== layer) layer = 'all';
       selected = id;
       expanded = node.classList.contains('map-node--cluster') ? id : node.dataset.parent || null;
       sync();
+      if (announce) writeState();
       if (!announce) return;
       if (focusNode) node.focus({ preventScroll: true });
       const heading = panels.find((p) => p.dataset.dossier === id)?.querySelector('h3');
@@ -519,7 +488,12 @@ const placeCount = ALL_PLACES.filter((p) => p.kind !== 'cluster').length;
       selected = null;
       expanded = null;
       sync();
+      writeState();
     };
+
+    layerButtons.forEach(button => button.addEventListener('click', () => {
+      layer = button.dataset.layer!; selected = null; expanded = layer === 'travel' ? 'morocco' : null; sync(); writeState();
+    }));
 
     hero.addEventListener('click', (event) => {
       const play = (event.target as HTMLElement).closest<HTMLButtonElement>('.play');
@@ -541,7 +515,7 @@ const placeCount = ALL_PLACES.filter((p) => p.kind !== 'cluster').length;
     });
 
     reset.addEventListener('click', () => {
-      const previous = expanded;
+      const previous = expanded ?? selected;
       clear();
       if (previous) nodes.find((n) => n.dataset.place === previous)?.focus();
     });
@@ -574,7 +548,7 @@ const placeCount = ALL_PLACES.filter((p) => p.kind !== 'cluster').length;
 
     hero.addEventListener('keydown', (event) => {
       if ((event as KeyboardEvent).key !== 'Escape' || (!expanded && !selected)) return;
-      const previous = expanded;
+      const previous = expanded ?? selected;
       clear();
       if (previous) nodes.find((n) => n.dataset.place === previous)?.focus();
     });
@@ -587,16 +561,24 @@ const placeCount = ALL_PLACES.filter((p) => p.kind !== 'cluster').length;
         if (image.tagName !== 'IMG') return;
         const figure = image.closest('figure');
         if (!figure) return;
-        const label = figure.querySelector('figcaption')?.textContent || (image as HTMLImageElement).alt;
-        figure.className = 'dossier__media dossier__media--needed';
-        figure.innerHTML = `<span>Image needed</span><span>${label}</span>`;
+        figure.hidden = true;
       },
       true
     );
 
-    sync();
-
-    // No auto-opened card here: at world scale the plate already opens on eleven
-    // marks in three vocabularies, and a floating card would cover Asia.
+    const restore = () => {
+      const params = new URLSearchParams(location.search);
+      layer = ['work','travel','paper'].includes(params.get('layer') ?? '') ? params.get('layer')! : 'all';
+      selected = null; expanded = layer === 'travel' ? 'morocco' : null;
+      const place = params.get('place');
+      if (place && nodes.some(n => n.dataset.place === place)) select(place, false, false); else sync();
+    };
+    const controller = new AbortController();
+    window.addEventListener('popstate', restore, { signal: controller.signal });
+    document.addEventListener('astro:before-swap', () => { controller.abort(); panels.forEach(stopMedia); cards.forEach(stopMedia); }, { once: true });
+    restore();
   }
+ }
+ document.addEventListener('astro:page-load', setupAtlas);
+ setupAtlas();
 </script>

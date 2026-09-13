@@ -260,3 +260,27 @@ place would update something off-screen.
 Places with no photograph render **no frame at all** in production. The designed
 "Image needed" placeholder is dev-only (`import.meta.env.DEV`), though the broken-image
 fallback still swaps to it at runtime — a placeholder beats a broken image icon.
+
+## Home chronology + partner wordmarks — 2026-09-13
+
+**The banner is a line, not a map.** The home page opens with the `editorial-intro`
+masthead followed by `TimelineHero.astro` (`.chrono`): a single rule running left to right
+with one stop per career chapter, newest first, reading backwards into the past. Rust fills
+the line up to the active stop. Stops are clickable, steppable (`‹ Later` / `Earlier ›`),
+and arrow-key navigable. Controls sit *above* the panel so a taller chapter never shifts
+them mid-click. Source data is `aboutTimelineFull` in `src/data/site.ts`, authored
+oldest-first and reversed for display.
+
+**The atlas moved below the fold.** `MapHero.astro` now sits after Selected Work as a
+normal section rather than a viewport-height hero. Its interaction is unchanged. Two
+constraints matter: the plate is capped at `max-width:52rem` on `.map-plate__stage` (an
+Equal Earth world at full width is mostly empty ocean), and the section must never be
+given a `max-height` — the rail overflows underneath the next section and silently
+swallows clicks on the place index.
+
+**Institutions are set as type, not logos.** The five hand-drawn logo approximations in
+`public/assets/ui/partners/` were deleted. `partnerInstitutions` now carries `wordmark` and
+`wordmarkSub` strings, rendered on `/about` as Newsreader over letter-spaced uppercase Work
+Sans in a fixed 52px box so the row aligns. This avoids trademark questions, keeps the
+strip on-brand, and gives crawlers real text instead of image alt attributes. If real
+licensed logo artwork is ever approved, it replaces the wordmark inside the same card.
