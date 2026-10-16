@@ -1,0 +1,355 @@
+{
+  "editions": {
+    "micro": {
+      "parts": [
+        "micro-1",
+        "micro-3"
+      ],
+      "source": "MICRO_FONTHILL_MONOPRICE/2026-10-15__micro-fonthill-2in__white-black-10up__v02__a1-project.3mf",
+      "sourceSha256": "2bcd27e7f524050967bc79918b47583262ec9bdf2d465314a6fa20088d15eac2",
+      "sourceBounds": [
+        [
+          -44.50507354736328,
+          -26.32853889465332,
+          -25.399999618530273
+        ],
+        [
+          44.50507354736328,
+          26.32853889465332,
+          25.399999618530273
+        ]
+      ],
+      "sizeMm": [
+        89.01014709472656,
+        52.65707778930664,
+        50.79999923706055
+      ],
+      "offset": [
+        0.0,
+        0.0,
+        -25.399999618530273
+      ],
+      "bedCutZ": -25.399999618530273,
+      "printPath": "print-micro.json"
+    },
+    "mini": {
+      "parts": [
+        "deluxe-6",
+        "deluxe-1",
+        "deluxe-2",
+        "deluxe-7",
+        "deluxe-3",
+        "deluxe-4"
+      ],
+      "source": "MICRO_FONTHILL_MONOPRICE/2026-10-14__fonthill-3_5in__v05__2up-grey__v01__a1-project.3mf",
+      "sourceSha256": "ed4786479750210dc9a5fa52d37dd162e9d2ad64277c8fbb21a1095d4ebcd8f9",
+      "sourceBounds": [
+        [
+          -78.69181060791016,
+          -46.4537239074707,
+          -1.4136086702346802
+        ],
+        [
+          78.70067596435547,
+          46.45067596435547,
+          88.90377807617188
+        ]
+      ],
+      "sizeMm": [
+        157.39248657226562,
+        92.90439987182617,
+        90.31738674640656
+      ],
+      "offset": [
+        0.00443267822265625,
+        -0.0015239715576171875,
+        0.0
+      ],
+      "bedCutZ": 0,
+      "printPath": "print-mini.json",
+      "materialOverride": "#9B9EA0",
+      "sharesGeometryWith": "deluxe"
+    },
+    "deluxe": {
+      "parts": [
+        "deluxe-6",
+        "deluxe-1",
+        "deluxe-2",
+        "deluxe-7",
+        "deluxe-3",
+        "deluxe-4"
+      ],
+      "source": "MICRO_FONTHILL_MONOPRICE/2026-10-14__fonthill-3_5in__scaled-five-inch__v05__a1-project.3mf",
+      "sourceSha256": "5c1d99be65bccf9a44a0e19513bed9818cff55dca5f5977149200fa531cba0c6",
+      "sourceBounds": [
+        [
+          -78.69181060791016,
+          -46.4537239074707,
+          -1.4136086702346802
+        ],
+        [
+          78.70067596435547,
+          46.45067596435547,
+          88.90377807617188
+        ]
+      ],
+      "sizeMm": [
+        157.39248657226562,
+        92.90439987182617,
+        90.31738674640656
+      ],
+      "offset": [
+        0.00443267822265625,
+        -0.0015239715576171875,
+        0.0
+      ],
+      "bedCutZ": 0,
+      "base": "deluxe-base",
+      "baseSource": "geometry/2026-10-10__fonthill__5in-design__v07__green-base.npz",
+      "printPath": "print-deluxe.json"
+    }
+  },
+  "parts": {
+    "micro-1": {
+      "file": "micro-1.bin",
+      "vertices": 47502,
+      "triangles": 95000,
+      "indexOffset": 285012,
+      "min": [
+        -44.46076583862305,
+        -26.317827224731445,
+        -8.68579008965753e-05
+      ],
+      "max": [
+        44.490413665771484,
+        26.327392578125,
+        50.80012893676758
+      ],
+      "color": "#CDB48A",
+      "bytes": 1425012,
+      "sha256": "7ce840d4954babd3abf780722014b9c26d71ef90a34e214345af71305761b8a9",
+      "sourceTriangles": 482700,
+      "sampledDeviationMm": {
+        "p99": 0.006099198716692606,
+        "max": 0.04761170223355293
+      },
+      "gzipFile": "micro-1.bin.gz",
+      "gzipBytes": 637677
+    },
+    "micro-3": {
+      "file": "micro-3.bin",
+      "vertices": 2282,
+      "triangles": 4488,
+      "indexOffset": 13692,
+      "min": [
+        -38.971839904785156,
+        -10.856258392333984,
+        0.0
+      ],
+      "max": [
+        -1.0932643413543701,
+        3.851036310195923,
+        0.39999961853027344
+      ],
+      "color": "#171513",
+      "bytes": 67548,
+      "sha256": "020f18ab84d79dfaefd65f78fed6ea4cc1759dbc1371f5475fd2b065658e41fa",
+      "sourceTriangles": 4488,
+      "sampledDeviationMm": {
+        "p99": 1.966064019143232e-06,
+        "max": 2.816319465637207e-05
+      },
+      "gzipFile": "micro-3.bin.gz",
+      "gzipBytes": 23323
+    },
+    "deluxe-6": {
+      "file": "deluxe-6.bin",
+      "vertices": 6002,
+      "triangles": 12000,
+      "indexOffset": 36012,
+      "min": [
+        43.74557113647461,
+        -45.74849319458008,
+        -0.0
+      ],
+      "max": [
+        78.545654296875,
+        -5.99760103225708,
+        62.56288146972656
+      ],
+      "color": "#9B9EA0",
+      "bytes": 180012,
+      "sha256": "5d82b847c9ca91b370104300af5ba5452ea6f6f13b7d0e8a900a612177012e71",
+      "sourceTriangles": 168620,
+      "sampledDeviationMm": {
+        "p99": 0.013760152729228113,
+        "max": 0.03645515814423561
+      },
+      "gzipFile": "deluxe-6.bin.gz",
+      "gzipBytes": 78648
+    },
+    "deluxe-1": {
+      "file": "deluxe-1.bin",
+      "vertices": 238038,
+      "triangles": 575639,
+      "indexOffset": 1428228,
+      "min": [
+        -78.72000122070312,
+        -46.47999954223633,
+        -0.0
+      ],
+      "max": [
+        78.72000122070312,
+        46.47999954223633,
+        88.87999725341797
+      ],
+      "color": "#9B9EA0",
+      "bytes": 8335896,
+      "sha256": "e3bb65777e039fe69e0dcabc65f43532e2ca5d39a4094551f43d115bd5126dcd",
+      "sourceTriangles": 1171796,
+      "sampledDeviationMm": {
+        "p99": 0.03537780899554486,
+        "max": 0.0482412688434124
+      },
+      "gzipFile": "deluxe-1.bin.gz",
+      "gzipBytes": 3566400
+    },
+    "deluxe-2": {
+      "file": "deluxe-2.bin",
+      "vertices": 33713,
+      "triangles": 67746,
+      "indexOffset": 202280,
+      "min": [
+        -73.95905303955078,
+        -46.08330154418945,
+        0.0
+      ],
+      "max": [
+        76.4648208618164,
+        45.62739944458008,
+        64.31761169433594
+      ],
+      "color": "#9B9EA0",
+      "bytes": 1015232,
+      "sha256": "71fe90789cfead82b91f8c1391470abe57959096658ed1c75eb613e13c1071c1",
+      "sourceTriangles": 81658,
+      "sampledDeviationMm": {
+        "p99": 0.0004220251110382345,
+        "max": 0.59413743019104
+      },
+      "gzipFile": "deluxe-2.bin.gz",
+      "gzipBytes": 474482
+    },
+    "deluxe-7": {
+      "file": "deluxe-7.bin",
+      "vertices": 195896,
+      "triangles": 344482,
+      "indexOffset": 1175376,
+      "min": [
+        -75.40898132324219,
+        -45.13447952270508,
+        -0.0
+      ],
+      "max": [
+        77.12055206298828,
+        45.70970153808594,
+        70.3031005859375
+      ],
+      "color": "#171513",
+      "bytes": 5309160,
+      "sha256": "62b23a9953e96bcd987be70a15c5fd18d3edb1ddad66bb5be32dbad6eca193c1",
+      "sourceTriangles": 776148,
+      "sampledDeviationMm": {
+        "p99": 0.0006854155065957433,
+        "max": 0.00326220178976655
+      },
+      "gzipFile": "deluxe-7.bin.gz",
+      "gzipBytes": 2552522
+    },
+    "deluxe-3": {
+      "file": "deluxe-3.bin",
+      "vertices": 34696,
+      "triangles": 65000,
+      "indexOffset": 208176,
+      "min": [
+        -75.36997985839844,
+        -27.884510040283203,
+        25.025232315063477
+      ],
+      "max": [
+        -8.976499557495117,
+        25.957529067993164,
+        85.92546081542969
+      ],
+      "color": "#B15533",
+      "bytes": 988176,
+      "sha256": "2f720645757aa28ba267c5eacf927abdbad3975f492355e5e012975c6bbb2fd9",
+      "sourceTriangles": 405652,
+      "sampledDeviationMm": {
+        "p99": 0.06938173249363896,
+        "max": 0.2525346279144287
+      },
+      "gzipFile": "deluxe-3.bin.gz",
+      "gzipBytes": 444974
+    },
+    "deluxe-4": {
+      "file": "deluxe-4.bin",
+      "vertices": 4549,
+      "triangles": 8631,
+      "indexOffset": 27296,
+      "min": [
+        -73.14502716064453,
+        -44.378971099853516,
+        0.0
+      ],
+      "max": [
+        76.72754669189453,
+        44.821128845214844,
+        63.617610931396484
+      ],
+      "color": "#171513",
+      "bytes": 130868,
+      "sha256": "685197a6130607db0288eb52f2e21e5d82d605ed9913b7c5f3f8b3f1cdc5aef2",
+      "sourceTriangles": 8752,
+      "sampledDeviationMm": {
+        "p99": 0.00021724999838624516,
+        "max": 0.002310864394530654
+      },
+      "gzipFile": "deluxe-4.bin.gz",
+      "gzipBytes": 54023
+    },
+    "deluxe-base": {
+      "file": "deluxe-base.bin",
+      "vertices": 15002,
+      "triangles": 30000,
+      "indexOffset": 90012,
+      "min": [
+        -82.90509796142578,
+        -50.650081634521484,
+        -0.0
+      ],
+      "max": [
+        82.896240234375,
+        50.65312957763672,
+        11.506237983703613
+      ],
+      "color": "#3F5A3A",
+      "bytes": 450012,
+      "sha256": "f40bf2b3e78b7bb885536d7807de8ff9bb3f03813e71963cfef3313f94f6b1a9",
+      "sourceTriangles": 98516,
+      "sampledDeviationMm": {
+        "p99": 0.0021949684433638984,
+        "max": 0.058446601033210754
+      },
+      "gzipFile": "deluxe-base.bin.gz",
+      "gzipBytes": 189862
+    }
+  },
+  "notes": [
+    "Micro uses production flush-inlay geometry, recoloured tan/black as requested.",
+    "Mini uses the latest v05 two-up gray production project; its six mesh files are byte-identical to the detailed Deluxe castle.",
+    "Deluxe uses detailed v05 production parts, not a scaled Micro.",
+    "Deluxe landscape is five-inch v07 matching base scaled 70%; physical fit remains unverified.",
+    "Mobile meshes are decimated derivatives; no production files modified."
+  ]
+}

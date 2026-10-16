@@ -2,6 +2,9 @@
 
 ## Latest
 
+- **Fonthill /fh mobile story v02 (2026-10-16):** [integration review](2026-10-16__fonthill__website-review__v02__production-models.md). Nine scenes, Sound On default, tan/black Micro underside, source-verified detailed gray Mini and coloured Deluxe, printing illustration and dedicated detail/assembly views. Entry: `public/fh/index.html`; model provenance: `public/fh/models-v02.json`. Review branch; production merge pending.
+
+
 - Fonthill mobile QR companion (2026-10-16): [entry](public/fh/index.html), [source and checks](2026-10-16__fonthill__website-integration__v01__mobile-fh.md), [asset manifest](public/fh/manifest.json). Self-contained Demo v4 story and explorer for `/fh` and `/fh/`; preview and actual-phone acceptance required before production release. Existing portfolio pages retained.
 
 - UI/UX audit and editorial atlas redesign brief (2026-09-09): [Visual audit, verified findings, asset shortlist, papers, and release plan](2026-09-09__reese-portfolio__audit__v01__ui-ux-redesign.html). Review artifact only; production site unchanged by this audit. Refreshed against source commit `d51bd41`.
