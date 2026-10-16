@@ -290,3 +290,12 @@ section and silently swallows clicks on the place index.
 Sans in a fixed 52px box so the row aligns. This avoids trademark questions, keeps the
 strip on-brand, and gives crawlers real text instead of image alt attributes. If real
 licensed logo artwork is ever approved, it replaces the wordmark inside the same card.
+
+
+## Fonthill QR companion — 16 October 2026
+
+The independent Fonthill companion at `/fh` uses the supplied Demo v4 visual system: warm ivory, charcoal, terracotta accents, Cormorant Garamond, Hanken Grotesk and IBM Plex Mono. It is an isolated static app under `public/fh/`; the professional portfolio's global CSS and typography are unchanged.
+
+Selected assets come from the supplied Fonthill design export: line drawing, pixel edition sprites, model-plan/elevation and making images, and quantized castle/base preview geometry. Images are losslessly converted to WebP. Three.js r160 and fonts are hosted locally with MIT/OFL notices. No archival-image placeholders or upload/edit widgets are published. Larger editions use scaled preview geometry and are labelled.
+
+Portrait layouts retain the six-stage reveal and colour choice. Landscape places controls beside the sculpture. Touch rotation/pinch logic, keyboard buttons, source notes, making navigation and illustrated model-failure recovery are provided. See `2026-10-16__fonthill__website-integration__v01__mobile-fh.md` for checks and remaining physical-phone acceptance.
