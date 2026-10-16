@@ -2,6 +2,8 @@
 
 ## Latest
 
+- Fonthill mobile QR companion (2026-10-16): [entry](public/fh/index.html), [source and checks](2026-10-16__fonthill__website-integration__v01__mobile-fh.md), [asset manifest](public/fh/manifest.json). Self-contained Demo v4 story and explorer for `/fh` and `/fh/`; preview and actual-phone acceptance required before production release. Existing portfolio pages retained.
+
 - UI/UX audit and editorial atlas redesign brief (2026-09-09): [Visual audit, verified findings, asset shortlist, papers, and release plan](2026-09-09__reese-portfolio__audit__v01__ui-ux-redesign.html). Review artifact only; production site unchanged by this audit. Refreshed against source commit `d51bd41`.
 
 - Professional portfolio revision (2026-09-07): [Home](src/pages/index.astro), [Experience](src/pages/experience.astro), [Selected Work](src/pages/projects/index.astro), [About](src/pages/about.astro), [Resume](src/pages/resume.astro), and [Coaching bridge](src/pages/coaching.astro).
