@@ -1,0 +1,76 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Fonthill, in miniature · Reese Hollister</title>
+<base href="/fh/">
+<meta name="description" content="Turn, explore and discover Fonthill Castle through an interactive story of an architectural sculpture made in Bucks County.">
+<meta name="theme-color" content="#F4EFE3">
+<link rel="canonical" href="https://reesehollister.com/fh">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="pixel-micro.webp" type="image/webp">
+
+
+
+
+
+
+
+</head><body>
+<div id="app" data-screen-label="Story">
+<img id="sketch" src="lineart.webp" alt="Line drawing of Fonthill Castle"><svg id="ov" aria-hidden="true" focusable="false"></svg><div id="load" class="mono" role="status">Loading the sculpture…</div>
+<header class="hud"><div class="l"><h1>Fonthill</h1><span class="sub"><span class="mono" id="count" role="status" aria-live="polite">Stage 01 / 06</span><button class="sndb" aria-pressed="false">Sound off</button></span></div><div class="inv" id="inv"><span class="slot" data-k="2" title="Fonthill Micro"><img class="px" src="pixel-micro.webp" alt="Fonthill Micro"></span><span class="slot" data-k="3" title="Fonthill Mini"><img class="px" src="pixel-mini.webp" alt="Fonthill Mini"></span><span class="slot" data-k="4" title="Fonthill Mini Deluxe Edition"><img class="px" src="pixel-deluxe.webp" alt="Fonthill Mini Deluxe Edition"></span></div></header>
+<div id="txt"><span class="eb" id="eb"></span><h2 id="h"></h2><p id="p"></p></div>
+<div id="banner"><span class="a" id="ba"></span><span class="b" id="bb"></span></div>
+<div class="bot" id="bot"><div id="extra"></div><div id="card"></div><div class="navrow"><button class="lnk" id="back">Back</button><button class="mono tap" id="tap" type="button">Continue</button><button class="lnk" id="notesBtn">Notes</button></div></div>
+<div class="sheet" id="notes" role="dialog" aria-modal="true" aria-label="Source notes" hidden><div class="hd"><span class="eb">Notes</span><button class="lnk" id="notesX">Close</button></div><ol>
+<li>Henry Chapman Mercer, account of Fonthill’s planning, quoted in Kurt Frederick Eichenberger, “Design and Construction Techniques of an American Vernacular Architect: The Work of Dr. Henry Chapman Mercer” (M.Arch. thesis, Massachusetts Institute of Technology, 1982), 75.</li>
+<li>Amber Auld Combs, “Henry Chapman Mercer and the Furniture of Fonthill” (master’s thesis, University of Delaware, 1998), 14–15.</li>
+</ol></div>
+<div id="title"><div class="tabs" role="tablist"><button role="tab" data-tab="story" aria-selected="true">The story</button><button role="tab" data-tab="make" aria-selected="false">How it’s made</button></div><div class="frame"><span class="eb">Doylestown, Pennsylvania</span><img class="px" src="pixel-micro.webp" alt="Pixel drawing of Fonthill Castle"><h1>Fonthill Castle</h1><span class="eb">Architectural sculpture</span></div><button class="mono tap" id="startBtn" type="button">Start the story</button><button class="sndb" aria-pressed="false">Sound off</button></div>
+<div id="make" data-screen-label="How it’s made" hidden><div class="tabs" role="tablist"><button role="tab" data-tab="story" aria-selected="false">The story</button><button role="tab" data-tab="make" aria-selected="true">How it’s made</button></div>
+<nav class="parts" aria-label="Parts"><button data-part="p1" aria-current="true"><span class="mono">Part I</span><b>The castle</b></button><button data-part="p2"><span class="mono">Part II</span><b>The sculpture</b></button><button data-part="p3"><span class="mono">Compare</span><b>Side by side</b></button></nav>
+<div class="mk">
+<h2>Two buildings, a century apart.</h2>
+<p class="lede">Fonthill was poured by hand in <i>Doylestown</i>, 1908–1912. This sculpture is printed one layer at a time in <i>Bucks County</i>. Both began with a model.</p>
+<section id="p1" class="part"><div class="phd"><span class="eb">Part I · <i>Doylestown, 1908–1912</i></span><h3 class="pt">How Fonthill was built</h3></div>
+<ol class="steps">
+<li><span class="mono">01</span><div class="body"><h3>Rooms first.</h3><p>Mercer planned the house “room by room, entirely from the interior.” Blocks of clay standing for rooms were piled on a table and modelled into an outline. A plaster-of-Paris model, made to scale, served until the building was complete.<sup class="fnr">1</sup></p></div></li>
+<li><span class="mono">02</span><div class="body"><h3>Concrete, mixed by hand.</h3><p>Concrete for Fonthill was mixed by hand. Its construction combined practical experimentation with Mercer’s choices of material and form.<sup class="fnr">1</sup></p><div class="mix" role="img" aria-label="Mix proportions: 1 part Portland cement, 2.5 parts sand, 5 parts crushed trap rock"><div class="mixbar"><i style="flex:1;background:var(--charcoal)"></i><i style="flex:2.5;background:var(--sandstone)"></i><i style="flex:5;background:var(--concrete)"></i></div><dl><div><dt>1</dt><dd>Portland cement</dd></div><div><dt>2½</dt><dd>Yellow sand, “Jersey gravel”</dd></div><div><dt>5</dt><dd>Crushed trap, Rockhill Station</dd></div></dl></div></div></li>
+<li><span class="mono">03</span><div class="body"><h3>Rough board forms.</h3><p>Unplaned boards, many from demolished buildings, were stacked edge to edge and wired against bulging. Concrete went in pour by pour as the walls rose. Mercer left the grain of the boards visible on the finished surfaces.<sup class="fnr">1</sup></p></div></li>
+<li><span class="mono">04</span><div class="body"><h3>Lucy uplifted.</h3><p>A horse named Lucy, owned by the foreman Patrick Trainor, powered the hoist that raised concrete as the walls climbed. Mercer later mounted an iron weathervane of her silhouette on the roof.<sup class="fnr">1</sup></p></div></li>
+<li><span class="mono">05</span><div class="body"><h3>Vaults over earth.</h3><p>Ceilings were cast over temporary mounds, then the mounds were taken away.<sup class="fnr">1</sup></p><ol class="seq"><li><b>Platform</b><span>Old rails, posts and boards between the columns.</span></li><li><b>Mound</b><span>Boxes and earth spaded to the curve of the arch.</span></li><li><b>Tile</b><span>Graded sand; tiles laid face down by Jacob Frank.</span></li><li><b>Pour</b><span>Wire mesh, pipes, then wet concrete over all.</span></li><li><b>Reveal</b><span>Props pulled; earth and sand fall away from the tiles.</span></li></ol></div></li>
+<li><span class="mono">06</span><div class="body"><h3>The forms come off.</h3><blockquote>Removing the forms revealed the concrete surfaces, the vaulted rooms and the tiles set into them.<sup class="fnr">1</sup></blockquote></div></li>
+</ol>
+<div class="credit"><span class="eb">The credit tile · Fonthill hallway ceiling</span><p>Henry Mercer planned. Patrick Trainor directed. John Trainor executed. Jacob Frank adorned. Hermann Sell embellished. Lucy uplifted.</p><span class="spec">The building records the contributions of its makers.<sup class="fnr">1</sup></span></div>
+</section>
+<section id="p2" class="part"><div class="phd"><span class="eb">Part II · <i>Bucks County, 2026</i></span><h3 class="pt">How this sculpture was built</h3></div>
+<ol class="steps">
+<li><span class="mono">01</span><div class="body"><h3>A digital master.</h3><p>An architectural study of the house, developed from survey drawings and photographs: an editable digital study of its walls, roofs and openings. Size-specific versions are prepared and tested for printing.</p><figure class="fig"><div class="pair"><div class="frm"><img loading="lazy" decoding="async" src="views-plan.webp" alt="Plan view of the digital model"></div><div class="frm"><img loading="lazy" decoding="async" src="views-elev-south.webp" alt="South elevation of the digital model"></div></div><figcaption>Fig. II.1 · Plan and south elevation</figcaption></figure></div></li>
+<li><span class="mono">02</span><div class="body"><h3>Reduce to masses.</h3><p>The architectural study is adapted for printing. Small features, undercuts and roof forms are reviewed against what can survive at miniature scale.</p><figure class="fig"><div class="frm grey"><img loading="lazy" decoding="async" src="making-masses-a-v01.webp" alt="Simplified printable masses of the castle"></div><figcaption>Fig. II.2 · Printable masses, first version</figcaption></figure></div></li>
+<li><span class="mono">03</span><div class="body"><h3>Three interpretations.</h3><p>The same masses, read three ways, printed and compared at arm’s length.</p><figure class="fig"><div class="trio"><div class="frm grey"><img loading="lazy" decoding="async" src="making-interp-a.webp" alt="Interpretation A"></div><div class="frm grey"><img loading="lazy" decoding="async" src="making-interp-b.webp" alt="Interpretation B"></div><div class="frm grey"><img loading="lazy" decoding="async" src="making-interp-c.webp" alt="Interpretation C"></div></div><div class="trio cap"><span>A · Silhouette</span><span>B · Stylised</span><span>C · Relief</span></div></figure></div></li>
+<li><span class="mono">04</span><div class="body"><h3>What survives at scale.</h3><p>Windows, roof edges and narrow details are tested at the size of the object. A feature that works on screen may need to be strengthened, simplified or left out in plastic.</p></div></li>
+<li><span class="mono">05</span><div class="body"><h3>Slice into layers.</h3><p>Slicing turns the model into paths for the printer. Layer height, walls and infill are chosen for each version, then the preview is checked before printing.</p><figure class="fig"><div class="frm wide"><img loading="lazy" decoding="async" src="making-three-color-layers.webp" alt="Toolpaths at four heights through the castle"></div><figcaption>Fig. II.5 · Toolpaths at four heights</figcaption></figure></div></li>
+<li><span class="mono">06</span><div class="body"><h3>Print and assemble.</h3><p>Printed in PLA on a Bambu Lab A1. Test pieces help refine the finish, strength and fit. The illustrated Deluxe version pairs the castle with a separate landscape base.</p><figure class="fig"><div class="frm"><img loading="lazy" decoding="async" src="making-heritage-render.webp" alt="Heritage Edition render: gray walls, terracotta roofs"></div><figcaption>Fig. II.6 · Colour study for the Deluxe version</figcaption></figure></div></li>
+</ol>
+</section>
+<section id="p3" class="part"><div class="phd"><span class="eb">Compare</span><h3 class="pt">Side by side</h3></div>
+<table class="cmp"><thead><tr><th></th><th>Fonthill</th><th>The sculpture</th></tr></thead><tbody>
+<tr><th>Model</th><td>Clay blocks, then plaster of Paris</td><td>Digital mesh</td></tr>
+<tr><th>Material</th><td>Hand-mixed concrete</td><td>Matte PLA</td></tr>
+<tr><th>Forms</th><td>Unplaned boards</td><td>None; built up in layers</td></tr>
+<tr><th>Lifting</th><td>Lucy, at the hoist</td><td>The printer’s Z axis</td></tr>
+
+<tr><th>Time</th><td><i>1908–1912</i></td><td>Varies by size and finish</td></tr>
+</tbody></table>
+<p class="spec">This sculpture is a contemporary interpretation of Fonthill, not a reproduction of Mercer’s model. No institutional endorsement is implied.</p>
+<div class="act"><span id="mkcta"></span></div>
+</section>
+<ol class="nt"><li>Mercer’s planning and construction accounts are discussed in Kurt Frederick Eichenberger, “Design and Construction Techniques of an American Vernacular Architect” (M.Arch. thesis, MIT, 1982), 73–77, 91–101; and Amber Auld Combs, “Henry Chapman Mercer and the Furniture of Fonthill” (master’s thesis, University of Delaware, 1998), 14–15, 21–22.</li><li>Digital images are studies of the sculpture. Larger editions use scaled preview geometry; details and colours may differ from the printed object. Historical construction and contemporary printing are distinct processes.</li></ol>
+</div>
+</div>
+
+
+
+
+
+
+<div id="failure" role="status" hidden><p id="failureText"></p><button class="action secondary" id="retry">Try 3D again</button></div>
+<noscript><p style="position:fixed;inset:0;z-index:30;background:#F4EFE3;padding:32px">This interactive story needs JavaScript. Fonthill is Henry Chapman Mercer’s home in Doylestown, built between 1908 and 1912. This independent architectural sculpture is developed through study, digital modelling and 3D printing.</p></noscript>
+<script src="ui.js" defer></script><script type="module" src="story.js"></script></body></html>

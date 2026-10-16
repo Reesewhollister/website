@@ -1,0 +1,5 @@
+Fonthill web preview. Source: user's Claude Design export, 16 October 2026.
+Three.js r160 is distributed under its MIT license; see three-LICENSE.txt.
+Fonts: Cormorant Garamond, Hanken Grotesk and IBM Plex Mono, SIL Open Font License 1.1.
+Font source: Google Fonts CSS API, downloaded and served locally. Original source imagery and models remain attributed to the supplied project; no archival images were introduced.
+This is an independent architectural sculpture project, without institutional endorsement.

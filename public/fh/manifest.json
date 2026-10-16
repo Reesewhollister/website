@@ -1,0 +1,121 @@
+{
+  "source_sha256": "3327977cb484378280908c9be955f1682c0d850bdb3998aee2f3441a24714427",
+  "files": {
+    "2in-detail.bin": {
+      "bytes": 2459052,
+      "sha256": "0265e6f7db230855526c30e6598147531b69ef67627271aca4ee1be2716771a3"
+    },
+    "ATTRIBUTION.txt": {
+      "bytes": 510,
+      "sha256": "ee5d2635a31b6a056e2c92056bc163737e843794fb22b0fdf3d5f9902f45d4a7"
+    },
+    "base.bin": {
+      "bytes": 342900,
+      "sha256": "e786a6f146c74dc36efbaea5d4c6a9f886b208547634369e5136317d0ac7a965"
+    },
+    "font-0.ttf": {
+      "bytes": 290392,
+      "sha256": "69e7ae35cba23d962227b86f99217c250e642e4c6f6104b4f3ec465039e4e2d8"
+    },
+    "font-1.ttf": {
+      "bytes": 57248,
+      "sha256": "451376abefae9121f5dd0372d26865e7654b1041b9fdacdf57c6bd5cbf691da0"
+    },
+    "font-2.ttf": {
+      "bytes": 57212,
+      "sha256": "b7a672834374ef3a96e81abd2fd9bb61b282d3e75711fd4d9097e7e2e8c3b823"
+    },
+    "font-3.ttf": {
+      "bytes": 129916,
+      "sha256": "4fc14a73ca53ba9d32fd759ae1ca1a3133326035d0dd337862b3ee1633cc156e"
+    },
+    "font-cormorantgaramond-OFL.txt": {
+      "bytes": 4387,
+      "sha256": "60700d351cac4650c51f3f9db318d2a420f8b45052dba2715eb5fec41f0f6956"
+    },
+    "font-hankengrotesk-OFL.txt": {
+      "bytes": 4402,
+      "sha256": "e02ccb89a86839b22feff7872ff5cc355cc0f58318d29eee20e2cf83a612f16d"
+    },
+    "font-ibmplexmono-OFL.txt": {
+      "bytes": 4456,
+      "sha256": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da"
+    },
+    "index.html": {
+      "bytes": 12484,
+      "sha256": "3f75b42e5628f8cb8ebd061a0bda5570e811d9c1491dbd722a47101e0f659229"
+    },
+    "lineart.webp": {
+      "bytes": 14628,
+      "sha256": "631c135e38fbe62dd40192f4f7979ad88c03301ff66c83a2168fbc587b5253ce"
+    },
+    "making-heritage-render.webp": {
+      "bytes": 15296,
+      "sha256": "2cdd25e01b765cb249f994b5f102fd1e558fde30a60f3edcca9b854f56aceef8"
+    },
+    "making-interp-a.webp": {
+      "bytes": 78212,
+      "sha256": "86ef849c11ed78c297201a269b79e8252226d2a62367c5338997ba127f926f41"
+    },
+    "making-interp-b.webp": {
+      "bytes": 83256,
+      "sha256": "b3dad2bc6460420e6f322535209b895cbf189edf41dcfbfe8d19f064f1b7c9c9"
+    },
+    "making-interp-c.webp": {
+      "bytes": 47064,
+      "sha256": "3f906cb0619cf68ec4a0fb84f8966c60027f779a6934a8991fa2d08d33d94553"
+    },
+    "making-masses-a-v01.webp": {
+      "bytes": 379160,
+      "sha256": "f45ffef723e3619c33a9e1efd8550e6a74b78a147774f639d8e72ee0db4c6a6b"
+    },
+    "making-three-color-layers.webp": {
+      "bytes": 23378,
+      "sha256": "33ddeb242fa647c6a1591af373db17a351b276ccd324d24e1e94ea67dc9d0081"
+    },
+    "pixel-deluxe.webp": {
+      "bytes": 1180,
+      "sha256": "443c3901d92babac1993d774fdd25dbae85452ba42a035ff01d1e7250da009ea"
+    },
+    "pixel-micro.webp": {
+      "bytes": 1096,
+      "sha256": "6cf4024815ac39443fb76c1d7277a137daf877954ef82ffa353408eba63a3022"
+    },
+    "pixel-mini.webp": {
+      "bytes": 1096,
+      "sha256": "6cf4024815ac39443fb76c1d7277a137daf877954ef82ffa353408eba63a3022"
+    },
+    "roofmask.bin": {
+      "bytes": 136614,
+      "sha256": "5fb3fe3bcbb46b80959e09774f2cdc615133b45a335b5de787f922059124257a"
+    },
+    "story.js": {
+      "bytes": 32821,
+      "sha256": "c7b9301b22bc22fc8bf9a977d09911acf0046c6f43fbc34219f1aaeb368f9bc6"
+    },
+    "styles.css": {
+      "bytes": 23010,
+      "sha256": "b51b963285853b07209c239c24fe0f9a10febe5a04f19d8d2a349ac427a89344"
+    },
+    "three-LICENSE.txt": {
+      "bytes": 1081,
+      "sha256": "852e0e8699169bf9f6fdc6bda3e682d078dcbc738b5d33e74df594721bff271d"
+    },
+    "three.module.js": {
+      "bytes": 1272972,
+      "sha256": "76dea8151bc9352aef3528b4262e249b2604f62543828328db978d060d61a495"
+    },
+    "ui.js": {
+      "bytes": 7879,
+      "sha256": "00e9f506832fd2eb3ce13485e76b7299367af05bba7c2771b237467bef84bb4f"
+    },
+    "views-elev-south.webp": {
+      "bytes": 6888,
+      "sha256": "e7f8f4b019f3c2b8c52bb60831cb6b24439454f3fc49e074b691209b0b42991c"
+    },
+    "views-plan.webp": {
+      "bytes": 11786,
+      "sha256": "de9c9f3a8ee5d863bc1880840a04796527f0b56b4e6cc775e6dc1dbcb5f991aa"
+    }
+  }
+}
