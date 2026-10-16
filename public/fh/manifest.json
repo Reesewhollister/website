@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "files": {
     "ATTRIBUTION.txt": {
       "bytes": 510,
@@ -166,12 +166,12 @@
       "sha256": "9074ee519c8c389744ab4422dd0f61bb958c4378864d616e85295f910740612d"
     },
     "story.js": {
-      "bytes": 22816,
-      "sha256": "a5cf47741df7392ff044a5c68ef172f6e38d59f63251399a6c3e1519e67762ea"
+      "bytes": 27114,
+      "sha256": "11d3b3caac8b7b73e9c2cbd3e6e86905edb1f46929ade2c2db17e26e26d38ae9"
     },
     "styles.css": {
-      "bytes": 24269,
-      "sha256": "6620243b321186ee79386d64b7703038d1e0cf4c0ce73735506832ac81d67169"
+      "bytes": 26939,
+      "sha256": "f9fbc9d478127b2745f4e265469380c6bafb03dcfbac0bd100cd7a014e9b0071"
     },
     "three-LICENSE.txt": {
       "bytes": 1081,
@@ -182,8 +182,8 @@
       "sha256": "76dea8151bc9352aef3528b4262e249b2604f62543828328db978d060d61a495"
     },
     "ui.js": {
-      "bytes": 7879,
-      "sha256": "ed8c7dcef33a901c0aedf395737939259a83f8ff339d4c81334d9c0a733b3125"
+      "bytes": 15912,
+      "sha256": "c0339a1dd5f58cfd2ebae11f63f3c020e6d35e591cca22a3a2c6ab5e9c5304f7"
     },
     "views-elev-south.webp": {
       "bytes": 6888,
