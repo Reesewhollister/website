@@ -1,4 +1,4 @@
-(()=>{let ctx=null,out=null,on=(()=>{try{return localStorage.getItem('fonthill-sound')==='on'}catch{return false}})();
+(()=>{let ctx=null,out=null,on=(()=>{try{return localStorage.getItem('fonthill-sound')!=='off'}catch{return true}})();
 function init(){if(ctx)return;const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;ctx=new AC();const comp=ctx.createDynamicsCompressor();comp.threshold.value=-18;comp.ratio.value=4;out=ctx.createGain();out.gain.value=.5;out.connect(comp);comp.connect(ctx.destination)}
 let nb=null;function noiseBuf(){if(nb)return nb;nb=ctx.createBuffer(1,ctx.sampleRate,ctx.sampleRate);const d=nb.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;return nb}
 function tone(f,dur,{type='square',vol=.12,at=0,to=null,att=.004}={}){const t=ctx.currentTime+at,o=ctx.createOscillator(),g=ctx.createGain();o.type=type;o.frequency.setValueAtTime(f,t);if(to)o.frequency.exponentialRampToValueAtTime(to,t+dur);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+att);g.gain.exponentialRampToValueAtTime(.0001,t+dur);o.connect(g);g.connect(out);o.start(t);o.stop(t+dur+.02)}
